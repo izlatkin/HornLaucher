@@ -4,17 +4,24 @@ import subprocess
 import pickle
 import hashlib
 
-#SOURSE_PATH = "/Users/ilyazlatkin/CLionProjects/aws-c-common/verification/cbmc"
-SOURSE_PATH = "/Users/ilyazlatkin/CLionProjects/cbmc/regression"
-#SOURSE_PATH = "/Users/ilyazlatkin/CLionProjects/cbmc/regression/acceleration/"
+SOURSE_PATH = "/Users/ilyazlatkin/CLionProjects/aws-c-common"
 SEA_PATH = "/Users/ilyazlatkin/CLionProjects/seahorn/build/run/bin/sea"
+#SEA_OPTIONS = ['--step=large']
+#SEA_OPTIONS = ['clang','/Library/Developer/CommandLineTools/usr/bin/clang','--step=large']
+#SEA_OPTIONS = ['clang','/Users/ilyazlatkin/CLionProjects/clang+llvm-10.0.0-x86_64-apple-darwin/bin/clang-10','--step=large']
+#SEA_OPTIONS = ['clang','/usr/bin/clang','--step=large']
+#SEA_OPTIONS = ['--step=large','--prove']
+SEA_OPTIONS = ['--step=large']
 OUTPUT_DIR = "../out"
 Z3_PATH = "/Users/ilyazlatkin/CLionProjects/seahorn/build/run/bin/z3"
 Z3_TIMEOUT = 30
+SEA_TIMEOUT = 30
+
 
 def contains_assert(s):
     assert_string = 'assert'
-    file = open(s, "r")
+    file = open(s, "r", encoding='ISO-8859-1')
+    #file = open(s, "r")
     readfile = file.read()
     file.close()
     if assert_string in readfile:
@@ -52,50 +59,67 @@ def run_sea_smt(files):
     for f in files:
         tmp = []
         tmp.append(f)
-        command = [SEA_PATH]
         index += 1
         #responce = os.system(command)
         hash_object = hashlib.sha1(str(f).encode('utf-8'))
+        bc_file=str(OUTPUT_DIR + "/" + os.path.splitext(os.path.basename(f))[0] + hash_object.hexdigest()[:5] + ".bc")
         smt2file = str(OUTPUT_DIR + "/" + os.path.splitext(os.path.basename(f))[0]+ hash_object.hexdigest()[:5] + ".smt2")
-        command.append('--step=small')
+        #command.append('--step=small')
+        command = [SEA_PATH]
+        command += SEA_OPTIONS
         command.append('smt')
         command.append(f)
         command.append('-o')
         command.append(smt2file)
         print("{:.2f}".format(100 * index / len(files)), "%", " ".join(command))
         # run sea command
-        responce = subprocess.run(command,
+        try:
+            # responce_0 = subprocess.run(command,
+            #                       stdout=subprocess.PIPE,
+            #                       stderr=subprocess.PIPE,
+            #                         timeout=SEA_TIMEOUT)
+            # command = [SEA_PATH]
+            # command += SEA_OPTIONS
+            # command.append('horn')
+            # command.append(bc_file)
+            # command.append('-o')
+            # command.append(smt2file)
+            # print("\t%", " ".join(command))
+            responce = subprocess.run(command,
                                   stdout=subprocess.PIPE,
-                                  stderr=subprocess.PIPE)
-        #print(responce.returncode)
-        tmp.append(responce.returncode)
-        #print(responce.stdout)
-        tmp.append(responce.stdout)
-        #print(responce.stderr)
-        tmp.append(responce.stderr)
-        if os.path.exists(smt2file):
-            tmp.append("smt2")
-            tmp.append(smt2file)
-            number_of_lines = len(open(smt2file).readlines(  ))
-            tmp.append(number_of_lines)
-            if number_of_lines > 4:
-                print(" ".join([Z3_PATH, smt2file]))
-                try:
-                    z3responce = subprocess.run([Z3_PATH, smt2file],
+                                  stderr=subprocess.PIPE,
+                                  timeout=SEA_TIMEOUT)
+            #print(responce.returncode)
+            tmp.append(responce.returncode)
+            #print(responce.stdout)
+            tmp.append(responce.stdout)
+            #print(responce.stderr)
+            tmp.append(responce.stderr)
+            if os.path.exists(smt2file):
+                tmp.append("smt2")
+                tmp.append(smt2file)
+                number_of_lines = len(open(smt2file).readlines(  ))
+                tmp.append(number_of_lines)
+                if number_of_lines > 4:
+                    print(" ".join([Z3_PATH, smt2file]))
+                    try:
+                        z3responce = subprocess.run([Z3_PATH, smt2file],
                                             stdout=subprocess.PIPE,
                                             stderr=subprocess.PIPE,
                                             timeout=Z3_TIMEOUT)
-                except subprocess.TimeoutExpired:
-                    tmp.append("z3_error")
-                    print("z3 timeout: {} seconds".format(Z3_TIMEOUT))
-                # print(z3responce.returncode)
-                tmp.append(z3responce.returncode)
-                # print(z3responce.stdout)
-                tmp.append(z3responce.stdout.decode('ascii').strip())
-                # print(z3responce.stderr)
-                tmp.append(z3responce.stderr.decode('ascii').strip())
+                    except subprocess.TimeoutExpired:
+                        tmp.append("z3_error")
+                        print("z3 timeout: {} seconds".format(Z3_TIMEOUT))
+                    # print(z3responce.returncode)
+                    tmp.append(z3responce.returncode)
+                    # print(z3responce.stdout)
+                    tmp.append(z3responce.stdout.decode('ascii').strip())
+                    # print(z3responce.stderr)
+                    tmp.append(z3responce.stderr.decode('ascii').strip())
 
-        out.append(tmp)
+            out.append(tmp)
+        except subprocess.TimeoutExpired:
+            print("skipped", f)
 
 
     # return format: filesname(0), return_code(1), stdout(2), stderr(3),
@@ -107,6 +131,7 @@ def run_sea_smt(files):
 
 def print_statistics(stat):
     print('number of .c files with assertions {} in "{}"'.format(len(stat),SOURSE_PATH))
+    print('SEA_OPTIONS: {}'.format(" ".join(SEA_OPTIONS)))
     # [x for x in range(1, 10) if x % 2]
     smt2 = [i for i in stat if "smt2" in i]
     print('number of .smt2 files created {}'.format(len(smt2)))
@@ -117,6 +142,7 @@ def print_statistics(stat):
     print_z3_info(medium_smt2)
     large_smt2 = [i for i in smt2 if i[6] > 200]
     print('\t number of large(> 200 lines) .smt2 files {}'.format(len(large_smt2)))
+    print_z3_info(large_smt2)
     errors = [i[3] for i in stat if len(i[3]) > 0 and "smt2" not in i]
     print('number of errors  {}'.format(len(errors)))
     # fatal error: file not found, implicit declaration of function is invalid in C99
@@ -140,6 +166,8 @@ def print_z3_info(stat):
     z3_without_errors = [i for i in stat if "z3_error" not in i]
     z3_sat = [i for i in z3_without_errors if i[8]=='sat']
     print('\t\tnumber of sat {}'.format(len(z3_sat)))
+    for i in z3_sat:
+        print(i)
     z3_unsat = [i for i in z3_without_errors if i[8]=='unsat']
     print('\t\tnumber of unsat {}'.format(len(z3_unsat)))
 
