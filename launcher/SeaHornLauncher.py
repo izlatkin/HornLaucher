@@ -6,22 +6,36 @@ import hashlib
 
 SOURSE_PATH = "/Users/ilyazlatkin/CLionProjects/aws-c-common"
 SEA_PATH = "/Users/ilyazlatkin/CLionProjects/seahorn/build/run/bin/sea"
+#SOURSE_PATH ="/Users/ilyazlatkin/CLionProjects/cbmc/regression"
+#SOURSE_PATH = "/home/izlatkin/sourse/aws-c-common"
 #SEA_OPTIONS = ['--step=large']
 #SEA_OPTIONS = ['clang','/Library/Developer/CommandLineTools/usr/bin/clang','--step=large']
 #SEA_OPTIONS = ['clang','/Users/ilyazlatkin/CLionProjects/clang+llvm-10.0.0-x86_64-apple-darwin/bin/clang-10','--step=large']
 #SEA_OPTIONS = ['clang','/usr/bin/clang','--step=large']
 #SEA_OPTIONS = ['--step=large','--prove']
-SEA_OPTIONS = ['--step=large']
+SEA_OPTIONS = ['--slice-function=false']
+SEA_OPTIONS = ['slice-function']
+SEA_OPTIONS = ['--step=small','--show-invars']
+#SEA_OPTIONS = ['--sea-dsa=c++20']
+#SEA_OPTIONS = ['-I/Users/ilyazlatkin/CLionProjects/aws-c-common/include/:/Users/ilyazlatkin/CLionProjects/aws-c-common/verification/cbmc/include/',
+ #              '']
 OUTPUT_DIR = "../out"
 Z3_PATH = "/Users/ilyazlatkin/CLionProjects/seahorn/build/run/bin/z3"
 Z3_TIMEOUT = 30
 SEA_TIMEOUT = 30
+# #SOURSE_PATH = "/Users/ilyazlatkin/CLionProjects/aws-c-common/verification/cbmc"
+# SOURSE_PATH = "/home/usea/cbmc/regression/acceleration/"
+# #SOURSE_PATH = "/Users/ilyazlatkin/CLionProjects/cbmc/regression/acceleration/"
+# SEA_PATH = "sea"
+# OUTPUT_DIR = "../out"
+# Z3_PATH = "/Users/ilyazlatkin/CLionProjects/seahorn/build/run/bin/z3"
+# Z3_TIMEOUT = 30
 
 
 def contains_assert(s):
-    assert_string = 'assert'
-    file = open(s, "r", encoding='ISO-8859-1')
-    #file = open(s, "r")
+    assert_string = 'assert('
+    #file = open(s, "r", encoding='ISO-8859-1')
+    file = open(s, "r")
     readfile = file.read()
     file.close()
     if assert_string in readfile:
@@ -136,6 +150,9 @@ def print_statistics(stat):
     smt2 = [i for i in stat if "smt2" in i]
     print('number of .smt2 files created {}'.format(len(smt2)))
     small_smt2 = [i for i in smt2 if i[6] <=4 ]
+    # for i in small_smt2:
+    #     for ii in i:
+    #         print(ii)
     print('\t number of small(<= 4 lines) .smt2 files {}'.format(len(small_smt2)))
     medium_smt2 = [i for i in smt2 if i[6] <=200 and i[6] > 4]
     print('\t number of medium(<= 200 lines) .smt2 files {}'.format(len(medium_smt2)))
@@ -166,8 +183,8 @@ def print_z3_info(stat):
     z3_without_errors = [i for i in stat if "z3_error" not in i]
     z3_sat = [i for i in z3_without_errors if i[8]=='sat']
     print('\t\tnumber of sat {}'.format(len(z3_sat)))
-    for i in z3_sat:
-        print(i)
+    # for i in z3_sat:
+    #     print(i)
     z3_unsat = [i for i in z3_without_errors if i[8]=='unsat']
     print('\t\tnumber of unsat {}'.format(len(z3_unsat)))
 
@@ -176,9 +193,12 @@ def error_parser(errors, message):
     fnf = [i for i in errors if message in str(i)]
     print('\t number of errors "{}" is {}'.format(message, len(fnf)))
 
+    for e in errors:
+        print(e)
+
 
 if __name__ == '__main__':
-    files = get_cfiles_with_assertions()
-    run_sea_smt(files)
+    #files = get_cfiles_with_assertions()
+    #run_sea_smt(files)
     out = pickle.load(open("save_aws.p", "rb"))
     print_statistics(out)
