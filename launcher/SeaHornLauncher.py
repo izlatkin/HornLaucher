@@ -5,7 +5,10 @@ import pickle
 import hashlib
 
 SOURSE_PATH = "/Users/ilyazlatkin/CLionProjects/aws-c-common"
+#SOURSE_PATH = "/home/usea/aws-c-common"
+SOURSE_PATH = "/tmp/cbmc"
 SEA_PATH = "/Users/ilyazlatkin/CLionProjects/seahorn/build/run/bin/sea"
+#SEA_PATH = "/home/usea/seahorn/bin/sea"
 #SOURSE_PATH ="/Users/ilyazlatkin/CLionProjects/cbmc/regression"
 #SOURSE_PATH = "/home/izlatkin/sourse/aws-c-common"
 #SEA_OPTIONS = ['--step=large']
@@ -17,11 +20,15 @@ SEA_OPTIONS = ['--slice-function=false']
 SEA_OPTIONS = ['slice-function']
 SEA_OPTIONS = ['--step=small','--show-invars']
 #SEA_OPTIONS = ['--sea-dsa=c++20']
-#SEA_OPTIONS = ['-I/Users/ilyazlatkin/CLionProjects/aws-c-common/include/:/Users/ilyazlatkin/CLionProjects/aws-c-common/verification/cbmc/include/',
- #              '']
-OUTPUT_DIR = "../out"
+SEA_OPTIONS = [#'clang','/Library/Developer/CommandLineTools_9.0.0/usr/bin/clang',
+               '-I/Users/ilyazlatkin/CLionProjects/aws-c-common/include/:/Users/ilyazlatkin/CLionProjects/aws-c-common/verification/cbmc/include/:/tmp/aws-c-common/aws-c-common-build/generated/']
+  #  ,'--step=small','--show-invars'
+   # ,'clang', '/Library/Developer/CommandLineTools_9.0.0/usr/bin/clang']
+SEA_OPTIONS = ['-I/tmp/cbmc/include/']
+#SEA_OPTIONS = ['--step=small']
+OUTPUT_DIR = "/tmp/out"
 Z3_PATH = "/Users/ilyazlatkin/CLionProjects/seahorn/build/run/bin/z3"
-Z3_TIMEOUT = 30
+Z3_TIMEOUT = 60
 SEA_TIMEOUT = 30
 # #SOURSE_PATH = "/Users/ilyazlatkin/CLionProjects/aws-c-common/verification/cbmc"
 # SOURSE_PATH = "/home/usea/cbmc/regression/acceleration/"
@@ -34,11 +41,13 @@ SEA_TIMEOUT = 30
 
 def contains_assert(s):
     assert_string = 'assert('
-    #file = open(s, "r", encoding='ISO-8859-1')
-    file = open(s, "r")
+    not_assert_1 = '_assert'
+    #not_assert_2 = 'assert_'
+    file = open(s, "r", encoding='ISO-8859-1')
+    #file = open(s, "r")
     readfile = file.read()
     file.close()
-    if assert_string in readfile:
+    if assert_string in readfile and not_assert_1 not in readfile:
         return True
     else:
         return False
@@ -122,6 +131,9 @@ def run_sea_smt(files):
                                             stderr=subprocess.PIPE,
                                             timeout=Z3_TIMEOUT)
                     except subprocess.TimeoutExpired:
+                        #process.kill()
+                        #output, unused_err = process.communicate()
+                        #raise TimeoutExpired(process.args, Z3_TIMEOUT, output=output)
                         tmp.append("z3_error")
                         print("z3 timeout: {} seconds".format(Z3_TIMEOUT))
                     # print(z3responce.returncode)
@@ -133,6 +145,9 @@ def run_sea_smt(files):
 
             out.append(tmp)
         except subprocess.TimeoutExpired:
+            process.kill()
+            output, unused_err = process.communicate()
+            raise TimeoutExpired(process.args, SEA_TIMEOUT, output=output)
             print("skipped", f)
 
 
@@ -150,9 +165,13 @@ def print_statistics(stat):
     smt2 = [i for i in stat if "smt2" in i]
     print('number of .smt2 files created {}'.format(len(smt2)))
     small_smt2 = [i for i in smt2 if i[6] <=4 ]
-    # for i in small_smt2:
-    #     for ii in i:
-    #         print(ii)
+    for i in small_smt2:
+        if 'error:' in str(i[3]):
+            print("ERROR")
+            print(i[0])
+        # else:
+        #     print("WARNING?NO ERROR")
+        #     print(i[0])
     print('\t number of small(<= 4 lines) .smt2 files {}'.format(len(small_smt2)))
     medium_smt2 = [i for i in smt2 if i[6] <=200 and i[6] > 4]
     print('\t number of medium(<= 200 lines) .smt2 files {}'.format(len(medium_smt2)))
@@ -164,7 +183,7 @@ def print_statistics(stat):
     print('number of errors  {}'.format(len(errors)))
     # fatal error: file not found, implicit declaration of function is invalid in C99
     # static_assert, conflicting types
-    error_message = ["file not found", "invalid in C99", "static_assert", "conflicting types"]
+    error_message = ["error:","file not found", "invalid in C99", "static_assert", "conflicting types"]
     for e in error_message:
         error_parser(errors,e)
     o = []
@@ -193,12 +212,12 @@ def error_parser(errors, message):
     fnf = [i for i in errors if message in str(i)]
     print('\t number of errors "{}" is {}'.format(message, len(fnf)))
 
-    for e in errors:
-        print(e)
+    # for e in errors:
+    #     print(e)
 
 
 if __name__ == '__main__':
-    #files = get_cfiles_with_assertions()
-    #run_sea_smt(files)
+    files = get_cfiles_with_assertions()
+    run_sea_smt(files)
     out = pickle.load(open("save_aws.p", "rb"))
     print_statistics(out)
