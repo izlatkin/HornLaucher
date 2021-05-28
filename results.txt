@@ -1,3 +1,57 @@
+It is needed to add -I{path_to_includes_dir} and other options, which used to compile code.
+Instrument the code:
+	* add [#include "seahorn/seahorn.h"] to all files which supported to be encoded
+	* add path to seahorn/seahorn.h to sea options
+	* create seahorn.h, which (# define assert(X) if(!(X)) __VERIFIER_error ())
+
+I’m not sure that this is a proper way, but I didn’t find anything else.
+
+Currently, it doesn’t work with the default assertion interface / without the steps above.  Also, I quite often see “warning invalid in C99”, but I don’t know how to fix this.
+
+Since the build and test of aws-c-common are working without any errors, maybe it makes sense to encode .c —> smt2 during the build/compiling process and get compliant options from the build for seahron.
+
+Logs:
+* https://github.com/awslabs/aws-c-common
+
+number of .smt2 files created 45
+	 number of small(<= 4 lines) .smt2 files 2
+	 number of medium(<= 200 lines) .smt2 files 21
+		number of z3 timeout errors  0
+		number of sat 20
+		number of unsat 1
+	 number of large(> 200 lines) .smt2 files 22
+		number of z3 timeout errors  0
+		number of sat 16
+		number of unsat 6
+number of errors  117
+	 number of errors "error:" is 116
+	 number of errors "file not found" is 0
+	 number of errors "invalid in C99" is 117
+	 number of errors "static_assert" is 0
+	 number of errors "conflicting types" is 0
+	 number of other errors is 0
+
+* https://github.com/diffblue/cbmc
+	 number of small(<= 4 lines) .smt2 files 917
+	 number of medium(<= 200 lines) .smt2 files 305
+		number of z3 timeout errors  15
+		number of sat 200
+		number of unsat 90
+	 number of large(> 200 lines) .smt2 files 34
+		number of z3 timeout errors  0
+		number of sat 29
+		number of unsat 5
+number of errors  502
+	 number of errors "error:" is 490
+	 number of errors "file not found" is 112
+	 number of errors "invalid in C99" is 122
+	 number of errors "static_assert" is 0
+	 number of errors "conflicting types" is 6
+	 number of other errors is 0
+
+
+==============================================================================================================
+
 Resume:
 there are only a few smt2 files that are sat (z3 filename returns sat) out of thousands checked c-files
 sea's clang option doesn't work
