@@ -1,11 +1,8 @@
 import os
 import glob
-import subprocess
-import pickle
-import hashlib
 
-SOURSE_PATH = "/tmp/cbmc"
-INCLUDE_DIR = SOURSE_PATH + "/include"
+SOURCE_PATH = "/tmp/aws-c-common"
+INCLUDE_DIR = SOURCE_PATH + "/include"
 
 
 def creat_dir_and_seahorn_header():
@@ -24,16 +21,16 @@ def creat_dir_and_seahorn_header():
 
 
 def get_cfiles_with_assertions():
-    cfiles = [os.path.join(dp, f) for dp, dn, filenames in os.walk(SOURSE_PATH)
+    cfiles = [os.path.join(dp, f) for dp, dn, filenames in os.walk(SOURCE_PATH)
                        for f in filenames if os.path.splitext(f)[1] == '.c']
-    print('number of .c files {} in "{}"'.format( len(cfiles),SOURSE_PATH))
+    print('number of .c files {} in "{}"'.format(len(cfiles), SOURCE_PATH))
     cfiles_with_assertion = []
     for f in cfiles:
         if contains_assert(f):
             cfiles_with_assertion.append(f)
         #print(f)
 
-    print('number of .c files with assertions {} in "{}"'.format(len(cfiles_with_assertion),SOURSE_PATH))
+    print('number of .c files with assertions {} in "{}"'.format(len(cfiles_with_assertion), SOURCE_PATH))
     return cfiles_with_assertion
 
 def contains_assert(s):

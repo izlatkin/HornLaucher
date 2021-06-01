@@ -1,0 +1,356 @@
+(set-info :original "../out/aws_round_up_to_power_of_two_harness.c/aws_round_up_to_power_of_two_harnessd862f.bc.txt")
+(set-info :authors "SeaHorn v.10.0.0-rc0")
+(declare-rel verifier.error (Bool Bool Bool ))
+(declare-rel aws_round_up_to_power_of_two@_sm2 ((Array Int Int) Int Int ))
+(declare-rel aws_round_up_to_power_of_two@.split ((Array Int Int) (Array Int Int) Int Int Int ))
+(declare-rel aws_round_up_to_power_of_two (Bool Bool Bool (Array Int Int) (Array Int Int) Int Int Int ))
+(declare-rel main@entry (Int ))
+(declare-rel main@verifier.error.split ())
+(declare-var aws_round_up_to_power_of_two@%_10_0 Int )
+(declare-var aws_round_up_to_power_of_two@%_11_0 Int )
+(declare-var aws_round_up_to_power_of_two@%_12_0 Int )
+(declare-var aws_round_up_to_power_of_two@%_13_0 Int )
+(declare-var aws_round_up_to_power_of_two@%_14_0 Int )
+(declare-var aws_round_up_to_power_of_two@%_15_0 Int )
+(declare-var aws_round_up_to_power_of_two@%_16_0 Int )
+(declare-var aws_round_up_to_power_of_two@%_17_0 Int )
+(declare-var aws_round_up_to_power_of_two@%_18_0 Int )
+(declare-var aws_round_up_to_power_of_two@%_19_0 Int )
+(declare-var aws_round_up_to_power_of_two@%_20_0 Int )
+(declare-var aws_round_up_to_power_of_two@%_sm1_0 Int )
+(declare-var aws_round_up_to_power_of_two@%shadow.mem.0.0_3 (Array Int Int) )
+(declare-var aws_round_up_to_power_of_two@%.0_3 Int )
+(declare-var aws_round_up_to_power_of_two@%_br3_0 Bool )
+(declare-var aws_round_up_to_power_of_two@%_br_0 Bool )
+(declare-var aws_round_up_to_power_of_two@%sm2_0 (Array Int Int) )
+(declare-var aws_round_up_to_power_of_two@%shadow.mem.0.0_0 (Array Int Int) )
+(declare-var aws_round_up_to_power_of_two@arg.0_0 Int )
+(declare-var aws_round_up_to_power_of_two@arg.1_0 Int )
+(declare-var aws_round_up_to_power_of_two@%.0_0 Int )
+(declare-var aws_round_up_to_power_of_two@_sm2_0 Bool )
+(declare-var aws_round_up_to_power_of_two@_6_0 Bool )
+(declare-var aws_round_up_to_power_of_two@_9_0 Bool )
+(declare-var aws_round_up_to_power_of_two@%sm1_0 (Array Int Int) )
+(declare-var aws_round_up_to_power_of_two@_tail_0 Bool )
+(declare-var aws_round_up_to_power_of_two@_sm_0 Bool )
+(declare-var aws_round_up_to_power_of_two@%sm_0 (Array Int Int) )
+(declare-var aws_round_up_to_power_of_two@_shadow.mem.0.0_0 Bool )
+(declare-var aws_round_up_to_power_of_two@%shadow.mem.0.0_1 (Array Int Int) )
+(declare-var aws_round_up_to_power_of_two@%.0_1 Int )
+(declare-var aws_round_up_to_power_of_two@%shadow.mem.0.0_2 (Array Int Int) )
+(declare-var aws_round_up_to_power_of_two@%.0_2 Int )
+(declare-var aws_round_up_to_power_of_two@.split_0 Bool )
+(declare-var main@%_15_0 Int )
+(declare-var main@%_16_0 Bool )
+(declare-var main@%_12_0 Bool )
+(declare-var main@%_11_0 Int )
+(declare-var main@%_13_0 Bool )
+(declare-var main@%or.cond_0 Bool )
+(declare-var main@%_18_0 Bool )
+(declare-var main@%sm_0 (Array Int Int) )
+(declare-var main@%_1_0 Bool )
+(declare-var main@%_5_0 Int )
+(declare-var main@%_6_0 Int )
+(declare-var main@%_7_0 Int )
+(declare-var main@%_8_0 Bool )
+(declare-var main@entry_0 Bool )
+(declare-var main@%_0_0 Int )
+(declare-var main@%_2_0 Int )
+(declare-var main@%_3_0 Int )
+(declare-var main@%_4_0 Int )
+(declare-var main@%sh_0 (Array Int Int) )
+(declare-var main@_17_0 Bool )
+(declare-var main@_9_0 Bool )
+(declare-var main@%_10_0 Int )
+(declare-var main@_14_0 Bool )
+(declare-var main@verifier.error_0 Bool )
+(declare-var |tuple(main@_9_0, main@verifier.error_0)| Bool )
+(declare-var main@verifier.error.split_0 Bool )
+(rule (verifier.error false false false))
+(rule (verifier.error false true true))
+(rule (verifier.error true false true))
+(rule (verifier.error true true true))
+(rule (aws_round_up_to_power_of_two
+  true
+  true
+  true
+  aws_round_up_to_power_of_two@%sm2_0
+  aws_round_up_to_power_of_two@%shadow.mem.0.0_0
+  aws_round_up_to_power_of_two@arg.0_0
+  aws_round_up_to_power_of_two@arg.1_0
+  aws_round_up_to_power_of_two@%.0_0))
+(rule (aws_round_up_to_power_of_two
+  false
+  true
+  true
+  aws_round_up_to_power_of_two@%sm2_0
+  aws_round_up_to_power_of_two@%shadow.mem.0.0_0
+  aws_round_up_to_power_of_two@arg.0_0
+  aws_round_up_to_power_of_two@arg.1_0
+  aws_round_up_to_power_of_two@%.0_0))
+(rule (aws_round_up_to_power_of_two
+  false
+  false
+  false
+  aws_round_up_to_power_of_two@%sm2_0
+  aws_round_up_to_power_of_two@%shadow.mem.0.0_0
+  aws_round_up_to_power_of_two@arg.0_0
+  aws_round_up_to_power_of_two@arg.1_0
+  aws_round_up_to_power_of_two@%.0_0))
+(rule (aws_round_up_to_power_of_two@_sm2
+  aws_round_up_to_power_of_two@%sm2_0
+  aws_round_up_to_power_of_two@arg.1_0
+  aws_round_up_to_power_of_two@arg.0_0))
+(rule (let ((a!1 (=> aws_round_up_to_power_of_two@_6_0
+               (= aws_round_up_to_power_of_two@%_br3_0
+                  (ite (< aws_round_up_to_power_of_two@arg.0_0 0)
+                       (< (- 2147483648) aws_round_up_to_power_of_two@arg.0_0)
+                       false))))
+      (a!2 (=> aws_round_up_to_power_of_two@_9_0
+               (=> (>= aws_round_up_to_power_of_two@%_10_0 0)
+                   (= aws_round_up_to_power_of_two@%_11_0
+                      (div aws_round_up_to_power_of_two@%_10_0 2)))))
+      (a!3 (=> aws_round_up_to_power_of_two@_9_0
+               (and (=> (= aws_round_up_to_power_of_two@%_11_0 0)
+                        (= aws_round_up_to_power_of_two@%_12_0
+                           aws_round_up_to_power_of_two@%_10_0))
+                    (=> (= aws_round_up_to_power_of_two@%_10_0 0)
+                        (= aws_round_up_to_power_of_two@%_12_0
+                           aws_round_up_to_power_of_two@%_11_0)))))
+      (a!4 (=> aws_round_up_to_power_of_two@_9_0
+               (=> (>= aws_round_up_to_power_of_two@%_12_0 0)
+                   (= aws_round_up_to_power_of_two@%_13_0
+                      (div aws_round_up_to_power_of_two@%_12_0 4)))))
+      (a!5 (=> aws_round_up_to_power_of_two@_9_0
+               (and (=> (= aws_round_up_to_power_of_two@%_13_0 0)
+                        (= aws_round_up_to_power_of_two@%_14_0
+                           aws_round_up_to_power_of_two@%_12_0))
+                    (=> (= aws_round_up_to_power_of_two@%_12_0 0)
+                        (= aws_round_up_to_power_of_two@%_14_0
+                           aws_round_up_to_power_of_two@%_13_0)))))
+      (a!6 (=> aws_round_up_to_power_of_two@_9_0
+               (=> (>= aws_round_up_to_power_of_two@%_14_0 0)
+                   (= aws_round_up_to_power_of_two@%_15_0
+                      (div aws_round_up_to_power_of_two@%_14_0 16)))))
+      (a!7 (=> aws_round_up_to_power_of_two@_9_0
+               (and (=> (= aws_round_up_to_power_of_two@%_15_0 0)
+                        (= aws_round_up_to_power_of_two@%_16_0
+                           aws_round_up_to_power_of_two@%_14_0))
+                    (=> (= aws_round_up_to_power_of_two@%_14_0 0)
+                        (= aws_round_up_to_power_of_two@%_16_0
+                           aws_round_up_to_power_of_two@%_15_0)))))
+      (a!8 (=> aws_round_up_to_power_of_two@_9_0
+               (=> (>= aws_round_up_to_power_of_two@%_16_0 0)
+                   (= aws_round_up_to_power_of_two@%_17_0
+                      (div aws_round_up_to_power_of_two@%_16_0 256)))))
+      (a!9 (=> aws_round_up_to_power_of_two@_9_0
+               (and (=> (= aws_round_up_to_power_of_two@%_17_0 0)
+                        (= aws_round_up_to_power_of_two@%_18_0
+                           aws_round_up_to_power_of_two@%_16_0))
+                    (=> (= aws_round_up_to_power_of_two@%_16_0 0)
+                        (= aws_round_up_to_power_of_two@%_18_0
+                           aws_round_up_to_power_of_two@%_17_0)))))
+      (a!10 (=> aws_round_up_to_power_of_two@_9_0
+                (=> (>= aws_round_up_to_power_of_two@%_18_0 0)
+                    (= aws_round_up_to_power_of_two@%_19_0
+                       (div aws_round_up_to_power_of_two@%_18_0 65536)))))
+      (a!11 (=> aws_round_up_to_power_of_two@_9_0
+                (and (=> (= aws_round_up_to_power_of_two@%_19_0 0)
+                         (= aws_round_up_to_power_of_two@%_20_0
+                            aws_round_up_to_power_of_two@%_18_0))
+                     (=> (= aws_round_up_to_power_of_two@%_18_0 0)
+                         (= aws_round_up_to_power_of_two@%_20_0
+                            aws_round_up_to_power_of_two@%_19_0))))))
+(let ((a!12 (and (aws_round_up_to_power_of_two@_sm2
+                   aws_round_up_to_power_of_two@%sm2_0
+                   aws_round_up_to_power_of_two@arg.1_0
+                   aws_round_up_to_power_of_two@arg.0_0)
+                 true
+                 (= aws_round_up_to_power_of_two@%_br_0
+                    (= aws_round_up_to_power_of_two@arg.0_0 0))
+                 (=> aws_round_up_to_power_of_two@_6_0
+                     (and aws_round_up_to_power_of_two@_6_0
+                          aws_round_up_to_power_of_two@_sm2_0))
+                 (=> (and aws_round_up_to_power_of_two@_6_0
+                          aws_round_up_to_power_of_two@_sm2_0)
+                     (not aws_round_up_to_power_of_two@%_br_0))
+                 a!1
+                 (=> aws_round_up_to_power_of_two@_9_0
+                     (and aws_round_up_to_power_of_two@_9_0
+                          aws_round_up_to_power_of_two@_6_0))
+                 (=> (and aws_round_up_to_power_of_two@_9_0
+                          aws_round_up_to_power_of_two@_6_0)
+                     (not aws_round_up_to_power_of_two@%_br3_0))
+                 (=> aws_round_up_to_power_of_two@_9_0
+                     (= aws_round_up_to_power_of_two@%_10_0
+                        (+ aws_round_up_to_power_of_two@arg.0_0 (- 1))))
+                 a!2
+                 a!3
+                 a!4
+                 a!5
+                 a!6
+                 a!7
+                 a!8
+                 a!9
+                 a!10
+                 a!11
+                 (=> aws_round_up_to_power_of_two@_9_0
+                     (= aws_round_up_to_power_of_two@%_sm1_0
+                        (+ aws_round_up_to_power_of_two@%_20_0 1)))
+                 (=> aws_round_up_to_power_of_two@_9_0
+                     (= aws_round_up_to_power_of_two@%sm1_0
+                        (store aws_round_up_to_power_of_two@%sm2_0
+                               aws_round_up_to_power_of_two@arg.1_0
+                               aws_round_up_to_power_of_two@%_sm1_0)))
+                 (=> aws_round_up_to_power_of_two@_tail_0
+                     (and aws_round_up_to_power_of_two@_tail_0
+                          aws_round_up_to_power_of_two@_6_0))
+                 (=> (and aws_round_up_to_power_of_two@_tail_0
+                          aws_round_up_to_power_of_two@_6_0)
+                     aws_round_up_to_power_of_two@%_br3_0)
+                 (=> aws_round_up_to_power_of_two@_sm_0
+                     (and aws_round_up_to_power_of_two@_sm_0
+                          aws_round_up_to_power_of_two@_sm2_0))
+                 (=> (and aws_round_up_to_power_of_two@_sm_0
+                          aws_round_up_to_power_of_two@_sm2_0)
+                     aws_round_up_to_power_of_two@%_br_0)
+                 (=> aws_round_up_to_power_of_two@_sm_0
+                     (= aws_round_up_to_power_of_two@%sm_0
+                        (store aws_round_up_to_power_of_two@%sm2_0
+                               aws_round_up_to_power_of_two@arg.1_0
+                               1)))
+                 (=> aws_round_up_to_power_of_two@_shadow.mem.0.0_0
+                     (or (and aws_round_up_to_power_of_two@_shadow.mem.0.0_0
+                              aws_round_up_to_power_of_two@_9_0)
+                         (and aws_round_up_to_power_of_two@_shadow.mem.0.0_0
+                              aws_round_up_to_power_of_two@_tail_0)
+                         (and aws_round_up_to_power_of_two@_shadow.mem.0.0_0
+                              aws_round_up_to_power_of_two@_sm_0)))
+                 (=> (and aws_round_up_to_power_of_two@_shadow.mem.0.0_0
+                          aws_round_up_to_power_of_two@_9_0)
+                     (= aws_round_up_to_power_of_two@%shadow.mem.0.0_0
+                        aws_round_up_to_power_of_two@%sm1_0))
+                 (=> (and aws_round_up_to_power_of_two@_shadow.mem.0.0_0
+                          aws_round_up_to_power_of_two@_9_0)
+                     (= aws_round_up_to_power_of_two@%.0_0 0))
+                 (=> (and aws_round_up_to_power_of_two@_shadow.mem.0.0_0
+                          aws_round_up_to_power_of_two@_tail_0)
+                     (= aws_round_up_to_power_of_two@%shadow.mem.0.0_1
+                        aws_round_up_to_power_of_two@%sm2_0))
+                 (=> (and aws_round_up_to_power_of_two@_shadow.mem.0.0_0
+                          aws_round_up_to_power_of_two@_tail_0)
+                     (= aws_round_up_to_power_of_two@%.0_1 (- 1)))
+                 (=> (and aws_round_up_to_power_of_two@_shadow.mem.0.0_0
+                          aws_round_up_to_power_of_two@_sm_0)
+                     (= aws_round_up_to_power_of_two@%shadow.mem.0.0_2
+                        aws_round_up_to_power_of_two@%sm_0))
+                 (=> (and aws_round_up_to_power_of_two@_shadow.mem.0.0_0
+                          aws_round_up_to_power_of_two@_sm_0)
+                     (= aws_round_up_to_power_of_two@%.0_2 0))
+                 (=> (and aws_round_up_to_power_of_two@_shadow.mem.0.0_0
+                          aws_round_up_to_power_of_two@_9_0)
+                     (= aws_round_up_to_power_of_two@%shadow.mem.0.0_3
+                        aws_round_up_to_power_of_two@%shadow.mem.0.0_0))
+                 (=> (and aws_round_up_to_power_of_two@_shadow.mem.0.0_0
+                          aws_round_up_to_power_of_two@_9_0)
+                     (= aws_round_up_to_power_of_two@%.0_3
+                        aws_round_up_to_power_of_two@%.0_0))
+                 (=> (and aws_round_up_to_power_of_two@_shadow.mem.0.0_0
+                          aws_round_up_to_power_of_two@_tail_0)
+                     (= aws_round_up_to_power_of_two@%shadow.mem.0.0_3
+                        aws_round_up_to_power_of_two@%shadow.mem.0.0_1))
+                 (=> (and aws_round_up_to_power_of_two@_shadow.mem.0.0_0
+                          aws_round_up_to_power_of_two@_tail_0)
+                     (= aws_round_up_to_power_of_two@%.0_3
+                        aws_round_up_to_power_of_two@%.0_1))
+                 (=> (and aws_round_up_to_power_of_two@_shadow.mem.0.0_0
+                          aws_round_up_to_power_of_two@_sm_0)
+                     (= aws_round_up_to_power_of_two@%shadow.mem.0.0_3
+                        aws_round_up_to_power_of_two@%shadow.mem.0.0_2))
+                 (=> (and aws_round_up_to_power_of_two@_shadow.mem.0.0_0
+                          aws_round_up_to_power_of_two@_sm_0)
+                     (= aws_round_up_to_power_of_two@%.0_3
+                        aws_round_up_to_power_of_two@%.0_2))
+                 (=> aws_round_up_to_power_of_two@.split_0
+                     (and aws_round_up_to_power_of_two@.split_0
+                          aws_round_up_to_power_of_two@_shadow.mem.0.0_0))
+                 aws_round_up_to_power_of_two@.split_0)))
+  (=> a!12
+      (aws_round_up_to_power_of_two@.split
+        aws_round_up_to_power_of_two@%sm2_0
+        aws_round_up_to_power_of_two@%shadow.mem.0.0_3
+        aws_round_up_to_power_of_two@%.0_3
+        aws_round_up_to_power_of_two@arg.1_0
+        aws_round_up_to_power_of_two@arg.0_0)))))
+(rule (=> (aws_round_up_to_power_of_two@.split
+      aws_round_up_to_power_of_two@%sm2_0
+      aws_round_up_to_power_of_two@%shadow.mem.0.0_0
+      aws_round_up_to_power_of_two@%.0_0
+      aws_round_up_to_power_of_two@arg.1_0
+      aws_round_up_to_power_of_two@arg.0_0)
+    (aws_round_up_to_power_of_two
+      true
+      false
+      false
+      aws_round_up_to_power_of_two@%sm2_0
+      aws_round_up_to_power_of_two@%shadow.mem.0.0_0
+      aws_round_up_to_power_of_two@arg.0_0
+      aws_round_up_to_power_of_two@arg.1_0
+      aws_round_up_to_power_of_two@%.0_0)))
+(rule (main@entry main@%_11_0))
+(rule (let ((a!1 (=> main@_17_0
+               (= main@%_18_0
+                  (ite (< main@%_2_0 0) (< (- 2147483648) main@%_2_0) false))))
+      (a!2 (=> main@_9_0 (= main@%_12_0 (not (= main@%_11_0 1)))))
+      (a!3 (= main@%_13_0
+              (ite (>= main@%_10_0 0)
+                   (ite (>= main@%_4_0 0) (< main@%_10_0 main@%_4_0) true)
+                   (ite (< main@%_4_0 0) (< main@%_10_0 main@%_4_0) false))))
+      (a!4 (=> main@_14_0
+               (=> (>= main@%_10_0 0) (= main@%_15_0 (div main@%_10_0 2)))))
+      (a!5 (= main@%_16_0
+              (ite (>= main@%_3_0 0)
+                   (ite (>= main@%_15_0 0) (< main@%_3_0 main@%_15_0) true)
+                   (ite (< main@%_15_0 0) (< main@%_3_0 main@%_15_0) false)))))
+(let ((a!6 (and (main@entry main@%_11_0)
+                true
+                (> main@%_0_0 0)
+                (not main@%_1_0)
+                (= main@%_6_0 main@%_0_0)
+                (aws_round_up_to_power_of_two
+                  true
+                  false
+                  false
+                  main@%sm_0
+                  main@%sh_0
+                  main@%_5_0
+                  main@%_0_0
+                  main@%_7_0)
+                (= main@%_8_0 (= main@%_7_0 0))
+                (=> main@_17_0 (and main@_17_0 main@entry_0))
+                (=> (and main@_17_0 main@entry_0) (not main@%_8_0))
+                a!1
+                (=> main@_17_0 (not main@%_18_0))
+                (=> main@_9_0 (and main@_9_0 main@entry_0))
+                (=> (and main@_9_0 main@entry_0) main@%_8_0)
+                (=> main@_9_0 (= main@%_10_0 (select main@%sh_0 main@%_0_0)))
+                a!2
+                (=> main@_9_0 a!3)
+                (=> main@_9_0 (= main@%or.cond_0 (or main@%_13_0 main@%_12_0)))
+                (=> main@_14_0 (and main@_14_0 main@_9_0))
+                (=> (and main@_14_0 main@_9_0) (not main@%or.cond_0))
+                a!4
+                (=> main@_14_0 a!5)
+                (=> main@_14_0 main@%_16_0)
+                (=> |tuple(main@_9_0, main@verifier.error_0)| main@_9_0)
+                (=> main@verifier.error_0
+                    (or |tuple(main@_9_0, main@verifier.error_0)|
+                        (and main@verifier.error_0 main@_17_0)
+                        (and main@verifier.error_0 main@_14_0)))
+                (=> |tuple(main@_9_0, main@verifier.error_0)| main@%or.cond_0)
+                (=> main@verifier.error.split_0
+                    (and main@verifier.error.split_0 main@verifier.error_0))
+                main@verifier.error.split_0)))
+  (=> a!6 main@verifier.error.split))))
+(query main@verifier.error.split)
+

@@ -1,0 +1,513 @@
+(set-info :original "../out/aws_linked_list_prev_harness.c/aws_linked_list_prev_harness101a0.bc.txt")
+(set-info :authors "SeaHorn v.10.0.0-rc0")
+(declare-rel verifier.error (Bool Bool Bool ))
+(declare-rel aws_linked_list_prev@_sm ((Array Int Int) (Array Int Int) Int ))
+(declare-rel aws_linked_list_prev@.split ((Array Int Int) (Array Int Int) Int Int ))
+(declare-rel aws_linked_list_prev (Bool Bool Bool (Array Int Int) (Array Int Int) (Array Int Int) (Array Int Int) Int Int ))
+(declare-rel aws_linked_list_node_prev_is_valid@_sm ((Array Int Int) (Array Int Int) Int ))
+(declare-rel aws_linked_list_node_prev_is_valid@.split ((Array Int Int) (Array Int Int) Bool Int ))
+(declare-rel aws_linked_list_node_prev_is_valid (Bool Bool Bool (Array Int Int) (Array Int Int) (Array Int Int) (Array Int Int) Int Bool ))
+(declare-rel aws_linked_list_node_next_is_valid@_sm ((Array Int Int) (Array Int Int) Int ))
+(declare-rel aws_linked_list_node_next_is_valid@.split ((Array Int Int) (Array Int Int) Bool Int ))
+(declare-rel aws_linked_list_node_next_is_valid (Bool Bool Bool (Array Int Int) (Array Int Int) (Array Int Int) (Array Int Int) Int Bool ))
+(declare-rel main@entry ())
+(declare-rel main@verifier.error.split ())
+(declare-var aws_linked_list_prev@%sm_0 (Array Int Int) )
+(declare-var aws_linked_list_prev@%_call_0 Int )
+(declare-var aws_linked_list_prev@arg.0_0 Int )
+(declare-var aws_linked_list_prev@%sm1_0 (Array Int Int) )
+(declare-var aws_linked_list_prev@%_br_0 Int )
+(declare-var aws_linked_list_prev@_sm_0 Bool )
+(declare-var aws_linked_list_prev@.split_0 Bool )
+(declare-var aws_linked_list_node_prev_is_valid@%_call3_0 Int )
+(declare-var aws_linked_list_node_prev_is_valid@%_10_0 Int )
+(declare-var aws_linked_list_node_prev_is_valid@%_call_0 Int )
+(declare-var aws_linked_list_node_prev_is_valid@%_br2_0 Bool )
+(declare-var aws_linked_list_node_prev_is_valid@%_br_0 Bool )
+(declare-var aws_linked_list_node_prev_is_valid@%_br5_3 Bool )
+(declare-var aws_linked_list_node_prev_is_valid@%sm_0 (Array Int Int) )
+(declare-var aws_linked_list_node_prev_is_valid@%sm1_0 (Array Int Int) )
+(declare-var aws_linked_list_node_prev_is_valid@arg.0_0 Int )
+(declare-var aws_linked_list_node_prev_is_valid@%_br5_0 Bool )
+(declare-var aws_linked_list_node_prev_is_valid@_sm_0 Bool )
+(declare-var aws_linked_list_node_prev_is_valid@_4_0 Bool )
+(declare-var aws_linked_list_node_prev_is_valid@%_6_0 Int )
+(declare-var aws_linked_list_node_prev_is_valid@_8_0 Bool )
+(declare-var aws_linked_list_node_prev_is_valid@%_br4_0 Bool )
+(declare-var aws_linked_list_node_prev_is_valid@_12_0 Bool )
+(declare-var |tuple(aws_linked_list_node_prev_is_valid@_4_0, aws_linked_list_node_prev_is_valid@_12_0)| Bool )
+(declare-var |tuple(aws_linked_list_node_prev_is_valid@_sm_0, aws_linked_list_node_prev_is_valid@_12_0)| Bool )
+(declare-var aws_linked_list_node_prev_is_valid@%_br5_1 Bool )
+(declare-var aws_linked_list_node_prev_is_valid@%_br5_2 Bool )
+(declare-var aws_linked_list_node_prev_is_valid@.split_0 Bool )
+(declare-var aws_linked_list_node_next_is_valid@%_call3_0 Int )
+(declare-var aws_linked_list_node_next_is_valid@%_10_0 Int )
+(declare-var aws_linked_list_node_next_is_valid@%_call_0 Int )
+(declare-var aws_linked_list_node_next_is_valid@%_br2_0 Bool )
+(declare-var aws_linked_list_node_next_is_valid@%_br_0 Bool )
+(declare-var aws_linked_list_node_next_is_valid@%_br5_3 Bool )
+(declare-var aws_linked_list_node_next_is_valid@%sm_0 (Array Int Int) )
+(declare-var aws_linked_list_node_next_is_valid@%sm1_0 (Array Int Int) )
+(declare-var aws_linked_list_node_next_is_valid@arg.0_0 Int )
+(declare-var aws_linked_list_node_next_is_valid@%_br5_0 Bool )
+(declare-var aws_linked_list_node_next_is_valid@_sm_0 Bool )
+(declare-var aws_linked_list_node_next_is_valid@_4_0 Bool )
+(declare-var aws_linked_list_node_next_is_valid@%_6_0 Int )
+(declare-var aws_linked_list_node_next_is_valid@_8_0 Bool )
+(declare-var aws_linked_list_node_next_is_valid@%_br4_0 Bool )
+(declare-var aws_linked_list_node_next_is_valid@_12_0 Bool )
+(declare-var |tuple(aws_linked_list_node_next_is_valid@_4_0, aws_linked_list_node_next_is_valid@_12_0)| Bool )
+(declare-var |tuple(aws_linked_list_node_next_is_valid@_sm_0, aws_linked_list_node_next_is_valid@_12_0)| Bool )
+(declare-var aws_linked_list_node_next_is_valid@%_br5_1 Bool )
+(declare-var aws_linked_list_node_next_is_valid@%_br5_2 Bool )
+(declare-var aws_linked_list_node_next_is_valid@.split_0 Bool )
+(declare-var main@%_12_0 Bool )
+(declare-var main@%sh5_0 (Array Int Int) )
+(declare-var main@%sh6_0 (Array Int Int) )
+(declare-var main@%_10_0 Bool )
+(declare-var main@%sm7_0 (Array Int Int) )
+(declare-var main@%sm8_0 (Array Int Int) )
+(declare-var main@%_0_0 Int )
+(declare-var main@%_2_0 Bool )
+(declare-var main@%_3_0 Int )
+(declare-var main@%_4_0 Int )
+(declare-var main@%_5_0 Int )
+(declare-var main@%sm_0 (Array Int Int) )
+(declare-var main@%_6_0 Int )
+(declare-var main@%sm1_0 (Array Int Int) )
+(declare-var main@%sh_0 (Array Int Int) )
+(declare-var main@%sh2_0 (Array Int Int) )
+(declare-var main@%_8_0 Bool )
+(declare-var main@entry_0 Bool )
+(declare-var main@%_1_0 Int )
+(declare-var main@%_7_0 Int )
+(declare-var main@%sh3_0 (Array Int Int) )
+(declare-var main@%sh4_0 (Array Int Int) )
+(declare-var main@_9_0 Bool )
+(declare-var main@_11_0 Bool )
+(declare-var main@verifier.error_0 Bool )
+(declare-var |tuple(main@_9_0, main@verifier.error_0)| Bool )
+(declare-var |tuple(main@entry_0, main@verifier.error_0)| Bool )
+(declare-var main@verifier.error.split_0 Bool )
+(rule (verifier.error false false false))
+(rule (verifier.error false true true))
+(rule (verifier.error true false true))
+(rule (verifier.error true true true))
+(rule (aws_linked_list_prev
+  true
+  true
+  true
+  aws_linked_list_prev@%sm_0
+  aws_linked_list_prev@%sm_0
+  aws_linked_list_prev@%sm1_0
+  aws_linked_list_prev@%sm1_0
+  aws_linked_list_prev@arg.0_0
+  aws_linked_list_prev@%_br_0))
+(rule (aws_linked_list_prev
+  false
+  true
+  true
+  aws_linked_list_prev@%sm_0
+  aws_linked_list_prev@%sm_0
+  aws_linked_list_prev@%sm1_0
+  aws_linked_list_prev@%sm1_0
+  aws_linked_list_prev@arg.0_0
+  aws_linked_list_prev@%_br_0))
+(rule (aws_linked_list_prev
+  false
+  false
+  false
+  aws_linked_list_prev@%sm_0
+  aws_linked_list_prev@%sm_0
+  aws_linked_list_prev@%sm1_0
+  aws_linked_list_prev@%sm1_0
+  aws_linked_list_prev@arg.0_0
+  aws_linked_list_prev@%_br_0))
+(rule (aws_linked_list_prev@_sm
+  aws_linked_list_prev@%sm_0
+  aws_linked_list_prev@%sm1_0
+  aws_linked_list_prev@arg.0_0))
+(rule (let ((a!1 (and (aws_linked_list_prev@_sm
+                  aws_linked_list_prev@%sm_0
+                  aws_linked_list_prev@%sm1_0
+                  aws_linked_list_prev@arg.0_0)
+                true
+                (= aws_linked_list_prev@%_call_0
+                   (+ aws_linked_list_prev@arg.0_0 (* 0 8) 4))
+                (or (<= aws_linked_list_prev@arg.0_0 0)
+                    (> aws_linked_list_prev@%_call_0 0))
+                (> aws_linked_list_prev@arg.0_0 0)
+                (= aws_linked_list_prev@%_br_0
+                   (select aws_linked_list_prev@%sm1_0
+                           aws_linked_list_prev@%_call_0))
+                (=> aws_linked_list_prev@.split_0
+                    (and aws_linked_list_prev@.split_0
+                         aws_linked_list_prev@_sm_0))
+                aws_linked_list_prev@.split_0)))
+  (=> a!1
+      (aws_linked_list_prev@.split
+        aws_linked_list_prev@%sm_0
+        aws_linked_list_prev@%sm1_0
+        aws_linked_list_prev@%_br_0
+        aws_linked_list_prev@arg.0_0))))
+(rule (=> (aws_linked_list_prev@.split
+      aws_linked_list_prev@%sm_0
+      aws_linked_list_prev@%sm1_0
+      aws_linked_list_prev@%_br_0
+      aws_linked_list_prev@arg.0_0)
+    (aws_linked_list_prev
+      true
+      false
+      false
+      aws_linked_list_prev@%sm_0
+      aws_linked_list_prev@%sm_0
+      aws_linked_list_prev@%sm1_0
+      aws_linked_list_prev@%sm1_0
+      aws_linked_list_prev@arg.0_0
+      aws_linked_list_prev@%_br_0)))
+(rule (aws_linked_list_node_prev_is_valid
+  true
+  true
+  true
+  aws_linked_list_node_prev_is_valid@%sm_0
+  aws_linked_list_node_prev_is_valid@%sm_0
+  aws_linked_list_node_prev_is_valid@%sm1_0
+  aws_linked_list_node_prev_is_valid@%sm1_0
+  aws_linked_list_node_prev_is_valid@arg.0_0
+  aws_linked_list_node_prev_is_valid@%_br5_0))
+(rule (aws_linked_list_node_prev_is_valid
+  false
+  true
+  true
+  aws_linked_list_node_prev_is_valid@%sm_0
+  aws_linked_list_node_prev_is_valid@%sm_0
+  aws_linked_list_node_prev_is_valid@%sm1_0
+  aws_linked_list_node_prev_is_valid@%sm1_0
+  aws_linked_list_node_prev_is_valid@arg.0_0
+  aws_linked_list_node_prev_is_valid@%_br5_0))
+(rule (aws_linked_list_node_prev_is_valid
+  false
+  false
+  false
+  aws_linked_list_node_prev_is_valid@%sm_0
+  aws_linked_list_node_prev_is_valid@%sm_0
+  aws_linked_list_node_prev_is_valid@%sm1_0
+  aws_linked_list_node_prev_is_valid@%sm1_0
+  aws_linked_list_node_prev_is_valid@arg.0_0
+  aws_linked_list_node_prev_is_valid@%_br5_0))
+(rule (aws_linked_list_node_prev_is_valid@_sm
+  aws_linked_list_node_prev_is_valid@%sm_0
+  aws_linked_list_node_prev_is_valid@%sm1_0
+  aws_linked_list_node_prev_is_valid@arg.0_0))
+(rule (let ((a!1 (=> aws_linked_list_node_prev_is_valid@_4_0
+               (= aws_linked_list_node_prev_is_valid@%_call_0
+                  (+ aws_linked_list_node_prev_is_valid@arg.0_0 (* 0 8) 4))))
+      (a!2 (=> aws_linked_list_node_prev_is_valid@_8_0
+               (= aws_linked_list_node_prev_is_valid@%_call3_0
+                  (+ aws_linked_list_node_prev_is_valid@%_6_0 (* 0 8) 0)))))
+(let ((a!3 (and (aws_linked_list_node_prev_is_valid@_sm
+                  aws_linked_list_node_prev_is_valid@%sm_0
+                  aws_linked_list_node_prev_is_valid@%sm1_0
+                  aws_linked_list_node_prev_is_valid@arg.0_0)
+                true
+                (= aws_linked_list_node_prev_is_valid@%_br_0
+                   (= aws_linked_list_node_prev_is_valid@arg.0_0 0))
+                (=> aws_linked_list_node_prev_is_valid@_4_0
+                    (and aws_linked_list_node_prev_is_valid@_4_0
+                         aws_linked_list_node_prev_is_valid@_sm_0))
+                (=> (and aws_linked_list_node_prev_is_valid@_4_0
+                         aws_linked_list_node_prev_is_valid@_sm_0)
+                    (not aws_linked_list_node_prev_is_valid@%_br_0))
+                a!1
+                (=> aws_linked_list_node_prev_is_valid@_4_0
+                    (or (<= aws_linked_list_node_prev_is_valid@arg.0_0 0)
+                        (> aws_linked_list_node_prev_is_valid@%_call_0 0)))
+                (=> aws_linked_list_node_prev_is_valid@_4_0
+                    (> aws_linked_list_node_prev_is_valid@arg.0_0 0))
+                (=> aws_linked_list_node_prev_is_valid@_4_0
+                    (= aws_linked_list_node_prev_is_valid@%_6_0
+                       (select aws_linked_list_node_prev_is_valid@%sm1_0
+                               aws_linked_list_node_prev_is_valid@%_call_0)))
+                (=> aws_linked_list_node_prev_is_valid@_4_0
+                    (= aws_linked_list_node_prev_is_valid@%_br2_0
+                       (= aws_linked_list_node_prev_is_valid@%_6_0 0)))
+                (=> aws_linked_list_node_prev_is_valid@_8_0
+                    (and aws_linked_list_node_prev_is_valid@_8_0
+                         aws_linked_list_node_prev_is_valid@_4_0))
+                (=> (and aws_linked_list_node_prev_is_valid@_8_0
+                         aws_linked_list_node_prev_is_valid@_4_0)
+                    (not aws_linked_list_node_prev_is_valid@%_br2_0))
+                a!2
+                (=> aws_linked_list_node_prev_is_valid@_8_0
+                    (or (<= aws_linked_list_node_prev_is_valid@%_6_0 0)
+                        (> aws_linked_list_node_prev_is_valid@%_call3_0 0)))
+                (=> aws_linked_list_node_prev_is_valid@_8_0
+                    (= aws_linked_list_node_prev_is_valid@%_10_0
+                       (select aws_linked_list_node_prev_is_valid@%sm_0
+                               aws_linked_list_node_prev_is_valid@%_call3_0)))
+                (=> aws_linked_list_node_prev_is_valid@_8_0
+                    (= aws_linked_list_node_prev_is_valid@%_br4_0
+                       (= aws_linked_list_node_prev_is_valid@%_10_0
+                          aws_linked_list_node_prev_is_valid@arg.0_0)))
+                (=> |tuple(aws_linked_list_node_prev_is_valid@_4_0, aws_linked_list_node_prev_is_valid@_12_0)|
+                    aws_linked_list_node_prev_is_valid@_4_0)
+                (=> |tuple(aws_linked_list_node_prev_is_valid@_sm_0, aws_linked_list_node_prev_is_valid@_12_0)|
+                    aws_linked_list_node_prev_is_valid@_sm_0)
+                (=> aws_linked_list_node_prev_is_valid@_12_0
+                    (or (and aws_linked_list_node_prev_is_valid@_12_0
+                             aws_linked_list_node_prev_is_valid@_8_0)
+                        |tuple(aws_linked_list_node_prev_is_valid@_4_0, aws_linked_list_node_prev_is_valid@_12_0)|
+                        |tuple(aws_linked_list_node_prev_is_valid@_sm_0, aws_linked_list_node_prev_is_valid@_12_0)|))
+                (=> |tuple(aws_linked_list_node_prev_is_valid@_4_0, aws_linked_list_node_prev_is_valid@_12_0)|
+                    aws_linked_list_node_prev_is_valid@%_br2_0)
+                (=> |tuple(aws_linked_list_node_prev_is_valid@_sm_0, aws_linked_list_node_prev_is_valid@_12_0)|
+                    aws_linked_list_node_prev_is_valid@%_br_0)
+                (=> (and aws_linked_list_node_prev_is_valid@_12_0
+                         aws_linked_list_node_prev_is_valid@_8_0)
+                    (= aws_linked_list_node_prev_is_valid@%_br5_0
+                       aws_linked_list_node_prev_is_valid@%_br4_0))
+                (=> |tuple(aws_linked_list_node_prev_is_valid@_4_0, aws_linked_list_node_prev_is_valid@_12_0)|
+                    (= aws_linked_list_node_prev_is_valid@%_br5_1 false))
+                (=> |tuple(aws_linked_list_node_prev_is_valid@_sm_0, aws_linked_list_node_prev_is_valid@_12_0)|
+                    (= aws_linked_list_node_prev_is_valid@%_br5_2 false))
+                (=> (and aws_linked_list_node_prev_is_valid@_12_0
+                         aws_linked_list_node_prev_is_valid@_8_0)
+                    (= aws_linked_list_node_prev_is_valid@%_br5_3
+                       aws_linked_list_node_prev_is_valid@%_br5_0))
+                (=> |tuple(aws_linked_list_node_prev_is_valid@_4_0, aws_linked_list_node_prev_is_valid@_12_0)|
+                    (= aws_linked_list_node_prev_is_valid@%_br5_3
+                       aws_linked_list_node_prev_is_valid@%_br5_1))
+                (=> |tuple(aws_linked_list_node_prev_is_valid@_sm_0, aws_linked_list_node_prev_is_valid@_12_0)|
+                    (= aws_linked_list_node_prev_is_valid@%_br5_3
+                       aws_linked_list_node_prev_is_valid@%_br5_2))
+                (=> aws_linked_list_node_prev_is_valid@.split_0
+                    (and aws_linked_list_node_prev_is_valid@.split_0
+                         aws_linked_list_node_prev_is_valid@_12_0))
+                aws_linked_list_node_prev_is_valid@.split_0)))
+  (=> a!3
+      (aws_linked_list_node_prev_is_valid@.split
+        aws_linked_list_node_prev_is_valid@%sm_0
+        aws_linked_list_node_prev_is_valid@%sm1_0
+        aws_linked_list_node_prev_is_valid@%_br5_3
+        aws_linked_list_node_prev_is_valid@arg.0_0)))))
+(rule (=> (aws_linked_list_node_prev_is_valid@.split
+      aws_linked_list_node_prev_is_valid@%sm_0
+      aws_linked_list_node_prev_is_valid@%sm1_0
+      aws_linked_list_node_prev_is_valid@%_br5_0
+      aws_linked_list_node_prev_is_valid@arg.0_0)
+    (aws_linked_list_node_prev_is_valid
+      true
+      false
+      false
+      aws_linked_list_node_prev_is_valid@%sm_0
+      aws_linked_list_node_prev_is_valid@%sm_0
+      aws_linked_list_node_prev_is_valid@%sm1_0
+      aws_linked_list_node_prev_is_valid@%sm1_0
+      aws_linked_list_node_prev_is_valid@arg.0_0
+      aws_linked_list_node_prev_is_valid@%_br5_0)))
+(rule (aws_linked_list_node_next_is_valid
+  true
+  true
+  true
+  aws_linked_list_node_next_is_valid@%sm_0
+  aws_linked_list_node_next_is_valid@%sm_0
+  aws_linked_list_node_next_is_valid@%sm1_0
+  aws_linked_list_node_next_is_valid@%sm1_0
+  aws_linked_list_node_next_is_valid@arg.0_0
+  aws_linked_list_node_next_is_valid@%_br5_0))
+(rule (aws_linked_list_node_next_is_valid
+  false
+  true
+  true
+  aws_linked_list_node_next_is_valid@%sm_0
+  aws_linked_list_node_next_is_valid@%sm_0
+  aws_linked_list_node_next_is_valid@%sm1_0
+  aws_linked_list_node_next_is_valid@%sm1_0
+  aws_linked_list_node_next_is_valid@arg.0_0
+  aws_linked_list_node_next_is_valid@%_br5_0))
+(rule (aws_linked_list_node_next_is_valid
+  false
+  false
+  false
+  aws_linked_list_node_next_is_valid@%sm_0
+  aws_linked_list_node_next_is_valid@%sm_0
+  aws_linked_list_node_next_is_valid@%sm1_0
+  aws_linked_list_node_next_is_valid@%sm1_0
+  aws_linked_list_node_next_is_valid@arg.0_0
+  aws_linked_list_node_next_is_valid@%_br5_0))
+(rule (aws_linked_list_node_next_is_valid@_sm
+  aws_linked_list_node_next_is_valid@%sm_0
+  aws_linked_list_node_next_is_valid@%sm1_0
+  aws_linked_list_node_next_is_valid@arg.0_0))
+(rule (let ((a!1 (=> aws_linked_list_node_next_is_valid@_4_0
+               (= aws_linked_list_node_next_is_valid@%_call_0
+                  (+ aws_linked_list_node_next_is_valid@arg.0_0 (* 0 8) 0))))
+      (a!2 (=> aws_linked_list_node_next_is_valid@_8_0
+               (= aws_linked_list_node_next_is_valid@%_call3_0
+                  (+ aws_linked_list_node_next_is_valid@%_6_0 (* 0 8) 4)))))
+(let ((a!3 (and (aws_linked_list_node_next_is_valid@_sm
+                  aws_linked_list_node_next_is_valid@%sm_0
+                  aws_linked_list_node_next_is_valid@%sm1_0
+                  aws_linked_list_node_next_is_valid@arg.0_0)
+                true
+                (= aws_linked_list_node_next_is_valid@%_br_0
+                   (= aws_linked_list_node_next_is_valid@arg.0_0 0))
+                (=> aws_linked_list_node_next_is_valid@_4_0
+                    (and aws_linked_list_node_next_is_valid@_4_0
+                         aws_linked_list_node_next_is_valid@_sm_0))
+                (=> (and aws_linked_list_node_next_is_valid@_4_0
+                         aws_linked_list_node_next_is_valid@_sm_0)
+                    (not aws_linked_list_node_next_is_valid@%_br_0))
+                a!1
+                (=> aws_linked_list_node_next_is_valid@_4_0
+                    (or (<= aws_linked_list_node_next_is_valid@arg.0_0 0)
+                        (> aws_linked_list_node_next_is_valid@%_call_0 0)))
+                (=> aws_linked_list_node_next_is_valid@_4_0
+                    (= aws_linked_list_node_next_is_valid@%_6_0
+                       (select aws_linked_list_node_next_is_valid@%sm_0
+                               aws_linked_list_node_next_is_valid@%_call_0)))
+                (=> aws_linked_list_node_next_is_valid@_4_0
+                    (= aws_linked_list_node_next_is_valid@%_br2_0
+                       (= aws_linked_list_node_next_is_valid@%_6_0 0)))
+                (=> aws_linked_list_node_next_is_valid@_8_0
+                    (and aws_linked_list_node_next_is_valid@_8_0
+                         aws_linked_list_node_next_is_valid@_4_0))
+                (=> (and aws_linked_list_node_next_is_valid@_8_0
+                         aws_linked_list_node_next_is_valid@_4_0)
+                    (not aws_linked_list_node_next_is_valid@%_br2_0))
+                a!2
+                (=> aws_linked_list_node_next_is_valid@_8_0
+                    (or (<= aws_linked_list_node_next_is_valid@%_6_0 0)
+                        (> aws_linked_list_node_next_is_valid@%_call3_0 0)))
+                (=> aws_linked_list_node_next_is_valid@_8_0
+                    (> aws_linked_list_node_next_is_valid@%_6_0 0))
+                (=> aws_linked_list_node_next_is_valid@_8_0
+                    (= aws_linked_list_node_next_is_valid@%_10_0
+                       (select aws_linked_list_node_next_is_valid@%sm1_0
+                               aws_linked_list_node_next_is_valid@%_call3_0)))
+                (=> aws_linked_list_node_next_is_valid@_8_0
+                    (= aws_linked_list_node_next_is_valid@%_br4_0
+                       (= aws_linked_list_node_next_is_valid@%_10_0
+                          aws_linked_list_node_next_is_valid@arg.0_0)))
+                (=> |tuple(aws_linked_list_node_next_is_valid@_4_0, aws_linked_list_node_next_is_valid@_12_0)|
+                    aws_linked_list_node_next_is_valid@_4_0)
+                (=> |tuple(aws_linked_list_node_next_is_valid@_sm_0, aws_linked_list_node_next_is_valid@_12_0)|
+                    aws_linked_list_node_next_is_valid@_sm_0)
+                (=> aws_linked_list_node_next_is_valid@_12_0
+                    (or (and aws_linked_list_node_next_is_valid@_12_0
+                             aws_linked_list_node_next_is_valid@_8_0)
+                        |tuple(aws_linked_list_node_next_is_valid@_4_0, aws_linked_list_node_next_is_valid@_12_0)|
+                        |tuple(aws_linked_list_node_next_is_valid@_sm_0, aws_linked_list_node_next_is_valid@_12_0)|))
+                (=> |tuple(aws_linked_list_node_next_is_valid@_4_0, aws_linked_list_node_next_is_valid@_12_0)|
+                    aws_linked_list_node_next_is_valid@%_br2_0)
+                (=> |tuple(aws_linked_list_node_next_is_valid@_sm_0, aws_linked_list_node_next_is_valid@_12_0)|
+                    aws_linked_list_node_next_is_valid@%_br_0)
+                (=> (and aws_linked_list_node_next_is_valid@_12_0
+                         aws_linked_list_node_next_is_valid@_8_0)
+                    (= aws_linked_list_node_next_is_valid@%_br5_0
+                       aws_linked_list_node_next_is_valid@%_br4_0))
+                (=> |tuple(aws_linked_list_node_next_is_valid@_4_0, aws_linked_list_node_next_is_valid@_12_0)|
+                    (= aws_linked_list_node_next_is_valid@%_br5_1 false))
+                (=> |tuple(aws_linked_list_node_next_is_valid@_sm_0, aws_linked_list_node_next_is_valid@_12_0)|
+                    (= aws_linked_list_node_next_is_valid@%_br5_2 false))
+                (=> (and aws_linked_list_node_next_is_valid@_12_0
+                         aws_linked_list_node_next_is_valid@_8_0)
+                    (= aws_linked_list_node_next_is_valid@%_br5_3
+                       aws_linked_list_node_next_is_valid@%_br5_0))
+                (=> |tuple(aws_linked_list_node_next_is_valid@_4_0, aws_linked_list_node_next_is_valid@_12_0)|
+                    (= aws_linked_list_node_next_is_valid@%_br5_3
+                       aws_linked_list_node_next_is_valid@%_br5_1))
+                (=> |tuple(aws_linked_list_node_next_is_valid@_sm_0, aws_linked_list_node_next_is_valid@_12_0)|
+                    (= aws_linked_list_node_next_is_valid@%_br5_3
+                       aws_linked_list_node_next_is_valid@%_br5_2))
+                (=> aws_linked_list_node_next_is_valid@.split_0
+                    (and aws_linked_list_node_next_is_valid@.split_0
+                         aws_linked_list_node_next_is_valid@_12_0))
+                aws_linked_list_node_next_is_valid@.split_0)))
+  (=> a!3
+      (aws_linked_list_node_next_is_valid@.split
+        aws_linked_list_node_next_is_valid@%sm_0
+        aws_linked_list_node_next_is_valid@%sm1_0
+        aws_linked_list_node_next_is_valid@%_br5_3
+        aws_linked_list_node_next_is_valid@arg.0_0)))))
+(rule (=> (aws_linked_list_node_next_is_valid@.split
+      aws_linked_list_node_next_is_valid@%sm_0
+      aws_linked_list_node_next_is_valid@%sm1_0
+      aws_linked_list_node_next_is_valid@%_br5_0
+      aws_linked_list_node_next_is_valid@arg.0_0)
+    (aws_linked_list_node_next_is_valid
+      true
+      false
+      false
+      aws_linked_list_node_next_is_valid@%sm_0
+      aws_linked_list_node_next_is_valid@%sm_0
+      aws_linked_list_node_next_is_valid@%sm1_0
+      aws_linked_list_node_next_is_valid@%sm1_0
+      aws_linked_list_node_next_is_valid@arg.0_0
+      aws_linked_list_node_next_is_valid@%_br5_0)))
+(rule main@entry)
+(rule (let ((a!1 (and main@entry
+                true
+                (> main@%_0_0 0)
+                (> main@%_1_0 0)
+                (not main@%_2_0)
+                (= main@%_3_0 main@%_0_0)
+                (= main@%_4_0 main@%_1_0)
+                (= main@%_5_0 (+ main@%_0_0 (* 0 8) 4))
+                (or (<= main@%_0_0 0) (> main@%_5_0 0))
+                (> main@%_0_0 0)
+                (= main@%sm_0 (store main@%sm8_0 main@%_5_0 main@%_1_0))
+                (= main@%_6_0 (+ main@%_1_0 (* 0 8) 0))
+                (or (<= main@%_1_0 0) (> main@%_6_0 0))
+                (= main@%sm1_0 (store main@%sm7_0 main@%_6_0 main@%_0_0))
+                (aws_linked_list_prev
+                  true
+                  false
+                  false
+                  main@%sm1_0
+                  main@%sh_0
+                  main@%sm_0
+                  main@%sh2_0
+                  main@%_0_0
+                  main@%_7_0)
+                (aws_linked_list_node_prev_is_valid
+                  true
+                  false
+                  false
+                  main@%sh_0
+                  main@%sh3_0
+                  main@%sh2_0
+                  main@%sh4_0
+                  main@%_0_0
+                  main@%_8_0)
+                (=> main@_9_0 (and main@_9_0 main@entry_0))
+                (=> (and main@_9_0 main@entry_0) main@%_8_0)
+                (aws_linked_list_node_next_is_valid
+                  main@_9_0
+                  false
+                  false
+                  main@%sh3_0
+                  main@%sh5_0
+                  main@%sh4_0
+                  main@%sh6_0
+                  main@%_7_0
+                  main@%_10_0)
+                (=> main@_11_0 (and main@_11_0 main@_9_0))
+                (=> (and main@_11_0 main@_9_0) main@%_10_0)
+                (=> main@_11_0 (= main@%_12_0 (= main@%_7_0 main@%_1_0)))
+                (=> main@_11_0 (not main@%_12_0))
+                (=> |tuple(main@_9_0, main@verifier.error_0)| main@_9_0)
+                (=> |tuple(main@entry_0, main@verifier.error_0)| main@entry_0)
+                (=> main@verifier.error_0
+                    (or |tuple(main@_9_0, main@verifier.error_0)|
+                        |tuple(main@entry_0, main@verifier.error_0)|
+                        (and main@verifier.error_0 main@_11_0)))
+                (=> |tuple(main@_9_0, main@verifier.error_0)| (not main@%_10_0))
+                (=> |tuple(main@entry_0, main@verifier.error_0)|
+                    (not main@%_8_0))
+                (=> main@verifier.error.split_0
+                    (and main@verifier.error.split_0 main@verifier.error_0))
+                main@verifier.error.split_0)))
+  (=> a!1 main@verifier.error.split)))
+(query main@verifier.error.split)
+
