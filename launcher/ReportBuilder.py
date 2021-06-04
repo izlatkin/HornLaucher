@@ -5,7 +5,7 @@ import pickle
 class html_report:
 
     def create_header(table):
-        header_line = "No.,Sourse code / Bit Code / SMT 2, SMT2 status, Z3 run, Logs"
+        header_line = "No.,Sourse code / Bit Code / SMT 2 / LL, SMT2 (# lines), Z3 run, Logs"
         header = header_line.split(",")
         table += "  <tr>\n"
         for column in header:
@@ -25,7 +25,7 @@ class html_report:
         if "smt2" not in ll:
             return "-"
         else:
-            return ll[12]
+            return ll[13]
 
 
     def link_to_log(p):
@@ -36,10 +36,10 @@ class html_report:
     def get_z3_results(p):
         if "z3_error" in p:
             return "timeout"
-        if len(p)>13:
-            if ('sat' in p[14] and 'unsat' not in p[14]):
+        if len(p)>15:
+            if ('sat' in p[16] and 'unsat' not in p[16]):
                 return 'sat'
-            if ('unsat' in p[14]):
+            if ('unsat' in p[16]):
                 return 'unsat'
         else:
             return "-"
@@ -61,9 +61,10 @@ class html_report:
         for line in filein:
             table += "  <tr>\n"
             table += "    <td>{0}</td>\n".format(i)
-            table += "    <td>{0}<br/>{1}<br/>{2}</td>\n".format(html_report.create_hyperlinnk_to_file(line[0]),
+            table += "    <td>{0}<br/>{1}<br/>{2}<br/>{3}</td>\n".format(html_report.create_hyperlinnk_to_file(line[0]),
                                                              html_report.create_hyperlinnk_to_file(line[1]),
-                                                             html_report.create_hyperlinnk_to_file(line[2]))
+                                                             html_report.create_hyperlinnk_to_file(line[2]),
+                                                             html_report.create_hyperlinnk_to_file(line[3]))
             table += "    <td>{0}</td>\n".format(html_report.smt2_status(line))
             table += "    <td>{0}</td>\n".format(html_report.get_z3_results(line))
             table += "    <td>{0}</td>\n".format(html_report.link_to_log(line[0]))
