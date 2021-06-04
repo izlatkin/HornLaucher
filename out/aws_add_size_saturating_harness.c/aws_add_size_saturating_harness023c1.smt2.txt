@@ -1,0 +1,298 @@
+(set-info :original "../out/aws_add_size_saturating_harness.c/aws_add_size_saturating_harness023c1.bc.txt")
+(set-info :authors "SeaHorn v.10.0.0-rc0")
+(declare-rel verifier.error (Bool Bool Bool ))
+(declare-rel aws_add_u64_saturating@_tail (Int Int ))
+(declare-rel aws_add_u64_saturating@.split (Int Int Int ))
+(declare-rel aws_add_u64_saturating (Bool Bool Bool Int Int Int ))
+(declare-rel aws_add_u32_saturating@_tail (Int Int ))
+(declare-rel aws_add_u32_saturating@.split (Int Int Int ))
+(declare-rel aws_add_u32_saturating (Bool Bool Bool Int Int Int ))
+(declare-rel main@entry (Int Int Int ))
+(declare-rel main@verifier.error.split ())
+(declare-var aws_add_u64_saturating@%_4_0 Bool )
+(declare-var aws_add_u64_saturating@arg.1_0 Int )
+(declare-var aws_add_u64_saturating@%_5_0 Int )
+(declare-var aws_add_u64_saturating@%_or.cond_0 Bool )
+(declare-var aws_add_u64_saturating@arg.0_0 Int )
+(declare-var aws_add_u64_saturating@%or.cond_0 Bool )
+(declare-var aws_add_u64_saturating@%_.0_0 Int )
+(declare-var aws_add_u64_saturating@%.0_0 Int )
+(declare-var aws_add_u64_saturating@_tail_0 Bool )
+(declare-var aws_add_u64_saturating@.split_0 Bool )
+(declare-var aws_add_u32_saturating@%_4_0 Bool )
+(declare-var aws_add_u32_saturating@arg.1_0 Int )
+(declare-var aws_add_u32_saturating@%_5_0 Int )
+(declare-var aws_add_u32_saturating@%_or.cond_0 Bool )
+(declare-var aws_add_u32_saturating@arg.0_0 Int )
+(declare-var aws_add_u32_saturating@%or.cond_0 Bool )
+(declare-var aws_add_u32_saturating@%_.0_0 Int )
+(declare-var aws_add_u32_saturating@%.0_0 Int )
+(declare-var aws_add_u32_saturating@_tail_0 Bool )
+(declare-var aws_add_u32_saturating@.split_0 Bool )
+(declare-var main@%_13_0 Bool )
+(declare-var main@%_15_0 Int )
+(declare-var main@%_16_0 Bool )
+(declare-var main@%_4_0 Int )
+(declare-var @nondet_uint64_t_0 Int )
+(declare-var main@%_6_0 Int )
+(declare-var main@%_9_0 Bool )
+(declare-var main@%_10_0 Int )
+(declare-var main@%_11_0 Bool )
+(declare-var main@%or.cond.i_0 Bool )
+(declare-var main@%_27_0 Bool )
+(declare-var main@%_29_0 Int )
+(declare-var main@%_30_0 Bool )
+(declare-var main@%_18_0 Int )
+(declare-var @nondet_uint32_t_0 Int )
+(declare-var main@%_20_0 Int )
+(declare-var main@%_23_0 Bool )
+(declare-var main@%_24_0 Int )
+(declare-var main@%_25_0 Bool )
+(declare-var main@%or.cond3.i_0 Bool )
+(declare-var main@%_0_0 Bool )
+(declare-var main@%_1_0 Int )
+(declare-var @nondet_bool_0 Int )
+(declare-var main@%_2_0 Bool )
+(declare-var main@entry_0 Bool )
+(declare-var main@_17_0 Bool )
+(declare-var main@%_19_0 Int )
+(declare-var main@%_21_0 Int )
+(declare-var main@%_22_0 Int )
+(declare-var main@_28_0 Bool )
+(declare-var main@_26_0 Bool )
+(declare-var main@_3_0 Bool )
+(declare-var main@%_5_0 Int )
+(declare-var main@%_7_0 Int )
+(declare-var main@%_8_0 Int )
+(declare-var main@_14_0 Bool )
+(declare-var main@_12_0 Bool )
+(declare-var main@verifier.error_0 Bool )
+(declare-var main@verifier.error.split_0 Bool )
+(rule (verifier.error false false false))
+(rule (verifier.error false true true))
+(rule (verifier.error true false true))
+(rule (verifier.error true true true))
+(rule (aws_add_u64_saturating
+  true
+  true
+  true
+  aws_add_u64_saturating@arg.0_0
+  aws_add_u64_saturating@arg.1_0
+  aws_add_u64_saturating@%.0_0))
+(rule (aws_add_u64_saturating
+  false
+  true
+  true
+  aws_add_u64_saturating@arg.0_0
+  aws_add_u64_saturating@arg.1_0
+  aws_add_u64_saturating@%.0_0))
+(rule (aws_add_u64_saturating
+  false
+  false
+  false
+  aws_add_u64_saturating@arg.0_0
+  aws_add_u64_saturating@arg.1_0
+  aws_add_u64_saturating@%.0_0))
+(rule (aws_add_u64_saturating@_tail
+  aws_add_u64_saturating@arg.1_0
+  aws_add_u64_saturating@arg.0_0))
+(rule (let ((a!1 (= aws_add_u64_saturating@%_or.cond_0
+              (ite (>= aws_add_u64_saturating@%_5_0 0)
+                   (ite (>= aws_add_u64_saturating@arg.0_0 0)
+                        (< aws_add_u64_saturating@%_5_0
+                           aws_add_u64_saturating@arg.0_0)
+                        true)
+                   (ite (< aws_add_u64_saturating@arg.0_0 0)
+                        (< aws_add_u64_saturating@%_5_0
+                           aws_add_u64_saturating@arg.0_0)
+                        false)))))
+(let ((a!2 (and (aws_add_u64_saturating@_tail
+                  aws_add_u64_saturating@arg.1_0
+                  aws_add_u64_saturating@arg.0_0)
+                true
+                (= aws_add_u64_saturating@%_4_0
+                   (not (= aws_add_u64_saturating@arg.1_0 0)))
+                (= aws_add_u64_saturating@%_5_0
+                   (- (- 1) aws_add_u64_saturating@arg.1_0))
+                a!1
+                (= aws_add_u64_saturating@%or.cond_0
+                   (and aws_add_u64_saturating@%_4_0
+                        aws_add_u64_saturating@%_or.cond_0))
+                (= aws_add_u64_saturating@%_.0_0
+                   (+ aws_add_u64_saturating@arg.1_0
+                      aws_add_u64_saturating@arg.0_0))
+                (= aws_add_u64_saturating@%.0_0
+                   (ite aws_add_u64_saturating@%or.cond_0
+                        (- 1)
+                        aws_add_u64_saturating@%_.0_0))
+                (=> aws_add_u64_saturating@.split_0
+                    (and aws_add_u64_saturating@.split_0
+                         aws_add_u64_saturating@_tail_0))
+                aws_add_u64_saturating@.split_0)))
+  (=> a!2
+      (aws_add_u64_saturating@.split
+        aws_add_u64_saturating@%.0_0
+        aws_add_u64_saturating@arg.1_0
+        aws_add_u64_saturating@arg.0_0)))))
+(rule (=> (aws_add_u64_saturating@.split
+      aws_add_u64_saturating@%.0_0
+      aws_add_u64_saturating@arg.1_0
+      aws_add_u64_saturating@arg.0_0)
+    (aws_add_u64_saturating
+      true
+      false
+      false
+      aws_add_u64_saturating@arg.0_0
+      aws_add_u64_saturating@arg.1_0
+      aws_add_u64_saturating@%.0_0)))
+(rule (aws_add_u32_saturating
+  true
+  true
+  true
+  aws_add_u32_saturating@arg.0_0
+  aws_add_u32_saturating@arg.1_0
+  aws_add_u32_saturating@%.0_0))
+(rule (aws_add_u32_saturating
+  false
+  true
+  true
+  aws_add_u32_saturating@arg.0_0
+  aws_add_u32_saturating@arg.1_0
+  aws_add_u32_saturating@%.0_0))
+(rule (aws_add_u32_saturating
+  false
+  false
+  false
+  aws_add_u32_saturating@arg.0_0
+  aws_add_u32_saturating@arg.1_0
+  aws_add_u32_saturating@%.0_0))
+(rule (aws_add_u32_saturating@_tail
+  aws_add_u32_saturating@arg.1_0
+  aws_add_u32_saturating@arg.0_0))
+(rule (let ((a!1 (= aws_add_u32_saturating@%_or.cond_0
+              (ite (>= aws_add_u32_saturating@%_5_0 0)
+                   (ite (>= aws_add_u32_saturating@arg.0_0 0)
+                        (< aws_add_u32_saturating@%_5_0
+                           aws_add_u32_saturating@arg.0_0)
+                        true)
+                   (ite (< aws_add_u32_saturating@arg.0_0 0)
+                        (< aws_add_u32_saturating@%_5_0
+                           aws_add_u32_saturating@arg.0_0)
+                        false)))))
+(let ((a!2 (and (aws_add_u32_saturating@_tail
+                  aws_add_u32_saturating@arg.1_0
+                  aws_add_u32_saturating@arg.0_0)
+                true
+                (= aws_add_u32_saturating@%_4_0
+                   (not (= aws_add_u32_saturating@arg.1_0 0)))
+                (= aws_add_u32_saturating@%_5_0
+                   (- (- 1) aws_add_u32_saturating@arg.1_0))
+                a!1
+                (= aws_add_u32_saturating@%or.cond_0
+                   (and aws_add_u32_saturating@%_4_0
+                        aws_add_u32_saturating@%_or.cond_0))
+                (= aws_add_u32_saturating@%_.0_0
+                   (+ aws_add_u32_saturating@arg.1_0
+                      aws_add_u32_saturating@arg.0_0))
+                (= aws_add_u32_saturating@%.0_0
+                   (ite aws_add_u32_saturating@%or.cond_0
+                        (- 1)
+                        aws_add_u32_saturating@%_.0_0))
+                (=> aws_add_u32_saturating@.split_0
+                    (and aws_add_u32_saturating@.split_0
+                         aws_add_u32_saturating@_tail_0))
+                aws_add_u32_saturating@.split_0)))
+  (=> a!2
+      (aws_add_u32_saturating@.split
+        aws_add_u32_saturating@%.0_0
+        aws_add_u32_saturating@arg.1_0
+        aws_add_u32_saturating@arg.0_0)))))
+(rule (=> (aws_add_u32_saturating@.split
+      aws_add_u32_saturating@%.0_0
+      aws_add_u32_saturating@arg.1_0
+      aws_add_u32_saturating@arg.0_0)
+    (aws_add_u32_saturating
+      true
+      false
+      false
+      aws_add_u32_saturating@arg.0_0
+      aws_add_u32_saturating@arg.1_0
+      aws_add_u32_saturating@%.0_0)))
+(rule (main@entry @nondet_uint64_t_0 @nondet_uint32_t_0 @nondet_bool_0))
+(rule (let ((a!1 (=> main@_17_0 (= main@%_23_0 (not (= main@%_21_0 0)))))
+      (a!2 (= main@%_25_0
+              (ite (>= main@%_24_0 0)
+                   (ite (>= main@%_19_0 0) (< main@%_24_0 main@%_19_0) true)
+                   (ite (< main@%_19_0 0) (< main@%_24_0 main@%_19_0) false))))
+      (a!3 (=> main@_3_0 (= main@%_9_0 (not (= main@%_7_0 0)))))
+      (a!4 (= main@%_11_0
+              (ite (>= main@%_10_0 0)
+                   (ite (>= main@%_5_0 0) (< main@%_10_0 main@%_5_0) true)
+                   (ite (< main@%_5_0 0) (< main@%_10_0 main@%_5_0) false)))))
+(let ((a!5 (and (main@entry @nondet_uint64_t_0
+                            @nondet_uint32_t_0
+                            @nondet_bool_0)
+                true
+                (not main@%_0_0)
+                (= main@%_1_0 @nondet_bool_0)
+                (=> main@_17_0 (and main@_17_0 main@entry_0))
+                (=> (and main@_17_0 main@entry_0) (not main@%_2_0))
+                (=> main@_17_0 (= main@%_18_0 @nondet_uint32_t_0))
+                (=> main@_17_0 (= main@%_20_0 @nondet_uint32_t_0))
+                (aws_add_u32_saturating
+                  main@_17_0
+                  false
+                  false
+                  main@%_19_0
+                  main@%_21_0
+                  main@%_22_0)
+                a!1
+                (=> main@_17_0 (= main@%_24_0 (- (- 1) main@%_21_0)))
+                (=> main@_17_0 a!2)
+                (=> main@_17_0
+                    (= main@%or.cond3.i_0 (and main@%_23_0 main@%_25_0)))
+                (=> main@_28_0 (and main@_28_0 main@_17_0))
+                (=> (and main@_28_0 main@_17_0) (not main@%or.cond3.i_0))
+                (=> main@_28_0 (= main@%_29_0 (+ main@%_21_0 main@%_19_0)))
+                (=> main@_28_0 (= main@%_30_0 (= main@%_22_0 main@%_29_0)))
+                (=> main@_28_0 (not main@%_30_0))
+                (=> main@_26_0 (and main@_26_0 main@_17_0))
+                (=> (and main@_26_0 main@_17_0) main@%or.cond3.i_0)
+                (=> main@_26_0 (= main@%_27_0 (= main@%_22_0 (- 1))))
+                (=> main@_26_0 (not main@%_27_0))
+                (=> main@_3_0 (and main@_3_0 main@entry_0))
+                (=> (and main@_3_0 main@entry_0) main@%_2_0)
+                (=> main@_3_0 (= main@%_4_0 @nondet_uint64_t_0))
+                (=> main@_3_0 (= main@%_6_0 @nondet_uint64_t_0))
+                (aws_add_u64_saturating
+                  main@_3_0
+                  false
+                  false
+                  main@%_5_0
+                  main@%_7_0
+                  main@%_8_0)
+                a!3
+                (=> main@_3_0 (= main@%_10_0 (- (- 1) main@%_7_0)))
+                (=> main@_3_0 a!4)
+                (=> main@_3_0
+                    (= main@%or.cond.i_0 (and main@%_9_0 main@%_11_0)))
+                (=> main@_14_0 (and main@_14_0 main@_3_0))
+                (=> (and main@_14_0 main@_3_0) (not main@%or.cond.i_0))
+                (=> main@_14_0 (= main@%_15_0 (+ main@%_7_0 main@%_5_0)))
+                (=> main@_14_0 (= main@%_16_0 (= main@%_8_0 main@%_15_0)))
+                (=> main@_14_0 (not main@%_16_0))
+                (=> main@_12_0 (and main@_12_0 main@_3_0))
+                (=> (and main@_12_0 main@_3_0) main@%or.cond.i_0)
+                (=> main@_12_0 (= main@%_13_0 (= main@%_8_0 (- 1))))
+                (=> main@_12_0 (not main@%_13_0))
+                (=> main@verifier.error_0
+                    (or (and main@verifier.error_0 main@_28_0)
+                        (and main@verifier.error_0 main@_26_0)
+                        (and main@verifier.error_0 main@_14_0)
+                        (and main@verifier.error_0 main@_12_0)))
+                (=> main@verifier.error.split_0
+                    (and main@verifier.error.split_0 main@verifier.error_0))
+                main@verifier.error.split_0)))
+  (=> a!5 main@verifier.error.split))))
+(query main@verifier.error.split)
+

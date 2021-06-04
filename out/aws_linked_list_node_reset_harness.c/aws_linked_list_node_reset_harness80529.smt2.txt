@@ -1,0 +1,169 @@
+(set-info :original "../out/aws_linked_list_node_reset_harness.c/aws_linked_list_node_reset_harness80529.bc.txt")
+(set-info :authors "SeaHorn v.10.0.0-rc0")
+(declare-rel verifier.error (Bool Bool Bool ))
+(declare-rel aws_linked_list_node_reset@_sm1 ((Array Int Int) Int ))
+(declare-rel aws_linked_list_node_reset@.split ((Array Int Int) (Array Int Int) Int ))
+(declare-rel aws_linked_list_node_reset (Bool Bool Bool (Array Int Int) (Array Int Int) Int ))
+(declare-rel aws_is_mem_zeroed@_sm ((Array Int Int) Int ))
+(declare-rel aws_is_mem_zeroed@.split ((Array Int Int) Bool Int ))
+(declare-rel aws_is_mem_zeroed (Bool Bool Bool (Array Int Int) (Array Int Int) Int Bool ))
+(declare-rel main@entry ())
+(declare-rel main@entry.split ())
+(declare-var aws_linked_list_node_reset@%_sm_0 Int )
+(declare-var aws_linked_list_node_reset@arg.0_0 Int )
+(declare-var aws_linked_list_node_reset@%sm1_0 (Array Int Int) )
+(declare-var aws_linked_list_node_reset@%sm_0 (Array Int Int) )
+(declare-var aws_linked_list_node_reset@_sm1_0 Bool )
+(declare-var aws_linked_list_node_reset@.split_0 Bool )
+(declare-var aws_is_mem_zeroed@%_call_0 Int )
+(declare-var aws_is_mem_zeroed@arg.0_0 Int )
+(declare-var aws_is_mem_zeroed@%_4_0 Int )
+(declare-var aws_is_mem_zeroed@%sm_0 (Array Int Int) )
+(declare-var aws_is_mem_zeroed@%_br_0 Bool )
+(declare-var aws_is_mem_zeroed@_sm_0 Bool )
+(declare-var aws_is_mem_zeroed@.split_0 Bool )
+(declare-var main@%sm_0 (Array Int Int) )
+(declare-var main@%_0_0 Int )
+(declare-var main@%_1_0 Bool )
+(declare-var main@%_2_0 Int )
+(declare-var main@%sh_0 (Array Int Int) )
+(declare-var main@%sh1_0 (Array Int Int) )
+(declare-var main@%_3_0 Bool )
+(declare-var main@entry_0 Bool )
+(declare-var main@entry.split_0 Bool )
+(rule (verifier.error false false false))
+(rule (verifier.error false true true))
+(rule (verifier.error true false true))
+(rule (verifier.error true true true))
+(rule (aws_linked_list_node_reset
+  true
+  true
+  true
+  aws_linked_list_node_reset@%sm1_0
+  aws_linked_list_node_reset@%sm_0
+  aws_linked_list_node_reset@arg.0_0))
+(rule (aws_linked_list_node_reset
+  false
+  true
+  true
+  aws_linked_list_node_reset@%sm1_0
+  aws_linked_list_node_reset@%sm_0
+  aws_linked_list_node_reset@arg.0_0))
+(rule (aws_linked_list_node_reset
+  false
+  false
+  false
+  aws_linked_list_node_reset@%sm1_0
+  aws_linked_list_node_reset@%sm_0
+  aws_linked_list_node_reset@arg.0_0))
+(rule (aws_linked_list_node_reset@_sm1
+  aws_linked_list_node_reset@%sm1_0
+  aws_linked_list_node_reset@arg.0_0))
+(rule (=> (and (aws_linked_list_node_reset@_sm1
+           aws_linked_list_node_reset@%sm1_0
+           aws_linked_list_node_reset@arg.0_0)
+         true
+         (= aws_linked_list_node_reset@%_sm_0
+            aws_linked_list_node_reset@arg.0_0)
+         (= aws_linked_list_node_reset@%sm_0
+            (store aws_linked_list_node_reset@%sm1_0
+                   aws_linked_list_node_reset@%_sm_0
+                   0))
+         (=> aws_linked_list_node_reset@.split_0
+             (and aws_linked_list_node_reset@.split_0
+                  aws_linked_list_node_reset@_sm1_0))
+         aws_linked_list_node_reset@.split_0)
+    (aws_linked_list_node_reset@.split
+      aws_linked_list_node_reset@%sm1_0
+      aws_linked_list_node_reset@%sm_0
+      aws_linked_list_node_reset@arg.0_0)))
+(rule (=> (aws_linked_list_node_reset@.split
+      aws_linked_list_node_reset@%sm1_0
+      aws_linked_list_node_reset@%sm_0
+      aws_linked_list_node_reset@arg.0_0)
+    (aws_linked_list_node_reset
+      true
+      false
+      false
+      aws_linked_list_node_reset@%sm1_0
+      aws_linked_list_node_reset@%sm_0
+      aws_linked_list_node_reset@arg.0_0)))
+(rule (aws_is_mem_zeroed
+  true
+  true
+  true
+  aws_is_mem_zeroed@%sm_0
+  aws_is_mem_zeroed@%sm_0
+  aws_is_mem_zeroed@arg.0_0
+  aws_is_mem_zeroed@%_br_0))
+(rule (aws_is_mem_zeroed
+  false
+  true
+  true
+  aws_is_mem_zeroed@%sm_0
+  aws_is_mem_zeroed@%sm_0
+  aws_is_mem_zeroed@arg.0_0
+  aws_is_mem_zeroed@%_br_0))
+(rule (aws_is_mem_zeroed
+  false
+  false
+  false
+  aws_is_mem_zeroed@%sm_0
+  aws_is_mem_zeroed@%sm_0
+  aws_is_mem_zeroed@arg.0_0
+  aws_is_mem_zeroed@%_br_0))
+(rule (aws_is_mem_zeroed@_sm aws_is_mem_zeroed@%sm_0 aws_is_mem_zeroed@arg.0_0))
+(rule (=> (and (aws_is_mem_zeroed@_sm
+           aws_is_mem_zeroed@%sm_0
+           aws_is_mem_zeroed@arg.0_0)
+         true
+         (= aws_is_mem_zeroed@%_call_0 aws_is_mem_zeroed@arg.0_0)
+         (= aws_is_mem_zeroed@%_4_0
+            (select aws_is_mem_zeroed@%sm_0 aws_is_mem_zeroed@%_call_0))
+         (= aws_is_mem_zeroed@%_br_0 (= aws_is_mem_zeroed@%_4_0 0))
+         (=> aws_is_mem_zeroed@.split_0
+             (and aws_is_mem_zeroed@.split_0 aws_is_mem_zeroed@_sm_0))
+         aws_is_mem_zeroed@.split_0)
+    (aws_is_mem_zeroed@.split
+      aws_is_mem_zeroed@%sm_0
+      aws_is_mem_zeroed@%_br_0
+      aws_is_mem_zeroed@arg.0_0)))
+(rule (=> (aws_is_mem_zeroed@.split
+      aws_is_mem_zeroed@%sm_0
+      aws_is_mem_zeroed@%_br_0
+      aws_is_mem_zeroed@arg.0_0)
+    (aws_is_mem_zeroed
+      true
+      false
+      false
+      aws_is_mem_zeroed@%sm_0
+      aws_is_mem_zeroed@%sm_0
+      aws_is_mem_zeroed@arg.0_0
+      aws_is_mem_zeroed@%_br_0)))
+(rule main@entry)
+(rule (=> (and main@entry
+         true
+         (> main@%_0_0 0)
+         (not main@%_1_0)
+         (= main@%_2_0 main@%_0_0)
+         (aws_linked_list_node_reset
+           true
+           false
+           false
+           main@%sm_0
+           main@%sh_0
+           main@%_0_0)
+         (aws_is_mem_zeroed
+           true
+           false
+           false
+           main@%sh_0
+           main@%sh1_0
+           main@%_2_0
+           main@%_3_0)
+         (not main@%_3_0)
+         (=> main@entry.split_0 (and main@entry.split_0 main@entry_0))
+         main@entry.split_0)
+    main@entry.split))
+(query main@entry.split)
+

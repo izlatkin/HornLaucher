@@ -1,0 +1,4 @@
+(set-info :original "../out/ring_buffer.c/ring_buffer675e3.bc.txt")
+(set-info :authors "SeaHorn v.10.0.0-rc0")
+(query false)
+

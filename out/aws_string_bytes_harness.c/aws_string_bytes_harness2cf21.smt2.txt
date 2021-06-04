@@ -1,0 +1,232 @@
+(set-info :original "../out/aws_string_bytes_harness.c/aws_string_bytes_harness2cf21.bc.txt")
+(set-info :authors "SeaHorn v.10.0.0-rc0")
+(declare-rel verifier.error (Bool Bool Bool ))
+(declare-rel aws_string_is_valid@_sm ((Array Int Int) Int ))
+(declare-rel aws_string_is_valid@.split ((Array Int Int) Bool Int ))
+(declare-rel aws_string_is_valid (Bool Bool Bool (Array Int Int) Int Bool ))
+(declare-rel aws_string_bytes@_sm ((Array Int Int) Int ))
+(declare-rel aws_string_bytes@.split ((Array Int Int) Int Int ))
+(declare-rel aws_string_bytes (Bool Bool Bool (Array Int Int) Int Int ))
+(declare-rel main@entry (Int ))
+(declare-rel main@verifier.error.split ())
+(declare-var aws_string_is_valid@%_call_0 Int )
+(declare-var aws_string_is_valid@%_6_0 Int )
+(declare-var aws_string_is_valid@%_call1_0 Int )
+(declare-var aws_string_is_valid@%_8_0 Int )
+(declare-var aws_string_is_valid@%_br_0 Bool )
+(declare-var aws_string_is_valid@%_br3_2 Bool )
+(declare-var aws_string_is_valid@%sm_0 (Array Int Int) )
+(declare-var aws_string_is_valid@arg.0_0 Int )
+(declare-var aws_string_is_valid@%_br3_0 Bool )
+(declare-var aws_string_is_valid@_sm_0 Bool )
+(declare-var aws_string_is_valid@_4_0 Bool )
+(declare-var aws_string_is_valid@%_br2_0 Bool )
+(declare-var aws_string_is_valid@_10_0 Bool )
+(declare-var |tuple(aws_string_is_valid@_sm_0, aws_string_is_valid@_10_0)| Bool )
+(declare-var aws_string_is_valid@%_br3_1 Bool )
+(declare-var aws_string_is_valid@.split_0 Bool )
+(declare-var aws_string_bytes@%sm_0 (Array Int Int) )
+(declare-var aws_string_bytes@arg.0_0 Int )
+(declare-var aws_string_bytes@%_br_0 Int )
+(declare-var aws_string_bytes@_sm_0 Bool )
+(declare-var aws_string_bytes@.split_0 Bool )
+(declare-var main@%_8_0 Bool )
+(declare-var main@%_0_0 Bool )
+(declare-var main@%_1_0 Int )
+(declare-var @ensure_string_is_allocated_nondet_length_0 Int )
+(declare-var main@%_3_0 Bool )
+(declare-var main@%_4_0 Int )
+(declare-var main@%_5_0 Int )
+(declare-var main@%_6_0 Bool )
+(declare-var main@entry_0 Bool )
+(declare-var main@%sm_0 (Array Int Int) )
+(declare-var main@%_2_0 Int )
+(declare-var main@_7_0 Bool )
+(declare-var main@verifier.error_0 Bool )
+(declare-var |tuple(main@entry_0, main@verifier.error_0)| Bool )
+(declare-var main@verifier.error.split_0 Bool )
+(rule (verifier.error false false false))
+(rule (verifier.error false true true))
+(rule (verifier.error true false true))
+(rule (verifier.error true true true))
+(rule (aws_string_is_valid
+  true
+  true
+  true
+  aws_string_is_valid@%sm_0
+  aws_string_is_valid@arg.0_0
+  aws_string_is_valid@%_br3_0))
+(rule (aws_string_is_valid
+  false
+  true
+  true
+  aws_string_is_valid@%sm_0
+  aws_string_is_valid@arg.0_0
+  aws_string_is_valid@%_br3_0))
+(rule (aws_string_is_valid
+  false
+  false
+  false
+  aws_string_is_valid@%sm_0
+  aws_string_is_valid@arg.0_0
+  aws_string_is_valid@%_br3_0))
+(rule (aws_string_is_valid@_sm aws_string_is_valid@%sm_0 aws_string_is_valid@arg.0_0))
+(rule (let ((a!1 (= aws_string_is_valid@%_call_0
+              (+ (+ aws_string_is_valid@arg.0_0 (* 0 12)) 4)))
+      (a!2 (= aws_string_is_valid@%_call1_0
+              (+ (+ aws_string_is_valid@arg.0_0 (* 0 12))
+                 8
+                 (* aws_string_is_valid@%_6_0 1)))))
+(let ((a!3 (and (aws_string_is_valid@_sm
+                  aws_string_is_valid@%sm_0
+                  aws_string_is_valid@arg.0_0)
+                true
+                (= aws_string_is_valid@%_br_0 (= aws_string_is_valid@arg.0_0 0))
+                (=> aws_string_is_valid@_4_0
+                    (and aws_string_is_valid@_4_0 aws_string_is_valid@_sm_0))
+                (=> (and aws_string_is_valid@_4_0 aws_string_is_valid@_sm_0)
+                    (not aws_string_is_valid@%_br_0))
+                (=> aws_string_is_valid@_4_0 a!1)
+                (=> aws_string_is_valid@_4_0
+                    (or (<= aws_string_is_valid@arg.0_0 0)
+                        (> aws_string_is_valid@%_call_0 0)))
+                (=> aws_string_is_valid@_4_0 (> aws_string_is_valid@arg.0_0 0))
+                (=> aws_string_is_valid@_4_0
+                    (= aws_string_is_valid@%_6_0
+                       (select aws_string_is_valid@%sm_0
+                               aws_string_is_valid@%_call_0)))
+                (=> aws_string_is_valid@_4_0 a!2)
+                (=> aws_string_is_valid@_4_0
+                    (or (<= aws_string_is_valid@arg.0_0 0)
+                        (> aws_string_is_valid@%_call1_0 0)))
+                (=> aws_string_is_valid@_4_0 (> aws_string_is_valid@arg.0_0 0))
+                (=> aws_string_is_valid@_4_0
+                    (= aws_string_is_valid@%_8_0
+                       (select aws_string_is_valid@%sm_0
+                               aws_string_is_valid@%_call1_0)))
+                (=> aws_string_is_valid@_4_0
+                    (= aws_string_is_valid@%_br2_0
+                       (= aws_string_is_valid@%_8_0 0)))
+                (=> |tuple(aws_string_is_valid@_sm_0, aws_string_is_valid@_10_0)|
+                    aws_string_is_valid@_sm_0)
+                (=> aws_string_is_valid@_10_0
+                    (or (and aws_string_is_valid@_10_0 aws_string_is_valid@_4_0)
+                        |tuple(aws_string_is_valid@_sm_0, aws_string_is_valid@_10_0)|))
+                (=> |tuple(aws_string_is_valid@_sm_0, aws_string_is_valid@_10_0)|
+                    aws_string_is_valid@%_br_0)
+                (=> (and aws_string_is_valid@_10_0 aws_string_is_valid@_4_0)
+                    (= aws_string_is_valid@%_br3_0 aws_string_is_valid@%_br2_0))
+                (=> |tuple(aws_string_is_valid@_sm_0, aws_string_is_valid@_10_0)|
+                    (= aws_string_is_valid@%_br3_1 false))
+                (=> (and aws_string_is_valid@_10_0 aws_string_is_valid@_4_0)
+                    (= aws_string_is_valid@%_br3_2 aws_string_is_valid@%_br3_0))
+                (=> |tuple(aws_string_is_valid@_sm_0, aws_string_is_valid@_10_0)|
+                    (= aws_string_is_valid@%_br3_2 aws_string_is_valid@%_br3_1))
+                (=> aws_string_is_valid@.split_0
+                    (and aws_string_is_valid@.split_0 aws_string_is_valid@_10_0))
+                aws_string_is_valid@.split_0)))
+  (=> a!3
+      (aws_string_is_valid@.split
+        aws_string_is_valid@%sm_0
+        aws_string_is_valid@%_br3_2
+        aws_string_is_valid@arg.0_0)))))
+(rule (=> (aws_string_is_valid@.split
+      aws_string_is_valid@%sm_0
+      aws_string_is_valid@%_br3_0
+      aws_string_is_valid@arg.0_0)
+    (aws_string_is_valid
+      true
+      false
+      false
+      aws_string_is_valid@%sm_0
+      aws_string_is_valid@arg.0_0
+      aws_string_is_valid@%_br3_0)))
+(rule (aws_string_bytes true
+                  true
+                  true
+                  aws_string_bytes@%sm_0
+                  aws_string_bytes@arg.0_0
+                  aws_string_bytes@%_br_0))
+(rule (aws_string_bytes false
+                  true
+                  true
+                  aws_string_bytes@%sm_0
+                  aws_string_bytes@arg.0_0
+                  aws_string_bytes@%_br_0))
+(rule (aws_string_bytes false
+                  false
+                  false
+                  aws_string_bytes@%sm_0
+                  aws_string_bytes@arg.0_0
+                  aws_string_bytes@%_br_0))
+(rule (aws_string_bytes@_sm aws_string_bytes@%sm_0 aws_string_bytes@arg.0_0))
+(rule (let ((a!1 (and (aws_string_bytes@_sm
+                  aws_string_bytes@%sm_0
+                  aws_string_bytes@arg.0_0)
+                true
+                (= aws_string_bytes@%_br_0
+                   (+ aws_string_bytes@arg.0_0 (* 0 12) 8 (* 0 1)))
+                (or (<= aws_string_bytes@arg.0_0 0)
+                    (> aws_string_bytes@%_br_0 0))
+                (=> aws_string_bytes@.split_0
+                    (and aws_string_bytes@.split_0 aws_string_bytes@_sm_0))
+                aws_string_bytes@.split_0)))
+  (=> a!1
+      (aws_string_bytes@.split
+        aws_string_bytes@%sm_0
+        aws_string_bytes@%_br_0
+        aws_string_bytes@arg.0_0))))
+(rule (=> (aws_string_bytes@.split
+      aws_string_bytes@%sm_0
+      aws_string_bytes@%_br_0
+      aws_string_bytes@arg.0_0)
+    (aws_string_bytes true
+                      false
+                      false
+                      aws_string_bytes@%sm_0
+                      aws_string_bytes@arg.0_0
+                      aws_string_bytes@%_br_0)))
+(rule (main@entry @ensure_string_is_allocated_nondet_length_0))
+(rule (let ((a!1 (and (main@entry @ensure_string_is_allocated_nondet_length_0)
+                true
+                (not main@%_0_0)
+                (= main@%_1_0 @ensure_string_is_allocated_nondet_length_0)
+                (aws_string_is_valid
+                  true
+                  false
+                  false
+                  main@%sm_0
+                  main@%_2_0
+                  main@%_3_0)
+                main@%_3_0
+                (aws_string_bytes true
+                                  false
+                                  false
+                                  main@%sm_0
+                                  main@%_2_0
+                                  main@%_4_0)
+                (= main@%_5_0 (+ main@%_2_0 (* 0 12) 8 (* 0 1)))
+                (or (<= main@%_2_0 0) (> main@%_5_0 0))
+                (= main@%_6_0 (= main@%_4_0 main@%_5_0))
+                (=> main@_7_0 (and main@_7_0 main@entry_0))
+                (=> (and main@_7_0 main@entry_0) main@%_6_0)
+                (aws_string_is_valid
+                  main@_7_0
+                  false
+                  false
+                  main@%sm_0
+                  main@%_2_0
+                  main@%_8_0)
+                (=> main@_7_0 (not main@%_8_0))
+                (=> |tuple(main@entry_0, main@verifier.error_0)| main@entry_0)
+                (=> main@verifier.error_0
+                    (or |tuple(main@entry_0, main@verifier.error_0)|
+                        (and main@verifier.error_0 main@_7_0)))
+                (=> |tuple(main@entry_0, main@verifier.error_0)|
+                    (not main@%_6_0))
+                (=> main@verifier.error.split_0
+                    (and main@verifier.error.split_0 main@verifier.error_0))
+                main@verifier.error.split_0)))
+  (=> a!1 main@verifier.error.split)))
+(query main@verifier.error.split)
+

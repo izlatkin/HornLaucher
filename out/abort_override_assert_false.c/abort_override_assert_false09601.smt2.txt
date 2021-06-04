@@ -1,0 +1,4 @@
+(set-info :original "../out/abort_override_assert_false.c/abort_override_assert_false09601.bc.txt")
+(set-info :authors "SeaHorn v.10.0.0-rc0")
+(query false)
+
