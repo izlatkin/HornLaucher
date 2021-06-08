@@ -10,8 +10,8 @@ target triple = "i386-apple-macosx11.0.0"
 %struct.aws_string = type { %struct.aws_allocator*, i32, [1 x i8] }
 
 @default_allocator = internal global %struct.aws_allocator { i8* (%struct.aws_allocator*, i32)* @s_default_malloc, void (%struct.aws_allocator*, i8*)* @s_default_free, i8* (%struct.aws_allocator*, i8*, i32, i32)* @s_default_realloc, i8* (%struct.aws_allocator*, i32, i32)* @s_default_calloc, i8* null }, align 8
-@s_null_terminator_cursor = internal unnamed_addr global %struct.aws_byte_cursor { i32 1, i8* getelementptr inbounds ([2 x i8], [2 x i8]* @.str.4.14, i32 0, i32 0) }, align 8
-@.str.4.14 = private unnamed_addr constant [2 x i8] zeroinitializer, align 1
+@s_null_terminator_cursor = internal unnamed_addr global %struct.aws_byte_cursor { i32 1, i8* getelementptr inbounds ([2 x i8], [2 x i8]* @.str.4.26, i32 0, i32 0) }, align 8
+@.str.4.26 = private unnamed_addr constant [2 x i8] zeroinitializer, align 1
 @s_common_log_subject_list = internal unnamed_addr global %struct.aws_log_subject_info_list { %struct.aws_log_subject_info* getelementptr inbounds ([5 x %struct.aws_log_subject_info], [5 x %struct.aws_log_subject_info]* @s_common_log_subject_infos, i32 0, i32 0), i32 5 }, align 8
 @s_common_log_subject_infos = internal global [5 x %struct.aws_log_subject_info] [%struct.aws_log_subject_info { i32 0, i8* getelementptr inbounds ([13 x i8], [13 x i8]* @.str.26, i32 0, i32 0), i8* getelementptr inbounds ([80 x i8], [80 x i8]* @.str.175, i32 0, i32 0) }, %struct.aws_log_subject_info { i32 1, i8* getelementptr inbounds ([15 x i8], [15 x i8]* @.str.176, i32 0, i32 0), i8* getelementptr inbounds ([53 x i8], [53 x i8]* @.str.177, i32 0, i32 0) }, %struct.aws_log_subject_info { i32 2, i8* getelementptr inbounds ([7 x i8], [7 x i8]* @.str.178, i32 0, i32 0), i8* getelementptr inbounds ([46 x i8], [46 x i8]* @.str.179, i32 0, i32 0) }, %struct.aws_log_subject_info { i32 3, i8* getelementptr inbounds ([9 x i8], [9 x i8]* @.str.180, i32 0, i32 0), i8* getelementptr inbounds ([44 x i8], [44 x i8]* @.str.181, i32 0, i32 0) }, %struct.aws_log_subject_info { i32 4, i8* getelementptr inbounds ([11 x i8], [11 x i8]* @.str.182, i32 0, i32 0), i8* getelementptr inbounds ([41 x i8], [41 x i8]* @.str.183, i32 0, i32 0) }], align 4
 @.str.26 = private unnamed_addr constant [13 x i8] c"aws-c-common\00", align 1
@@ -28,8 +28,6 @@ target triple = "i386-apple-macosx11.0.0"
 
 ; Function Attrs: argmemonly nounwind willreturn
 declare void @llvm.lifetime.start.p0i8(i64 immarg, i8* nocapture) #0
-
-declare %struct.aws_string* @aws_string_new_from_array(%struct.aws_allocator*, i8*, i32) local_unnamed_addr #1
 
 declare void @assert_bytes_match(i8*, i8*, i32) local_unnamed_addr #1
 
@@ -161,6 +159,62 @@ declare void @free(i8* nocapture) local_unnamed_addr #4
 ; Function Attrs: nofree
 declare i32 @posix_memalign(i8**, i32, i32) local_unnamed_addr #5
 
+; Function Attrs: nounwind ssp uwtable
+define internal fastcc %struct.aws_string* @aws_string_new_from_array(i8* %0, i32 %1) unnamed_addr #3 {
+  tail call void @seahorn.fn.enter() #9
+  tail call void @seahorn.fn.enter() #9
+  tail call void @seahorn.fn.enter() #9
+  %3 = icmp ugt i32 %1, -14
+  br i1 %3, label %aws_add_size_checked.44.exit, label %4
+
+aws_add_size_checked.44.exit:                     ; preds = %2
+  tail call void @seahorn.fn.enter() #9
+  tail call void @seahorn.fn.enter() #9
+  br label %21
+
+4:                                                ; preds = %2
+  %5 = add nuw i32 %1, 13
+  tail call void @seahorn.fn.enter() #9
+  tail call void @verifier.assume.not(i1 false) #9
+  %6 = load i8* (%struct.aws_allocator*, i32)*, i8* (%struct.aws_allocator*, i32)** getelementptr inbounds (%struct.aws_allocator, %struct.aws_allocator* @default_allocator, i32 0, i32 0), align 8, !tbaa !13
+  %7 = icmp eq i8* (%struct.aws_allocator*, i32)* %6, null
+  tail call void @verifier.assume.not(i1 %7) #9
+  tail call void @verifier.assume.not(i1 false) #9
+  %8 = tail call i8* %6(%struct.aws_allocator* nonnull @default_allocator, i32 %5) #9
+  %9 = icmp eq i8* %8, null
+  br i1 %9, label %aws_mem_acquire.exit.thread, label %10
+
+aws_mem_acquire.exit.thread:                      ; preds = %4
+  tail call void @seahorn.fn.enter() #9
+  tail call void @seahorn.fn.enter() #9
+  br label %21
+
+10:                                               ; preds = %4
+  %11 = bitcast i8* %8 to %struct.aws_string*
+  %12 = bitcast i8* %8 to %struct.aws_allocator**
+  store %struct.aws_allocator* @default_allocator, %struct.aws_allocator** %12, align 4, !tbaa !12
+  %13 = getelementptr inbounds i8, i8* %8, i32 4
+  %14 = bitcast i8* %13 to i32*
+  store i32 %1, i32* %14, align 4, !tbaa !15
+  %15 = icmp eq i32 %1, 0
+  br i1 %15, label %18, label %16
+
+16:                                               ; preds = %10
+  %17 = getelementptr inbounds i8, i8* %8, i32 8
+  call void @llvm.memcpy.p0i8.p0i8.i32(i8* nonnull align 1 %17, i8* align 1 %0, i32 %1, i1 false) #9
+  br label %18
+
+18:                                               ; preds = %16, %10
+  %19 = getelementptr inbounds i8, i8* %8, i32 8
+  %20 = getelementptr inbounds i8, i8* %19, i32 %1
+  store i8 0, i8* %20, align 1, !tbaa !11
+  br label %21
+
+21:                                               ; preds = %aws_mem_acquire.exit.thread, %aws_add_size_checked.44.exit, %18
+  %.1 = phi %struct.aws_string* [ null, %aws_add_size_checked.44.exit ], [ %11, %18 ], [ null, %aws_mem_acquire.exit.thread ]
+  ret %struct.aws_string* %.1
+}
+
 ; Function Attrs: inaccessiblememonly nofree norecurse nounwind
 declare void @verifier.assume(i1) #6
 
@@ -176,7 +230,7 @@ declare void @verifier.error() #7
 ; Function Attrs: inaccessiblememonly
 declare void @seahorn.fn.enter() local_unnamed_addr #8
 
-declare i32 @verifier.nondet.22() local_unnamed_addr
+declare i32 @verifier.nondet.24() local_unnamed_addr
 
 define i32 @main() local_unnamed_addr {
 entry:
@@ -186,24 +240,24 @@ entry:
   store i8* (%struct.aws_allocator*, i32, i32)* @s_default_calloc, i8* (%struct.aws_allocator*, i32, i32)** getelementptr inbounds (%struct.aws_allocator, %struct.aws_allocator* @default_allocator, i32 0, i32 3), align 4
   store i8* null, i8** getelementptr inbounds (%struct.aws_allocator, %struct.aws_allocator* @default_allocator, i32 0, i32 4), align 8
   store i32 1, i32* getelementptr inbounds (%struct.aws_byte_cursor, %struct.aws_byte_cursor* @s_null_terminator_cursor, i32 0, i32 0), align 8
-  store i8* getelementptr inbounds ([2 x i8], [2 x i8]* @.str.4.14, i32 0, i32 0), i8** getelementptr inbounds (%struct.aws_byte_cursor, %struct.aws_byte_cursor* @s_null_terminator_cursor, i32 0, i32 1), align 4
+  store i8* getelementptr inbounds ([2 x i8], [2 x i8]* @.str.4.26, i32 0, i32 0), i8** getelementptr inbounds (%struct.aws_byte_cursor, %struct.aws_byte_cursor* @s_null_terminator_cursor, i32 0, i32 1), align 4
   store %struct.aws_log_subject_info* getelementptr inbounds ([5 x %struct.aws_log_subject_info], [5 x %struct.aws_log_subject_info]* @s_common_log_subject_infos, i32 0, i32 0), %struct.aws_log_subject_info** getelementptr inbounds (%struct.aws_log_subject_info_list, %struct.aws_log_subject_info_list* @s_common_log_subject_list, i32 0, i32 0), align 8
   store i32 5, i32* getelementptr inbounds (%struct.aws_log_subject_info_list, %struct.aws_log_subject_info_list* @s_common_log_subject_list, i32 0, i32 1), align 4
   tail call void @seahorn.fn.enter()
   %0 = tail call i1 @nondet.bool()
   tail call void @verifier.assume.not(i1 %0)
-  %1 = tail call i32 @verifier.nondet.22() #9
-  %2 = tail call i32 @verifier.nondet.22() #9
-  %3 = tail call i32 @verifier.nondet.22() #9
-  %4 = tail call i32 @verifier.nondet.22() #9
-  %5 = tail call i32 @verifier.nondet.22() #9
+  %1 = tail call i32 @verifier.nondet.24() #9
+  %2 = tail call i32 @verifier.nondet.24() #9
+  %3 = tail call i32 @verifier.nondet.24() #9
+  %4 = tail call i32 @verifier.nondet.24() #9
+  %5 = tail call i32 @verifier.nondet.24() #9
   tail call void @seahorn.fn.enter() #9
   %malloc = alloca i8, i32 %5, align 1
   tail call void @verifier.assume(i1 true) #9
   tail call fastcc void @aws_default_allocator() #9
   %6 = icmp ule i32 %4, %3
   tail call void @verifier.assume(i1 %6) #9
-  %7 = call %struct.aws_string* @aws_string_new_from_array(%struct.aws_allocator* nonnull @default_allocator, i8* nonnull %malloc, i32 %2) #9
+  %7 = call fastcc %struct.aws_string* @aws_string_new_from_array(i8* nonnull %malloc, i32 %2) #9
   %8 = icmp eq %struct.aws_string* %7, null
   call void @verifier.assume.not(i1 %8)
   %9 = getelementptr inbounds %struct.aws_string, %struct.aws_string* %7, i32 0, i32 1
@@ -248,7 +302,7 @@ attributes #7 = { inaccessiblememonly nofree norecurse noreturn nounwind }
 attributes #8 = { inaccessiblememonly }
 attributes #9 = { nounwind }
 
-!llvm.ident = !{!0, !0, !0, !0, !0, !0, !0, !0, !0}
+!llvm.ident = !{!0, !0, !0, !0, !0, !0}
 !llvm.module.flags = !{!1, !2, !3, !4}
 
 !0 = !{!"Apple clang version 12.0.5 (clang-1205.0.22.9)"}
@@ -264,3 +318,6 @@ attributes #9 = { nounwind }
 !10 = !{!"long", !8, i64 0}
 !11 = !{!8, !8, i64 0}
 !12 = !{!7, !7, i64 0}
+!13 = !{!14, !7, i64 0}
+!14 = !{!"aws_allocator", !7, i64 0, !7, i64 4, !7, i64 8, !7, i64 12, !7, i64 16}
+!15 = !{!10, !10, i64 0}

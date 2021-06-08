@@ -223,7 +223,7 @@ declare void @verifier.error() #6
 ; Function Attrs: inaccessiblememonly
 declare void @seahorn.fn.enter() local_unnamed_addr #7
 
-declare i8 @verifier.nondet.21() local_unnamed_addr
+declare i8 @verifier.nondet.23() local_unnamed_addr
 
 ; Function Attrs: nounwind readnone speculatable willreturn
 declare i32 @llvm.ctpop.i32(i32) #8
@@ -244,10 +244,10 @@ entry:
   tail call void @seahorn.fn.enter()
   %4 = tail call i1 @nondet.bool()
   tail call void @verifier.assume.not(i1 %4)
-  %5 = tail call i8 @verifier.nondet.21() #9
-  %6 = tail call i8 @verifier.nondet.21() #9
-  %7 = tail call i8 @verifier.nondet.21() #9
-  %8 = tail call i8 @verifier.nondet.21() #9
+  %5 = tail call i8 @verifier.nondet.23() #9
+  %6 = tail call i8 @verifier.nondet.23() #9
+  %7 = tail call i8 @verifier.nondet.23() #9
+  %8 = tail call i8 @verifier.nondet.23() #9
   tail call void @seahorn.fn.enter() #9
   %9 = bitcast %struct.aws_hash_table* %0 to i8*
   call void @llvm.lifetime.start.p0i8(i64 4, i8* nonnull %9) #9
@@ -322,7 +322,7 @@ attributes #7 = { inaccessiblememonly }
 attributes #8 = { nounwind readnone speculatable willreturn }
 attributes #9 = { nounwind }
 
-!llvm.ident = !{!0, !0, !0, !0, !0, !0, !0}
+!llvm.ident = !{!0, !0, !0, !0, !0}
 !llvm.module.flags = !{!1, !2, !3, !4}
 
 !0 = !{!"Apple clang version 12.0.5 (clang-1205.0.22.9)"}

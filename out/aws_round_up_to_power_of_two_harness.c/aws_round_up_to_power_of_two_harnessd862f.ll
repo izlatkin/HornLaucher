@@ -10,7 +10,7 @@ declare void @llvm.lifetime.start.p0i8(i64 immarg, i8* nocapture) #0
 
 ; Function Attrs: inlinehint nounwind ssp uwtable
 define internal fastcc i32 @aws_round_up_to_power_of_two(i32 %0, i32* nocapture %1) unnamed_addr #1 {
-  tail call void @seahorn.fn.enter() #7
+  tail call void @seahorn.fn.enter() #6
   %3 = icmp eq i32 %0, 0
   br i1 %3, label %4, label %5
 
@@ -23,8 +23,8 @@ define internal fastcc i32 @aws_round_up_to_power_of_two(i32 %0, i32* nocapture 
   br i1 %6, label %7, label %8
 
 7:                                                ; preds = %5
-  tail call void @seahorn.fn.enter() #7
-  tail call void @aws_raise_error_private(i32 5) #7
+  tail call void @seahorn.fn.enter() #6
+  tail call void @seahorn.fn.enter() #6
   br label %21
 
 8:                                                ; preds = %5
@@ -51,24 +51,22 @@ define internal fastcc i32 @aws_round_up_to_power_of_two(i32 %0, i32* nocapture 
 ; Function Attrs: nounwind readnone speculatable willreturn
 declare i32 @llvm.ctpop.i32(i32) #2
 
-declare void @aws_raise_error_private(i32) local_unnamed_addr #3
+; Function Attrs: inaccessiblememonly nofree norecurse nounwind
+declare void @verifier.assume(i1) #3
 
 ; Function Attrs: inaccessiblememonly nofree norecurse nounwind
-declare void @verifier.assume(i1) #4
+declare void @verifier.assume.not(i1) #3
 
 ; Function Attrs: inaccessiblememonly nofree norecurse nounwind
-declare void @verifier.assume.not(i1) #4
-
-; Function Attrs: inaccessiblememonly nofree norecurse nounwind
-declare void @seahorn.fail() #4
+declare void @seahorn.fail() #3
 
 ; Function Attrs: inaccessiblememonly nofree norecurse noreturn nounwind
-declare void @verifier.error() #5
+declare void @verifier.error() #4
 
 ; Function Attrs: inaccessiblememonly
-declare void @seahorn.fn.enter() local_unnamed_addr #6
+declare void @seahorn.fn.enter() local_unnamed_addr #5
 
-declare i32 @verifier.nondet.3() local_unnamed_addr
+declare i32 @verifier.nondet.6() local_unnamed_addr
 
 define i32 @main() local_unnamed_addr {
 entry:
@@ -76,20 +74,20 @@ entry:
   tail call void @seahorn.fn.enter()
   %1 = tail call i1 @nondet.bool()
   tail call void @verifier.assume.not(i1 %1)
-  %2 = tail call i32 @verifier.nondet.3() #7
-  %3 = tail call i32 @verifier.nondet.3() #7
-  %4 = tail call i32 @verifier.nondet.3() #7
-  %5 = tail call i32 @verifier.nondet.3() #7
-  tail call void @seahorn.fn.enter() #7
+  %2 = tail call i32 @verifier.nondet.6() #6
+  %3 = tail call i32 @verifier.nondet.6() #6
+  %4 = tail call i32 @verifier.nondet.6() #6
+  %5 = tail call i32 @verifier.nondet.6() #6
+  tail call void @seahorn.fn.enter() #6
   %6 = bitcast i32* %0 to i8*
-  call void @llvm.lifetime.start.p0i8(i64 4, i8* nonnull %6) #7
-  %7 = call fastcc i32 @aws_round_up_to_power_of_two(i32 %5, i32* nonnull %0) #7
+  call void @llvm.lifetime.start.p0i8(i64 4, i8* nonnull %6) #6
+  %7 = call fastcc i32 @aws_round_up_to_power_of_two(i32 %5, i32* nonnull %0) #6
   %8 = icmp eq i32 %7, 0
   br i1 %8, label %9, label %17
 
 9:                                                ; preds = %entry
   %10 = load i32, i32* %0, align 4, !tbaa !5
-  %11 = tail call i32 @llvm.ctpop.i32(i32 %10) #7, !range !9
+  %11 = tail call i32 @llvm.ctpop.i32(i32 %10) #6, !range !9
   %12 = icmp ne i32 %11, 1
   %13 = icmp ugt i32 %4, %10
   %or.cond = or i1 %13, %12
@@ -116,13 +114,12 @@ declare i1 @nondet.bool() local_unnamed_addr
 attributes #0 = { argmemonly nounwind willreturn }
 attributes #1 = { inlinehint nounwind ssp uwtable "correctly-rounded-divide-sqrt-fp-math"="false" "disable-tail-calls"="false" "frame-pointer"="all" "less-precise-fpmad"="false" "min-legal-vector-width"="0" "no-infs-fp-math"="false" "no-jump-tables"="false" "no-nans-fp-math"="false" "no-signed-zeros-fp-math"="false" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="penryn" "target-features"="+cx16,+cx8,+fxsr,+mmx,+sahf,+sse,+sse2,+sse3,+sse4.1,+ssse3,+x87" "unsafe-fp-math"="false" "use-soft-float"="false" }
 attributes #2 = { nounwind readnone speculatable willreturn }
-attributes #3 = { "correctly-rounded-divide-sqrt-fp-math"="false" "disable-tail-calls"="false" "frame-pointer"="all" "less-precise-fpmad"="false" "no-infs-fp-math"="false" "no-nans-fp-math"="false" "no-signed-zeros-fp-math"="false" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="penryn" "target-features"="+cx16,+cx8,+fxsr,+mmx,+sahf,+sse,+sse2,+sse3,+sse4.1,+ssse3,+x87" "unsafe-fp-math"="false" "use-soft-float"="false" }
-attributes #4 = { inaccessiblememonly nofree norecurse nounwind }
-attributes #5 = { inaccessiblememonly nofree norecurse noreturn nounwind }
-attributes #6 = { inaccessiblememonly }
-attributes #7 = { nounwind }
+attributes #3 = { inaccessiblememonly nofree norecurse nounwind }
+attributes #4 = { inaccessiblememonly nofree norecurse noreturn nounwind }
+attributes #5 = { inaccessiblememonly }
+attributes #6 = { nounwind }
 
-!llvm.ident = !{!0, !0, !0, !0, !0}
+!llvm.ident = !{!0, !0, !0}
 !llvm.module.flags = !{!1, !2, !3, !4}
 
 !0 = !{!"Apple clang version 12.0.5 (clang-1205.0.22.9)"}

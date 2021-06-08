@@ -16,9 +16,12 @@
 (declare-rel aws_default_allocator@_sm ((Array Int Int) (Array Int Int) (Array Int Int) ))
 (declare-rel aws_default_allocator@.split ((Array Int Int) (Array Int Int) (Array Int Int) ))
 (declare-rel aws_default_allocator (Bool Bool Bool (Array Int Int) (Array Int Int) (Array Int Int) (Array Int Int) (Array Int Int) (Array Int Int) ))
+(declare-rel aws_string_new_from_array@_sm4 ((Array Int Int) (Array Int Int) (Array Int Int) (Array Int Int) (Array Int Int) Int Int ))
+(declare-rel aws_string_new_from_array@.split ((Array Int Int) (Array Int Int) (Array Int Int) (Array Int Int) (Array Int Int) Int (Array Int Int) Int Int ))
+(declare-rel aws_string_new_from_array (Bool Bool Bool (Array Int Int) (Array Int Int) (Array Int Int) (Array Int Int) (Array Int Int) (Array Int Int) (Array Int Int) (Array Int Int) Int Int Int ))
 (declare-rel aws_string_is_valid@_sm ((Array Int Int) (Array Int Int) (Array Int Int) (Array Int Int) Int ))
 (declare-rel aws_string_is_valid@.split ((Array Int Int) (Array Int Int) (Array Int Int) (Array Int Int) Bool Int ))
-(declare-rel aws_string_is_valid (Bool Bool Bool (Array Int Int) (Array Int Int) (Array Int Int) (Array Int Int) (Array Int Int) (Array Int Int) (Array Int Int) Int Bool ))
+(declare-rel aws_string_is_valid (Bool Bool Bool (Array Int Int) (Array Int Int) (Array Int Int) (Array Int Int) (Array Int Int) (Array Int Int) (Array Int Int) (Array Int Int) Int Bool ))
 (declare-rel main@entry ((Array Int Int) (Array Int Int) (Array Int Int) (Array Int Int) (Array Int Int) (Array Int Int) (Array Int Int) (Array Int Int) (Array Int Int) (Array Int Int) (Array Int Int) (Array Int Int) (Array Int Int) (Array Int Int) (Array Int Int) Int Int Int Int ))
 (declare-rel main@verifier.error.split ())
 (declare-var s_default_malloc@%sm2_0 (Array Int Int) )
@@ -87,7 +90,7 @@
 (declare-var s_default_calloc@%sm4_0 (Array Int Int) )
 (declare-var s_default_calloc@%sm5_0 (Array Int Int) )
 (declare-var s_default_calloc@%sm6_0 (Array Int Int) )
-(declare-var s_default_calloc@%sm3_0 (Array Int Int) )
+(declare-var s_default_calloc@%sm2_0 (Array Int Int) )
 (declare-var s_default_calloc@%_tail_0 Int )
 (declare-var s_default_calloc@%_tail7_0 Int )
 (declare-var s_default_calloc@arg.2_0 Int )
@@ -103,7 +106,7 @@
 (declare-var s_default_calloc@%shadow.mem.50.0_2 (Array Int Int) )
 (declare-var s_default_calloc@%shadow.mem.50.0_0 (Array Int Int) )
 (declare-var s_default_calloc@%_call9_0 Int )
-(declare-var s_default_calloc@%sm2_0 (Array Int Int) )
+(declare-var s_default_calloc@%sm3_0 (Array Int Int) )
 (declare-var s_default_calloc@_sm2_0 Bool )
 (declare-var s_default_calloc@_sm1_0 Bool )
 (declare-var s_default_calloc@%sm1_0 (Array Int Int) )
@@ -115,8 +118,55 @@
 (declare-var aws_default_allocator@%sm2_0 (Array Int Int) )
 (declare-var aws_default_allocator@_sm_0 Bool )
 (declare-var aws_default_allocator@.split_0 Bool )
+(declare-var aws_string_new_from_array@%sm5_0 (Array Int Int) )
+(declare-var aws_string_new_from_array@%sm7_0 (Array Int Int) )
+(declare-var aws_string_new_from_array@%sm8_0 (Array Int Int) )
+(declare-var aws_string_new_from_array@%_21_0 Int )
+(declare-var aws_string_new_from_array@%_sm3_0 Int )
+(declare-var aws_string_new_from_array@%shadow.mem.0.1_3 (Array Int Int) )
+(declare-var aws_string_new_from_array@%.1_3 Int )
+(declare-var aws_string_new_from_array@%_call12_0 Int )
+(declare-var aws_string_new_from_array@%_sm_0 Int )
+(declare-var aws_string_new_from_array@%sm_0 (Array Int Int) )
+(declare-var aws_string_new_from_array@%_15_0 Int )
+(declare-var aws_string_new_from_array@%_sm1_0 Int )
+(declare-var aws_string_new_from_array@%_br11_0 Bool )
+(declare-var aws_string_new_from_array@%shadow.mem.0.0_2 (Array Int Int) )
+(declare-var aws_string_new_from_array@%_tail_0 Int )
+(declare-var aws_string_new_from_array@%_call_0 Int )
+(declare-var aws_string_new_from_array@%_8_0 Int )
+(declare-var aws_string_new_from_array@%_tail9_0 Bool )
+(declare-var aws_string_new_from_array@%_br10_0 Bool )
+(declare-var aws_string_new_from_array@%_br_0 Bool )
+(declare-var aws_string_new_from_array@%sm4_0 (Array Int Int) )
+(declare-var aws_string_new_from_array@%shadow.mem.0.1_0 (Array Int Int) )
+(declare-var aws_string_new_from_array@arg.1_0 Int )
+(declare-var @default_allocator_0 Int )
+(declare-var aws_string_new_from_array@%.1_0 Int )
+(declare-var aws_string_new_from_array@%sm6_0 (Array Int Int) )
+(declare-var aws_string_new_from_array@_sm4_0 Bool )
+(declare-var aws_string_new_from_array@_5_0 Bool )
+(declare-var aws_string_new_from_array@%_10_0 Int )
+(declare-var aws_string_new_from_array@_12_0 Bool )
+(declare-var aws_string_new_from_array@%_13_0 Int )
+(declare-var aws_string_new_from_array@%sm1_0 (Array Int Int) )
+(declare-var aws_string_new_from_array@_18_0 Bool )
+(declare-var aws_string_new_from_array@%sm2_0 (Array Int Int) )
+(declare-var aws_string_new_from_array@_shadow.mem.0.0_0 Bool )
+(declare-var |tuple(aws_string_new_from_array@_12_0, aws_string_new_from_array@_shadow.mem.0.0_0)| Bool )
+(declare-var aws_string_new_from_array@%shadow.mem.0.0_0 (Array Int Int) )
+(declare-var aws_string_new_from_array@%shadow.mem.0.0_1 (Array Int Int) )
+(declare-var aws_string_new_from_array@%sm3_0 (Array Int Int) )
+(declare-var aws_string_new_from_array@aws_mem_acquire.exit.thread_0 Bool )
+(declare-var aws_string_new_from_array@aws_add_size_checked.44.exit_0 Bool )
+(declare-var aws_string_new_from_array@_shadow.mem.0.1_0 Bool )
+(declare-var aws_string_new_from_array@%shadow.mem.0.1_1 (Array Int Int) )
+(declare-var aws_string_new_from_array@%.1_1 Int )
+(declare-var aws_string_new_from_array@%shadow.mem.0.1_2 (Array Int Int) )
+(declare-var aws_string_new_from_array@%.1_2 Int )
+(declare-var aws_string_new_from_array@.split_0 Bool )
+(declare-var aws_string_is_valid@%sm_0 (Array Int Int) )
 (declare-var aws_string_is_valid@%sm1_0 (Array Int Int) )
-(declare-var aws_string_is_valid@%sm2_0 (Array Int Int) )
 (declare-var aws_string_is_valid@%sm3_0 (Array Int Int) )
 (declare-var aws_string_is_valid@%_call_0 Int )
 (declare-var aws_string_is_valid@%_6_0 Int )
@@ -124,7 +174,7 @@
 (declare-var aws_string_is_valid@%_8_0 Int )
 (declare-var aws_string_is_valid@%_br_0 Bool )
 (declare-var aws_string_is_valid@%_br6_2 Bool )
-(declare-var aws_string_is_valid@%sm_0 (Array Int Int) )
+(declare-var aws_string_is_valid@%sm2_0 (Array Int Int) )
 (declare-var aws_string_is_valid@arg.0_0 Int )
 (declare-var aws_string_is_valid@%_br6_0 Bool )
 (declare-var aws_string_is_valid@_sm_0 Bool )
@@ -135,44 +185,45 @@
 (declare-var aws_string_is_valid@%_br6_1 Bool )
 (declare-var aws_string_is_valid@.split_0 Bool )
 (declare-var main@%_28_0 Int )
+(declare-var main@%sh35_0 (Array Int Int) )
 (declare-var main@%_29_0 Bool )
 (declare-var main@%_24_0 Int )
 (declare-var main@%_25_0 Int )
 (declare-var main@%_26_0 Bool )
-(declare-var @default_allocator_0 Int )
 (declare-var @s_null_terminator_cursor_0 Int )
-(declare-var @.str.4.14_0 Int )
+(declare-var @.str.4.26_0 Int )
 (declare-var @s_common_log_subject_list_0 Int )
 (declare-var @s_common_log_subject_infos_0 Int )
-(declare-var main@%sm42_0 (Array Int Int) )
-(declare-var main@%sm_0 (Array Int Int) )
-(declare-var main@%sm45_0 (Array Int Int) )
-(declare-var main@%sm1_0 (Array Int Int) )
 (declare-var main@%sm47_0 (Array Int Int) )
+(declare-var main@%sm52_0 (Array Int Int) )
+(declare-var main@%sm_0 (Array Int Int) )
+(declare-var main@%sm49_0 (Array Int Int) )
+(declare-var main@%sm1_0 (Array Int Int) )
+(declare-var main@%sm50_0 (Array Int Int) )
 (declare-var main@%sm2_0 (Array Int Int) )
-(declare-var main@%sm37_0 (Array Int Int) )
-(declare-var main@%sm3_0 (Array Int Int) )
-(declare-var main@%sm36_0 (Array Int Int) )
-(declare-var main@%sm4_0 (Array Int Int) )
-(declare-var main@%sm46_0 (Array Int Int) )
-(declare-var main@%sm5_0 (Array Int Int) )
-(declare-var main@%sm44_0 (Array Int Int) )
-(declare-var main@%sm6_0 (Array Int Int) )
-(declare-var main@%sm33_0 (Array Int Int) )
-(declare-var main@%sm7_0 (Array Int Int) )
-(declare-var main@%sm34_0 (Array Int Int) )
-(declare-var main@%sm8_0 (Array Int Int) )
-(declare-var main@%sm39_0 (Array Int Int) )
-(declare-var main@%sm9_0 (Array Int Int) )
 (declare-var main@%sm43_0 (Array Int Int) )
-(declare-var main@%sm10_0 (Array Int Int) )
-(declare-var main@%sm48_0 (Array Int Int) )
-(declare-var main@%sm11_0 (Array Int Int) )
-(declare-var main@%sm32_0 (Array Int Int) )
-(declare-var main@%sm12_0 (Array Int Int) )
+(declare-var main@%sm3_0 (Array Int Int) )
+(declare-var main@%sm41_0 (Array Int Int) )
+(declare-var main@%sm4_0 (Array Int Int) )
+(declare-var main@%sm53_0 (Array Int Int) )
+(declare-var main@%sm5_0 (Array Int Int) )
+(declare-var main@%sm51_0 (Array Int Int) )
+(declare-var main@%sm6_0 (Array Int Int) )
+(declare-var main@%sm45_0 (Array Int Int) )
+(declare-var main@%sm7_0 (Array Int Int) )
 (declare-var main@%sm40_0 (Array Int Int) )
-(declare-var main@%sm13_0 (Array Int Int) )
+(declare-var main@%sm8_0 (Array Int Int) )
 (declare-var main@%sm38_0 (Array Int Int) )
+(declare-var main@%sm9_0 (Array Int Int) )
+(declare-var main@%sm48_0 (Array Int Int) )
+(declare-var main@%sm10_0 (Array Int Int) )
+(declare-var main@%sm37_0 (Array Int Int) )
+(declare-var main@%sm11_0 (Array Int Int) )
+(declare-var main@%sm44_0 (Array Int Int) )
+(declare-var main@%sm12_0 (Array Int Int) )
+(declare-var main@%sm46_0 (Array Int Int) )
+(declare-var main@%sm13_0 (Array Int Int) )
+(declare-var main@%sm39_0 (Array Int Int) )
 (declare-var main@%sm14_0 (Array Int Int) )
 (declare-var main@%sm15_0 (Array Int Int) )
 (declare-var main@%sm16_0 (Array Int Int) )
@@ -202,41 +253,45 @@
 (declare-var main@%_10_0 Int )
 (declare-var main@%sm26_0 (Array Int Int) )
 (declare-var main@%_11_0 Bool )
+(declare-var main@%_13_0 Int )
 (declare-var main@%_14_0 Int )
 (declare-var main@%_15_0 Int )
 (declare-var main@%malloc_0 Int )
+(declare-var main@%sh_0 (Array Int Int) )
+(declare-var main@%sh27_0 (Array Int Int) )
+(declare-var main@%sh28_0 (Array Int Int) )
 (declare-var main@%_17_0 Bool )
 (declare-var main@%_19_0 Bool )
 (declare-var main@%_20_0 Int )
 (declare-var main@%_21_0 Int )
 (declare-var main@%_22_0 Bool )
+(declare-var main@%shadow.mem.21.0_2 (Array Int Int) )
+(declare-var main@%shadow.mem.29.0_2 (Array Int Int) )
 (declare-var main@%shadow.mem.1.0_2 (Array Int Int) )
-(declare-var main@%shadow.mem.9.0_2 (Array Int Int) )
-(declare-var main@%shadow.mem.17.0_2 (Array Int Int) )
 (declare-var main@entry_0 Bool )
-(declare-var main@%sm35_0 (Array Int Int) )
 (declare-var main@%_12_0 Int )
-(declare-var main@%sh_0 (Array Int Int) )
-(declare-var main@%sh27_0 (Array Int Int) )
-(declare-var main@%sh28_0 (Array Int Int) )
-(declare-var main@%_18_0 Int )
-(declare-var main@_23_0 Bool )
-(declare-var main@_27_0 Bool )
 (declare-var main@%sh29_0 (Array Int Int) )
 (declare-var main@%sh30_0 (Array Int Int) )
 (declare-var main@%sh31_0 (Array Int Int) )
+(declare-var main@%sh32_0 (Array Int Int) )
+(declare-var main@%_18_0 Int )
+(declare-var main@_23_0 Bool )
+(declare-var main@_27_0 Bool )
+(declare-var main@%sh33_0 (Array Int Int) )
+(declare-var main@%sh34_0 (Array Int Int) )
+(declare-var main@%sh36_0 (Array Int Int) )
 (declare-var main@verifier.error_0 Bool )
 (declare-var |tuple(main@_23_0, main@verifier.error_0)| Bool )
 (declare-var |tuple(main@entry_0, main@verifier.error_0)| Bool )
+(declare-var main@%shadow.mem.21.0_0 (Array Int Int) )
+(declare-var main@%shadow.mem.29.0_0 (Array Int Int) )
 (declare-var main@%shadow.mem.1.0_0 (Array Int Int) )
-(declare-var main@%shadow.mem.9.0_0 (Array Int Int) )
-(declare-var main@%shadow.mem.17.0_0 (Array Int Int) )
+(declare-var main@%shadow.mem.21.0_1 (Array Int Int) )
+(declare-var main@%shadow.mem.29.0_1 (Array Int Int) )
 (declare-var main@%shadow.mem.1.0_1 (Array Int Int) )
-(declare-var main@%shadow.mem.9.0_1 (Array Int Int) )
-(declare-var main@%shadow.mem.17.0_1 (Array Int Int) )
+(declare-var main@%shadow.mem.21.0_3 (Array Int Int) )
+(declare-var main@%shadow.mem.29.0_3 (Array Int Int) )
 (declare-var main@%shadow.mem.1.0_3 (Array Int Int) )
-(declare-var main@%shadow.mem.9.0_3 (Array Int Int) )
-(declare-var main@%shadow.mem.17.0_3 (Array Int Int) )
 (declare-var main@verifier.error.split_0 Bool )
 (rule (verifier.error false false false))
 (rule (verifier.error false true true))
@@ -657,14 +712,14 @@
   s_default_calloc@%sm4_0
   s_default_calloc@%sm5_0
   s_default_calloc@%sm6_0
-  s_default_calloc@%sm2_0
+  s_default_calloc@%sm3_0
   s_default_calloc@arg.2_0
   s_default_calloc@arg.1_0))
 (rule (let ((a!1 (and (s_default_calloc@_sm2
                   s_default_calloc@%sm4_0
                   s_default_calloc@%sm5_0
                   s_default_calloc@%sm6_0
-                  s_default_calloc@%sm2_0
+                  s_default_calloc@%sm3_0
                   s_default_calloc@arg.2_0
                   s_default_calloc@arg.1_0)
                 true
@@ -676,7 +731,7 @@
                 (= s_default_calloc@%_8_0 (ite s_default_calloc@%_7_0 32 8))
                 (= s_default_calloc@%_call_0 s_default_calloc@%_tail_0)
                 (= s_default_calloc@%sm_0
-                   (store s_default_calloc@%sm3_0 s_default_calloc@%_tail_0 0))
+                   (store s_default_calloc@%sm2_0 s_default_calloc@%_tail_0 0))
                 (= s_default_calloc@%_call8_0 (= s_default_calloc@%_10_0 0))
                 (= s_default_calloc@%_12_0
                    (select s_default_calloc@%sm_0 s_default_calloc@%_tail_0))
@@ -702,7 +757,7 @@
                        s_default_calloc@%sm1_0))
                 (=> |tuple(s_default_calloc@_sm2_0, s_default_calloc@_shadow.mem.50.0_0)|
                     (= s_default_calloc@%shadow.mem.50.0_1
-                       s_default_calloc@%sm2_0))
+                       s_default_calloc@%sm3_0))
                 (=> (and s_default_calloc@_shadow.mem.50.0_0
                          s_default_calloc@_sm1_0)
                     (= s_default_calloc@%shadow.mem.50.0_2
@@ -718,7 +773,7 @@
         s_default_calloc@%sm5_0
         s_default_calloc@%sm6_0
         s_default_calloc@%_call9_0
-        s_default_calloc@%sm2_0
+        s_default_calloc@%sm3_0
         s_default_calloc@arg.2_0
         s_default_calloc@arg.1_0))))
 (rule (=> (s_default_calloc@_shadow.mem.50.0
@@ -727,7 +782,7 @@
       s_default_calloc@%sm5_0
       s_default_calloc@%sm6_0
       s_default_calloc@%_call9_0
-      s_default_calloc@%sm2_0
+      s_default_calloc@%sm3_0
       s_default_calloc@arg.2_0
       s_default_calloc@arg.1_0)
     (s_default_calloc true
@@ -803,10 +858,306 @@
       aws_default_allocator@%sm1_0
       aws_default_allocator@%sm2_0
       aws_default_allocator@%sm2_0)))
+(rule (aws_string_new_from_array
+  true
+  true
+  true
+  aws_string_new_from_array@%sm4_0
+  aws_string_new_from_array@%sm4_0
+  aws_string_new_from_array@%sm5_0
+  aws_string_new_from_array@%sm5_0
+  aws_string_new_from_array@%shadow.mem.0.1_0
+  aws_string_new_from_array@%sm7_0
+  aws_string_new_from_array@%sm7_0
+  aws_string_new_from_array@%sm8_0
+  aws_string_new_from_array@arg.1_0
+  @default_allocator_0
+  aws_string_new_from_array@%.1_0))
+(rule (aws_string_new_from_array
+  false
+  true
+  true
+  aws_string_new_from_array@%sm4_0
+  aws_string_new_from_array@%sm4_0
+  aws_string_new_from_array@%sm5_0
+  aws_string_new_from_array@%sm5_0
+  aws_string_new_from_array@%shadow.mem.0.1_0
+  aws_string_new_from_array@%sm7_0
+  aws_string_new_from_array@%sm7_0
+  aws_string_new_from_array@%sm8_0
+  aws_string_new_from_array@arg.1_0
+  @default_allocator_0
+  aws_string_new_from_array@%.1_0))
+(rule (aws_string_new_from_array
+  false
+  false
+  false
+  aws_string_new_from_array@%sm4_0
+  aws_string_new_from_array@%sm4_0
+  aws_string_new_from_array@%sm5_0
+  aws_string_new_from_array@%sm5_0
+  aws_string_new_from_array@%shadow.mem.0.1_0
+  aws_string_new_from_array@%sm7_0
+  aws_string_new_from_array@%sm7_0
+  aws_string_new_from_array@%sm8_0
+  aws_string_new_from_array@arg.1_0
+  @default_allocator_0
+  aws_string_new_from_array@%.1_0))
+(rule (aws_string_new_from_array@_sm4
+  aws_string_new_from_array@%sm4_0
+  aws_string_new_from_array@%sm5_0
+  aws_string_new_from_array@%sm7_0
+  aws_string_new_from_array@%sm8_0
+  aws_string_new_from_array@%sm6_0
+  aws_string_new_from_array@arg.1_0
+  @default_allocator_0))
+(rule (let ((a!1 (=> aws_string_new_from_array@_5_0
+               (= aws_string_new_from_array@%_call_0
+                  (+ @default_allocator_0 (* 0 20) 0))))
+      (a!2 (=> aws_string_new_from_array@_12_0
+               (= aws_string_new_from_array@%_15_0
+                  (+ aws_string_new_from_array@%_10_0 (* 4 1)))))
+      (a!3 (=> aws_string_new_from_array@_18_0
+               (= aws_string_new_from_array@%_call12_0
+                  (+ aws_string_new_from_array@%_10_0 (* 8 1)))))
+      (a!4 (=> aws_string_new_from_array@_shadow.mem.0.0_0
+               (= aws_string_new_from_array@%_21_0
+                  (+ aws_string_new_from_array@%_10_0 (* 8 1)))))
+      (a!5 (=> aws_string_new_from_array@_shadow.mem.0.0_0
+               (= aws_string_new_from_array@%_sm3_0
+                  (+ aws_string_new_from_array@%_21_0
+                     (* aws_string_new_from_array@arg.1_0 1))))))
+(let ((a!6 (and (aws_string_new_from_array@_sm4
+                  aws_string_new_from_array@%sm4_0
+                  aws_string_new_from_array@%sm5_0
+                  aws_string_new_from_array@%sm7_0
+                  aws_string_new_from_array@%sm8_0
+                  aws_string_new_from_array@%sm6_0
+                  aws_string_new_from_array@arg.1_0
+                  @default_allocator_0)
+                true
+                (= aws_string_new_from_array@%_br_0
+                   (ite (< aws_string_new_from_array@arg.1_0 0)
+                        (< (- 14) aws_string_new_from_array@arg.1_0)
+                        false))
+                (=> aws_string_new_from_array@_5_0
+                    (and aws_string_new_from_array@_5_0
+                         aws_string_new_from_array@_sm4_0))
+                (=> (and aws_string_new_from_array@_5_0
+                         aws_string_new_from_array@_sm4_0)
+                    (not aws_string_new_from_array@%_br_0))
+                (=> aws_string_new_from_array@_5_0
+                    (= aws_string_new_from_array@%_tail_0
+                       (+ aws_string_new_from_array@arg.1_0 13)))
+                true
+                a!1
+                (=> aws_string_new_from_array@_5_0
+                    (or (<= @default_allocator_0 0)
+                        (> aws_string_new_from_array@%_call_0 0)))
+                (=> aws_string_new_from_array@_5_0
+                    (= aws_string_new_from_array@%_8_0
+                       (select aws_string_new_from_array@%sm4_0
+                               aws_string_new_from_array@%_call_0)))
+                (=> aws_string_new_from_array@_5_0
+                    (= aws_string_new_from_array@%_tail9_0
+                       (= aws_string_new_from_array@%_8_0 0)))
+                (=> aws_string_new_from_array@_5_0
+                    (not aws_string_new_from_array@%_tail9_0))
+                true
+                (=> aws_string_new_from_array@_5_0
+                    (= aws_string_new_from_array@%_br10_0
+                       (= aws_string_new_from_array@%_10_0 0)))
+                (=> aws_string_new_from_array@_12_0
+                    (and aws_string_new_from_array@_12_0
+                         aws_string_new_from_array@_5_0))
+                (=> (and aws_string_new_from_array@_12_0
+                         aws_string_new_from_array@_5_0)
+                    (not aws_string_new_from_array@%_br10_0))
+                (=> aws_string_new_from_array@_12_0
+                    (= aws_string_new_from_array@%_13_0
+                       aws_string_new_from_array@%_10_0))
+                (=> aws_string_new_from_array@_12_0
+                    (= aws_string_new_from_array@%_sm_0
+                       aws_string_new_from_array@%_10_0))
+                (=> aws_string_new_from_array@_12_0
+                    (= aws_string_new_from_array@%sm_0
+                       (store aws_string_new_from_array@%sm6_0
+                              aws_string_new_from_array@%_sm_0
+                              @default_allocator_0)))
+                a!2
+                (=> aws_string_new_from_array@_12_0
+                    (or (<= aws_string_new_from_array@%_10_0 0)
+                        (> aws_string_new_from_array@%_15_0 0)))
+                (=> aws_string_new_from_array@_12_0
+                    (= aws_string_new_from_array@%_sm1_0
+                       aws_string_new_from_array@%_15_0))
+                (=> aws_string_new_from_array@_12_0
+                    (> aws_string_new_from_array@%_10_0 0))
+                (=> aws_string_new_from_array@_12_0
+                    (= aws_string_new_from_array@%sm1_0
+                       (store aws_string_new_from_array@%sm_0
+                              aws_string_new_from_array@%_sm1_0
+                              aws_string_new_from_array@arg.1_0)))
+                (=> aws_string_new_from_array@_12_0
+                    (= aws_string_new_from_array@%_br11_0
+                       (= aws_string_new_from_array@arg.1_0 0)))
+                (=> aws_string_new_from_array@_18_0
+                    (and aws_string_new_from_array@_18_0
+                         aws_string_new_from_array@_12_0))
+                (=> (and aws_string_new_from_array@_18_0
+                         aws_string_new_from_array@_12_0)
+                    (not aws_string_new_from_array@%_br11_0))
+                a!3
+                (=> aws_string_new_from_array@_18_0
+                    (or (<= aws_string_new_from_array@%_10_0 0)
+                        (> aws_string_new_from_array@%_call12_0 0)))
+                (=> |tuple(aws_string_new_from_array@_12_0, aws_string_new_from_array@_shadow.mem.0.0_0)|
+                    aws_string_new_from_array@_12_0)
+                (=> aws_string_new_from_array@_shadow.mem.0.0_0
+                    (or (and aws_string_new_from_array@_shadow.mem.0.0_0
+                             aws_string_new_from_array@_18_0)
+                        |tuple(aws_string_new_from_array@_12_0, aws_string_new_from_array@_shadow.mem.0.0_0)|))
+                (=> |tuple(aws_string_new_from_array@_12_0, aws_string_new_from_array@_shadow.mem.0.0_0)|
+                    aws_string_new_from_array@%_br11_0)
+                (=> (and aws_string_new_from_array@_shadow.mem.0.0_0
+                         aws_string_new_from_array@_18_0)
+                    (= aws_string_new_from_array@%shadow.mem.0.0_0
+                       aws_string_new_from_array@%sm2_0))
+                (=> |tuple(aws_string_new_from_array@_12_0, aws_string_new_from_array@_shadow.mem.0.0_0)|
+                    (= aws_string_new_from_array@%shadow.mem.0.0_1
+                       aws_string_new_from_array@%sm1_0))
+                (=> (and aws_string_new_from_array@_shadow.mem.0.0_0
+                         aws_string_new_from_array@_18_0)
+                    (= aws_string_new_from_array@%shadow.mem.0.0_2
+                       aws_string_new_from_array@%shadow.mem.0.0_0))
+                (=> |tuple(aws_string_new_from_array@_12_0, aws_string_new_from_array@_shadow.mem.0.0_0)|
+                    (= aws_string_new_from_array@%shadow.mem.0.0_2
+                       aws_string_new_from_array@%shadow.mem.0.0_1))
+                a!4
+                (=> aws_string_new_from_array@_shadow.mem.0.0_0
+                    (or (<= aws_string_new_from_array@%_10_0 0)
+                        (> aws_string_new_from_array@%_21_0 0)))
+                a!5
+                (=> aws_string_new_from_array@_shadow.mem.0.0_0
+                    (or (<= aws_string_new_from_array@%_21_0 0)
+                        (> aws_string_new_from_array@%_sm3_0 0)))
+                (=> aws_string_new_from_array@_shadow.mem.0.0_0
+                    (> aws_string_new_from_array@%_21_0 0))
+                (=> aws_string_new_from_array@_shadow.mem.0.0_0
+                    (= aws_string_new_from_array@%sm3_0
+                       (store aws_string_new_from_array@%shadow.mem.0.0_2
+                              aws_string_new_from_array@%_sm3_0
+                              0)))
+                (=> aws_string_new_from_array@aws_mem_acquire.exit.thread_0
+                    (and aws_string_new_from_array@aws_mem_acquire.exit.thread_0
+                         aws_string_new_from_array@_5_0))
+                (=> (and aws_string_new_from_array@aws_mem_acquire.exit.thread_0
+                         aws_string_new_from_array@_5_0)
+                    aws_string_new_from_array@%_br10_0)
+                (=> aws_string_new_from_array@aws_add_size_checked.44.exit_0
+                    (and aws_string_new_from_array@aws_add_size_checked.44.exit_0
+                         aws_string_new_from_array@_sm4_0))
+                (=> (and aws_string_new_from_array@aws_add_size_checked.44.exit_0
+                         aws_string_new_from_array@_sm4_0)
+                    aws_string_new_from_array@%_br_0)
+                (=> aws_string_new_from_array@_shadow.mem.0.1_0
+                    (or (and aws_string_new_from_array@_shadow.mem.0.1_0
+                             aws_string_new_from_array@aws_mem_acquire.exit.thread_0)
+                        (and aws_string_new_from_array@_shadow.mem.0.1_0
+                             aws_string_new_from_array@aws_add_size_checked.44.exit_0)
+                        (and aws_string_new_from_array@_shadow.mem.0.1_0
+                             aws_string_new_from_array@_shadow.mem.0.0_0)))
+                (=> (and aws_string_new_from_array@_shadow.mem.0.1_0
+                         aws_string_new_from_array@aws_mem_acquire.exit.thread_0)
+                    (= aws_string_new_from_array@%shadow.mem.0.1_0
+                       aws_string_new_from_array@%sm6_0))
+                (=> (and aws_string_new_from_array@_shadow.mem.0.1_0
+                         aws_string_new_from_array@aws_mem_acquire.exit.thread_0)
+                    (= aws_string_new_from_array@%.1_0 0))
+                (=> (and aws_string_new_from_array@_shadow.mem.0.1_0
+                         aws_string_new_from_array@aws_add_size_checked.44.exit_0)
+                    (= aws_string_new_from_array@%shadow.mem.0.1_1
+                       aws_string_new_from_array@%sm6_0))
+                (=> (and aws_string_new_from_array@_shadow.mem.0.1_0
+                         aws_string_new_from_array@aws_add_size_checked.44.exit_0)
+                    (= aws_string_new_from_array@%.1_1 0))
+                (=> (and aws_string_new_from_array@_shadow.mem.0.1_0
+                         aws_string_new_from_array@_shadow.mem.0.0_0)
+                    (= aws_string_new_from_array@%shadow.mem.0.1_2
+                       aws_string_new_from_array@%sm3_0))
+                (=> (and aws_string_new_from_array@_shadow.mem.0.1_0
+                         aws_string_new_from_array@_shadow.mem.0.0_0)
+                    (= aws_string_new_from_array@%.1_2
+                       aws_string_new_from_array@%_13_0))
+                (=> (and aws_string_new_from_array@_shadow.mem.0.1_0
+                         aws_string_new_from_array@aws_mem_acquire.exit.thread_0)
+                    (= aws_string_new_from_array@%shadow.mem.0.1_3
+                       aws_string_new_from_array@%shadow.mem.0.1_0))
+                (=> (and aws_string_new_from_array@_shadow.mem.0.1_0
+                         aws_string_new_from_array@aws_mem_acquire.exit.thread_0)
+                    (= aws_string_new_from_array@%.1_3
+                       aws_string_new_from_array@%.1_0))
+                (=> (and aws_string_new_from_array@_shadow.mem.0.1_0
+                         aws_string_new_from_array@aws_add_size_checked.44.exit_0)
+                    (= aws_string_new_from_array@%shadow.mem.0.1_3
+                       aws_string_new_from_array@%shadow.mem.0.1_1))
+                (=> (and aws_string_new_from_array@_shadow.mem.0.1_0
+                         aws_string_new_from_array@aws_add_size_checked.44.exit_0)
+                    (= aws_string_new_from_array@%.1_3
+                       aws_string_new_from_array@%.1_1))
+                (=> (and aws_string_new_from_array@_shadow.mem.0.1_0
+                         aws_string_new_from_array@_shadow.mem.0.0_0)
+                    (= aws_string_new_from_array@%shadow.mem.0.1_3
+                       aws_string_new_from_array@%shadow.mem.0.1_2))
+                (=> (and aws_string_new_from_array@_shadow.mem.0.1_0
+                         aws_string_new_from_array@_shadow.mem.0.0_0)
+                    (= aws_string_new_from_array@%.1_3
+                       aws_string_new_from_array@%.1_2))
+                (=> aws_string_new_from_array@.split_0
+                    (and aws_string_new_from_array@.split_0
+                         aws_string_new_from_array@_shadow.mem.0.1_0))
+                aws_string_new_from_array@.split_0)))
+  (=> a!6
+      (aws_string_new_from_array@.split
+        aws_string_new_from_array@%sm4_0
+        aws_string_new_from_array@%sm5_0
+        aws_string_new_from_array@%shadow.mem.0.1_3
+        aws_string_new_from_array@%sm7_0
+        aws_string_new_from_array@%sm8_0
+        aws_string_new_from_array@%.1_3
+        aws_string_new_from_array@%sm6_0
+        aws_string_new_from_array@arg.1_0
+        @default_allocator_0)))))
+(rule (=> (aws_string_new_from_array@.split
+      aws_string_new_from_array@%sm4_0
+      aws_string_new_from_array@%sm5_0
+      aws_string_new_from_array@%shadow.mem.0.1_0
+      aws_string_new_from_array@%sm7_0
+      aws_string_new_from_array@%sm8_0
+      aws_string_new_from_array@%.1_0
+      aws_string_new_from_array@%sm6_0
+      aws_string_new_from_array@arg.1_0
+      @default_allocator_0)
+    (aws_string_new_from_array
+      true
+      false
+      false
+      aws_string_new_from_array@%sm4_0
+      aws_string_new_from_array@%sm4_0
+      aws_string_new_from_array@%sm5_0
+      aws_string_new_from_array@%sm5_0
+      aws_string_new_from_array@%shadow.mem.0.1_0
+      aws_string_new_from_array@%sm7_0
+      aws_string_new_from_array@%sm7_0
+      aws_string_new_from_array@%sm8_0
+      aws_string_new_from_array@arg.1_0
+      @default_allocator_0
+      aws_string_new_from_array@%.1_0)))
 (rule (aws_string_is_valid
   true
   true
   true
+  aws_string_is_valid@%sm_0
   aws_string_is_valid@%sm_0
   aws_string_is_valid@%sm1_0
   aws_string_is_valid@%sm1_0
@@ -821,6 +1172,7 @@
   true
   true
   aws_string_is_valid@%sm_0
+  aws_string_is_valid@%sm_0
   aws_string_is_valid@%sm1_0
   aws_string_is_valid@%sm1_0
   aws_string_is_valid@%sm2_0
@@ -833,6 +1185,7 @@
   false
   false
   false
+  aws_string_is_valid@%sm_0
   aws_string_is_valid@%sm_0
   aws_string_is_valid@%sm1_0
   aws_string_is_valid@%sm1_0
@@ -873,7 +1226,7 @@
                 (=> aws_string_is_valid@_4_0 (> aws_string_is_valid@arg.0_0 0))
                 (=> aws_string_is_valid@_4_0
                     (= aws_string_is_valid@%_6_0
-                       (select aws_string_is_valid@%sm_0
+                       (select aws_string_is_valid@%sm2_0
                                aws_string_is_valid@%_call_0)))
                 (=> aws_string_is_valid@_4_0 a!2)
                 (=> aws_string_is_valid@_4_0
@@ -882,7 +1235,7 @@
                 (=> aws_string_is_valid@_4_0 (> aws_string_is_valid@arg.0_0 0))
                 (=> aws_string_is_valid@_4_0
                     (= aws_string_is_valid@%_8_0
-                       (select aws_string_is_valid@%sm_0
+                       (select aws_string_is_valid@%sm2_0
                                aws_string_is_valid@%_call4_0)))
                 (=> aws_string_is_valid@_4_0
                     (= aws_string_is_valid@%_br5_0
@@ -925,6 +1278,7 @@
       false
       false
       aws_string_is_valid@%sm_0
+      aws_string_is_valid@%sm_0
       aws_string_is_valid@%sm1_0
       aws_string_is_valid@%sm1_0
       aws_string_is_valid@%sm2_0
@@ -933,21 +1287,21 @@
       aws_string_is_valid@%sm3_0
       aws_string_is_valid@arg.0_0
       aws_string_is_valid@%_br6_0)))
-(rule (main@entry main@%sm42_0
-            main@%sm45_0
-            main@%sm47_0
-            main@%sm37_0
-            main@%sm36_0
-            main@%sm46_0
-            main@%sm44_0
-            main@%sm33_0
-            main@%sm34_0
-            main@%sm39_0
+(rule (main@entry main@%sm52_0
+            main@%sm49_0
+            main@%sm50_0
             main@%sm43_0
-            main@%sm48_0
-            main@%sm32_0
+            main@%sm41_0
+            main@%sm53_0
+            main@%sm51_0
+            main@%sm45_0
             main@%sm40_0
             main@%sm38_0
+            main@%sm48_0
+            main@%sm37_0
+            main@%sm44_0
+            main@%sm46_0
+            main@%sm39_0
             @s_default_malloc_0
             @s_default_free_0
             @s_default_realloc_0
@@ -969,41 +1323,41 @@
       (a!11 (= main@%_20_0 (+ (+ main@%_18_0 (* 0 12)) 4)))
       (a!12 (+ (+ (+ main@%_18_0 (* 0 12)) 8) (* main@%_12_0 1)))
       (a!13 (+ (+ (+ main@%_18_0 (* 0 12)) 8) (* 0 1))))
-(let ((a!14 (and (main@entry main@%sm42_0
-                             main@%sm45_0
-                             main@%sm47_0
-                             main@%sm37_0
-                             main@%sm36_0
-                             main@%sm46_0
-                             main@%sm44_0
-                             main@%sm33_0
-                             main@%sm34_0
-                             main@%sm39_0
+(let ((a!14 (and (main@entry main@%sm52_0
+                             main@%sm49_0
+                             main@%sm50_0
                              main@%sm43_0
-                             main@%sm48_0
-                             main@%sm32_0
+                             main@%sm41_0
+                             main@%sm53_0
+                             main@%sm51_0
+                             main@%sm45_0
                              main@%sm40_0
                              main@%sm38_0
+                             main@%sm48_0
+                             main@%sm37_0
+                             main@%sm44_0
+                             main@%sm46_0
+                             main@%sm39_0
                              @s_default_malloc_0
                              @s_default_free_0
                              @s_default_realloc_0
                              @s_default_calloc_0)
                  true
-                 (= main@%sm_0 main@%sm42_0)
-                 (= main@%sm1_0 main@%sm45_0)
-                 (= main@%sm2_0 main@%sm47_0)
-                 (= main@%sm3_0 main@%sm37_0)
-                 (= main@%sm4_0 main@%sm36_0)
-                 (= main@%sm5_0 main@%sm46_0)
-                 (= main@%sm6_0 main@%sm44_0)
-                 (= main@%sm7_0 main@%sm33_0)
-                 (= main@%sm8_0 main@%sm34_0)
-                 (= main@%sm9_0 main@%sm39_0)
-                 (= main@%sm10_0 main@%sm43_0)
-                 (= main@%sm11_0 main@%sm48_0)
-                 (= main@%sm12_0 main@%sm32_0)
-                 (= main@%sm13_0 main@%sm40_0)
-                 (= main@%sm14_0 main@%sm38_0)
+                 (= main@%sm_0 main@%sm52_0)
+                 (= main@%sm1_0 main@%sm49_0)
+                 (= main@%sm2_0 main@%sm50_0)
+                 (= main@%sm3_0 main@%sm43_0)
+                 (= main@%sm4_0 main@%sm41_0)
+                 (= main@%sm5_0 main@%sm53_0)
+                 (= main@%sm6_0 main@%sm51_0)
+                 (= main@%sm7_0 main@%sm45_0)
+                 (= main@%sm8_0 main@%sm40_0)
+                 (= main@%sm9_0 main@%sm38_0)
+                 (= main@%sm10_0 main@%sm48_0)
+                 (= main@%sm11_0 main@%sm37_0)
+                 (= main@%sm12_0 main@%sm44_0)
+                 (= main@%sm13_0 main@%sm46_0)
+                 (= main@%sm14_0 main@%sm39_0)
                  a!1
                  (or (<= @default_allocator_0 0) (> main@%_0_0 0))
                  (= main@%sm18_0
@@ -1030,8 +1384,8 @@
                  a!6
                  (or (<= @s_null_terminator_cursor_0 0) (> main@%_5_0 0))
                  (= main@%sm23_0 (store main@%sm16_0 main@%_5_0 1))
-                 (= main@%_6_0 (+ @.str.4.14_0 (* 0 2) (* 0 1)))
-                 (or (<= @.str.4.14_0 0) (> main@%_6_0 0))
+                 (= main@%_6_0 (+ @.str.4.26_0 (* 0 2) (* 0 1)))
+                 (or (<= @.str.4.26_0 0) (> main@%_6_0 0))
                  a!7
                  (or (<= @s_null_terminator_cursor_0 0) (> main@%_7_0 0))
                  (> @s_null_terminator_cursor_0 0)
@@ -1053,20 +1407,35 @@
                    true
                    false
                    false
-                   main@%sm24_0
-                   main@%sh_0
-                   main@%sm26_0
-                   main@%sh27_0
                    main@%sm22_0
+                   main@%sh_0
+                   main@%sm24_0
+                   main@%sh27_0
+                   main@%sm26_0
                    main@%sh28_0)
                  (= main@%_17_0 a!10)
                  main@%_17_0
+                 (aws_string_new_from_array
+                   true
+                   false
+                   false
+                   main@%sh_0
+                   main@%sh29_0
+                   main@%sh27_0
+                   main@%sh30_0
+                   main@%sh31_0
+                   main@%sh28_0
+                   main@%sh32_0
+                   main@%sm47_0
+                   main@%_13_0
+                   @default_allocator_0
+                   main@%_18_0)
                  (= main@%_19_0 (= main@%_18_0 0))
                  (not main@%_19_0)
                  a!11
                  (or (<= main@%_18_0 0) (> main@%_20_0 0))
                  (> main@%_18_0 0)
-                 (= main@%_21_0 (select main@%sm35_0 main@%_20_0))
+                 (= main@%_21_0 (select main@%sh31_0 main@%_20_0))
                  (= main@%_22_0 (= main@%_21_0 main@%_12_0))
                  (=> main@_23_0 (and main@_23_0 main@entry_0))
                  (=> (and main@_23_0 main@entry_0) main@%_22_0)
@@ -1074,7 +1443,7 @@
                  (=> main@_23_0 (or (<= main@%_18_0 0) (> main@%_24_0 0)))
                  (=> main@_23_0 (> main@%_18_0 0))
                  (=> main@_23_0
-                     (= main@%_25_0 (select main@%sm35_0 main@%_24_0)))
+                     (= main@%_25_0 (select main@%sh31_0 main@%_24_0)))
                  (=> main@_23_0 (= main@%_26_0 (= main@%_25_0 0)))
                  (=> main@_27_0 (and main@_27_0 main@_23_0))
                  (=> (and main@_27_0 main@_23_0) main@%_26_0)
@@ -1084,13 +1453,14 @@
                    main@_27_0
                    false
                    false
-                   main@%sm35_0
-                   main@%sh_0
                    main@%sh29_0
-                   main@%sh27_0
+                   main@%sh33_0
                    main@%sh30_0
-                   main@%sh28_0
+                   main@%sh34_0
                    main@%sh31_0
+                   main@%sh35_0
+                   main@%sh32_0
+                   main@%sh36_0
                    main@%_18_0
                    main@%_29_0)
                  (=> main@_27_0 (not main@%_29_0))
@@ -1105,41 +1475,41 @@
                  (=> |tuple(main@entry_0, main@verifier.error_0)|
                      (not main@%_22_0))
                  (=> |tuple(main@_23_0, main@verifier.error_0)|
-                     (= main@%shadow.mem.1.0_0 main@%sh_0))
+                     (= main@%shadow.mem.21.0_0 main@%sh30_0))
                  (=> |tuple(main@_23_0, main@verifier.error_0)|
-                     (= main@%shadow.mem.9.0_0 main@%sh27_0))
+                     (= main@%shadow.mem.29.0_0 main@%sh32_0))
                  (=> |tuple(main@_23_0, main@verifier.error_0)|
-                     (= main@%shadow.mem.17.0_0 main@%sh28_0))
+                     (= main@%shadow.mem.1.0_0 main@%sh29_0))
                  (=> |tuple(main@entry_0, main@verifier.error_0)|
-                     (= main@%shadow.mem.1.0_1 main@%sh_0))
+                     (= main@%shadow.mem.21.0_1 main@%sh30_0))
                  (=> |tuple(main@entry_0, main@verifier.error_0)|
-                     (= main@%shadow.mem.9.0_1 main@%sh27_0))
+                     (= main@%shadow.mem.29.0_1 main@%sh32_0))
                  (=> |tuple(main@entry_0, main@verifier.error_0)|
-                     (= main@%shadow.mem.17.0_1 main@%sh28_0))
+                     (= main@%shadow.mem.1.0_1 main@%sh29_0))
                  (=> (and main@verifier.error_0 main@_27_0)
-                     (= main@%shadow.mem.1.0_2 main@%sh29_0))
+                     (= main@%shadow.mem.21.0_2 main@%sh34_0))
                  (=> (and main@verifier.error_0 main@_27_0)
-                     (= main@%shadow.mem.9.0_2 main@%sh30_0))
+                     (= main@%shadow.mem.29.0_2 main@%sh36_0))
                  (=> (and main@verifier.error_0 main@_27_0)
-                     (= main@%shadow.mem.17.0_2 main@%sh31_0))
+                     (= main@%shadow.mem.1.0_2 main@%sh33_0))
+                 (=> |tuple(main@_23_0, main@verifier.error_0)|
+                     (= main@%shadow.mem.21.0_3 main@%shadow.mem.21.0_0))
+                 (=> |tuple(main@_23_0, main@verifier.error_0)|
+                     (= main@%shadow.mem.29.0_3 main@%shadow.mem.29.0_0))
                  (=> |tuple(main@_23_0, main@verifier.error_0)|
                      (= main@%shadow.mem.1.0_3 main@%shadow.mem.1.0_0))
-                 (=> |tuple(main@_23_0, main@verifier.error_0)|
-                     (= main@%shadow.mem.9.0_3 main@%shadow.mem.9.0_0))
-                 (=> |tuple(main@_23_0, main@verifier.error_0)|
-                     (= main@%shadow.mem.17.0_3 main@%shadow.mem.17.0_0))
+                 (=> |tuple(main@entry_0, main@verifier.error_0)|
+                     (= main@%shadow.mem.21.0_3 main@%shadow.mem.21.0_1))
+                 (=> |tuple(main@entry_0, main@verifier.error_0)|
+                     (= main@%shadow.mem.29.0_3 main@%shadow.mem.29.0_1))
                  (=> |tuple(main@entry_0, main@verifier.error_0)|
                      (= main@%shadow.mem.1.0_3 main@%shadow.mem.1.0_1))
-                 (=> |tuple(main@entry_0, main@verifier.error_0)|
-                     (= main@%shadow.mem.9.0_3 main@%shadow.mem.9.0_1))
-                 (=> |tuple(main@entry_0, main@verifier.error_0)|
-                     (= main@%shadow.mem.17.0_3 main@%shadow.mem.17.0_1))
+                 (=> (and main@verifier.error_0 main@_27_0)
+                     (= main@%shadow.mem.21.0_3 main@%shadow.mem.21.0_2))
+                 (=> (and main@verifier.error_0 main@_27_0)
+                     (= main@%shadow.mem.29.0_3 main@%shadow.mem.29.0_2))
                  (=> (and main@verifier.error_0 main@_27_0)
                      (= main@%shadow.mem.1.0_3 main@%shadow.mem.1.0_2))
-                 (=> (and main@verifier.error_0 main@_27_0)
-                     (= main@%shadow.mem.9.0_3 main@%shadow.mem.9.0_2))
-                 (=> (and main@verifier.error_0 main@_27_0)
-                     (= main@%shadow.mem.17.0_3 main@%shadow.mem.17.0_2))
                  (=> main@verifier.error.split_0
                      (and main@verifier.error.split_0 main@verifier.error_0))
                  main@verifier.error.split_0)))

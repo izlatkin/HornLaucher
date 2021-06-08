@@ -38,7 +38,7 @@ define internal fastcc i32 @aws_add_u64_checked(i64 %0, i64 %1, i64* nocapture %
 
 7:                                                ; preds = %3
   tail call void @seahorn.fn.enter() #6
-  tail call void @aws_raise_error_private(i32 5) #6
+  tail call void @seahorn.fn.enter() #6
   br label %10
 
 8:                                                ; preds = %3
@@ -64,7 +64,7 @@ define internal fastcc i32 @aws_add_u32_checked(i32 %0, i32 %1, i32* nocapture %
 
 7:                                                ; preds = %3
   tail call void @seahorn.fn.enter() #6
-  tail call void @aws_raise_error_private(i32 5) #6
+  tail call void @seahorn.fn.enter() #6
   br label %10
 
 8:                                                ; preds = %3
@@ -76,8 +76,6 @@ define internal fastcc i32 @aws_add_u32_checked(i32 %0, i32 %1, i32* nocapture %
   %.0 = phi i32 [ -1, %7 ], [ 0, %8 ]
   ret i32 %.0
 }
-
-declare void @aws_raise_error_private(i32) local_unnamed_addr #0
 
 ; Function Attrs: inaccessiblememonly nofree norecurse nounwind
 declare void @verifier.assume(i1) #3
@@ -174,7 +172,7 @@ attributes #4 = { inaccessiblememonly nofree norecurse noreturn nounwind }
 attributes #5 = { inaccessiblememonly }
 attributes #6 = { nounwind }
 
-!llvm.ident = !{!0, !0, !0, !0, !0}
+!llvm.ident = !{!0, !0, !0}
 !llvm.module.flags = !{!1, !2, !3, !4}
 
 !0 = !{!"Apple clang version 12.0.5 (clang-1205.0.22.9)"}

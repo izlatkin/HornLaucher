@@ -122,7 +122,7 @@ attributes #4 = { inaccessiblememonly nofree norecurse noreturn nounwind }
 attributes #5 = { inaccessiblememonly }
 attributes #6 = { nounwind }
 
-!llvm.ident = !{!0, !0, !0, !0, !0}
+!llvm.ident = !{!0, !0, !0}
 !llvm.module.flags = !{!1, !2, !3, !4}
 
 !0 = !{!"Apple clang version 12.0.5 (clang-1205.0.22.9)"}

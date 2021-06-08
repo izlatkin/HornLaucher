@@ -118,7 +118,7 @@
 (declare-var aws_default_allocator@%sm2_0 (Array Int Int) )
 (declare-var aws_default_allocator@_sm_0 Bool )
 (declare-var aws_default_allocator@.split_0 Bool )
-(declare-var aws_byte_buf_init@%sm8_0 (Array Int Int) )
+(declare-var aws_byte_buf_init@%sm6_0 (Array Int Int) )
 (declare-var aws_byte_buf_init@%sm9_0 (Array Int Int) )
 (declare-var aws_byte_buf_init@%_sm2_0 Int )
 (declare-var aws_byte_buf_init@%sm2_0 (Array Int Int) )
@@ -138,9 +138,9 @@
 (declare-var aws_byte_buf_init@%_br11_0 Bool )
 (declare-var aws_byte_buf_init@%_br_0 Bool )
 (declare-var aws_byte_buf_init@%.ph_2 Int )
-(declare-var aws_byte_buf_init@%sm6_0 (Array Int Int) )
-(declare-var aws_byte_buf_init@%shadow.mem.50.0_0 (Array Int Int) )
 (declare-var aws_byte_buf_init@%sm7_0 (Array Int Int) )
+(declare-var aws_byte_buf_init@%sm8_0 (Array Int Int) )
+(declare-var aws_byte_buf_init@%shadow.mem.50.0_0 (Array Int Int) )
 (declare-var aws_byte_buf_init@arg.0_0 Int )
 (declare-var aws_byte_buf_init@arg.1_0 Int )
 (declare-var @default_allocator_0 Int )
@@ -160,8 +160,8 @@
 (declare-var aws_byte_buf_init@%shadow.mem.50.0_1 (Array Int Int) )
 (declare-var aws_byte_buf_init@%.0_1 Int )
 (declare-var aws_byte_buf_init@.split_0 Bool )
+(declare-var aws_byte_buf_is_valid@%sm_0 (Array Int Int) )
 (declare-var aws_byte_buf_is_valid@%sm1_0 (Array Int Int) )
-(declare-var aws_byte_buf_is_valid@%sm2_0 (Array Int Int) )
 (declare-var aws_byte_buf_is_valid@%sm3_0 (Array Int Int) )
 (declare-var aws_byte_buf_is_valid@%_call7_0 Int )
 (declare-var aws_byte_buf_is_valid@%_14_0 Int )
@@ -175,7 +175,7 @@
 (declare-var aws_byte_buf_is_valid@%_call4_0 Int )
 (declare-var aws_byte_buf_is_valid@%_br_0 Bool )
 (declare-var aws_byte_buf_is_valid@%_br12_5 Bool )
-(declare-var aws_byte_buf_is_valid@%sm_0 (Array Int Int) )
+(declare-var aws_byte_buf_is_valid@%sm2_0 (Array Int Int) )
 (declare-var aws_byte_buf_is_valid@arg.0_0 Int )
 (declare-var aws_byte_buf_is_valid@%_br12_0 Bool )
 (declare-var aws_byte_buf_is_valid@_sm_0 Bool )
@@ -209,39 +209,39 @@
 (declare-var main@%_21_0 Int )
 (declare-var main@%_22_0 Bool )
 (declare-var @s_null_terminator_cursor_0 Int )
-(declare-var @.str.4.14_0 Int )
+(declare-var @.str.4.30_0 Int )
 (declare-var @s_common_log_subject_list_0 Int )
 (declare-var @s_common_log_subject_infos_0 Int )
-(declare-var main@%sm39_0 (Array Int Int) )
-(declare-var main@%sm49_0 (Array Int Int) )
-(declare-var main@%sm_0 (Array Int Int) )
-(declare-var main@%sm51_0 (Array Int Int) )
-(declare-var main@%sm1_0 (Array Int Int) )
-(declare-var main@%sm47_0 (Array Int Int) )
-(declare-var main@%sm2_0 (Array Int Int) )
-(declare-var main@%sm42_0 (Array Int Int) )
-(declare-var main@%sm3_0 (Array Int Int) )
-(declare-var main@%sm44_0 (Array Int Int) )
-(declare-var main@%sm4_0 (Array Int Int) )
+(declare-var main@%sm43_0 (Array Int Int) )
 (declare-var main@%sm50_0 (Array Int Int) )
-(declare-var main@%sm5_0 (Array Int Int) )
-(declare-var main@%sm48_0 (Array Int Int) )
-(declare-var main@%sm6_0 (Array Int Int) )
+(declare-var main@%sm_0 (Array Int Int) )
+(declare-var main@%sm46_0 (Array Int Int) )
+(declare-var main@%sm1_0 (Array Int Int) )
 (declare-var main@%sm45_0 (Array Int Int) )
+(declare-var main@%sm2_0 (Array Int Int) )
+(declare-var main@%sm41_0 (Array Int Int) )
+(declare-var main@%sm3_0 (Array Int Int) )
+(declare-var main@%sm38_0 (Array Int Int) )
+(declare-var main@%sm4_0 (Array Int Int) )
+(declare-var main@%sm48_0 (Array Int Int) )
+(declare-var main@%sm5_0 (Array Int Int) )
+(declare-var main@%sm47_0 (Array Int Int) )
+(declare-var main@%sm6_0 (Array Int Int) )
+(declare-var main@%sm49_0 (Array Int Int) )
 (declare-var main@%sm7_0 (Array Int Int) )
 (declare-var main@%sm37_0 (Array Int Int) )
 (declare-var main@%sm8_0 (Array Int Int) )
-(declare-var main@%sm38_0 (Array Int Int) )
+(declare-var main@%sm42_0 (Array Int Int) )
 (declare-var main@%sm9_0 (Array Int Int) )
-(declare-var main@%sm52_0 (Array Int Int) )
+(declare-var main@%sm51_0 (Array Int Int) )
 (declare-var main@%sm10_0 (Array Int Int) )
 (declare-var main@%sm40_0 (Array Int Int) )
 (declare-var main@%sm11_0 (Array Int Int) )
-(declare-var main@%sm46_0 (Array Int Int) )
+(declare-var main@%sm52_0 (Array Int Int) )
 (declare-var main@%sm12_0 (Array Int Int) )
-(declare-var main@%sm43_0 (Array Int Int) )
+(declare-var main@%sm39_0 (Array Int Int) )
 (declare-var main@%sm13_0 (Array Int Int) )
-(declare-var main@%sm41_0 (Array Int Int) )
+(declare-var main@%sm44_0 (Array Int Int) )
 (declare-var main@%sm14_0 (Array Int Int) )
 (declare-var main@%sm15_0 (Array Int Int) )
 (declare-var main@%sm16_0 (Array Int Int) )
@@ -282,14 +282,14 @@
 (declare-var main@%sh32_0 (Array Int Int) )
 (declare-var main@%_16_0 Int )
 (declare-var main@%_17_0 Bool )
+(declare-var main@%sh33_0 (Array Int Int) )
 (declare-var main@%sh34_0 (Array Int Int) )
-(declare-var main@%sh35_0 (Array Int Int) )
 (declare-var main@%sh36_0 (Array Int Int) )
 (declare-var main@%_18_0 Bool )
 (declare-var main@entry_0 Bool )
 (declare-var main@%_0_0 Int )
 (declare-var main@%_13_0 Int )
-(declare-var main@%sh33_0 (Array Int Int) )
+(declare-var main@%sh35_0 (Array Int Int) )
 (declare-var main@_19_0 Bool )
 (declare-var main@_23_0 Bool )
 (declare-var main@_27_0 Bool )
@@ -868,11 +868,11 @@
   true
   true
   aws_byte_buf_init@%sm6_0
+  aws_byte_buf_init@%sm6_0
+  aws_byte_buf_init@%sm7_0
+  aws_byte_buf_init@%sm7_0
+  aws_byte_buf_init@%sm8_0
   aws_byte_buf_init@%shadow.mem.50.0_0
-  aws_byte_buf_init@%sm7_0
-  aws_byte_buf_init@%sm7_0
-  aws_byte_buf_init@%sm8_0
-  aws_byte_buf_init@%sm8_0
   aws_byte_buf_init@%sm9_0
   aws_byte_buf_init@%sm9_0
   aws_byte_buf_init@arg.0_0
@@ -884,11 +884,11 @@
   true
   true
   aws_byte_buf_init@%sm6_0
+  aws_byte_buf_init@%sm6_0
+  aws_byte_buf_init@%sm7_0
+  aws_byte_buf_init@%sm7_0
+  aws_byte_buf_init@%sm8_0
   aws_byte_buf_init@%shadow.mem.50.0_0
-  aws_byte_buf_init@%sm7_0
-  aws_byte_buf_init@%sm7_0
-  aws_byte_buf_init@%sm8_0
-  aws_byte_buf_init@%sm8_0
   aws_byte_buf_init@%sm9_0
   aws_byte_buf_init@%sm9_0
   aws_byte_buf_init@arg.0_0
@@ -900,11 +900,11 @@
   false
   false
   aws_byte_buf_init@%sm6_0
+  aws_byte_buf_init@%sm6_0
+  aws_byte_buf_init@%sm7_0
+  aws_byte_buf_init@%sm7_0
+  aws_byte_buf_init@%sm8_0
   aws_byte_buf_init@%shadow.mem.50.0_0
-  aws_byte_buf_init@%sm7_0
-  aws_byte_buf_init@%sm7_0
-  aws_byte_buf_init@%sm8_0
-  aws_byte_buf_init@%sm8_0
   aws_byte_buf_init@%sm9_0
   aws_byte_buf_init@%sm9_0
   aws_byte_buf_init@arg.0_0
@@ -974,7 +974,7 @@
                 (=> aws_byte_buf_init@_tail12_0 (> aws_byte_buf_init@arg.0_0 0))
                 (=> aws_byte_buf_init@_tail12_0
                     (= aws_byte_buf_init@%sm_0
-                       (store aws_byte_buf_init@%sm6_0
+                       (store aws_byte_buf_init@%sm8_0
                               aws_byte_buf_init@%_sm_0
                               0)))
                 (=> aws_byte_buf_init@_tail12_0
@@ -1006,7 +1006,7 @@
                 (=> aws_byte_buf_init@_.ph_0 (> aws_byte_buf_init@arg.0_0 0))
                 (=> aws_byte_buf_init@_.ph_0
                     (= aws_byte_buf_init@%sm2_0
-                       (store aws_byte_buf_init@%sm6_0
+                       (store aws_byte_buf_init@%sm8_0
                               aws_byte_buf_init@%_sm2_0
                               aws_byte_buf_init@%.ph_2)))
                 (=> aws_byte_buf_init@_.ph_0 a!4)
@@ -1078,9 +1078,9 @@
   (=> a!7
       (aws_byte_buf_init@.split
         aws_byte_buf_init@%sm6_0
-        aws_byte_buf_init@%shadow.mem.50.0_2
         aws_byte_buf_init@%sm7_0
         aws_byte_buf_init@%sm8_0
+        aws_byte_buf_init@%shadow.mem.50.0_2
         aws_byte_buf_init@%sm9_0
         aws_byte_buf_init@%.0_2
         aws_byte_buf_init@arg.0_0
@@ -1088,9 +1088,9 @@
         @default_allocator_0)))))
 (rule (=> (aws_byte_buf_init@.split
       aws_byte_buf_init@%sm6_0
-      aws_byte_buf_init@%shadow.mem.50.0_0
       aws_byte_buf_init@%sm7_0
       aws_byte_buf_init@%sm8_0
+      aws_byte_buf_init@%shadow.mem.50.0_0
       aws_byte_buf_init@%sm9_0
       aws_byte_buf_init@%.0_0
       aws_byte_buf_init@arg.0_0
@@ -1101,11 +1101,11 @@
       false
       false
       aws_byte_buf_init@%sm6_0
+      aws_byte_buf_init@%sm6_0
+      aws_byte_buf_init@%sm7_0
+      aws_byte_buf_init@%sm7_0
+      aws_byte_buf_init@%sm8_0
       aws_byte_buf_init@%shadow.mem.50.0_0
-      aws_byte_buf_init@%sm7_0
-      aws_byte_buf_init@%sm7_0
-      aws_byte_buf_init@%sm8_0
-      aws_byte_buf_init@%sm8_0
       aws_byte_buf_init@%sm9_0
       aws_byte_buf_init@%sm9_0
       aws_byte_buf_init@arg.0_0
@@ -1202,7 +1202,7 @@
                     (> aws_byte_buf_is_valid@arg.0_0 0))
                 (=> aws_byte_buf_is_valid@_4_0
                     (= aws_byte_buf_is_valid@%_6_0
-                       (select aws_byte_buf_is_valid@%sm_0
+                       (select aws_byte_buf_is_valid@%sm2_0
                                aws_byte_buf_is_valid@%_call_0)))
                 (=> aws_byte_buf_is_valid@_4_0
                     (= aws_byte_buf_is_valid@%_7_0
@@ -1213,7 +1213,7 @@
                         (> aws_byte_buf_is_valid@%_call4_0 0)))
                 (=> aws_byte_buf_is_valid@_4_0
                     (= aws_byte_buf_is_valid@%_br5_0
-                       (select aws_byte_buf_is_valid@%sm_0
+                       (select aws_byte_buf_is_valid@%sm2_0
                                aws_byte_buf_is_valid@%_call4_0)))
                 (=> aws_byte_buf_is_valid@_16_0
                     (and aws_byte_buf_is_valid@_16_0 aws_byte_buf_is_valid@_4_0))
@@ -1234,7 +1234,7 @@
                     (> aws_byte_buf_is_valid@arg.0_0 0))
                 (=> aws_byte_buf_is_valid@_18_0
                     (= aws_byte_buf_is_valid@%_20_0
-                       (select aws_byte_buf_is_valid@%sm_0
+                       (select aws_byte_buf_is_valid@%sm2_0
                                aws_byte_buf_is_valid@%_call10_0)))
                 a!5
                 (=> aws_byte_buf_is_valid@_10_0
@@ -1258,7 +1258,7 @@
                     (> aws_byte_buf_is_valid@arg.0_0 0))
                 (=> aws_byte_buf_is_valid@_12_0
                     (= aws_byte_buf_is_valid@%_14_0
-                       (select aws_byte_buf_is_valid@%sm_0
+                       (select aws_byte_buf_is_valid@%sm2_0
                                aws_byte_buf_is_valid@%_call7_0)))
                 (=> aws_byte_buf_is_valid@_12_0
                     (= aws_byte_buf_is_valid@%_br8_0
@@ -1357,21 +1357,21 @@
       aws_byte_buf_is_valid@%sm3_0
       aws_byte_buf_is_valid@arg.0_0
       aws_byte_buf_is_valid@%_br12_0)))
-(rule (main@entry main@%sm49_0
-            main@%sm51_0
-            main@%sm47_0
-            main@%sm42_0
-            main@%sm44_0
-            main@%sm50_0
-            main@%sm48_0
-            main@%sm45_0
-            main@%sm37_0
-            main@%sm38_0
-            main@%sm52_0
-            main@%sm40_0
+(rule (main@entry main@%sm50_0
             main@%sm46_0
-            main@%sm43_0
+            main@%sm45_0
             main@%sm41_0
+            main@%sm38_0
+            main@%sm48_0
+            main@%sm47_0
+            main@%sm49_0
+            main@%sm37_0
+            main@%sm42_0
+            main@%sm51_0
+            main@%sm40_0
+            main@%sm52_0
+            main@%sm39_0
+            main@%sm44_0
             @s_default_malloc_0
             @s_default_free_0
             @s_default_realloc_0
@@ -1388,41 +1388,41 @@
       (a!10 (= main@%_20_0 (+ (+ main@%_0_0 (* 0 16)) 12)))
       (a!11 (= main@%_24_0 (+ (+ main@%_0_0 (* 0 16)) 0)))
       (a!12 (= main@%_28_0 (+ (+ main@%_0_0 (* 0 16)) 8))))
-(let ((a!13 (and (main@entry main@%sm49_0
-                             main@%sm51_0
-                             main@%sm47_0
-                             main@%sm42_0
-                             main@%sm44_0
-                             main@%sm50_0
-                             main@%sm48_0
-                             main@%sm45_0
-                             main@%sm37_0
-                             main@%sm38_0
-                             main@%sm52_0
-                             main@%sm40_0
+(let ((a!13 (and (main@entry main@%sm50_0
                              main@%sm46_0
-                             main@%sm43_0
+                             main@%sm45_0
                              main@%sm41_0
+                             main@%sm38_0
+                             main@%sm48_0
+                             main@%sm47_0
+                             main@%sm49_0
+                             main@%sm37_0
+                             main@%sm42_0
+                             main@%sm51_0
+                             main@%sm40_0
+                             main@%sm52_0
+                             main@%sm39_0
+                             main@%sm44_0
                              @s_default_malloc_0
                              @s_default_free_0
                              @s_default_realloc_0
                              @s_default_calloc_0)
                  true
-                 (= main@%sm_0 main@%sm49_0)
-                 (= main@%sm1_0 main@%sm51_0)
-                 (= main@%sm2_0 main@%sm47_0)
-                 (= main@%sm3_0 main@%sm42_0)
-                 (= main@%sm4_0 main@%sm44_0)
-                 (= main@%sm5_0 main@%sm50_0)
-                 (= main@%sm6_0 main@%sm48_0)
-                 (= main@%sm7_0 main@%sm45_0)
+                 (= main@%sm_0 main@%sm50_0)
+                 (= main@%sm1_0 main@%sm46_0)
+                 (= main@%sm2_0 main@%sm45_0)
+                 (= main@%sm3_0 main@%sm41_0)
+                 (= main@%sm4_0 main@%sm38_0)
+                 (= main@%sm5_0 main@%sm48_0)
+                 (= main@%sm6_0 main@%sm47_0)
+                 (= main@%sm7_0 main@%sm49_0)
                  (= main@%sm8_0 main@%sm37_0)
-                 (= main@%sm9_0 main@%sm38_0)
-                 (= main@%sm10_0 main@%sm52_0)
+                 (= main@%sm9_0 main@%sm42_0)
+                 (= main@%sm10_0 main@%sm51_0)
                  (= main@%sm11_0 main@%sm40_0)
-                 (= main@%sm12_0 main@%sm46_0)
-                 (= main@%sm13_0 main@%sm43_0)
-                 (= main@%sm14_0 main@%sm41_0)
+                 (= main@%sm12_0 main@%sm52_0)
+                 (= main@%sm13_0 main@%sm39_0)
+                 (= main@%sm14_0 main@%sm44_0)
                  (> main@%_0_0 0)
                  a!1
                  (or (<= @default_allocator_0 0) (> main@%_1_0 0))
@@ -1450,8 +1450,8 @@
                  a!6
                  (or (<= @s_null_terminator_cursor_0 0) (> main@%_6_0 0))
                  (= main@%sm23_0 (store main@%sm16_0 main@%_6_0 1))
-                 (= main@%_7_0 (+ @.str.4.14_0 (* 0 2) (* 0 1)))
-                 (or (<= @.str.4.14_0 0) (> main@%_7_0 0))
+                 (= main@%_7_0 (+ @.str.4.30_0 (* 0 2) (* 0 1)))
+                 (or (<= @.str.4.30_0 0) (> main@%_7_0 0))
                  a!7
                  (or (<= @s_null_terminator_cursor_0 0) (> main@%_8_0 0))
                  (> @s_null_terminator_cursor_0 0)
@@ -1472,21 +1472,21 @@
                    true
                    false
                    false
-                   main@%sm22_0
-                   main@%sh_0
-                   main@%sm24_0
-                   main@%sh27_0
                    main@%sm26_0
+                   main@%sh_0
+                   main@%sm22_0
+                   main@%sh27_0
+                   main@%sm24_0
                    main@%sh28_0)
                  (aws_byte_buf_init
                    true
                    false
                    false
-                   main@%sm39_0
-                   main@%sh29_0
                    main@%sh_0
-                   main@%sh30_0
+                   main@%sh29_0
                    main@%sh27_0
+                   main@%sh30_0
+                   main@%sm43_0
                    main@%sh31_0
                    main@%sh28_0
                    main@%sh32_0
@@ -1516,7 +1516,7 @@
                  (=> main@_19_0 (or (<= main@%_0_0 0) (> main@%_20_0 0)))
                  (=> main@_19_0 (> main@%_0_0 0))
                  (=> main@_19_0
-                     (= main@%_21_0 (select main@%sh33_0 main@%_20_0)))
+                     (= main@%_21_0 (select main@%sh35_0 main@%_20_0)))
                  (=> main@_19_0
                      (= main@%_22_0 (= main@%_21_0 @default_allocator_0)))
                  (=> main@_23_0 (and main@_23_0 main@_19_0))
@@ -1524,7 +1524,7 @@
                  (=> main@_23_0 a!11)
                  (=> main@_23_0 (or (<= main@%_0_0 0) (> main@%_24_0 0)))
                  (=> main@_23_0
-                     (= main@%_25_0 (select main@%sh33_0 main@%_24_0)))
+                     (= main@%_25_0 (select main@%sh35_0 main@%_24_0)))
                  (=> main@_23_0 (= main@%_26_0 (= main@%_25_0 0)))
                  (=> main@_27_0 (and main@_27_0 main@_23_0))
                  (=> (and main@_27_0 main@_23_0) main@%_26_0)
@@ -1532,7 +1532,7 @@
                  (=> main@_27_0 (or (<= main@%_0_0 0) (> main@%_28_0 0)))
                  (=> main@_27_0 (> main@%_0_0 0))
                  (=> main@_27_0
-                     (= main@%_29_0 (select main@%sh33_0 main@%_28_0)))
+                     (= main@%_29_0 (select main@%sh35_0 main@%_28_0)))
                  (=> main@_27_0 (= main@%_30_0 (= main@%_29_0 main@%_13_0)))
                  (=> main@_27_0 (not main@%_30_0))
                  (=> |tuple(main@_23_0, main@verifier.error_0)| main@_23_0)

@@ -179,39 +179,39 @@
 (declare-var main@%_22_0 Bool )
 (declare-var @default_allocator_0 Int )
 (declare-var @s_null_terminator_cursor_0 Int )
-(declare-var @.str.4.16_0 Int )
+(declare-var @.str.4.30_0 Int )
 (declare-var @s_common_log_subject_list_0 Int )
 (declare-var @s_common_log_subject_infos_0 Int )
-(declare-var main@%sm37_0 (Array Int Int) )
-(declare-var main@%sm44_0 (Array Int Int) )
-(declare-var main@%sm_0 (Array Int Int) )
-(declare-var main@%sm46_0 (Array Int Int) )
-(declare-var main@%sm1_0 (Array Int Int) )
-(declare-var main@%sm42_0 (Array Int Int) )
-(declare-var main@%sm2_0 (Array Int Int) )
-(declare-var main@%sm36_0 (Array Int Int) )
-(declare-var main@%sm3_0 (Array Int Int) )
 (declare-var main@%sm35_0 (Array Int Int) )
-(declare-var main@%sm4_0 (Array Int Int) )
-(declare-var main@%sm47_0 (Array Int Int) )
-(declare-var main@%sm5_0 (Array Int Int) )
-(declare-var main@%sm43_0 (Array Int Int) )
-(declare-var main@%sm6_0 (Array Int Int) )
+(declare-var main@%sm37_0 (Array Int Int) )
+(declare-var main@%sm_0 (Array Int Int) )
 (declare-var main@%sm50_0 (Array Int Int) )
-(declare-var main@%sm7_0 (Array Int Int) )
-(declare-var main@%sm34_0 (Array Int Int) )
-(declare-var main@%sm8_0 (Array Int Int) )
+(declare-var main@%sm1_0 (Array Int Int) )
 (declare-var main@%sm48_0 (Array Int Int) )
+(declare-var main@%sm2_0 (Array Int Int) )
+(declare-var main@%sm43_0 (Array Int Int) )
+(declare-var main@%sm3_0 (Array Int Int) )
+(declare-var main@%sm42_0 (Array Int Int) )
+(declare-var main@%sm4_0 (Array Int Int) )
+(declare-var main@%sm34_0 (Array Int Int) )
+(declare-var main@%sm5_0 (Array Int Int) )
+(declare-var main@%sm36_0 (Array Int Int) )
+(declare-var main@%sm6_0 (Array Int Int) )
+(declare-var main@%sm38_0 (Array Int Int) )
+(declare-var main@%sm7_0 (Array Int Int) )
+(declare-var main@%sm45_0 (Array Int Int) )
+(declare-var main@%sm8_0 (Array Int Int) )
+(declare-var main@%sm39_0 (Array Int Int) )
 (declare-var main@%sm9_0 (Array Int Int) )
 (declare-var main@%sm49_0 (Array Int Int) )
 (declare-var main@%sm10_0 (Array Int Int) )
-(declare-var main@%sm45_0 (Array Int Int) )
-(declare-var main@%sm11_0 (Array Int Int) )
-(declare-var main@%sm39_0 (Array Int Int) )
-(declare-var main@%sm12_0 (Array Int Int) )
-(declare-var main@%sm41_0 (Array Int Int) )
-(declare-var main@%sm13_0 (Array Int Int) )
 (declare-var main@%sm40_0 (Array Int Int) )
+(declare-var main@%sm11_0 (Array Int Int) )
+(declare-var main@%sm44_0 (Array Int Int) )
+(declare-var main@%sm12_0 (Array Int Int) )
+(declare-var main@%sm47_0 (Array Int Int) )
+(declare-var main@%sm13_0 (Array Int Int) )
+(declare-var main@%sm46_0 (Array Int Int) )
 (declare-var main@%sm14_0 (Array Int Int) )
 (declare-var main@%sm15_0 (Array Int Int) )
 (declare-var main@%sm16_0 (Array Int Int) )
@@ -1159,21 +1159,21 @@
       aws_byte_buf_is_valid@%sm3_0
       aws_byte_buf_is_valid@arg.0_0
       aws_byte_buf_is_valid@%_br12_0)))
-(rule (main@entry main@%sm44_0
-            main@%sm46_0
-            main@%sm42_0
-            main@%sm36_0
-            main@%sm35_0
-            main@%sm47_0
-            main@%sm43_0
+(rule (main@entry main@%sm37_0
             main@%sm50_0
-            main@%sm34_0
             main@%sm48_0
-            main@%sm49_0
+            main@%sm43_0
+            main@%sm42_0
+            main@%sm34_0
+            main@%sm36_0
+            main@%sm38_0
             main@%sm45_0
             main@%sm39_0
-            main@%sm41_0
+            main@%sm49_0
             main@%sm40_0
+            main@%sm44_0
+            main@%sm47_0
+            main@%sm46_0
             @s_default_malloc_0
             @s_default_free_0
             @s_default_realloc_0
@@ -1190,41 +1190,41 @@
       (a!10 (= main@%_20_0 (+ (+ main@%_0_0 (* 0 16)) 0)))
       (a!11 (= main@%_24_0 (+ (+ main@%_0_0 (* 0 16)) 8)))
       (a!12 (= main@%_28_0 (+ (+ main@%_0_0 (* 0 16)) 12))))
-(let ((a!13 (and (main@entry main@%sm44_0
-                             main@%sm46_0
-                             main@%sm42_0
-                             main@%sm36_0
-                             main@%sm35_0
-                             main@%sm47_0
-                             main@%sm43_0
+(let ((a!13 (and (main@entry main@%sm37_0
                              main@%sm50_0
-                             main@%sm34_0
                              main@%sm48_0
-                             main@%sm49_0
+                             main@%sm43_0
+                             main@%sm42_0
+                             main@%sm34_0
+                             main@%sm36_0
+                             main@%sm38_0
                              main@%sm45_0
                              main@%sm39_0
-                             main@%sm41_0
+                             main@%sm49_0
                              main@%sm40_0
+                             main@%sm44_0
+                             main@%sm47_0
+                             main@%sm46_0
                              @s_default_malloc_0
                              @s_default_free_0
                              @s_default_realloc_0
                              @s_default_calloc_0)
                  true
-                 (= main@%sm_0 main@%sm44_0)
-                 (= main@%sm1_0 main@%sm46_0)
-                 (= main@%sm2_0 main@%sm42_0)
-                 (= main@%sm3_0 main@%sm36_0)
-                 (= main@%sm4_0 main@%sm35_0)
-                 (= main@%sm5_0 main@%sm47_0)
-                 (= main@%sm6_0 main@%sm43_0)
-                 (= main@%sm7_0 main@%sm50_0)
-                 (= main@%sm8_0 main@%sm34_0)
-                 (= main@%sm9_0 main@%sm48_0)
+                 (= main@%sm_0 main@%sm37_0)
+                 (= main@%sm1_0 main@%sm50_0)
+                 (= main@%sm2_0 main@%sm48_0)
+                 (= main@%sm3_0 main@%sm43_0)
+                 (= main@%sm4_0 main@%sm42_0)
+                 (= main@%sm5_0 main@%sm34_0)
+                 (= main@%sm6_0 main@%sm36_0)
+                 (= main@%sm7_0 main@%sm38_0)
+                 (= main@%sm8_0 main@%sm45_0)
+                 (= main@%sm9_0 main@%sm39_0)
                  (= main@%sm10_0 main@%sm49_0)
-                 (= main@%sm11_0 main@%sm45_0)
-                 (= main@%sm12_0 main@%sm39_0)
-                 (= main@%sm13_0 main@%sm41_0)
-                 (= main@%sm14_0 main@%sm40_0)
+                 (= main@%sm11_0 main@%sm40_0)
+                 (= main@%sm12_0 main@%sm44_0)
+                 (= main@%sm13_0 main@%sm47_0)
+                 (= main@%sm14_0 main@%sm46_0)
                  (> main@%_0_0 0)
                  a!1
                  (or (<= @default_allocator_0 0) (> main@%_1_0 0))
@@ -1252,8 +1252,8 @@
                  a!6
                  (or (<= @s_null_terminator_cursor_0 0) (> main@%_6_0 0))
                  (= main@%sm23_0 (store main@%sm16_0 main@%_6_0 1))
-                 (= main@%_7_0 (+ @.str.4.16_0 (* 0 2) (* 0 1)))
-                 (or (<= @.str.4.16_0 0) (> main@%_7_0 0))
+                 (= main@%_7_0 (+ @.str.4.30_0 (* 0 2) (* 0 1)))
+                 (or (<= @.str.4.30_0 0) (> main@%_7_0 0))
                  a!7
                  (or (<= @s_null_terminator_cursor_0 0) (> main@%_8_0 0))
                  (> @s_null_terminator_cursor_0 0)
@@ -1276,13 +1276,13 @@
                    true
                    false
                    false
-                   main@%sm37_0
+                   main@%sm35_0
                    main@%sh_0
-                   main@%sm24_0
-                   main@%sh27_0
-                   main@%sm26_0
-                   main@%sh28_0
                    main@%sm22_0
+                   main@%sh27_0
+                   main@%sm24_0
+                   main@%sh28_0
+                   main@%sm26_0
                    main@%sh29_0
                    main@%_0_0
                    main@%malloc_0

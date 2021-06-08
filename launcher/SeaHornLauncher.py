@@ -8,7 +8,7 @@ import ReportBuilder
 #SOURCE_PATH = "/Users/ilyazlatkin/CLionProjects/aws-c-common"
 SOURCE_PATH = "/tmp/aws-c-common"
 SEA_PATH = "/Users/ilyazlatkin/CLionProjects/seahorn/build/run/bin/sea"
-SEA_OPTIONS = ['-I/tmp/aws-c-common/include/:/tmp/aws-c-common/verification/cbmc/include/:/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/']
+SEA_OPTIONS = ['-I/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/:/tmp/aws-c-common/verification/cbmc/include/:/tmp/aws-c-common/include/']
 #  ,'--show-invars'
    # ,'clang', '/Library/Developer/CommandLineTools_9.0.0/usr/bin/clang']
 #SEA_OPTIONS = ['-I/tmp/cbmc/include/']
@@ -26,7 +26,7 @@ SEA_TIMEOUT = 30
 # Z3_TIMEOUT = 30
 LLVM_DIS_PATH = "/Users/ilyazlatkin/CLionProjects/seahorn/build/llvm-prefix/src/llvm-build/bin/llvm-dis"
 EXCLUDE_LIST = ['make_common_data_structures.c','utils.c']
-#EXCLUDE_LIST = []
+#EXCLUDE_LIST = ['utils.c']
 
 
 def contains_assert(s):
@@ -246,7 +246,7 @@ def find_all_files(name):
     for root, dirs, files in os.walk(path):
         if name in files and name not in EXCLUDE_LIST:
             result.append(os.path.join(root, name))
-    return result
+    return result[:1]
 
 
 def parse_makefile(filename):
@@ -255,7 +255,7 @@ def parse_makefile(filename):
     file = open(filename, 'r')
     lines = file.readlines()
     for line in lines:
-        if ".c\n" in line:
+        if ".c\n" in line and '/' in line:
             potential_c_file = line[line.rindex('/') + 1:line.rindex('\n')]
             #result.append(potential_c_file)
             tmp = find_all_files(potential_c_file)
@@ -268,7 +268,7 @@ if __name__ == '__main__':
     # for f in files:
     #     print(f)
     #     print(get_dependencies_list(f))
-    #files = ["/tmp/aws-c-common/verification/cbmc/proofs/aws_array_eq_c_str/aws_array_eq_c_str_harness.c"]
+    # files = ["/tmp/aws-c-common/verification/cbmc/proofs/aws_string_new_from_array/aws_string_new_from_array_harness.c"]
     run_sea_smt(files)
     out = pickle.load(open("save_aws.p", "rb"))
     stat = print_statistics(out)

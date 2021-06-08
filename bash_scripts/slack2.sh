@@ -4,7 +4,7 @@ export REPO_PATH=/tmp/aws-c-common
 export SEAHOR_BIN=/Users/ilyazlatkin/CLionProjects/seahorn/build/run/bin
 export SEAHORN_OPT=-I${REPO_PATH}/include/:${REPO_PATH}/verification/cbmc/include/:/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/
 export C_FILE=verification/cbmc/proofs/aws_nospec_mask/aws_nospec_mask_harness.c
-export C_FILE=verification/cbmc/proofs/aws_hash_table_init_unbounded/aws_hash_table_init_unbounded_harness.c
+#export C_FILE=verification/cbmc/proofs/aws_hash_table_init_unbounded/aws_hash_table_init_unbounded_harness.c
 
 rm test*
 # dep list
@@ -14,7 +14,6 @@ ${REPO_PATH}/source/allocator.c \
 ${REPO_PATH}/source/error.c \
 ${REPO_PATH}/verification/cbmc/stubs/error.c \
 ${REPO_PATH}/verification/cbmc/uninline/error.c \
-${REPO_PATH}/verification/cbmc/stubs/memset_override_no_op.c \
 ${REPO_PATH}/source/byte_buf.c \
 ${REPO_PATH}/source/common.c \
 ${REPO_PATH}/source/hash_table.c \

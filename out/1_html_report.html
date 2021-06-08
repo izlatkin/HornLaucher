@@ -1,16 +1,16 @@
-number of .c files with assertions 162 in "/tmp/aws-c-common"<br />
+number of .c files with assertions 164 in "/tmp/aws-c-common"<br />
 https://github.com/awslabs/aws-c-common<br />
-SEA_OPTIONS: -I/tmp/aws-c-common/include/:/tmp/aws-c-common/verification/cbmc/include/:/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/<br />
-number of .smt2 files created 109<br />
+SEA_OPTIONS: -I/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/:/tmp/aws-c-common/verification/cbmc/include/:/tmp/aws-c-common/include/<br />
+number of .smt2 files created 111<br />
 -      number of small(<= 4 lines) .smt2 files 1<br />
--      number of medium(<= 200 lines) .smt2 files 4<br />
+-      number of medium(<= 200 lines) .smt2 files 6<br />
 *          number of z3 timeout errors  0<br />
-*          number of sat 4<br />
+*          number of sat 6<br />
 *          number of unsat 0<br />
 -      number of large(> 200 lines) .smt2 files 104<br />
 *          number of z3 timeout errors  1<br />
-*          number of sat 80<br />
-*          number of unsat 22<br />
+*          number of sat 73<br />
+*          number of unsat 29<br />
 number of errors  53<br />
 -      number of errors "error:" is 0<br />
 -      number of errors "file not found" is 0<br />
@@ -200,7 +200,7 @@ number of errors  53<br />
 <br/><a href="../out/aws_string_new_from_array_harness.c/aws_string_new_from_array_harness79e63.smt2.txt">aws_string_new_from_array_harness79e63.smt2.txt </a>
 <br/><a href="../out/aws_string_new_from_array_harness.c/aws_string_new_from_array_harness79e63.ll">aws_string_new_from_array_harness79e63.ll </a>
 </td>
-    <td>1148</td>
+    <td>1518</td>
     <td>sat</td>
     <td><a href="../out/aws_string_new_from_array_harness.c/log.txt">log</a>
 </td>
@@ -266,7 +266,7 @@ number of errors  53<br />
 <br/><a href="../out/aws_string_eq_c_str_harness.c/aws_string_eq_c_str_harnessdd907.smt2.txt">aws_string_eq_c_str_harnessdd907.smt2.txt </a>
 <br/><a href="../out/aws_string_eq_c_str_harness.c/aws_string_eq_c_str_harnessdd907.ll">aws_string_eq_c_str_harnessdd907.ll </a>
 </td>
-    <td>1026</td>
+    <td>1712</td>
     <td>sat</td>
     <td><a href="../out/aws_string_eq_c_str_harness.c/log.txt">log</a>
 </td>
@@ -302,7 +302,7 @@ number of errors  53<br />
 <br/><a href="../out/aws_linked_list_pop_back_harness.c/aws_linked_list_pop_back_harness9383d.smt2.txt">aws_linked_list_pop_back_harness9383d.smt2.txt </a>
 <br/><a href="../out/aws_linked_list_pop_back_harness.c/aws_linked_list_pop_back_harness9383d.ll">aws_linked_list_pop_back_harness9383d.ll </a>
 </td>
-    <td>1247</td>
+    <td>1252</td>
     <td>sat</td>
     <td><a href="../out/aws_linked_list_pop_back_harness.c/log.txt">log</a>
 </td>
@@ -344,8 +344,8 @@ number of errors  53<br />
 <br/><a href="../out/aws_string_eq_ignore_case_harness.c/aws_string_eq_ignore_case_harness1cd76.smt2.txt">aws_string_eq_ignore_case_harness1cd76.smt2.txt </a>
 <br/><a href="../out/aws_string_eq_ignore_case_harness.c/aws_string_eq_ignore_case_harness1cd76.ll">aws_string_eq_ignore_case_harness1cd76.ll </a>
 </td>
-    <td>1046</td>
-    <td>sat</td>
+    <td>1889</td>
+    <td>unsat</td>
     <td><a href="../out/aws_string_eq_ignore_case_harness.c/log.txt">log</a>
 </td>
   </tr>
@@ -395,7 +395,7 @@ number of errors  53<br />
 <br/><a href="../out/aws_string_compare_harness.c/aws_string_compare_harness784be.smt2.txt">aws_string_compare_harness784be.smt2.txt </a>
 <br/><a href="../out/aws_string_compare_harness.c/aws_string_compare_harness784be.ll">aws_string_compare_harness784be.ll </a>
 </td>
-    <td>1311</td>
+    <td>1609</td>
     <td>unsat</td>
     <td><a href="../out/aws_string_compare_harness.c/log.txt">log</a>
 </td>
@@ -440,8 +440,8 @@ number of errors  53<br />
 <br/><a href="../out/aws_ring_buffer_clean_up_harness.c/aws_ring_buffer_clean_up_harness07e40.smt2.txt">aws_ring_buffer_clean_up_harness07e40.smt2.txt </a>
 <br/><a href="../out/aws_ring_buffer_clean_up_harness.c/aws_ring_buffer_clean_up_harness07e40.ll">aws_ring_buffer_clean_up_harness07e40.ll </a>
 </td>
-    <td>1543</td>
-    <td>sat</td>
+    <td>1777</td>
+    <td>unsat</td>
     <td><a href="../out/aws_ring_buffer_clean_up_harness.c/log.txt">log</a>
 </td>
   </tr>
@@ -596,8 +596,8 @@ number of errors  53<br />
 <br/><a href="../out/aws_string_eq_harness.c/aws_string_eq_harness68a78.smt2.txt">aws_string_eq_harness68a78.smt2.txt </a>
 <br/><a href="../out/aws_string_eq_harness.c/aws_string_eq_harness68a78.ll">aws_string_eq_harness68a78.ll </a>
 </td>
-    <td>1049</td>
-    <td>sat</td>
+    <td>1298</td>
+    <td>unsat</td>
     <td><a href="../out/aws_string_eq_harness.c/log.txt">log</a>
 </td>
   </tr>
@@ -713,8 +713,8 @@ number of errors  53<br />
 <br/><a href="../out/aws_linked_list_prev_harness.c/aws_linked_list_prev_harness101a0.smt2.txt">aws_linked_list_prev_harness101a0.smt2.txt </a>
 <br/><a href="../out/aws_linked_list_prev_harness.c/aws_linked_list_prev_harness101a0.ll">aws_linked_list_prev_harness101a0.ll </a>
 </td>
-    <td>1108</td>
-    <td>unsat</td>
+    <td>1103</td>
+    <td>sat</td>
     <td><a href="../out/aws_linked_list_prev_harness.c/log.txt">log</a>
 </td>
   </tr>
@@ -725,7 +725,7 @@ number of errors  53<br />
 <br/><a href="../out/aws_ring_buffer_init_harness.c/aws_ring_buffer_init_harnessc8eb9.smt2.txt">aws_ring_buffer_init_harnessc8eb9.smt2.txt </a>
 <br/><a href="../out/aws_ring_buffer_init_harness.c/aws_ring_buffer_init_harnessc8eb9.ll">aws_ring_buffer_init_harnessc8eb9.ll </a>
 </td>
-    <td>1284</td>
+    <td>1567</td>
     <td>sat</td>
     <td><a href="../out/aws_ring_buffer_init_harness.c/log.txt">log</a>
 </td>
@@ -890,7 +890,7 @@ number of errors  53<br />
 <br/><a href="../out/aws_ring_buffer_release_harness.c/aws_ring_buffer_release_harnessabe96.smt2.txt">aws_ring_buffer_release_harnessabe96.smt2.txt </a>
 <br/><a href="../out/aws_ring_buffer_release_harness.c/aws_ring_buffer_release_harnessabe96.ll">aws_ring_buffer_release_harnessabe96.ll </a>
 </td>
-    <td>3939</td>
+    <td>4143</td>
     <td>sat</td>
     <td><a href="../out/aws_ring_buffer_release_harness.c/log.txt">log</a>
 </td>
@@ -941,8 +941,8 @@ number of errors  53<br />
 <br/><a href="../out/aws_hash_callback_string_eq_harness.c/aws_hash_callback_string_eq_harnessb43d1.smt2.txt">aws_hash_callback_string_eq_harnessb43d1.smt2.txt </a>
 <br/><a href="../out/aws_hash_callback_string_eq_harness.c/aws_hash_callback_string_eq_harnessb43d1.ll">aws_hash_callback_string_eq_harnessb43d1.ll </a>
 </td>
-    <td>930</td>
-    <td>sat</td>
+    <td>1907</td>
+    <td>unsat</td>
     <td><a href="../out/aws_hash_callback_string_eq_harness.c/log.txt">log</a>
 </td>
   </tr>
@@ -992,7 +992,7 @@ number of errors  53<br />
 <br/><a href="../out/aws_string_new_from_string_harness.c/aws_string_new_from_string_harness7b620.smt2.txt">aws_string_new_from_string_harness7b620.smt2.txt </a>
 <br/><a href="../out/aws_string_new_from_string_harness.c/aws_string_new_from_string_harness7b620.ll">aws_string_new_from_string_harness7b620.ll </a>
 </td>
-    <td>1346</td>
+    <td>1748</td>
     <td>sat</td>
     <td><a href="../out/aws_string_new_from_string_harness.c/log.txt">log</a>
 </td>
@@ -1016,7 +1016,7 @@ number of errors  53<br />
 <br/><a href="../out/aws_linked_list_front_harness.c/aws_linked_list_front_harnessfc551.smt2.txt">aws_linked_list_front_harnessfc551.smt2.txt </a>
 <br/><a href="../out/aws_linked_list_front_harness.c/aws_linked_list_front_harnessfc551.ll">aws_linked_list_front_harnessfc551.ll </a>
 </td>
-    <td>1502</td>
+    <td>1512</td>
     <td>sat</td>
     <td><a href="../out/aws_linked_list_front_harness.c/log.txt">log</a>
 </td>
@@ -1121,7 +1121,7 @@ number of errors  53<br />
 <br/><a href="../out/aws_linked_list_rend_harness.c/aws_linked_list_rend_harnessd73a8.smt2.txt">aws_linked_list_rend_harnessd73a8.smt2.txt </a>
 <br/><a href="../out/aws_linked_list_rend_harness.c/aws_linked_list_rend_harnessd73a8.ll">aws_linked_list_rend_harnessd73a8.ll </a>
 </td>
-    <td>908</td>
+    <td>918</td>
     <td>unsat</td>
     <td><a href="../out/aws_linked_list_rend_harness.c/log.txt">log</a>
 </td>
@@ -1198,8 +1198,8 @@ number of errors  53<br />
 <br/><a href="../out/aws_string_eq_byte_cursor_ignore_case_harness.c/aws_string_eq_byte_cursor_ignore_case_harness8884d.smt2.txt">aws_string_eq_byte_cursor_ignore_case_harness8884d.smt2.txt </a>
 <br/><a href="../out/aws_string_eq_byte_cursor_ignore_case_harness.c/aws_string_eq_byte_cursor_ignore_case_harness8884d.ll">aws_string_eq_byte_cursor_ignore_case_harness8884d.ll </a>
 </td>
-    <td>1433</td>
-    <td>sat</td>
+    <td>2355</td>
+    <td>unsat</td>
     <td><a href="../out/aws_string_eq_byte_cursor_ignore_case_harness.c/log.txt">log</a>
 </td>
   </tr>
@@ -1219,7 +1219,7 @@ number of errors  53<br />
 <br/><a href="../out/aws_string_new_from_c_str_harness.c/aws_string_new_from_c_str_harness546e4.smt2.txt">aws_string_new_from_c_str_harness546e4.smt2.txt </a>
 <br/><a href="../out/aws_string_new_from_c_str_harness.c/aws_string_new_from_c_str_harness546e4.ll">aws_string_new_from_c_str_harness546e4.ll </a>
 </td>
-    <td>1311</td>
+    <td>1681</td>
     <td>sat</td>
     <td><a href="../out/aws_string_new_from_c_str_harness.c/log.txt">log</a>
 </td>
@@ -1489,7 +1489,7 @@ number of errors  53<br />
 <br/><a href="../out/aws_linked_list_pop_front_harness.c/aws_linked_list_pop_front_harness46938.smt2.txt">aws_linked_list_pop_front_harness46938.smt2.txt </a>
 <br/><a href="../out/aws_linked_list_pop_front_harness.c/aws_linked_list_pop_front_harness46938.ll">aws_linked_list_pop_front_harness46938.ll </a>
 </td>
-    <td>1243</td>
+    <td>1248</td>
     <td>sat</td>
     <td><a href="../out/aws_linked_list_pop_front_harness.c/log.txt">log</a>
 </td>
@@ -1501,7 +1501,7 @@ number of errors  53<br />
 <br/><a href="../out/aws_byte_cursor_from_string_harness.c/aws_byte_cursor_from_string_harness847a4.smt2.txt">aws_byte_cursor_from_string_harness847a4.smt2.txt </a>
 <br/><a href="../out/aws_byte_cursor_from_string_harness.c/aws_byte_cursor_from_string_harness847a4.ll">aws_byte_cursor_from_string_harness847a4.ll </a>
 </td>
-    <td>1330</td>
+    <td>1476</td>
     <td>sat</td>
     <td><a href="../out/aws_byte_cursor_from_string_harness.c/log.txt">log</a>
 </td>
@@ -1513,8 +1513,8 @@ number of errors  53<br />
 <br/><a href="../out/aws_string_eq_byte_buf_ignore_case_harness.c/aws_string_eq_byte_buf_ignore_case_harnessffade.smt2.txt">aws_string_eq_byte_buf_ignore_case_harnessffade.smt2.txt </a>
 <br/><a href="../out/aws_string_eq_byte_buf_ignore_case_harness.c/aws_string_eq_byte_buf_ignore_case_harnessffade.ll">aws_string_eq_byte_buf_ignore_case_harnessffade.ll </a>
 </td>
-    <td>1520</td>
-    <td>sat</td>
+    <td>2436</td>
+    <td>unsat</td>
     <td><a href="../out/aws_string_eq_byte_buf_ignore_case_harness.c/log.txt">log</a>
 </td>
   </tr>
@@ -1543,7 +1543,7 @@ number of errors  53<br />
 <br/><a href="../out/aws_array_list_push_back_harness.c/aws_array_list_push_back_harness2e95f.smt2.txt">aws_array_list_push_back_harness2e95f.smt2.txt </a>
 <br/><a href="../out/aws_array_list_push_back_harness.c/aws_array_list_push_back_harness2e95f.ll">aws_array_list_push_back_harness2e95f.ll </a>
 </td>
-    <td>1733</td>
+    <td>1911</td>
     <td>sat</td>
     <td><a href="../out/aws_array_list_push_back_harness.c/log.txt">log</a>
 </td>
@@ -1624,7 +1624,7 @@ number of errors  53<br />
 <br/><a href="../out/aws_string_eq_c_str_ignore_case_harness.c/aws_string_eq_c_str_ignore_case_harnesse8bb1.smt2.txt">aws_string_eq_c_str_ignore_case_harnesse8bb1.smt2.txt </a>
 <br/><a href="../out/aws_string_eq_c_str_ignore_case_harness.c/aws_string_eq_c_str_ignore_case_harnesse8bb1.ll">aws_string_eq_c_str_ignore_case_harnesse8bb1.ll </a>
 </td>
-    <td>1026</td>
+    <td>1983</td>
     <td>sat</td>
     <td><a href="../out/aws_string_eq_c_str_ignore_case_harness.c/log.txt">log</a>
 </td>
@@ -1636,7 +1636,7 @@ number of errors  53<br />
 <br/><a href="../out/aws_byte_buf_write_from_whole_string_harness.c/aws_byte_buf_write_from_whole_string_harness92a0b.smt2.txt">aws_byte_buf_write_from_whole_string_harness92a0b.smt2.txt </a>
 <br/><a href="../out/aws_byte_buf_write_from_whole_string_harness.c/aws_byte_buf_write_from_whole_string_harness92a0b.ll">aws_byte_buf_write_from_whole_string_harness92a0b.ll </a>
 </td>
-    <td>1667</td>
+    <td>2139</td>
     <td>sat</td>
     <td><a href="../out/aws_byte_buf_write_from_whole_string_harness.c/log.txt">log</a>
 </td>
@@ -1648,8 +1648,8 @@ number of errors  53<br />
 <br/><a href="../out/aws_string_eq_byte_buf_harness.c/aws_string_eq_byte_buf_harnessf275a.smt2.txt">aws_string_eq_byte_buf_harnessf275a.smt2.txt </a>
 <br/><a href="../out/aws_string_eq_byte_buf_harness.c/aws_string_eq_byte_buf_harnessf275a.ll">aws_string_eq_byte_buf_harnessf275a.ll </a>
 </td>
-    <td>1510</td>
-    <td>sat</td>
+    <td>1806</td>
+    <td>unsat</td>
     <td><a href="../out/aws_string_eq_byte_buf_harness.c/log.txt">log</a>
 </td>
   </tr>
@@ -1726,7 +1726,7 @@ number of errors  53<br />
 <br/><a href="../out/aws_array_list_set_at_harness.c/aws_array_list_set_at_harness48d70.smt2.txt">aws_array_list_set_at_harness48d70.smt2.txt </a>
 <br/><a href="../out/aws_array_list_set_at_harness.c/aws_array_list_set_at_harness48d70.ll">aws_array_list_set_at_harness48d70.ll </a>
 </td>
-    <td>1626</td>
+    <td>1995</td>
     <td>sat</td>
     <td><a href="../out/aws_array_list_set_at_harness.c/log.txt">log</a>
 </td>
@@ -1792,8 +1792,8 @@ number of errors  53<br />
 <br/><a href="../out/aws_string_eq_byte_cursor_harness.c/aws_string_eq_byte_cursor_harness7b9a6.smt2.txt">aws_string_eq_byte_cursor_harness7b9a6.smt2.txt </a>
 <br/><a href="../out/aws_string_eq_byte_cursor_harness.c/aws_string_eq_byte_cursor_harness7b9a6.ll">aws_string_eq_byte_cursor_harness7b9a6.ll </a>
 </td>
-    <td>1469</td>
-    <td>sat</td>
+    <td>1765</td>
+    <td>unsat</td>
     <td><a href="../out/aws_string_eq_byte_cursor_harness.c/log.txt">log</a>
 </td>
   </tr>
@@ -1804,9 +1804,33 @@ number of errors  53<br />
 <br/><a href="../out/make_common_data_structures.c/make_common_data_structures77d3d.smt2.txt">make_common_data_structures77d3d.smt2.txt </a>
 <br/><a href="../out/make_common_data_structures.c/make_common_data_structures77d3d.ll">make_common_data_structures77d3d.ll </a>
 </td>
-    <td>1312</td>
+    <td>1297</td>
     <td>sat</td>
     <td><a href="../out/make_common_data_structures.c/log.txt">log</a>
+</td>
+  </tr>
+  <tr>
+    <td>163</td>
+    <td><a href="../out/assert_harness.c/assert_harness.c">assert_harness.c </a>
+<br/><a href="../out/assert_harness.c/assert_harness3ab4e.bc.txt">assert_harness3ab4e.bc.txt </a>
+<br/><a href="../out/assert_harness.c/assert_harness3ab4e.smt2.txt">assert_harness3ab4e.smt2.txt </a>
+<br/><a href="../out/assert_harness.c/assert_harness3ab4e.ll">assert_harness3ab4e.ll </a>
+</td>
+    <td>46</td>
+    <td>sat</td>
+    <td><a href="../out/assert_harness.c/log.txt">log</a>
+</td>
+  </tr>
+  <tr>
+    <td>164</td>
+    <td><a href="../out/pointer_primitive_check_harness.c/pointer_primitive_check_harness.c">pointer_primitive_check_harness.c </a>
+<br/><a href="../out/pointer_primitive_check_harness.c/pointer_primitive_check_harness0caf7.bc.txt">pointer_primitive_check_harness0caf7.bc.txt </a>
+<br/><a href="../out/pointer_primitive_check_harness.c/pointer_primitive_check_harness0caf7.smt2.txt">pointer_primitive_check_harness0caf7.smt2.txt </a>
+<br/><a href="../out/pointer_primitive_check_harness.c/pointer_primitive_check_harness0caf7.ll">pointer_primitive_check_harness0caf7.ll </a>
+</td>
+    <td>44</td>
+    <td>sat</td>
+    <td><a href="../out/pointer_primitive_check_harness.c/log.txt">log</a>
 </td>
   </tr>
 </table>

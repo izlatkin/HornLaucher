@@ -82,7 +82,7 @@
 (declare-var s_default_realloc@%.0_3 Int )
 (declare-var s_default_realloc@.split_0 Bool )
 (declare-var s_default_calloc@%sm4_0 (Array Int Int) )
-(declare-var s_default_calloc@%sm2_0 (Array Int Int) )
+(declare-var s_default_calloc@%sm3_0 (Array Int Int) )
 (declare-var s_default_calloc@%_tail_0 Int )
 (declare-var s_default_calloc@%_tail5_0 Int )
 (declare-var s_default_calloc@arg.2_0 Int )
@@ -98,7 +98,7 @@
 (declare-var s_default_calloc@%shadow.mem.41.0_2 (Array Int Int) )
 (declare-var s_default_calloc@%shadow.mem.41.0_0 (Array Int Int) )
 (declare-var s_default_calloc@%_call7_0 Int )
-(declare-var s_default_calloc@%sm3_0 (Array Int Int) )
+(declare-var s_default_calloc@%sm2_0 (Array Int Int) )
 (declare-var s_default_calloc@_sm2_0 Bool )
 (declare-var s_default_calloc@_sm1_0 Bool )
 (declare-var s_default_calloc@%sm1_0 (Array Int Int) )
@@ -535,12 +535,12 @@
                   s_default_calloc@%_call7_0))
 (rule (s_default_calloc@_sm2
   s_default_calloc@%sm4_0
-  s_default_calloc@%sm3_0
+  s_default_calloc@%sm2_0
   s_default_calloc@arg.2_0
   s_default_calloc@arg.1_0))
 (rule (let ((a!1 (and (s_default_calloc@_sm2
                   s_default_calloc@%sm4_0
-                  s_default_calloc@%sm3_0
+                  s_default_calloc@%sm2_0
                   s_default_calloc@arg.2_0
                   s_default_calloc@arg.1_0)
                 true
@@ -552,7 +552,7 @@
                 (= s_default_calloc@%_8_0 (ite s_default_calloc@%_7_0 32 8))
                 (= s_default_calloc@%_call_0 s_default_calloc@%_tail_0)
                 (= s_default_calloc@%sm_0
-                   (store s_default_calloc@%sm2_0 s_default_calloc@%_tail_0 0))
+                   (store s_default_calloc@%sm3_0 s_default_calloc@%_tail_0 0))
                 (= s_default_calloc@%_call6_0 (= s_default_calloc@%_10_0 0))
                 (= s_default_calloc@%_12_0
                    (select s_default_calloc@%sm_0 s_default_calloc@%_tail_0))
@@ -578,7 +578,7 @@
                        s_default_calloc@%sm1_0))
                 (=> |tuple(s_default_calloc@_sm2_0, s_default_calloc@_shadow.mem.41.0_0)|
                     (= s_default_calloc@%shadow.mem.41.0_1
-                       s_default_calloc@%sm3_0))
+                       s_default_calloc@%sm2_0))
                 (=> (and s_default_calloc@_shadow.mem.41.0_0
                          s_default_calloc@_sm1_0)
                     (= s_default_calloc@%shadow.mem.41.0_2
@@ -592,14 +592,14 @@
         s_default_calloc@%shadow.mem.41.0_2
         s_default_calloc@%sm4_0
         s_default_calloc@%_call7_0
-        s_default_calloc@%sm3_0
+        s_default_calloc@%sm2_0
         s_default_calloc@arg.2_0
         s_default_calloc@arg.1_0))))
 (rule (=> (s_default_calloc@_shadow.mem.41.0
       s_default_calloc@%shadow.mem.41.0_0
       s_default_calloc@%sm4_0
       s_default_calloc@%_call7_0
-      s_default_calloc@%sm3_0
+      s_default_calloc@%sm2_0
       s_default_calloc@arg.2_0
       s_default_calloc@arg.1_0)
     (s_default_calloc true

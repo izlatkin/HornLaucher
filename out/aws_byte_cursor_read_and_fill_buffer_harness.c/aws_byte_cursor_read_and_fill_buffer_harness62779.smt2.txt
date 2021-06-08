@@ -141,7 +141,7 @@
 (declare-var aws_byte_cursor_is_valid@%UnifiedRetVal_1 Bool )
 (declare-var aws_byte_cursor_is_valid@UnifiedReturnBlock.split_0 Bool )
 (declare-var aws_byte_buf_is_valid@%sm_0 (Array Int Int) )
-(declare-var aws_byte_buf_is_valid@%sm1_0 (Array Int Int) )
+(declare-var aws_byte_buf_is_valid@%sm2_0 (Array Int Int) )
 (declare-var aws_byte_buf_is_valid@%sm3_0 (Array Int Int) )
 (declare-var aws_byte_buf_is_valid@%sm4_0 (Array Int Int) )
 (declare-var aws_byte_buf_is_valid@%_call8_0 Int )
@@ -156,7 +156,7 @@
 (declare-var aws_byte_buf_is_valid@%_call5_0 Int )
 (declare-var aws_byte_buf_is_valid@%_br_0 Bool )
 (declare-var aws_byte_buf_is_valid@%_br13_5 Bool )
-(declare-var aws_byte_buf_is_valid@%sm2_0 (Array Int Int) )
+(declare-var aws_byte_buf_is_valid@%sm1_0 (Array Int Int) )
 (declare-var aws_byte_buf_is_valid@arg.0_0 Int )
 (declare-var aws_byte_buf_is_valid@%_br13_0 Bool )
 (declare-var aws_byte_buf_is_valid@_sm_0 Bool )
@@ -181,7 +181,7 @@
 (declare-var aws_byte_buf_is_valid@%_br13_4 Bool )
 (declare-var aws_byte_buf_is_valid@.split_0 Bool )
 (declare-var aws_byte_cursor_read_and_fill_buffer@%sm5_0 (Array Int Int) )
-(declare-var aws_byte_cursor_read_and_fill_buffer@%sm6_0 (Array Int Int) )
+(declare-var aws_byte_cursor_read_and_fill_buffer@%sm7_0 (Array Int Int) )
 (declare-var aws_byte_cursor_read_and_fill_buffer@%sm9_0 (Array Int Int) )
 (declare-var aws_byte_cursor_read_and_fill_buffer@%sm10_0 (Array Int Int) )
 (declare-var aws_byte_cursor_read_and_fill_buffer@%_sm3_0 Int )
@@ -221,7 +221,7 @@
 (declare-var aws_byte_cursor_read_and_fill_buffer@%shadow.mem.66.0_2 (Array Int Int) )
 (declare-var aws_byte_cursor_read_and_fill_buffer@%sm4_0 (Array Int Int) )
 (declare-var aws_byte_cursor_read_and_fill_buffer@%shadow.mem.66.1_0 (Array Int Int) )
-(declare-var aws_byte_cursor_read_and_fill_buffer@%sm7_0 (Array Int Int) )
+(declare-var aws_byte_cursor_read_and_fill_buffer@%sm6_0 (Array Int Int) )
 (declare-var aws_byte_cursor_read_and_fill_buffer@%shadow.mem.50.0_0 (Array Int Int) )
 (declare-var aws_byte_cursor_read_and_fill_buffer@%sm8_0 (Array Int Int) )
 (declare-var aws_byte_cursor_read_and_fill_buffer@%shadow.mem.67.1_0 (Array Int Int) )
@@ -269,7 +269,7 @@
 (declare-var main@%or.cond36.i_0 Bool )
 (declare-var main@%_43_0 Bool )
 (declare-var main@%sh45_0 (Array Int Int) )
-(declare-var main@%sh47_0 (Array Int Int) )
+(declare-var main@%sh46_0 (Array Int Int) )
 (declare-var main@%_36_0 Bool )
 (declare-var main@%_37_0 Int )
 (declare-var main@%_38_0 Bool )
@@ -280,45 +280,45 @@
 (declare-var main@%_29_0 Int )
 (declare-var main@%_30_0 Bool )
 (declare-var main@%shadow.mem.4.0_5 (Array Int Int) )
-(declare-var main@%shadow.mem.12.0_5 (Array Int Int) )
+(declare-var main@%shadow.mem.24.0_5 (Array Int Int) )
 (declare-var main@%shadow.mem.32.0_5 (Array Int Int) )
 (declare-var @default_allocator_0 Int )
 (declare-var @s_null_terminator_cursor_0 Int )
-(declare-var @.str.4.16_0 Int )
+(declare-var @.str.4.32_0 Int )
 (declare-var @s_common_log_subject_list_0 Int )
 (declare-var @s_common_log_subject_infos_0 Int )
-(declare-var main@%sm53_0 (Array Int Int) )
-(declare-var main@%sm60_0 (Array Int Int) )
-(declare-var main@%sm63_0 (Array Int Int) )
-(declare-var main@%sm56_0 (Array Int Int) )
-(declare-var main@%sm_0 (Array Int Int) )
-(declare-var main@%sm52_0 (Array Int Int) )
-(declare-var main@%sm1_0 (Array Int Int) )
+(declare-var main@%sm54_0 (Array Int Int) )
 (declare-var main@%sm59_0 (Array Int Int) )
+(declare-var main@%sm66_0 (Array Int Int) )
+(declare-var main@%sm53_0 (Array Int Int) )
+(declare-var main@%sm_0 (Array Int Int) )
+(declare-var main@%sm55_0 (Array Int Int) )
+(declare-var main@%sm1_0 (Array Int Int) )
+(declare-var main@%sm50_0 (Array Int Int) )
 (declare-var main@%sm2_0 (Array Int Int) )
-(declare-var main@%sm70_0 (Array Int Int) )
+(declare-var main@%sm63_0 (Array Int Int) )
 (declare-var main@%sm3_0 (Array Int Int) )
-(declare-var main@%sm68_0 (Array Int Int) )
+(declare-var main@%sm60_0 (Array Int Int) )
 (declare-var main@%sm4_0 (Array Int Int) )
-(declare-var main@%sm51_0 (Array Int Int) )
+(declare-var main@%sm56_0 (Array Int Int) )
 (declare-var main@%sm5_0 (Array Int Int) )
-(declare-var main@%sm61_0 (Array Int Int) )
+(declare-var main@%sm51_0 (Array Int Int) )
 (declare-var main@%sm6_0 (Array Int Int) )
-(declare-var main@%sm57_0 (Array Int Int) )
-(declare-var main@%sm7_0 (Array Int Int) )
 (declare-var main@%sm62_0 (Array Int Int) )
+(declare-var main@%sm7_0 (Array Int Int) )
+(declare-var main@%sm64_0 (Array Int Int) )
 (declare-var main@%sm8_0 (Array Int Int) )
 (declare-var main@%sm58_0 (Array Int Int) )
 (declare-var main@%sm9_0 (Array Int Int) )
-(declare-var main@%sm67_0 (Array Int Int) )
+(declare-var main@%sm52_0 (Array Int Int) )
 (declare-var main@%sm10_0 (Array Int Int) )
-(declare-var main@%sm64_0 (Array Int Int) )
+(declare-var main@%sm61_0 (Array Int Int) )
 (declare-var main@%sm11_0 (Array Int Int) )
-(declare-var main@%sm50_0 (Array Int Int) )
+(declare-var main@%sm67_0 (Array Int Int) )
 (declare-var main@%sm12_0 (Array Int Int) )
-(declare-var main@%sm55_0 (Array Int Int) )
+(declare-var main@%sm68_0 (Array Int Int) )
 (declare-var main@%sm13_0 (Array Int Int) )
-(declare-var main@%sm65_0 (Array Int Int) )
+(declare-var main@%sm70_0 (Array Int Int) )
 (declare-var main@%sm14_0 (Array Int Int) )
 (declare-var main@%sm15_0 (Array Int Int) )
 (declare-var main@%sm16_0 (Array Int Int) )
@@ -369,7 +369,7 @@
 (declare-var main@%_25_0 Int )
 (declare-var main@%_26_0 Bool )
 (declare-var main@entry_0 Bool )
-(declare-var main@%sm54_0 (Array Int Int) )
+(declare-var main@%sm57_0 (Array Int Int) )
 (declare-var main@%_0_0 Int )
 (declare-var main@%_1_0 Int )
 (declare-var main@%.pmcpy.elt.i_0 Int )
@@ -397,7 +397,7 @@
 (declare-var main@%sh43_0 (Array Int Int) )
 (declare-var main@%sh44_0 (Array Int Int) )
 (declare-var main@_35_0 Bool )
-(declare-var main@%sh46_0 (Array Int Int) )
+(declare-var main@%sh47_0 (Array Int Int) )
 (declare-var main@%sh48_0 (Array Int Int) )
 (declare-var main@%sh49_0 (Array Int Int) )
 (declare-var main@_39_0 Bool )
@@ -414,22 +414,22 @@
 (declare-var |tuple(main@_33_0, main@verifier.error_0)| Bool )
 (declare-var |tuple(main@_27_0, main@verifier.error_0)| Bool )
 (declare-var main@%shadow.mem.4.0_0 (Array Int Int) )
-(declare-var main@%shadow.mem.12.0_0 (Array Int Int) )
+(declare-var main@%shadow.mem.24.0_0 (Array Int Int) )
 (declare-var main@%shadow.mem.32.0_0 (Array Int Int) )
 (declare-var main@%shadow.mem.4.0_1 (Array Int Int) )
-(declare-var main@%shadow.mem.12.0_1 (Array Int Int) )
+(declare-var main@%shadow.mem.24.0_1 (Array Int Int) )
 (declare-var main@%shadow.mem.32.0_1 (Array Int Int) )
 (declare-var main@%shadow.mem.4.0_2 (Array Int Int) )
-(declare-var main@%shadow.mem.12.0_2 (Array Int Int) )
+(declare-var main@%shadow.mem.24.0_2 (Array Int Int) )
 (declare-var main@%shadow.mem.32.0_2 (Array Int Int) )
 (declare-var main@%shadow.mem.4.0_3 (Array Int Int) )
-(declare-var main@%shadow.mem.12.0_3 (Array Int Int) )
+(declare-var main@%shadow.mem.24.0_3 (Array Int Int) )
 (declare-var main@%shadow.mem.32.0_3 (Array Int Int) )
 (declare-var main@%shadow.mem.4.0_4 (Array Int Int) )
-(declare-var main@%shadow.mem.12.0_4 (Array Int Int) )
+(declare-var main@%shadow.mem.24.0_4 (Array Int Int) )
 (declare-var main@%shadow.mem.32.0_4 (Array Int Int) )
 (declare-var main@%shadow.mem.4.0_6 (Array Int Int) )
-(declare-var main@%shadow.mem.12.0_6 (Array Int Int) )
+(declare-var main@%shadow.mem.24.0_6 (Array Int Int) )
 (declare-var main@%shadow.mem.32.0_6 (Array Int Int) )
 (declare-var main@verifier.error.split_0 Bool )
 (rule (verifier.error false false false))
@@ -1216,7 +1216,7 @@
                     (> aws_byte_buf_is_valid@arg.0_0 0))
                 (=> aws_byte_buf_is_valid@_4_0
                     (= aws_byte_buf_is_valid@%_6_0
-                       (select aws_byte_buf_is_valid@%sm2_0
+                       (select aws_byte_buf_is_valid@%sm1_0
                                aws_byte_buf_is_valid@%_call_0)))
                 (=> aws_byte_buf_is_valid@_4_0
                     (= aws_byte_buf_is_valid@%_7_0
@@ -1227,7 +1227,7 @@
                         (> aws_byte_buf_is_valid@%_call5_0 0)))
                 (=> aws_byte_buf_is_valid@_4_0
                     (= aws_byte_buf_is_valid@%_br6_0
-                       (select aws_byte_buf_is_valid@%sm2_0
+                       (select aws_byte_buf_is_valid@%sm1_0
                                aws_byte_buf_is_valid@%_call5_0)))
                 (=> aws_byte_buf_is_valid@_16_0
                     (and aws_byte_buf_is_valid@_16_0 aws_byte_buf_is_valid@_4_0))
@@ -1248,7 +1248,7 @@
                     (> aws_byte_buf_is_valid@arg.0_0 0))
                 (=> aws_byte_buf_is_valid@_18_0
                     (= aws_byte_buf_is_valid@%_20_0
-                       (select aws_byte_buf_is_valid@%sm2_0
+                       (select aws_byte_buf_is_valid@%sm1_0
                                aws_byte_buf_is_valid@%_call11_0)))
                 a!5
                 (=> aws_byte_buf_is_valid@_10_0
@@ -1272,7 +1272,7 @@
                     (> aws_byte_buf_is_valid@arg.0_0 0))
                 (=> aws_byte_buf_is_valid@_12_0
                     (= aws_byte_buf_is_valid@%_14_0
-                       (select aws_byte_buf_is_valid@%sm2_0
+                       (select aws_byte_buf_is_valid@%sm1_0
                                aws_byte_buf_is_valid@%_call8_0)))
                 (=> aws_byte_buf_is_valid@_12_0
                     (= aws_byte_buf_is_valid@%_br9_0
@@ -1383,9 +1383,9 @@
   aws_byte_cursor_read_and_fill_buffer@%shadow.mem.66.1_0
   aws_byte_cursor_read_and_fill_buffer@%sm5_0
   aws_byte_cursor_read_and_fill_buffer@%sm6_0
-  aws_byte_cursor_read_and_fill_buffer@%sm6_0
-  aws_byte_cursor_read_and_fill_buffer@%sm7_0
   aws_byte_cursor_read_and_fill_buffer@%shadow.mem.50.0_0
+  aws_byte_cursor_read_and_fill_buffer@%sm7_0
+  aws_byte_cursor_read_and_fill_buffer@%sm7_0
   aws_byte_cursor_read_and_fill_buffer@%sm8_0
   aws_byte_cursor_read_and_fill_buffer@%shadow.mem.67.1_0
   aws_byte_cursor_read_and_fill_buffer@%sm9_0
@@ -1403,9 +1403,9 @@
   aws_byte_cursor_read_and_fill_buffer@%shadow.mem.66.1_0
   aws_byte_cursor_read_and_fill_buffer@%sm5_0
   aws_byte_cursor_read_and_fill_buffer@%sm6_0
-  aws_byte_cursor_read_and_fill_buffer@%sm6_0
-  aws_byte_cursor_read_and_fill_buffer@%sm7_0
   aws_byte_cursor_read_and_fill_buffer@%shadow.mem.50.0_0
+  aws_byte_cursor_read_and_fill_buffer@%sm7_0
+  aws_byte_cursor_read_and_fill_buffer@%sm7_0
   aws_byte_cursor_read_and_fill_buffer@%sm8_0
   aws_byte_cursor_read_and_fill_buffer@%shadow.mem.67.1_0
   aws_byte_cursor_read_and_fill_buffer@%sm9_0
@@ -1423,9 +1423,9 @@
   aws_byte_cursor_read_and_fill_buffer@%shadow.mem.66.1_0
   aws_byte_cursor_read_and_fill_buffer@%sm5_0
   aws_byte_cursor_read_and_fill_buffer@%sm6_0
-  aws_byte_cursor_read_and_fill_buffer@%sm6_0
-  aws_byte_cursor_read_and_fill_buffer@%sm7_0
   aws_byte_cursor_read_and_fill_buffer@%shadow.mem.50.0_0
+  aws_byte_cursor_read_and_fill_buffer@%sm7_0
+  aws_byte_cursor_read_and_fill_buffer@%sm7_0
   aws_byte_cursor_read_and_fill_buffer@%sm8_0
   aws_byte_cursor_read_and_fill_buffer@%shadow.mem.67.1_0
   aws_byte_cursor_read_and_fill_buffer@%sm9_0
@@ -1516,14 +1516,14 @@
                      (> aws_byte_cursor_read_and_fill_buffer@%_call_0 0))
                  (> aws_byte_cursor_read_and_fill_buffer@arg.1_0 0)
                  (= aws_byte_cursor_read_and_fill_buffer@%_5_0
-                    (select aws_byte_cursor_read_and_fill_buffer@%sm7_0
+                    (select aws_byte_cursor_read_and_fill_buffer@%sm6_0
                             aws_byte_cursor_read_and_fill_buffer@%_call_0))
                  a!2
                  (or (<= aws_byte_cursor_read_and_fill_buffer@arg.1_0 0)
                      (> aws_byte_cursor_read_and_fill_buffer@%_call11_0 0))
                  (> aws_byte_cursor_read_and_fill_buffer@arg.1_0 0)
                  (= aws_byte_cursor_read_and_fill_buffer@%_tail_0
-                    (select aws_byte_cursor_read_and_fill_buffer@%sm7_0
+                    (select aws_byte_cursor_read_and_fill_buffer@%sm6_0
                             aws_byte_cursor_read_and_fill_buffer@%_call11_0))
                  (= aws_byte_cursor_read_and_fill_buffer@%_br_0
                     (= aws_byte_cursor_read_and_fill_buffer@%_tail_0 0))
@@ -1678,7 +1678,7 @@
                          (> aws_byte_cursor_read_and_fill_buffer@%_sm3_0 0)))
                  (=> aws_byte_cursor_read_and_fill_buffer@_shadow.mem.67.0_0
                      (= aws_byte_cursor_read_and_fill_buffer@%sm3_0
-                        (store aws_byte_cursor_read_and_fill_buffer@%sm7_0
+                        (store aws_byte_cursor_read_and_fill_buffer@%sm6_0
                                aws_byte_cursor_read_and_fill_buffer@%_sm3_0
                                aws_byte_cursor_read_and_fill_buffer@%_tail_0)))
                  (=> |tuple(aws_byte_cursor_read_and_fill_buffer@aws_byte_cursor_advance_nospec.exit.i_0, aws_byte_cursor_read_and_fill_buffer@aws_byte_cursor_read.exit_0)|
@@ -1696,7 +1696,7 @@
                      (not aws_byte_cursor_read_and_fill_buffer@%or.cond3.i.i_0))
                  (=> |tuple(aws_byte_cursor_read_and_fill_buffer@aws_byte_cursor_advance_nospec.exit.i_0, aws_byte_cursor_read_and_fill_buffer@aws_byte_cursor_read.exit_0)|
                      (= aws_byte_cursor_read_and_fill_buffer@%shadow.mem.50.0_0
-                        aws_byte_cursor_read_and_fill_buffer@%sm7_0))
+                        aws_byte_cursor_read_and_fill_buffer@%sm6_0))
                  (=> |tuple(aws_byte_cursor_read_and_fill_buffer@aws_byte_cursor_advance_nospec.exit.i_0, aws_byte_cursor_read_and_fill_buffer@aws_byte_cursor_read.exit_0)|
                      (= aws_byte_cursor_read_and_fill_buffer@%shadow.mem.67.1_0
                         aws_byte_cursor_read_and_fill_buffer@%sm1_0))
@@ -1707,7 +1707,7 @@
                      (= aws_byte_cursor_read_and_fill_buffer@%.0_0 false))
                  (=> |tuple(aws_byte_cursor_read_and_fill_buffer@_tail12_0, aws_byte_cursor_read_and_fill_buffer@aws_byte_cursor_read.exit_0)|
                      (= aws_byte_cursor_read_and_fill_buffer@%shadow.mem.50.0_1
-                        aws_byte_cursor_read_and_fill_buffer@%sm7_0))
+                        aws_byte_cursor_read_and_fill_buffer@%sm6_0))
                  (=> |tuple(aws_byte_cursor_read_and_fill_buffer@_tail12_0, aws_byte_cursor_read_and_fill_buffer@aws_byte_cursor_read.exit_0)|
                      (= aws_byte_cursor_read_and_fill_buffer@%shadow.mem.67.1_1
                         aws_byte_cursor_read_and_fill_buffer@%sm8_0))
@@ -1781,8 +1781,8 @@
         aws_byte_cursor_read_and_fill_buffer@%shadow.mem.66.1_3
         aws_byte_cursor_read_and_fill_buffer@%sm5_0
         aws_byte_cursor_read_and_fill_buffer@%sm6_0
-        aws_byte_cursor_read_and_fill_buffer@%sm7_0
         aws_byte_cursor_read_and_fill_buffer@%shadow.mem.50.0_3
+        aws_byte_cursor_read_and_fill_buffer@%sm7_0
         aws_byte_cursor_read_and_fill_buffer@%sm8_0
         aws_byte_cursor_read_and_fill_buffer@%shadow.mem.67.1_3
         aws_byte_cursor_read_and_fill_buffer@%sm9_0
@@ -1795,8 +1795,8 @@
       aws_byte_cursor_read_and_fill_buffer@%shadow.mem.66.1_0
       aws_byte_cursor_read_and_fill_buffer@%sm5_0
       aws_byte_cursor_read_and_fill_buffer@%sm6_0
-      aws_byte_cursor_read_and_fill_buffer@%sm7_0
       aws_byte_cursor_read_and_fill_buffer@%shadow.mem.50.0_0
+      aws_byte_cursor_read_and_fill_buffer@%sm7_0
       aws_byte_cursor_read_and_fill_buffer@%sm8_0
       aws_byte_cursor_read_and_fill_buffer@%shadow.mem.67.1_0
       aws_byte_cursor_read_and_fill_buffer@%sm9_0
@@ -1812,9 +1812,9 @@
       aws_byte_cursor_read_and_fill_buffer@%shadow.mem.66.1_0
       aws_byte_cursor_read_and_fill_buffer@%sm5_0
       aws_byte_cursor_read_and_fill_buffer@%sm6_0
-      aws_byte_cursor_read_and_fill_buffer@%sm6_0
-      aws_byte_cursor_read_and_fill_buffer@%sm7_0
       aws_byte_cursor_read_and_fill_buffer@%shadow.mem.50.0_0
+      aws_byte_cursor_read_and_fill_buffer@%sm7_0
+      aws_byte_cursor_read_and_fill_buffer@%sm7_0
       aws_byte_cursor_read_and_fill_buffer@%sm8_0
       aws_byte_cursor_read_and_fill_buffer@%shadow.mem.67.1_0
       aws_byte_cursor_read_and_fill_buffer@%sm9_0
@@ -1824,21 +1824,21 @@
       aws_byte_cursor_read_and_fill_buffer@arg.0_0
       aws_byte_cursor_read_and_fill_buffer@arg.1_0
       aws_byte_cursor_read_and_fill_buffer@%.0_0)))
-(rule (main@entry main@%sm56_0
-            main@%sm52_0
-            main@%sm59_0
-            main@%sm70_0
-            main@%sm68_0
-            main@%sm51_0
-            main@%sm61_0
-            main@%sm57_0
-            main@%sm62_0
-            main@%sm58_0
-            main@%sm67_0
-            main@%sm64_0
-            main@%sm50_0
+(rule (main@entry main@%sm53_0
             main@%sm55_0
-            main@%sm65_0
+            main@%sm50_0
+            main@%sm63_0
+            main@%sm60_0
+            main@%sm56_0
+            main@%sm51_0
+            main@%sm62_0
+            main@%sm64_0
+            main@%sm58_0
+            main@%sm52_0
+            main@%sm61_0
+            main@%sm67_0
+            main@%sm68_0
+            main@%sm70_0
             @s_default_malloc_0
             @s_default_free_0
             @s_default_realloc_0
@@ -1869,41 +1869,41 @@
       (a!17 (=> main@_45_0
                 (= main@%_46_0
                    (+ main@%.pmcpy.unpack3.i_0 (* main@%.pmcpy1.unpack10.i_0 1))))))
-(let ((a!18 (and (main@entry main@%sm56_0
-                             main@%sm52_0
-                             main@%sm59_0
-                             main@%sm70_0
-                             main@%sm68_0
-                             main@%sm51_0
-                             main@%sm61_0
-                             main@%sm57_0
-                             main@%sm62_0
-                             main@%sm58_0
-                             main@%sm67_0
-                             main@%sm64_0
-                             main@%sm50_0
+(let ((a!18 (and (main@entry main@%sm53_0
                              main@%sm55_0
-                             main@%sm65_0
+                             main@%sm50_0
+                             main@%sm63_0
+                             main@%sm60_0
+                             main@%sm56_0
+                             main@%sm51_0
+                             main@%sm62_0
+                             main@%sm64_0
+                             main@%sm58_0
+                             main@%sm52_0
+                             main@%sm61_0
+                             main@%sm67_0
+                             main@%sm68_0
+                             main@%sm70_0
                              @s_default_malloc_0
                              @s_default_free_0
                              @s_default_realloc_0
                              @s_default_calloc_0)
                  true
-                 (= main@%sm_0 main@%sm56_0)
-                 (= main@%sm1_0 main@%sm52_0)
-                 (= main@%sm2_0 main@%sm59_0)
-                 (= main@%sm3_0 main@%sm70_0)
-                 (= main@%sm4_0 main@%sm68_0)
-                 (= main@%sm5_0 main@%sm51_0)
-                 (= main@%sm6_0 main@%sm61_0)
-                 (= main@%sm7_0 main@%sm57_0)
-                 (= main@%sm8_0 main@%sm62_0)
+                 (= main@%sm_0 main@%sm53_0)
+                 (= main@%sm1_0 main@%sm55_0)
+                 (= main@%sm2_0 main@%sm50_0)
+                 (= main@%sm3_0 main@%sm63_0)
+                 (= main@%sm4_0 main@%sm60_0)
+                 (= main@%sm5_0 main@%sm56_0)
+                 (= main@%sm6_0 main@%sm51_0)
+                 (= main@%sm7_0 main@%sm62_0)
+                 (= main@%sm8_0 main@%sm64_0)
                  (= main@%sm9_0 main@%sm58_0)
-                 (= main@%sm10_0 main@%sm67_0)
-                 (= main@%sm11_0 main@%sm64_0)
-                 (= main@%sm12_0 main@%sm50_0)
-                 (= main@%sm13_0 main@%sm55_0)
-                 (= main@%sm14_0 main@%sm65_0)
+                 (= main@%sm10_0 main@%sm52_0)
+                 (= main@%sm11_0 main@%sm61_0)
+                 (= main@%sm12_0 main@%sm67_0)
+                 (= main@%sm13_0 main@%sm68_0)
+                 (= main@%sm14_0 main@%sm70_0)
                  (> main@%_0_0 0)
                  (> main@%_1_0 0)
                  (> main@%_2_0 0)
@@ -1934,8 +1934,8 @@
                  a!6
                  (or (<= @s_null_terminator_cursor_0 0) (> main@%_9_0 0))
                  (= main@%sm23_0 (store main@%sm16_0 main@%_9_0 1))
-                 (= main@%_10_0 (+ @.str.4.16_0 (* 0 2) (* 0 1)))
-                 (or (<= @.str.4.16_0 0) (> main@%_10_0 0))
+                 (= main@%_10_0 (+ @.str.4.32_0 (* 0 2) (* 0 1)))
+                 (or (<= @.str.4.32_0 0) (> main@%_10_0 0))
                  a!7
                  (or (<= @s_null_terminator_cursor_0 0) (> main@%_11_0 0))
                  (> @s_null_terminator_cursor_0 0)
@@ -1957,12 +1957,12 @@
                    true
                    false
                    false
-                   main@%sm54_0
-                   main@%sm26_0
-                   main@%sh_0
-                   main@%sm63_0
-                   main@%sh27_0
+                   main@%sm57_0
                    main@%sm22_0
+                   main@%sh_0
+                   main@%sm66_0
+                   main@%sh27_0
+                   main@%sm26_0
                    main@%sh28_0
                    main@%sm24_0
                    main@%sh29_0
@@ -1973,11 +1973,11 @@
                    true
                    false
                    false
-                   main@%sm53_0
+                   main@%sm54_0
                    main@%sh30_0
-                   main@%sh_0
+                   main@%sm59_0
                    main@%sh31_0
-                   main@%sm60_0
+                   main@%sh_0
                    main@%sh32_0
                    main@%sh28_0
                    main@%sh33_0
@@ -2000,27 +2000,27 @@
                  (or (<= main@%_1_0 0) (> main@%.pmcpy1.elt9.i_0 0))
                  (> main@%_1_0 0)
                  (= main@%.pmcpy1.unpack10.i_0
-                    (select main@%sh32_0 main@%.pmcpy1.elt9.i_0))
+                    (select main@%sh31_0 main@%.pmcpy1.elt9.i_0))
                  a!13
                  (or (<= main@%_1_0 0) (> main@%.pmcpy1.elt11.i_0 0))
                  (> main@%_1_0 0)
                  (= main@%.pmcpy1.unpack12.i_0
-                    (select main@%sh32_0 main@%.pmcpy1.elt11.i_0))
+                    (select main@%sh31_0 main@%.pmcpy1.elt11.i_0))
                  (= main@%_21_0 main@%_3_0)
                  a!14
                  (or (<= main@%_1_0 0) (> main@%_22_0 0))
                  (> main@%_1_0 0)
-                 (= main@%_23_0 (select main@%sh32_0 main@%_22_0))
+                 (= main@%_23_0 (select main@%sh31_0 main@%_22_0))
                  a!15
                  (or (<= main@%_1_0 0) (> main@%_24_0 0))
-                 (= main@%_25_0 (select main@%sh32_0 main@%_24_0))
+                 (= main@%_25_0 (select main@%sh31_0 main@%_24_0))
                  (aws_byte_cursor_read_and_fill_buffer
                    true
                    false
                    false
                    main@%sh30_0
                    main@%sh35_0
-                   main@%sm54_0
+                   main@%sm57_0
                    main@%sh31_0
                    main@%sh36_0
                    main@%sh32_0
@@ -2037,17 +2037,17 @@
                  (=> main@_27_0 (and main@_27_0 main@entry_0))
                  (=> (and main@_27_0 main@entry_0) main@%_26_0)
                  (=> main@_27_0
-                     (= main@%_28_0 (select main@%sh37_0 main@%_24_0)))
+                     (= main@%_28_0 (select main@%sh36_0 main@%_24_0)))
                  (=> main@_27_0 (> main@%_1_0 0))
                  (=> main@_27_0
                      (= main@%_29_0
-                        (select main@%sh37_0 main@%.pmcpy1.elt9.i_0)))
+                        (select main@%sh36_0 main@%.pmcpy1.elt9.i_0)))
                  (=> main@_27_0 (= main@%_30_0 (= main@%_28_0 main@%_29_0)))
                  (=> main@_31_0 (and main@_31_0 main@_27_0))
                  (=> (and main@_31_0 main@_27_0) main@%_30_0)
                  (=> main@_31_0 (> main@%_1_0 0))
                  (=> main@_31_0
-                     (= main@%_32_0 (select main@%sh37_0 main@%_22_0)))
+                     (= main@%_32_0 (select main@%sh36_0 main@%_22_0)))
                  (=> |tuple(main@entry_0, main@_33_0)| main@entry_0)
                  (=> main@_33_0
                      (or (and main@_33_0 main@_31_0)
@@ -2057,8 +2057,8 @@
                    main@_33_0
                    false
                    false
-                   main@%sm54_0
-                   main@%sh36_0
+                   main@%sm57_0
+                   main@%sh37_0
                    main@%sh41_0
                    main@%sh38_0
                    main@%sh42_0
@@ -2076,9 +2076,9 @@
                    false
                    main@%sh35_0
                    main@%sh45_0
-                   main@%sh41_0
+                   main@%sh36_0
                    main@%sh46_0
-                   main@%sh37_0
+                   main@%sh41_0
                    main@%sh47_0
                    main@%sh43_0
                    main@%sh48_0
@@ -2089,7 +2089,7 @@
                  (=> main@_35_0 (> main@%_1_0 0))
                  (=> main@_35_0
                      (= main@%_37_0
-                        (select main@%sh47_0 main@%.pmcpy1.elt11.i_0)))
+                        (select main@%sh46_0 main@%.pmcpy1.elt11.i_0)))
                  (=> main@_35_0
                      (= main@%_38_0 (= main@%.pmcpy1.unpack12.i_0 main@%_37_0)))
                  (=> main@_35_0
@@ -2155,75 +2155,75 @@
                  (=> |tuple(main@_27_0, main@verifier.error_0)|
                      (not main@%_30_0))
                  (=> |tuple(main@_48_0, main@verifier.error_0)|
-                     (= main@%shadow.mem.4.0_0 main@%sh46_0))
+                     (= main@%shadow.mem.4.0_0 main@%sh47_0))
                  (=> |tuple(main@_48_0, main@verifier.error_0)|
-                     (= main@%shadow.mem.12.0_0 main@%sh48_0))
+                     (= main@%shadow.mem.24.0_0 main@%sh48_0))
                  (=> |tuple(main@_48_0, main@verifier.error_0)|
                      (= main@%shadow.mem.32.0_0 main@%sh49_0))
                  (=> |tuple(main@_45_0, main@verifier.error_0)|
-                     (= main@%shadow.mem.4.0_1 main@%sh46_0))
+                     (= main@%shadow.mem.4.0_1 main@%sh47_0))
                  (=> |tuple(main@_45_0, main@verifier.error_0)|
-                     (= main@%shadow.mem.12.0_1 main@%sh48_0))
+                     (= main@%shadow.mem.24.0_1 main@%sh48_0))
                  (=> |tuple(main@_45_0, main@verifier.error_0)|
                      (= main@%shadow.mem.32.0_1 main@%sh49_0))
                  (=> |tuple(main@_35_0, main@verifier.error_0)|
-                     (= main@%shadow.mem.4.0_2 main@%sh46_0))
+                     (= main@%shadow.mem.4.0_2 main@%sh47_0))
                  (=> |tuple(main@_35_0, main@verifier.error_0)|
-                     (= main@%shadow.mem.12.0_2 main@%sh48_0))
+                     (= main@%shadow.mem.24.0_2 main@%sh48_0))
                  (=> |tuple(main@_35_0, main@verifier.error_0)|
                      (= main@%shadow.mem.32.0_2 main@%sh49_0))
                  (=> |tuple(main@_33_0, main@verifier.error_0)|
                      (= main@%shadow.mem.4.0_3 main@%sh41_0))
                  (=> |tuple(main@_33_0, main@verifier.error_0)|
-                     (= main@%shadow.mem.12.0_3 main@%sh43_0))
+                     (= main@%shadow.mem.24.0_3 main@%sh43_0))
                  (=> |tuple(main@_33_0, main@verifier.error_0)|
                      (= main@%shadow.mem.32.0_3 main@%sh44_0))
                  (=> |tuple(main@_27_0, main@verifier.error_0)|
-                     (= main@%shadow.mem.4.0_4 main@%sh36_0))
+                     (= main@%shadow.mem.4.0_4 main@%sh37_0))
                  (=> |tuple(main@_27_0, main@verifier.error_0)|
-                     (= main@%shadow.mem.12.0_4 main@%sh39_0))
+                     (= main@%shadow.mem.24.0_4 main@%sh39_0))
                  (=> |tuple(main@_27_0, main@verifier.error_0)|
                      (= main@%shadow.mem.32.0_4 main@%sh40_0))
                  (=> (and main@verifier.error_0 main@_50_0)
-                     (= main@%shadow.mem.4.0_5 main@%sh46_0))
+                     (= main@%shadow.mem.4.0_5 main@%sh47_0))
                  (=> (and main@verifier.error_0 main@_50_0)
-                     (= main@%shadow.mem.12.0_5 main@%sh48_0))
+                     (= main@%shadow.mem.24.0_5 main@%sh48_0))
                  (=> (and main@verifier.error_0 main@_50_0)
                      (= main@%shadow.mem.32.0_5 main@%sh49_0))
                  (=> |tuple(main@_48_0, main@verifier.error_0)|
                      (= main@%shadow.mem.4.0_6 main@%shadow.mem.4.0_0))
                  (=> |tuple(main@_48_0, main@verifier.error_0)|
-                     (= main@%shadow.mem.12.0_6 main@%shadow.mem.12.0_0))
+                     (= main@%shadow.mem.24.0_6 main@%shadow.mem.24.0_0))
                  (=> |tuple(main@_48_0, main@verifier.error_0)|
                      (= main@%shadow.mem.32.0_6 main@%shadow.mem.32.0_0))
                  (=> |tuple(main@_45_0, main@verifier.error_0)|
                      (= main@%shadow.mem.4.0_6 main@%shadow.mem.4.0_1))
                  (=> |tuple(main@_45_0, main@verifier.error_0)|
-                     (= main@%shadow.mem.12.0_6 main@%shadow.mem.12.0_1))
+                     (= main@%shadow.mem.24.0_6 main@%shadow.mem.24.0_1))
                  (=> |tuple(main@_45_0, main@verifier.error_0)|
                      (= main@%shadow.mem.32.0_6 main@%shadow.mem.32.0_1))
                  (=> |tuple(main@_35_0, main@verifier.error_0)|
                      (= main@%shadow.mem.4.0_6 main@%shadow.mem.4.0_2))
                  (=> |tuple(main@_35_0, main@verifier.error_0)|
-                     (= main@%shadow.mem.12.0_6 main@%shadow.mem.12.0_2))
+                     (= main@%shadow.mem.24.0_6 main@%shadow.mem.24.0_2))
                  (=> |tuple(main@_35_0, main@verifier.error_0)|
                      (= main@%shadow.mem.32.0_6 main@%shadow.mem.32.0_2))
                  (=> |tuple(main@_33_0, main@verifier.error_0)|
                      (= main@%shadow.mem.4.0_6 main@%shadow.mem.4.0_3))
                  (=> |tuple(main@_33_0, main@verifier.error_0)|
-                     (= main@%shadow.mem.12.0_6 main@%shadow.mem.12.0_3))
+                     (= main@%shadow.mem.24.0_6 main@%shadow.mem.24.0_3))
                  (=> |tuple(main@_33_0, main@verifier.error_0)|
                      (= main@%shadow.mem.32.0_6 main@%shadow.mem.32.0_3))
                  (=> |tuple(main@_27_0, main@verifier.error_0)|
                      (= main@%shadow.mem.4.0_6 main@%shadow.mem.4.0_4))
                  (=> |tuple(main@_27_0, main@verifier.error_0)|
-                     (= main@%shadow.mem.12.0_6 main@%shadow.mem.12.0_4))
+                     (= main@%shadow.mem.24.0_6 main@%shadow.mem.24.0_4))
                  (=> |tuple(main@_27_0, main@verifier.error_0)|
                      (= main@%shadow.mem.32.0_6 main@%shadow.mem.32.0_4))
                  (=> (and main@verifier.error_0 main@_50_0)
                      (= main@%shadow.mem.4.0_6 main@%shadow.mem.4.0_5))
                  (=> (and main@verifier.error_0 main@_50_0)
-                     (= main@%shadow.mem.12.0_6 main@%shadow.mem.12.0_5))
+                     (= main@%shadow.mem.24.0_6 main@%shadow.mem.24.0_5))
                  (=> (and main@verifier.error_0 main@_50_0)
                      (= main@%shadow.mem.32.0_6 main@%shadow.mem.32.0_5))
                  (=> main@verifier.error.split_0

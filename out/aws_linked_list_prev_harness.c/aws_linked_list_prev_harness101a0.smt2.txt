@@ -15,7 +15,7 @@
 (declare-rel s_default_calloc (Bool Bool Bool (Array Int Int) (Array Int Int) (Array Int Int) Int Int Int ))
 (declare-rel aws_linked_list_prev@_sm ((Array Int Int) (Array Int Int) (Array Int Int) Int ))
 (declare-rel aws_linked_list_prev@.split ((Array Int Int) (Array Int Int) (Array Int Int) Int Int ))
-(declare-rel aws_linked_list_prev (Bool Bool Bool (Array Int Int) (Array Int Int) (Array Int Int) (Array Int Int) (Array Int Int) (Array Int Int) Int Int ))
+(declare-rel aws_linked_list_prev (Bool Bool Bool (Array Int Int) (Array Int Int) (Array Int Int) (Array Int Int) (Array Int Int) Int Int ))
 (declare-rel aws_linked_list_node_prev_is_valid@_sm ((Array Int Int) (Array Int Int) (Array Int Int) Int ))
 (declare-rel aws_linked_list_node_prev_is_valid@.split ((Array Int Int) (Array Int Int) (Array Int Int) Bool Int ))
 (declare-rel aws_linked_list_node_prev_is_valid (Bool Bool Bool (Array Int Int) (Array Int Int) (Array Int Int) (Array Int Int) (Array Int Int) (Array Int Int) Int Bool ))
@@ -57,13 +57,13 @@
 (declare-var s_default_realloc@%_7_0 Bool )
 (declare-var s_default_realloc@%_or.cond_0 Bool )
 (declare-var s_default_realloc@%or.cond_0 Bool )
-(declare-var s_default_realloc@%sm2_0 (Array Int Int) )
+(declare-var s_default_realloc@%sm3_0 (Array Int Int) )
 (declare-var s_default_realloc@%shadow.mem.40.0_0 (Array Int Int) )
 (declare-var s_default_realloc@arg.1_0 Int )
 (declare-var s_default_realloc@arg.3_0 Int )
 (declare-var s_default_realloc@%.0_0 Int )
 (declare-var s_default_realloc@_sm2_0 Bool )
-(declare-var s_default_realloc@%sm3_0 (Array Int Int) )
+(declare-var s_default_realloc@%sm2_0 (Array Int Int) )
 (declare-var s_default_realloc@%_tail_0 Int )
 (declare-var s_default_realloc@_tail5_0 Bool )
 (declare-var s_default_realloc@_10_0 Bool )
@@ -82,7 +82,7 @@
 (declare-var s_default_realloc@%.0_3 Int )
 (declare-var s_default_realloc@.split_0 Bool )
 (declare-var s_default_calloc@%sm4_0 (Array Int Int) )
-(declare-var s_default_calloc@%sm2_0 (Array Int Int) )
+(declare-var s_default_calloc@%sm3_0 (Array Int Int) )
 (declare-var s_default_calloc@%_tail_0 Int )
 (declare-var s_default_calloc@%_tail5_0 Int )
 (declare-var s_default_calloc@arg.2_0 Int )
@@ -98,30 +98,30 @@
 (declare-var s_default_calloc@%shadow.mem.45.0_2 (Array Int Int) )
 (declare-var s_default_calloc@%shadow.mem.45.0_0 (Array Int Int) )
 (declare-var s_default_calloc@%_call7_0 Int )
-(declare-var s_default_calloc@%sm3_0 (Array Int Int) )
+(declare-var s_default_calloc@%sm2_0 (Array Int Int) )
 (declare-var s_default_calloc@_sm2_0 Bool )
 (declare-var s_default_calloc@_sm1_0 Bool )
 (declare-var s_default_calloc@%sm1_0 (Array Int Int) )
 (declare-var s_default_calloc@_shadow.mem.45.0_0 Bool )
 (declare-var |tuple(s_default_calloc@_sm2_0, s_default_calloc@_shadow.mem.45.0_0)| Bool )
 (declare-var s_default_calloc@%shadow.mem.45.0_1 (Array Int Int) )
-(declare-var aws_linked_list_prev@%sm1_0 (Array Int Int) )
+(declare-var aws_linked_list_prev@%sm_0 (Array Int Int) )
 (declare-var aws_linked_list_prev@%sm2_0 (Array Int Int) )
 (declare-var aws_linked_list_prev@%_call_0 Int )
 (declare-var aws_linked_list_prev@arg.0_0 Int )
-(declare-var aws_linked_list_prev@%sm_0 (Array Int Int) )
+(declare-var aws_linked_list_prev@%sm1_0 (Array Int Int) )
 (declare-var aws_linked_list_prev@%_br_0 Int )
 (declare-var aws_linked_list_prev@_sm_0 Bool )
 (declare-var aws_linked_list_prev@.split_0 Bool )
-(declare-var aws_linked_list_node_prev_is_valid@%sm2_0 (Array Int Int) )
+(declare-var aws_linked_list_node_prev_is_valid@%sm_0 (Array Int Int) )
 (declare-var aws_linked_list_node_prev_is_valid@%_call4_0 Int )
 (declare-var aws_linked_list_node_prev_is_valid@%_10_0 Int )
 (declare-var aws_linked_list_node_prev_is_valid@%_call_0 Int )
 (declare-var aws_linked_list_node_prev_is_valid@%_br3_0 Bool )
 (declare-var aws_linked_list_node_prev_is_valid@%_br_0 Bool )
 (declare-var aws_linked_list_node_prev_is_valid@%_br6_3 Bool )
-(declare-var aws_linked_list_node_prev_is_valid@%sm_0 (Array Int Int) )
 (declare-var aws_linked_list_node_prev_is_valid@%sm1_0 (Array Int Int) )
+(declare-var aws_linked_list_node_prev_is_valid@%sm2_0 (Array Int Int) )
 (declare-var aws_linked_list_node_prev_is_valid@arg.0_0 Int )
 (declare-var aws_linked_list_node_prev_is_valid@%_br6_0 Bool )
 (declare-var aws_linked_list_node_prev_is_valid@_sm_0 Bool )
@@ -135,15 +135,15 @@
 (declare-var aws_linked_list_node_prev_is_valid@%_br6_1 Bool )
 (declare-var aws_linked_list_node_prev_is_valid@%_br6_2 Bool )
 (declare-var aws_linked_list_node_prev_is_valid@.split_0 Bool )
-(declare-var aws_linked_list_node_next_is_valid@%sm2_0 (Array Int Int) )
+(declare-var aws_linked_list_node_next_is_valid@%sm_0 (Array Int Int) )
 (declare-var aws_linked_list_node_next_is_valid@%_call4_0 Int )
 (declare-var aws_linked_list_node_next_is_valid@%_10_0 Int )
 (declare-var aws_linked_list_node_next_is_valid@%_call_0 Int )
 (declare-var aws_linked_list_node_next_is_valid@%_br3_0 Bool )
 (declare-var aws_linked_list_node_next_is_valid@%_br_0 Bool )
 (declare-var aws_linked_list_node_next_is_valid@%_br6_3 Bool )
-(declare-var aws_linked_list_node_next_is_valid@%sm_0 (Array Int Int) )
 (declare-var aws_linked_list_node_next_is_valid@%sm1_0 (Array Int Int) )
+(declare-var aws_linked_list_node_next_is_valid@%sm2_0 (Array Int Int) )
 (declare-var aws_linked_list_node_next_is_valid@arg.0_0 Int )
 (declare-var aws_linked_list_node_next_is_valid@%_br6_0 Bool )
 (declare-var aws_linked_list_node_next_is_valid@_sm_0 Bool )
@@ -158,13 +158,13 @@
 (declare-var aws_linked_list_node_next_is_valid@%_br6_2 Bool )
 (declare-var aws_linked_list_node_next_is_valid@.split_0 Bool )
 (declare-var main@%_17_0 Bool )
-(declare-var main@%sh14_0 (Array Int Int) )
 (declare-var main@%sh15_0 (Array Int Int) )
+(declare-var main@%sh16_0 (Array Int Int) )
 (declare-var main@%_15_0 Bool )
 (declare-var @default_allocator_0 Int )
-(declare-var main@%sm17_0 (Array Int Int) )
 (declare-var main@%sm18_0 (Array Int Int) )
 (declare-var main@%sm19_0 (Array Int Int) )
+(declare-var main@%sm17_0 (Array Int Int) )
 (declare-var main@%sm_0 (Array Int Int) )
 (declare-var main@%sm1_0 (Array Int Int) )
 (declare-var main@%_0_0 Int )
@@ -193,7 +193,7 @@
 (declare-var main@%sh9_0 (Array Int Int) )
 (declare-var main@%sh10_0 (Array Int Int) )
 (declare-var main@%_13_0 Bool )
-(declare-var main@%shadow.mem.12.0_2 (Array Int Int) )
+(declare-var main@%shadow.mem.8.0_2 (Array Int Int) )
 (declare-var main@entry_0 Bool )
 (declare-var main@%_1_0 Int )
 (declare-var main@%_12_0 Int )
@@ -201,14 +201,14 @@
 (declare-var main@%sh12_0 (Array Int Int) )
 (declare-var main@%sh13_0 (Array Int Int) )
 (declare-var main@_14_0 Bool )
-(declare-var main@%sh16_0 (Array Int Int) )
+(declare-var main@%sh14_0 (Array Int Int) )
 (declare-var main@_16_0 Bool )
 (declare-var main@verifier.error_0 Bool )
 (declare-var |tuple(main@_14_0, main@verifier.error_0)| Bool )
 (declare-var |tuple(main@entry_0, main@verifier.error_0)| Bool )
-(declare-var main@%shadow.mem.12.0_0 (Array Int Int) )
-(declare-var main@%shadow.mem.12.0_1 (Array Int Int) )
-(declare-var main@%shadow.mem.12.0_3 (Array Int Int) )
+(declare-var main@%shadow.mem.8.0_0 (Array Int Int) )
+(declare-var main@%shadow.mem.8.0_1 (Array Int Int) )
+(declare-var main@%shadow.mem.8.0_3 (Array Int Int) )
 (declare-var main@verifier.error.split_0 Bool )
 (rule (verifier.error false false false))
 (rule (verifier.error false true true))
@@ -289,7 +289,7 @@
   true
   true
   true
-  s_default_realloc@%sm2_0
+  s_default_realloc@%sm3_0
   s_default_realloc@%shadow.mem.40.0_0
   s_default_realloc@%sm4_0
   s_default_realloc@%sm4_0
@@ -301,7 +301,7 @@
   false
   true
   true
-  s_default_realloc@%sm2_0
+  s_default_realloc@%sm3_0
   s_default_realloc@%shadow.mem.40.0_0
   s_default_realloc@%sm4_0
   s_default_realloc@%sm4_0
@@ -313,7 +313,7 @@
   false
   false
   false
-  s_default_realloc@%sm2_0
+  s_default_realloc@%sm3_0
   s_default_realloc@%shadow.mem.40.0_0
   s_default_realloc@%sm4_0
   s_default_realloc@%sm4_0
@@ -322,7 +322,7 @@
   s_default_realloc@arg.3_0
   s_default_realloc@%.0_0))
 (rule (s_default_realloc@_sm2
-  s_default_realloc@%sm2_0
+  s_default_realloc@%sm3_0
   s_default_realloc@%sm4_0
   s_default_realloc@arg.3_0
   s_default_realloc@arg.2_0
@@ -344,7 +344,7 @@
                (= s_default_realloc@%_call7_0
                   (not (= s_default_realloc@%_16_0 0))))))
 (let ((a!4 (and (s_default_realloc@_sm2
-                  s_default_realloc@%sm2_0
+                  s_default_realloc@%sm3_0
                   s_default_realloc@%sm4_0
                   s_default_realloc@arg.3_0
                   s_default_realloc@arg.2_0
@@ -378,7 +378,7 @@
                     (= s_default_realloc@%_call_0 s_default_realloc@%_tail_0))
                 (=> s_default_realloc@_tail6_0
                     (= s_default_realloc@%sm_0
-                       (store s_default_realloc@%sm3_0
+                       (store s_default_realloc@%sm2_0
                               s_default_realloc@%_tail_0
                               0)))
                 a!3
@@ -420,18 +420,18 @@
                     (= s_default_realloc@%.0_0 s_default_realloc@%_call8_0))
                 (=> |tuple(s_default_realloc@_tail6_0, s_default_realloc@_shadow.mem.40.0_0)|
                     (= s_default_realloc@%shadow.mem.40.0_1
-                       s_default_realloc@%sm2_0))
+                       s_default_realloc@%sm3_0))
                 (=> |tuple(s_default_realloc@_tail6_0, s_default_realloc@_shadow.mem.40.0_0)|
                     (= s_default_realloc@%.0_1 0))
                 (=> |tuple(s_default_realloc@_10_0, s_default_realloc@_shadow.mem.40.0_0)|
                     (= s_default_realloc@%shadow.mem.40.0_2
-                       s_default_realloc@%sm2_0))
+                       s_default_realloc@%sm3_0))
                 (=> |tuple(s_default_realloc@_10_0, s_default_realloc@_shadow.mem.40.0_0)|
                     (= s_default_realloc@%.0_2 s_default_realloc@arg.1_0))
                 (=> (and s_default_realloc@_shadow.mem.40.0_0
                          s_default_realloc@_tail5_0)
                     (= s_default_realloc@%shadow.mem.40.0_3
-                       s_default_realloc@%sm2_0))
+                       s_default_realloc@%sm3_0))
                 (=> (and s_default_realloc@_shadow.mem.40.0_0
                          s_default_realloc@_tail5_0)
                     (= s_default_realloc@%.0_3 0))
@@ -465,7 +465,7 @@
                 s_default_realloc@.split_0)))
   (=> a!4
       (s_default_realloc@.split
-        s_default_realloc@%sm2_0
+        s_default_realloc@%sm3_0
         s_default_realloc@%shadow.mem.40.0_4
         s_default_realloc@%sm4_0
         s_default_realloc@%.0_4
@@ -473,7 +473,7 @@
         s_default_realloc@arg.2_0
         s_default_realloc@arg.1_0)))))
 (rule (=> (s_default_realloc@.split
-      s_default_realloc@%sm2_0
+      s_default_realloc@%sm3_0
       s_default_realloc@%shadow.mem.40.0_0
       s_default_realloc@%sm4_0
       s_default_realloc@%.0_0
@@ -484,7 +484,7 @@
       true
       false
       false
-      s_default_realloc@%sm2_0
+      s_default_realloc@%sm3_0
       s_default_realloc@%shadow.mem.40.0_0
       s_default_realloc@%sm4_0
       s_default_realloc@%sm4_0
@@ -521,12 +521,12 @@
                   s_default_calloc@%_call7_0))
 (rule (s_default_calloc@_sm2
   s_default_calloc@%sm4_0
-  s_default_calloc@%sm3_0
+  s_default_calloc@%sm2_0
   s_default_calloc@arg.2_0
   s_default_calloc@arg.1_0))
 (rule (let ((a!1 (and (s_default_calloc@_sm2
                   s_default_calloc@%sm4_0
-                  s_default_calloc@%sm3_0
+                  s_default_calloc@%sm2_0
                   s_default_calloc@arg.2_0
                   s_default_calloc@arg.1_0)
                 true
@@ -538,7 +538,7 @@
                 (= s_default_calloc@%_8_0 (ite s_default_calloc@%_7_0 32 8))
                 (= s_default_calloc@%_call_0 s_default_calloc@%_tail_0)
                 (= s_default_calloc@%sm_0
-                   (store s_default_calloc@%sm2_0 s_default_calloc@%_tail_0 0))
+                   (store s_default_calloc@%sm3_0 s_default_calloc@%_tail_0 0))
                 (= s_default_calloc@%_call6_0 (= s_default_calloc@%_10_0 0))
                 (= s_default_calloc@%_12_0
                    (select s_default_calloc@%sm_0 s_default_calloc@%_tail_0))
@@ -564,7 +564,7 @@
                        s_default_calloc@%sm1_0))
                 (=> |tuple(s_default_calloc@_sm2_0, s_default_calloc@_shadow.mem.45.0_0)|
                     (= s_default_calloc@%shadow.mem.45.0_1
-                       s_default_calloc@%sm3_0))
+                       s_default_calloc@%sm2_0))
                 (=> (and s_default_calloc@_shadow.mem.45.0_0
                          s_default_calloc@_sm1_0)
                     (= s_default_calloc@%shadow.mem.45.0_2
@@ -578,14 +578,14 @@
         s_default_calloc@%shadow.mem.45.0_2
         s_default_calloc@%sm4_0
         s_default_calloc@%_call7_0
-        s_default_calloc@%sm3_0
+        s_default_calloc@%sm2_0
         s_default_calloc@arg.2_0
         s_default_calloc@arg.1_0))))
 (rule (=> (s_default_calloc@_shadow.mem.45.0
       s_default_calloc@%shadow.mem.45.0_0
       s_default_calloc@%sm4_0
       s_default_calloc@%_call7_0
-      s_default_calloc@%sm3_0
+      s_default_calloc@%sm2_0
       s_default_calloc@arg.2_0
       s_default_calloc@arg.1_0)
     (s_default_calloc true
@@ -604,7 +604,6 @@
   aws_linked_list_prev@%sm_0
   aws_linked_list_prev@%sm_0
   aws_linked_list_prev@%sm1_0
-  aws_linked_list_prev@%sm1_0
   aws_linked_list_prev@%sm2_0
   aws_linked_list_prev@%sm2_0
   aws_linked_list_prev@arg.0_0
@@ -616,7 +615,6 @@
   aws_linked_list_prev@%sm_0
   aws_linked_list_prev@%sm_0
   aws_linked_list_prev@%sm1_0
-  aws_linked_list_prev@%sm1_0
   aws_linked_list_prev@%sm2_0
   aws_linked_list_prev@%sm2_0
   aws_linked_list_prev@arg.0_0
@@ -627,7 +625,6 @@
   false
   aws_linked_list_prev@%sm_0
   aws_linked_list_prev@%sm_0
-  aws_linked_list_prev@%sm1_0
   aws_linked_list_prev@%sm1_0
   aws_linked_list_prev@%sm2_0
   aws_linked_list_prev@%sm2_0
@@ -650,7 +647,7 @@
                     (> aws_linked_list_prev@%_call_0 0))
                 (> aws_linked_list_prev@arg.0_0 0)
                 (= aws_linked_list_prev@%_br_0
-                   (select aws_linked_list_prev@%sm_0
+                   (select aws_linked_list_prev@%sm1_0
                            aws_linked_list_prev@%_call_0))
                 (=> aws_linked_list_prev@.split_0
                     (and aws_linked_list_prev@.split_0
@@ -675,7 +672,6 @@
       false
       aws_linked_list_prev@%sm_0
       aws_linked_list_prev@%sm_0
-      aws_linked_list_prev@%sm1_0
       aws_linked_list_prev@%sm1_0
       aws_linked_list_prev@%sm2_0
       aws_linked_list_prev@%sm2_0
@@ -750,7 +746,7 @@
                     (> aws_linked_list_node_prev_is_valid@arg.0_0 0))
                 (=> aws_linked_list_node_prev_is_valid@_4_0
                     (= aws_linked_list_node_prev_is_valid@%_6_0
-                       (select aws_linked_list_node_prev_is_valid@%sm_0
+                       (select aws_linked_list_node_prev_is_valid@%sm1_0
                                aws_linked_list_node_prev_is_valid@%_call_0)))
                 (=> aws_linked_list_node_prev_is_valid@_4_0
                     (= aws_linked_list_node_prev_is_valid@%_br3_0
@@ -767,7 +763,7 @@
                         (> aws_linked_list_node_prev_is_valid@%_call4_0 0)))
                 (=> aws_linked_list_node_prev_is_valid@_8_0
                     (= aws_linked_list_node_prev_is_valid@%_10_0
-                       (select aws_linked_list_node_prev_is_valid@%sm1_0
+                       (select aws_linked_list_node_prev_is_valid@%sm2_0
                                aws_linked_list_node_prev_is_valid@%_call4_0)))
                 (=> aws_linked_list_node_prev_is_valid@_8_0
                     (= aws_linked_list_node_prev_is_valid@%_br5_0
@@ -900,7 +896,7 @@
                         (> aws_linked_list_node_next_is_valid@%_call_0 0)))
                 (=> aws_linked_list_node_next_is_valid@_4_0
                     (= aws_linked_list_node_next_is_valid@%_6_0
-                       (select aws_linked_list_node_next_is_valid@%sm1_0
+                       (select aws_linked_list_node_next_is_valid@%sm2_0
                                aws_linked_list_node_next_is_valid@%_call_0)))
                 (=> aws_linked_list_node_next_is_valid@_4_0
                     (= aws_linked_list_node_next_is_valid@%_br3_0
@@ -919,7 +915,7 @@
                     (> aws_linked_list_node_next_is_valid@%_6_0 0))
                 (=> aws_linked_list_node_next_is_valid@_8_0
                     (= aws_linked_list_node_next_is_valid@%_10_0
-                       (select aws_linked_list_node_next_is_valid@%sm_0
+                       (select aws_linked_list_node_next_is_valid@%sm1_0
                                aws_linked_list_node_next_is_valid@%_call4_0)))
                 (=> aws_linked_list_node_next_is_valid@_8_0
                     (= aws_linked_list_node_next_is_valid@%_br5_0
@@ -985,7 +981,7 @@
       aws_linked_list_node_next_is_valid@%sm2_0
       aws_linked_list_node_next_is_valid@arg.0_0
       aws_linked_list_node_next_is_valid@%_br6_0)))
-(rule (main@entry main@%sm19_0
+(rule (main@entry main@%sm17_0
             @s_default_malloc_0
             @s_default_free_0
             @s_default_realloc_0
@@ -995,13 +991,13 @@
       (a!3 (= main@%_4_0 (+ (+ @default_allocator_0 (* 0 20)) 8)))
       (a!4 (= main@%_5_0 (+ (+ @default_allocator_0 (* 0 20)) 12)))
       (a!5 (= main@%_6_0 (+ (+ @default_allocator_0 (* 0 20)) 16))))
-(let ((a!6 (and (main@entry main@%sm19_0
+(let ((a!6 (and (main@entry main@%sm17_0
                             @s_default_malloc_0
                             @s_default_free_0
                             @s_default_realloc_0
                             @s_default_calloc_0)
                 true
-                (= main@%sm_0 main@%sm19_0)
+                (= main@%sm_0 main@%sm17_0)
                 (> main@%_0_0 0)
                 (> main@%_1_0 0)
                 a!1
@@ -1032,19 +1028,18 @@
                 (= main@%_10_0 (+ main@%_0_0 (* 0 8) 4))
                 (or (<= main@%_0_0 0) (> main@%_10_0 0))
                 (> main@%_0_0 0)
-                (= main@%sm7_0 (store main@%sm17_0 main@%_10_0 main@%_1_0))
+                (= main@%sm7_0 (store main@%sm18_0 main@%_10_0 main@%_1_0))
                 (= main@%_11_0 (+ main@%_1_0 (* 0 8) 0))
                 (or (<= main@%_1_0 0) (> main@%_11_0 0))
-                (= main@%sm8_0 (store main@%sm18_0 main@%_11_0 main@%_0_0))
+                (= main@%sm8_0 (store main@%sm19_0 main@%_11_0 main@%_0_0))
                 (aws_linked_list_prev
                   true
                   false
                   false
-                  main@%sm7_0
-                  main@%sh_0
-                  main@%sm8_0
-                  main@%sh9_0
                   main@%sm6_0
+                  main@%sh_0
+                  main@%sh9_0
+                  main@%sm8_0
                   main@%sh10_0
                   main@%_0_0
                   main@%_12_0)
@@ -1089,17 +1084,17 @@
                 (=> |tuple(main@entry_0, main@verifier.error_0)|
                     (not main@%_13_0))
                 (=> |tuple(main@_14_0, main@verifier.error_0)|
-                    (= main@%shadow.mem.12.0_0 main@%sh16_0))
+                    (= main@%shadow.mem.8.0_0 main@%sh14_0))
                 (=> |tuple(main@entry_0, main@verifier.error_0)|
-                    (= main@%shadow.mem.12.0_1 main@%sh13_0))
+                    (= main@%shadow.mem.8.0_1 main@%sh11_0))
                 (=> (and main@verifier.error_0 main@_16_0)
-                    (= main@%shadow.mem.12.0_2 main@%sh16_0))
+                    (= main@%shadow.mem.8.0_2 main@%sh14_0))
                 (=> |tuple(main@_14_0, main@verifier.error_0)|
-                    (= main@%shadow.mem.12.0_3 main@%shadow.mem.12.0_0))
+                    (= main@%shadow.mem.8.0_3 main@%shadow.mem.8.0_0))
                 (=> |tuple(main@entry_0, main@verifier.error_0)|
-                    (= main@%shadow.mem.12.0_3 main@%shadow.mem.12.0_1))
+                    (= main@%shadow.mem.8.0_3 main@%shadow.mem.8.0_1))
                 (=> (and main@verifier.error_0 main@_16_0)
-                    (= main@%shadow.mem.12.0_3 main@%shadow.mem.12.0_2))
+                    (= main@%shadow.mem.8.0_3 main@%shadow.mem.8.0_2))
                 (=> main@verifier.error.split_0
                     (and main@verifier.error.split_0 main@verifier.error_0))
                 main@verifier.error.split_0)))

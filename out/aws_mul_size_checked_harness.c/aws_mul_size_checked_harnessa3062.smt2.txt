@@ -9,21 +9,21 @@
 (declare-rel aws_mul_u32_checked (Bool Bool Bool (Array Int Int) (Array Int Int) (Array Int Int) (Array Int Int) Int Int Int ))
 (declare-rel main@entry (Int Int Int Int (Array Int Int) (Array Int Int) (Array Int Int) (Array Int Int) (Array Int Int) (Array Int Int) (Array Int Int) (Array Int Int) (Array Int Int) (Array Int Int) (Array Int Int) (Array Int Int) ))
 (declare-rel main@verifier.error.split ())
-(declare-var aws_mul_u64_checked@%sm1_0 (Array Int Int) )
+(declare-var aws_mul_u64_checked@%sm2_0 (Array Int Int) )
 (declare-var aws_mul_u64_checked@%_sm_0 Int )
 (declare-var aws_mul_u64_checked@arg.1_0 Int )
 (declare-var aws_mul_u64_checked@arg.0_0 Int )
 (declare-var aws_mul_u64_checked@arg.2_0 Int )
-(declare-var aws_mul_u64_checked@%sm2_0 (Array Int Int) )
+(declare-var aws_mul_u64_checked@%sm1_0 (Array Int Int) )
 (declare-var aws_mul_u64_checked@%sm_0 (Array Int Int) )
 (declare-var aws_mul_u64_checked@_sm1_0 Bool )
 (declare-var aws_mul_u64_checked@.split_0 Bool )
-(declare-var aws_mul_u32_checked@%sm1_0 (Array Int Int) )
+(declare-var aws_mul_u32_checked@%sm2_0 (Array Int Int) )
 (declare-var aws_mul_u32_checked@%_sm_0 Int )
 (declare-var aws_mul_u32_checked@arg.1_0 Int )
 (declare-var aws_mul_u32_checked@arg.0_0 Int )
 (declare-var aws_mul_u32_checked@arg.2_0 Int )
-(declare-var aws_mul_u32_checked@%sm2_0 (Array Int Int) )
+(declare-var aws_mul_u32_checked@%sm1_0 (Array Int Int) )
 (declare-var aws_mul_u32_checked@%sm_0 (Array Int Int) )
 (declare-var aws_mul_u32_checked@_sm1_0 Bool )
 (declare-var aws_mul_u32_checked@.split_0 Bool )
@@ -39,7 +39,7 @@
 (declare-var main@%_16_0 Int )
 (declare-var main@%_17_0 Int )
 (declare-var main@%sm15_0 (Array Int Int) )
-(declare-var main@%sh16_0 (Array Int Int) )
+(declare-var main@%sh_0 (Array Int Int) )
 (declare-var main@%_18_0 Int )
 (declare-var main@%_19_0 Int )
 (declare-var main@%_20_0 Bool )
@@ -54,36 +54,36 @@
 (declare-var main@%_28_0 Int )
 (declare-var main@%_29_0 Int )
 (declare-var main@%sm17_0 (Array Int Int) )
-(declare-var main@%sh19_0 (Array Int Int) )
+(declare-var main@%sh18_0 (Array Int Int) )
 (declare-var main@%_30_0 Int )
 (declare-var main@%_31_0 Int )
 (declare-var main@%_32_0 Bool )
 (declare-var main@%shadow.mem.8.0_1 (Array Int Int) )
 (declare-var @s_common_log_subject_list_0 Int )
 (declare-var @s_common_log_subject_infos_0 Int )
-(declare-var main@%sm22_0 (Array Int Int) )
-(declare-var main@%sm_0 (Array Int Int) )
-(declare-var main@%sm28_0 (Array Int Int) )
-(declare-var main@%sm1_0 (Array Int Int) )
-(declare-var main@%sm29_0 (Array Int Int) )
-(declare-var main@%sm2_0 (Array Int Int) )
-(declare-var main@%sm31_0 (Array Int Int) )
-(declare-var main@%sm3_0 (Array Int Int) )
-(declare-var main@%sm26_0 (Array Int Int) )
-(declare-var main@%sm4_0 (Array Int Int) )
-(declare-var main@%sm27_0 (Array Int Int) )
-(declare-var main@%sm5_0 (Array Int Int) )
-(declare-var main@%sm23_0 (Array Int Int) )
-(declare-var main@%sm6_0 (Array Int Int) )
 (declare-var main@%sm20_0 (Array Int Int) )
-(declare-var main@%sm7_0 (Array Int Int) )
-(declare-var main@%sm32_0 (Array Int Int) )
-(declare-var main@%sm8_0 (Array Int Int) )
-(declare-var main@%sm25_0 (Array Int Int) )
-(declare-var main@%sm9_0 (Array Int Int) )
-(declare-var main@%sm21_0 (Array Int Int) )
-(declare-var main@%sm10_0 (Array Int Int) )
+(declare-var main@%sm_0 (Array Int Int) )
+(declare-var main@%sm27_0 (Array Int Int) )
+(declare-var main@%sm1_0 (Array Int Int) )
+(declare-var main@%sm28_0 (Array Int Int) )
+(declare-var main@%sm2_0 (Array Int Int) )
+(declare-var main@%sm30_0 (Array Int Int) )
+(declare-var main@%sm3_0 (Array Int Int) )
+(declare-var main@%sm23_0 (Array Int Int) )
+(declare-var main@%sm4_0 (Array Int Int) )
 (declare-var main@%sm24_0 (Array Int Int) )
+(declare-var main@%sm5_0 (Array Int Int) )
+(declare-var main@%sm21_0 (Array Int Int) )
+(declare-var main@%sm6_0 (Array Int Int) )
+(declare-var main@%sm33_0 (Array Int Int) )
+(declare-var main@%sm7_0 (Array Int Int) )
+(declare-var main@%sm29_0 (Array Int Int) )
+(declare-var main@%sm8_0 (Array Int Int) )
+(declare-var main@%sm31_0 (Array Int Int) )
+(declare-var main@%sm9_0 (Array Int Int) )
+(declare-var main@%sm26_0 (Array Int Int) )
+(declare-var main@%sm10_0 (Array Int Int) )
+(declare-var main@%sm32_0 (Array Int Int) )
 (declare-var main@%sm11_0 (Array Int Int) )
 (declare-var main@%sm12_0 (Array Int Int) )
 (declare-var main@%_2_0 Int )
@@ -95,15 +95,15 @@
 (declare-var main@%_7_0 Bool )
 (declare-var @nondet_bool_0 Int )
 (declare-var main@entry_0 Bool )
-(declare-var main@%sm30_0 (Array Int Int) )
-(declare-var main@%sm33_0 (Array Int Int) )
+(declare-var main@%sm22_0 (Array Int Int) )
+(declare-var main@%sm25_0 (Array Int Int) )
 (declare-var main@%_0_0 Int )
 (declare-var main@%_1_0 Int )
 (declare-var main@%sm14_0 (Array Int Int) )
 (declare-var main@_21_0 Bool )
-(declare-var main@%sh18_0 (Array Int Int) )
+(declare-var main@%sh19_0 (Array Int Int) )
 (declare-var main@_8_0 Bool )
-(declare-var main@%sh_0 (Array Int Int) )
+(declare-var main@%sh16_0 (Array Int Int) )
 (declare-var main@verifier.error_0 Bool )
 (declare-var main@%shadow.mem.8.0_0 (Array Int Int) )
 (declare-var main@%shadow.mem.8.0_2 (Array Int Int) )
@@ -117,9 +117,9 @@
   true
   true
   aws_mul_u64_checked@%sm1_0
-  aws_mul_u64_checked@%sm1_0
-  aws_mul_u64_checked@%sm2_0
   aws_mul_u64_checked@%sm_0
+  aws_mul_u64_checked@%sm2_0
+  aws_mul_u64_checked@%sm2_0
   aws_mul_u64_checked@arg.0_0
   aws_mul_u64_checked@arg.1_0
   aws_mul_u64_checked@arg.2_0))
@@ -128,9 +128,9 @@
   true
   true
   aws_mul_u64_checked@%sm1_0
-  aws_mul_u64_checked@%sm1_0
-  aws_mul_u64_checked@%sm2_0
   aws_mul_u64_checked@%sm_0
+  aws_mul_u64_checked@%sm2_0
+  aws_mul_u64_checked@%sm2_0
   aws_mul_u64_checked@arg.0_0
   aws_mul_u64_checked@arg.1_0
   aws_mul_u64_checked@arg.2_0))
@@ -139,9 +139,9 @@
   false
   false
   aws_mul_u64_checked@%sm1_0
-  aws_mul_u64_checked@%sm1_0
-  aws_mul_u64_checked@%sm2_0
   aws_mul_u64_checked@%sm_0
+  aws_mul_u64_checked@%sm2_0
+  aws_mul_u64_checked@%sm2_0
   aws_mul_u64_checked@arg.0_0
   aws_mul_u64_checked@arg.1_0
   aws_mul_u64_checked@arg.2_0))
@@ -159,7 +159,7 @@
            aws_mul_u64_checked@arg.2_0)
          true
          (= aws_mul_u64_checked@%sm_0
-            (store aws_mul_u64_checked@%sm2_0
+            (store aws_mul_u64_checked@%sm1_0
                    aws_mul_u64_checked@arg.2_0
                    aws_mul_u64_checked@%_sm_0))
          (=> aws_mul_u64_checked@.split_0
@@ -167,15 +167,15 @@
          aws_mul_u64_checked@.split_0)
     (aws_mul_u64_checked@.split
       aws_mul_u64_checked@%sm1_0
-      aws_mul_u64_checked@%sm2_0
       aws_mul_u64_checked@%sm_0
+      aws_mul_u64_checked@%sm2_0
       aws_mul_u64_checked@arg.1_0
       aws_mul_u64_checked@arg.0_0
       aws_mul_u64_checked@arg.2_0)))
 (rule (=> (aws_mul_u64_checked@.split
       aws_mul_u64_checked@%sm1_0
-      aws_mul_u64_checked@%sm2_0
       aws_mul_u64_checked@%sm_0
+      aws_mul_u64_checked@%sm2_0
       aws_mul_u64_checked@arg.1_0
       aws_mul_u64_checked@arg.0_0
       aws_mul_u64_checked@arg.2_0)
@@ -184,9 +184,9 @@
       false
       false
       aws_mul_u64_checked@%sm1_0
-      aws_mul_u64_checked@%sm1_0
-      aws_mul_u64_checked@%sm2_0
       aws_mul_u64_checked@%sm_0
+      aws_mul_u64_checked@%sm2_0
+      aws_mul_u64_checked@%sm2_0
       aws_mul_u64_checked@arg.0_0
       aws_mul_u64_checked@arg.1_0
       aws_mul_u64_checked@arg.2_0)))
@@ -195,9 +195,9 @@
   true
   true
   aws_mul_u32_checked@%sm1_0
-  aws_mul_u32_checked@%sm1_0
-  aws_mul_u32_checked@%sm2_0
   aws_mul_u32_checked@%sm_0
+  aws_mul_u32_checked@%sm2_0
+  aws_mul_u32_checked@%sm2_0
   aws_mul_u32_checked@arg.0_0
   aws_mul_u32_checked@arg.1_0
   aws_mul_u32_checked@arg.2_0))
@@ -206,9 +206,9 @@
   true
   true
   aws_mul_u32_checked@%sm1_0
-  aws_mul_u32_checked@%sm1_0
-  aws_mul_u32_checked@%sm2_0
   aws_mul_u32_checked@%sm_0
+  aws_mul_u32_checked@%sm2_0
+  aws_mul_u32_checked@%sm2_0
   aws_mul_u32_checked@arg.0_0
   aws_mul_u32_checked@arg.1_0
   aws_mul_u32_checked@arg.2_0))
@@ -217,9 +217,9 @@
   false
   false
   aws_mul_u32_checked@%sm1_0
-  aws_mul_u32_checked@%sm1_0
-  aws_mul_u32_checked@%sm2_0
   aws_mul_u32_checked@%sm_0
+  aws_mul_u32_checked@%sm2_0
+  aws_mul_u32_checked@%sm2_0
   aws_mul_u32_checked@arg.0_0
   aws_mul_u32_checked@arg.1_0
   aws_mul_u32_checked@arg.2_0))
@@ -237,7 +237,7 @@
            aws_mul_u32_checked@arg.2_0)
          true
          (= aws_mul_u32_checked@%sm_0
-            (store aws_mul_u32_checked@%sm2_0
+            (store aws_mul_u32_checked@%sm1_0
                    aws_mul_u32_checked@arg.2_0
                    aws_mul_u32_checked@%_sm_0))
          (=> aws_mul_u32_checked@.split_0
@@ -245,15 +245,15 @@
          aws_mul_u32_checked@.split_0)
     (aws_mul_u32_checked@.split
       aws_mul_u32_checked@%sm1_0
-      aws_mul_u32_checked@%sm2_0
       aws_mul_u32_checked@%sm_0
+      aws_mul_u32_checked@%sm2_0
       aws_mul_u32_checked@arg.1_0
       aws_mul_u32_checked@arg.0_0
       aws_mul_u32_checked@arg.2_0)))
 (rule (=> (aws_mul_u32_checked@.split
       aws_mul_u32_checked@%sm1_0
-      aws_mul_u32_checked@%sm2_0
       aws_mul_u32_checked@%sm_0
+      aws_mul_u32_checked@%sm2_0
       aws_mul_u32_checked@arg.1_0
       aws_mul_u32_checked@arg.0_0
       aws_mul_u32_checked@arg.2_0)
@@ -262,9 +262,9 @@
       false
       false
       aws_mul_u32_checked@%sm1_0
-      aws_mul_u32_checked@%sm1_0
-      aws_mul_u32_checked@%sm2_0
       aws_mul_u32_checked@%sm_0
+      aws_mul_u32_checked@%sm2_0
+      aws_mul_u32_checked@%sm2_0
       aws_mul_u32_checked@arg.0_0
       aws_mul_u32_checked@arg.1_0
       aws_mul_u32_checked@arg.2_0)))
@@ -272,49 +272,49 @@
             @nondet_uint64_t_0
             @nondet_bool_0
             @nondet_uint32_t_0
-            main@%sm22_0
+            main@%sm20_0
+            main@%sm27_0
             main@%sm28_0
+            main@%sm30_0
+            main@%sm23_0
+            main@%sm24_0
+            main@%sm21_0
+            main@%sm33_0
             main@%sm29_0
             main@%sm31_0
             main@%sm26_0
-            main@%sm27_0
-            main@%sm23_0
-            main@%sm20_0
-            main@%sm32_0
-            main@%sm25_0
-            main@%sm21_0
-            main@%sm24_0))
+            main@%sm32_0))
 (rule (let ((a!1 (= main@%_3_0 (+ (+ @s_common_log_subject_list_0 (* 0 8)) 0)))
       (a!2 (= main@%_4_0 (+ (+ @s_common_log_subject_list_0 (* 0 8)) 4))))
 (let ((a!3 (and (main@entry @nondet_int_0
                             @nondet_uint64_t_0
                             @nondet_bool_0
                             @nondet_uint32_t_0
-                            main@%sm22_0
+                            main@%sm20_0
+                            main@%sm27_0
                             main@%sm28_0
+                            main@%sm30_0
+                            main@%sm23_0
+                            main@%sm24_0
+                            main@%sm21_0
+                            main@%sm33_0
                             main@%sm29_0
                             main@%sm31_0
                             main@%sm26_0
-                            main@%sm27_0
-                            main@%sm23_0
-                            main@%sm20_0
-                            main@%sm32_0
-                            main@%sm25_0
-                            main@%sm21_0
-                            main@%sm24_0)
+                            main@%sm32_0)
                 true
-                (= main@%sm_0 main@%sm22_0)
-                (= main@%sm1_0 main@%sm28_0)
-                (= main@%sm2_0 main@%sm29_0)
-                (= main@%sm3_0 main@%sm31_0)
-                (= main@%sm4_0 main@%sm26_0)
-                (= main@%sm5_0 main@%sm27_0)
-                (= main@%sm6_0 main@%sm23_0)
-                (= main@%sm7_0 main@%sm20_0)
-                (= main@%sm8_0 main@%sm32_0)
-                (= main@%sm9_0 main@%sm25_0)
-                (= main@%sm10_0 main@%sm21_0)
-                (= main@%sm11_0 main@%sm24_0)
+                (= main@%sm_0 main@%sm20_0)
+                (= main@%sm1_0 main@%sm27_0)
+                (= main@%sm2_0 main@%sm28_0)
+                (= main@%sm3_0 main@%sm30_0)
+                (= main@%sm4_0 main@%sm23_0)
+                (= main@%sm5_0 main@%sm24_0)
+                (= main@%sm6_0 main@%sm21_0)
+                (= main@%sm7_0 main@%sm33_0)
+                (= main@%sm8_0 main@%sm29_0)
+                (= main@%sm9_0 main@%sm31_0)
+                (= main@%sm10_0 main@%sm26_0)
+                (= main@%sm11_0 main@%sm32_0)
                 (> main@%_0_0 0)
                 (> main@%_1_0 0)
                 (= main@%_2_0
@@ -338,19 +338,19 @@
                 (=> main@_21_0 (= main@%_27_0 main@%_1_0))
                 (=> main@_21_0 (= main@%_28_0 @nondet_uint32_t_0))
                 (=> main@_21_0
-                    (= main@%sm17_0 (store main@%sm30_0 main@%_1_0 main@%_29_0)))
+                    (= main@%sm17_0 (store main@%sm22_0 main@%_1_0 main@%_29_0)))
                 (aws_mul_u32_checked
                   main@_21_0
                   false
                   false
-                  main@%sm14_0
-                  main@%sh18_0
                   main@%sm17_0
+                  main@%sh18_0
+                  main@%sm14_0
                   main@%sh19_0
                   main@%_24_0
                   main@%_26_0
                   main@%_1_0)
-                (=> main@_21_0 (= main@%_30_0 (select main@%sh19_0 main@%_1_0)))
+                (=> main@_21_0 (= main@%_30_0 (select main@%sh18_0 main@%_1_0)))
                 (=> main@_21_0 (= main@%_32_0 (= main@%_30_0 main@%_31_0)))
                 (=> main@_21_0 (not main@%_32_0))
                 (=> main@_8_0 (and main@_8_0 main@entry_0))
@@ -362,28 +362,28 @@
                 (=> main@_8_0 (= main@%_15_0 main@%_0_0))
                 (=> main@_8_0 (= main@%_16_0 @nondet_uint64_t_0))
                 (=> main@_8_0
-                    (= main@%sm15_0 (store main@%sm33_0 main@%_0_0 main@%_17_0)))
+                    (= main@%sm15_0 (store main@%sm25_0 main@%_0_0 main@%_17_0)))
                 (aws_mul_u64_checked
                   main@_8_0
                   false
                   false
-                  main@%sm14_0
-                  main@%sh_0
                   main@%sm15_0
+                  main@%sh_0
+                  main@%sm14_0
                   main@%sh16_0
                   main@%_12_0
                   main@%_14_0
                   main@%_0_0)
-                (=> main@_8_0 (= main@%_18_0 (select main@%sh16_0 main@%_0_0)))
+                (=> main@_8_0 (= main@%_18_0 (select main@%sh_0 main@%_0_0)))
                 (=> main@_8_0 (= main@%_20_0 (= main@%_18_0 main@%_19_0)))
                 (=> main@_8_0 (not main@%_20_0))
                 (=> main@verifier.error_0
                     (or (and main@verifier.error_0 main@_21_0)
                         (and main@verifier.error_0 main@_8_0)))
                 (=> (and main@verifier.error_0 main@_21_0)
-                    (= main@%shadow.mem.8.0_0 main@%sh18_0))
+                    (= main@%shadow.mem.8.0_0 main@%sh19_0))
                 (=> (and main@verifier.error_0 main@_8_0)
-                    (= main@%shadow.mem.8.0_1 main@%sh_0))
+                    (= main@%shadow.mem.8.0_1 main@%sh16_0))
                 (=> (and main@verifier.error_0 main@_21_0)
                     (= main@%shadow.mem.8.0_2 main@%shadow.mem.8.0_0))
                 (=> (and main@verifier.error_0 main@_8_0)

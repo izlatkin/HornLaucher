@@ -106,8 +106,8 @@
 (declare-var s_default_calloc@_shadow.mem.41.0_0 Bool )
 (declare-var |tuple(s_default_calloc@_sm2_0, s_default_calloc@_shadow.mem.41.0_0)| Bool )
 (declare-var s_default_calloc@%shadow.mem.41.0_1 (Array Int Int) )
+(declare-var aws_hash_table_is_valid@%sm_0 (Array Int Int) )
 (declare-var aws_hash_table_is_valid@%sm1_0 (Array Int Int) )
-(declare-var aws_hash_table_is_valid@%sm3_0 (Array Int Int) )
 (declare-var aws_hash_table_is_valid@%_call5_0 Int )
 (declare-var aws_hash_table_is_valid@%_9_0 Int )
 (declare-var aws_hash_table_is_valid@%_10_0 Bool )
@@ -145,8 +145,8 @@
 (declare-var aws_hash_table_is_valid@%_br4_0 Bool )
 (declare-var aws_hash_table_is_valid@%_br_0 Bool )
 (declare-var aws_hash_table_is_valid@%_br13_3 Bool )
-(declare-var aws_hash_table_is_valid@%sm_0 (Array Int Int) )
 (declare-var aws_hash_table_is_valid@%sm2_0 (Array Int Int) )
+(declare-var aws_hash_table_is_valid@%sm3_0 (Array Int Int) )
 (declare-var aws_hash_table_is_valid@arg.0_0 Int )
 (declare-var aws_hash_table_is_valid@%_br13_0 Bool )
 (declare-var aws_hash_table_is_valid@_sm_0 Bool )
@@ -160,14 +160,14 @@
 (declare-var aws_hash_table_is_valid@%_br13_1 Bool )
 (declare-var aws_hash_table_is_valid@%_br13_2 Bool )
 (declare-var aws_hash_table_is_valid@.split_0 Bool )
+(declare-var aws_hash_table_get_entry_count@%sm_0 (Array Int Int) )
 (declare-var aws_hash_table_get_entry_count@%sm1_0 (Array Int Int) )
-(declare-var aws_hash_table_get_entry_count@%sm3_0 (Array Int Int) )
 (declare-var aws_hash_table_get_entry_count@%_call_0 Int )
 (declare-var aws_hash_table_get_entry_count@arg.0_0 Int )
 (declare-var aws_hash_table_get_entry_count@%_4_0 Int )
 (declare-var aws_hash_table_get_entry_count@%_call4_0 Int )
-(declare-var aws_hash_table_get_entry_count@%sm_0 (Array Int Int) )
 (declare-var aws_hash_table_get_entry_count@%sm2_0 (Array Int Int) )
+(declare-var aws_hash_table_get_entry_count@%sm3_0 (Array Int Int) )
 (declare-var aws_hash_table_get_entry_count@%_br_0 Int )
 (declare-var aws_hash_table_get_entry_count@_sm_0 Bool )
 (declare-var aws_hash_table_get_entry_count@.split_0 Bool )
@@ -175,31 +175,31 @@
 (declare-var @default_allocator_0 Int )
 (declare-var @s_common_log_subject_list_0 Int )
 (declare-var @s_common_log_subject_infos_0 Int )
-(declare-var main@%sm38_0 (Array Int Int) )
+(declare-var main@%sm28_0 (Array Int Int) )
 (declare-var main@%sm_0 (Array Int Int) )
-(declare-var main@%sm29_0 (Array Int Int) )
+(declare-var main@%sm40_0 (Array Int Int) )
 (declare-var main@%sm1_0 (Array Int Int) )
-(declare-var main@%sm27_0 (Array Int Int) )
+(declare-var main@%sm41_0 (Array Int Int) )
 (declare-var main@%sm2_0 (Array Int Int) )
-(declare-var main@%sm36_0 (Array Int Int) )
-(declare-var main@%sm3_0 (Array Int Int) )
 (declare-var main@%sm33_0 (Array Int Int) )
+(declare-var main@%sm3_0 (Array Int Int) )
+(declare-var main@%sm36_0 (Array Int Int) )
 (declare-var main@%sm4_0 (Array Int Int) )
-(declare-var main@%sm31_0 (Array Int Int) )
+(declare-var main@%sm37_0 (Array Int Int) )
 (declare-var main@%sm5_0 (Array Int Int) )
-(declare-var main@%sm42_0 (Array Int Int) )
+(declare-var main@%sm27_0 (Array Int Int) )
 (declare-var main@%sm6_0 (Array Int Int) )
 (declare-var main@%sm34_0 (Array Int Int) )
 (declare-var main@%sm7_0 (Array Int Int) )
-(declare-var main@%sm35_0 (Array Int Int) )
-(declare-var main@%sm8_0 (Array Int Int) )
-(declare-var main@%sm28_0 (Array Int Int) )
-(declare-var main@%sm9_0 (Array Int Int) )
 (declare-var main@%sm39_0 (Array Int Int) )
+(declare-var main@%sm8_0 (Array Int Int) )
+(declare-var main@%sm42_0 (Array Int Int) )
+(declare-var main@%sm9_0 (Array Int Int) )
+(declare-var main@%sm29_0 (Array Int Int) )
 (declare-var main@%sm10_0 (Array Int Int) )
-(declare-var main@%sm37_0 (Array Int Int) )
+(declare-var main@%sm32_0 (Array Int Int) )
 (declare-var main@%sm11_0 (Array Int Int) )
-(declare-var main@%sm41_0 (Array Int Int) )
+(declare-var main@%sm30_0 (Array Int Int) )
 (declare-var main@%sm12_0 (Array Int Int) )
 (declare-var main@%sm13_0 (Array Int Int) )
 (declare-var main@%sm14_0 (Array Int Int) )
@@ -238,8 +238,8 @@
 (declare-var main@%shadow.mem.4.0_1 (Array Int Int) )
 (declare-var main@%shadow.mem.24.0_1 (Array Int Int) )
 (declare-var main@entry_0 Bool )
-(declare-var main@%sm32_0 (Array Int Int) )
-(declare-var main@%sm40_0 (Array Int Int) )
+(declare-var main@%sm31_0 (Array Int Int) )
+(declare-var main@%sm38_0 (Array Int Int) )
 (declare-var main@%_0_0 Int )
 (declare-var main@%sh23_0 (Array Int Int) )
 (declare-var main@%sh24_0 (Array Int Int) )
@@ -707,10 +707,10 @@
   true
   true
   aws_hash_table_is_valid@%sm_0
+  aws_hash_table_is_valid@%sm_0
   aws_hash_table_is_valid@%sm1_0
   aws_hash_table_is_valid@%sm1_0
   aws_hash_table_is_valid@%sm2_0
-  aws_hash_table_is_valid@%sm3_0
   aws_hash_table_is_valid@%sm3_0
   aws_hash_table_is_valid@arg.0_0
   aws_hash_table_is_valid@%_br13_0))
@@ -719,10 +719,10 @@
   true
   true
   aws_hash_table_is_valid@%sm_0
+  aws_hash_table_is_valid@%sm_0
   aws_hash_table_is_valid@%sm1_0
   aws_hash_table_is_valid@%sm1_0
   aws_hash_table_is_valid@%sm2_0
-  aws_hash_table_is_valid@%sm3_0
   aws_hash_table_is_valid@%sm3_0
   aws_hash_table_is_valid@arg.0_0
   aws_hash_table_is_valid@%_br13_0))
@@ -731,10 +731,10 @@
   false
   false
   aws_hash_table_is_valid@%sm_0
+  aws_hash_table_is_valid@%sm_0
   aws_hash_table_is_valid@%sm1_0
   aws_hash_table_is_valid@%sm1_0
   aws_hash_table_is_valid@%sm2_0
-  aws_hash_table_is_valid@%sm3_0
   aws_hash_table_is_valid@%sm3_0
   aws_hash_table_is_valid@arg.0_0
   aws_hash_table_is_valid@%_br13_0))
@@ -822,7 +822,7 @@
                          (> aws_hash_table_is_valid@%_call_0 0)))
                  (=> aws_hash_table_is_valid@_4_0
                      (= aws_hash_table_is_valid@%_6_0
-                        (select aws_hash_table_is_valid@%sm2_0
+                        (select aws_hash_table_is_valid@%sm3_0
                                 aws_hash_table_is_valid@%_call_0)))
                  (=> aws_hash_table_is_valid@_4_0
                      (= aws_hash_table_is_valid@%_br4_0
@@ -840,7 +840,7 @@
                          (> aws_hash_table_is_valid@%_call5_0 0)))
                  (=> aws_hash_table_is_valid@hash_table_state_is_valid.exit_0
                      (= aws_hash_table_is_valid@%_9_0
-                        (select aws_hash_table_is_valid@%sm_0
+                        (select aws_hash_table_is_valid@%sm2_0
                                 aws_hash_table_is_valid@%_call5_0)))
                  a!3
                  (=> aws_hash_table_is_valid@hash_table_state_is_valid.exit_0
@@ -852,7 +852,7 @@
                      (> aws_hash_table_is_valid@%_6_0 0))
                  (=> aws_hash_table_is_valid@hash_table_state_is_valid.exit_0
                      (= aws_hash_table_is_valid@%_12_0
-                        (select aws_hash_table_is_valid@%sm_0
+                        (select aws_hash_table_is_valid@%sm2_0
                                 aws_hash_table_is_valid@%_call6_0)))
                  a!5
                  (=> aws_hash_table_is_valid@hash_table_state_is_valid.exit_0
@@ -864,7 +864,7 @@
                      (> aws_hash_table_is_valid@%_6_0 0))
                  (=> aws_hash_table_is_valid@hash_table_state_is_valid.exit_0
                      (= aws_hash_table_is_valid@%_15_0
-                        (select aws_hash_table_is_valid@%sm_0
+                        (select aws_hash_table_is_valid@%sm2_0
                                 aws_hash_table_is_valid@%_call7_0)))
                  a!7
                  (=> aws_hash_table_is_valid@hash_table_state_is_valid.exit_0
@@ -876,7 +876,7 @@
                      (> aws_hash_table_is_valid@%_6_0 0))
                  (=> aws_hash_table_is_valid@hash_table_state_is_valid.exit_0
                      (= aws_hash_table_is_valid@%_18_0
-                        (select aws_hash_table_is_valid@%sm_0
+                        (select aws_hash_table_is_valid@%sm2_0
                                 aws_hash_table_is_valid@%_call8_0)))
                  a!9
                  (=> aws_hash_table_is_valid@hash_table_state_is_valid.exit_0
@@ -891,7 +891,7 @@
                      (> aws_hash_table_is_valid@%_6_0 0))
                  (=> aws_hash_table_is_valid@hash_table_state_is_valid.exit_0
                      (= aws_hash_table_is_valid@%_23_0
-                        (select aws_hash_table_is_valid@%sm_0
+                        (select aws_hash_table_is_valid@%sm2_0
                                 aws_hash_table_is_valid@%_call9_0)))
                  (=> aws_hash_table_is_valid@hash_table_state_is_valid.exit_0
                      a!11)
@@ -902,7 +902,7 @@
                      (> aws_hash_table_is_valid@%_6_0 0))
                  (=> aws_hash_table_is_valid@hash_table_state_is_valid.exit_0
                      (= aws_hash_table_is_valid@%_25_0
-                        (select aws_hash_table_is_valid@%sm_0
+                        (select aws_hash_table_is_valid@%sm2_0
                                 aws_hash_table_is_valid@%_call10_0)))
                  (=> aws_hash_table_is_valid@hash_table_state_is_valid.exit_0
                      (= aws_hash_table_is_valid@%_26_0 a!12))
@@ -917,7 +917,7 @@
                      (> aws_hash_table_is_valid@%_6_0 0))
                  (=> aws_hash_table_is_valid@hash_table_state_is_valid.exit_0
                      (= aws_hash_table_is_valid@%_29_0
-                        (select aws_hash_table_is_valid@%sm_0
+                        (select aws_hash_table_is_valid@%sm2_0
                                 aws_hash_table_is_valid@%_call11_0)))
                  (=> aws_hash_table_is_valid@hash_table_state_is_valid.exit_0
                      (= aws_hash_table_is_valid@%_30_0
@@ -1022,10 +1022,10 @@
       false
       false
       aws_hash_table_is_valid@%sm_0
+      aws_hash_table_is_valid@%sm_0
       aws_hash_table_is_valid@%sm1_0
       aws_hash_table_is_valid@%sm1_0
       aws_hash_table_is_valid@%sm2_0
-      aws_hash_table_is_valid@%sm3_0
       aws_hash_table_is_valid@%sm3_0
       aws_hash_table_is_valid@arg.0_0
       aws_hash_table_is_valid@%_br13_0)))
@@ -1034,10 +1034,10 @@
   true
   true
   aws_hash_table_get_entry_count@%sm_0
+  aws_hash_table_get_entry_count@%sm_0
   aws_hash_table_get_entry_count@%sm1_0
   aws_hash_table_get_entry_count@%sm1_0
   aws_hash_table_get_entry_count@%sm2_0
-  aws_hash_table_get_entry_count@%sm3_0
   aws_hash_table_get_entry_count@%sm3_0
   aws_hash_table_get_entry_count@arg.0_0
   aws_hash_table_get_entry_count@%_br_0))
@@ -1046,10 +1046,10 @@
   true
   true
   aws_hash_table_get_entry_count@%sm_0
+  aws_hash_table_get_entry_count@%sm_0
   aws_hash_table_get_entry_count@%sm1_0
   aws_hash_table_get_entry_count@%sm1_0
   aws_hash_table_get_entry_count@%sm2_0
-  aws_hash_table_get_entry_count@%sm3_0
   aws_hash_table_get_entry_count@%sm3_0
   aws_hash_table_get_entry_count@arg.0_0
   aws_hash_table_get_entry_count@%_br_0))
@@ -1058,10 +1058,10 @@
   false
   false
   aws_hash_table_get_entry_count@%sm_0
+  aws_hash_table_get_entry_count@%sm_0
   aws_hash_table_get_entry_count@%sm1_0
   aws_hash_table_get_entry_count@%sm1_0
   aws_hash_table_get_entry_count@%sm2_0
-  aws_hash_table_get_entry_count@%sm3_0
   aws_hash_table_get_entry_count@%sm3_0
   aws_hash_table_get_entry_count@arg.0_0
   aws_hash_table_get_entry_count@%_br_0))
@@ -1083,7 +1083,7 @@
                 (or (<= aws_hash_table_get_entry_count@arg.0_0 0)
                     (> aws_hash_table_get_entry_count@%_call_0 0))
                 (= aws_hash_table_get_entry_count@%_4_0
-                   (select aws_hash_table_get_entry_count@%sm2_0
+                   (select aws_hash_table_get_entry_count@%sm3_0
                            aws_hash_table_get_entry_count@%_call_0))
                 (= aws_hash_table_get_entry_count@%_call4_0
                    (+ aws_hash_table_get_entry_count@%_4_0 (* 0 44) 24))
@@ -1091,7 +1091,7 @@
                     (> aws_hash_table_get_entry_count@%_call4_0 0))
                 (> aws_hash_table_get_entry_count@%_4_0 0)
                 (= aws_hash_table_get_entry_count@%_br_0
-                   (select aws_hash_table_get_entry_count@%sm_0
+                   (select aws_hash_table_get_entry_count@%sm2_0
                            aws_hash_table_get_entry_count@%_call4_0))
                 (=> aws_hash_table_get_entry_count@.split_0
                     (and aws_hash_table_get_entry_count@.split_0
@@ -1117,26 +1117,26 @@
       false
       false
       aws_hash_table_get_entry_count@%sm_0
+      aws_hash_table_get_entry_count@%sm_0
       aws_hash_table_get_entry_count@%sm1_0
       aws_hash_table_get_entry_count@%sm1_0
       aws_hash_table_get_entry_count@%sm2_0
       aws_hash_table_get_entry_count@%sm3_0
-      aws_hash_table_get_entry_count@%sm3_0
       aws_hash_table_get_entry_count@arg.0_0
       aws_hash_table_get_entry_count@%_br_0)))
-(rule (main@entry main@%sm38_0
-            main@%sm29_0
-            main@%sm27_0
-            main@%sm36_0
-            main@%sm33_0
-            main@%sm31_0
-            main@%sm42_0
-            main@%sm34_0
-            main@%sm35_0
-            main@%sm28_0
-            main@%sm39_0
-            main@%sm37_0
+(rule (main@entry main@%sm28_0
+            main@%sm40_0
             main@%sm41_0
+            main@%sm33_0
+            main@%sm36_0
+            main@%sm37_0
+            main@%sm27_0
+            main@%sm34_0
+            main@%sm39_0
+            main@%sm42_0
+            main@%sm29_0
+            main@%sm32_0
+            main@%sm30_0
             @s_default_malloc_0
             @s_default_free_0
             @s_default_realloc_0
@@ -1148,37 +1148,37 @@
       (a!5 (= main@%_6_0 (+ (+ @default_allocator_0 (* 0 20)) 16)))
       (a!6 (= main@%_8_0 (+ (+ @s_common_log_subject_list_0 (* 0 8)) 0)))
       (a!7 (= main@%_9_0 (+ (+ @s_common_log_subject_list_0 (* 0 8)) 4))))
-(let ((a!8 (and (main@entry main@%sm38_0
-                            main@%sm29_0
-                            main@%sm27_0
-                            main@%sm36_0
-                            main@%sm33_0
-                            main@%sm31_0
-                            main@%sm42_0
-                            main@%sm34_0
-                            main@%sm35_0
-                            main@%sm28_0
-                            main@%sm39_0
-                            main@%sm37_0
+(let ((a!8 (and (main@entry main@%sm28_0
+                            main@%sm40_0
                             main@%sm41_0
+                            main@%sm33_0
+                            main@%sm36_0
+                            main@%sm37_0
+                            main@%sm27_0
+                            main@%sm34_0
+                            main@%sm39_0
+                            main@%sm42_0
+                            main@%sm29_0
+                            main@%sm32_0
+                            main@%sm30_0
                             @s_default_malloc_0
                             @s_default_free_0
                             @s_default_realloc_0
                             @s_default_calloc_0)
                 true
-                (= main@%sm_0 main@%sm38_0)
-                (= main@%sm1_0 main@%sm29_0)
-                (= main@%sm2_0 main@%sm27_0)
-                (= main@%sm3_0 main@%sm36_0)
-                (= main@%sm4_0 main@%sm33_0)
-                (= main@%sm5_0 main@%sm31_0)
-                (= main@%sm6_0 main@%sm42_0)
+                (= main@%sm_0 main@%sm28_0)
+                (= main@%sm1_0 main@%sm40_0)
+                (= main@%sm2_0 main@%sm41_0)
+                (= main@%sm3_0 main@%sm33_0)
+                (= main@%sm4_0 main@%sm36_0)
+                (= main@%sm5_0 main@%sm37_0)
+                (= main@%sm6_0 main@%sm27_0)
                 (= main@%sm7_0 main@%sm34_0)
-                (= main@%sm8_0 main@%sm35_0)
-                (= main@%sm9_0 main@%sm28_0)
-                (= main@%sm10_0 main@%sm39_0)
-                (= main@%sm11_0 main@%sm37_0)
-                (= main@%sm12_0 main@%sm41_0)
+                (= main@%sm8_0 main@%sm39_0)
+                (= main@%sm9_0 main@%sm42_0)
+                (= main@%sm10_0 main@%sm29_0)
+                (= main@%sm11_0 main@%sm32_0)
+                (= main@%sm12_0 main@%sm30_0)
                 (> main@%_0_0 0)
                 (> main@%_1_0 0)
                 a!1
@@ -1220,33 +1220,33 @@
                   true
                   false
                   false
-                  main@%sm32_0
                   main@%sm19_0
                   main@%sh_0
-                  main@%sm40_0
                   main@%sm21_0
                   main@%sh22_0
+                  main@%sm31_0
+                  main@%sm38_0
                   main@%_0_0
                   main@%_12_0)
                 main@%_12_0
                 (= main@%_13_0 (+ main@%_0_0 (* 0 4) 0))
                 (or (<= main@%_0_0 0) (> main@%_13_0 0))
-                (= main@%_14_0 (select main@%sm40_0 main@%_13_0))
+                (= main@%_14_0 (select main@%sm38_0 main@%_13_0))
                 (= main@%_15_0 main@%_1_0)
                 (= main@%_16_0 (+ main@%_14_0 (* 0 44) 24))
                 (or (<= main@%_14_0 0) (> main@%_16_0 0))
                 (> main@%_14_0 0)
-                (= main@%_17_0 (select main@%sm32_0 main@%_16_0))
+                (= main@%_17_0 (select main@%sm31_0 main@%_16_0))
                 (aws_hash_table_get_entry_count
                   true
                   false
                   false
-                  main@%sm32_0
                   main@%sh_0
                   main@%sh23_0
-                  main@%sm40_0
                   main@%sh22_0
                   main@%sh24_0
+                  main@%sm31_0
+                  main@%sm38_0
                   main@%_0_0
                   main@%_18_0)
                 (= main@%_19_0 (= main@%_18_0 main@%_17_0))
@@ -1256,12 +1256,12 @@
                   main@_20_0
                   false
                   false
-                  main@%sm32_0
                   main@%sh23_0
                   main@%sh25_0
-                  main@%sm40_0
                   main@%sh24_0
                   main@%sh26_0
+                  main@%sm31_0
+                  main@%sm38_0
                   main@%_0_0
                   main@%_21_0)
                 (=> main@_20_0 (not main@%_21_0))

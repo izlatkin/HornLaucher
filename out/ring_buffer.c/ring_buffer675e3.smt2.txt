@@ -266,7 +266,7 @@
 (declare-var s_ring_buffer_mem_acquire@%shadow.mem.132.0_0 (Array Int Int) )
 (declare-var s_ring_buffer_mem_acquire@%sm5_0 (Array Int Int) )
 (declare-var s_ring_buffer_mem_acquire@%sh1_0 (Array Int Int) )
-(declare-var s_ring_buffer_mem_acquire@%sm7_0 (Array Int Int) )
+(declare-var s_ring_buffer_mem_acquire@%sm6_0 (Array Int Int) )
 (declare-var s_ring_buffer_mem_acquire@%.0_0 Int )
 (declare-var s_ring_buffer_mem_acquire@_sm4_0 Bool )
 (declare-var s_ring_buffer_mem_acquire@%_4_0 Int )
@@ -280,7 +280,7 @@
 (declare-var s_ring_buffer_mem_acquire@%shadow.mem.132.0_1 (Array Int Int) )
 (declare-var s_ring_buffer_mem_acquire@%.0_1 Int )
 (declare-var s_ring_buffer_mem_acquire@.split_0 Bool )
-(declare-var s_ring_buffer_mem_release@%sm3_0 (Array Int Int) )
+(declare-var s_ring_buffer_mem_release@%sm4_0 (Array Int Int) )
 (declare-var s_ring_buffer_mem_release@%_4_0 Int )
 (declare-var s_ring_buffer_mem_release@%_5_0 Int )
 (declare-var s_ring_buffer_mem_release@arg.1_0 Int )
@@ -302,7 +302,7 @@
 (declare-var s_ring_buffer_mem_release@%_sm1_0 Int )
 (declare-var s_ring_buffer_mem_release@%sm1_0 (Array Int Int) )
 (declare-var s_ring_buffer_mem_release@%_sm2_0 Int )
-(declare-var s_ring_buffer_mem_release@%sm4_0 (Array Int Int) )
+(declare-var s_ring_buffer_mem_release@%sm3_0 (Array Int Int) )
 (declare-var s_ring_buffer_mem_release@%sm2_0 (Array Int Int) )
 (declare-var s_ring_buffer_mem_release@%sm5_0 (Array Int Int) )
 (declare-var s_ring_buffer_mem_release@%sm6_0 (Array Int Int) )
@@ -748,9 +748,9 @@
 (declare-var aws_ring_buffer_release@%_sm1_0 Int )
 (declare-var aws_ring_buffer_release@%_sm2_0 Int )
 (declare-var aws_ring_buffer_release@%sm3_0 (Array Int Int) )
-(declare-var aws_ring_buffer_release@%sm2_0 (Array Int Int) )
-(declare-var aws_ring_buffer_release@%sm4_0 (Array Int Int) )
 (declare-var aws_ring_buffer_release@%sm1_0 (Array Int Int) )
+(declare-var aws_ring_buffer_release@%sm4_0 (Array Int Int) )
+(declare-var aws_ring_buffer_release@%sm2_0 (Array Int Int) )
 (declare-var aws_ring_buffer_release@_sm3_0 Bool )
 (declare-var aws_ring_buffer_release@.split_0 Bool )
 (declare-var aws_ring_buffer_buf_belongs_to_pool@_tail_0 Bool )
@@ -1280,7 +1280,7 @@
                          (> aws_ring_buffer_acquire@%.pmcpy4.elt_0 0)))
                  (=> aws_ring_buffer_acquire@_78_0
                      (= aws_ring_buffer_acquire@%.pmcpy4.unpack_0
-                        (select aws_ring_buffer_acquire@%sm27_0
+                        (select aws_ring_buffer_acquire@%sm29_0
                                 aws_ring_buffer_acquire@%.pmcpy4.elt_0)))
                  (=> aws_ring_buffer_acquire@_78_0 a!20)
                  (=> aws_ring_buffer_acquire@_78_0
@@ -1290,7 +1290,7 @@
                      (> aws_ring_buffer_acquire@%_8_0 0))
                  (=> aws_ring_buffer_acquire@_78_0
                      (= aws_ring_buffer_acquire@%.pmcpy4.unpack6_0
-                        (select aws_ring_buffer_acquire@%sm27_0
+                        (select aws_ring_buffer_acquire@%sm29_0
                                 aws_ring_buffer_acquire@%.pmcpy4.elt5_0)))
                  (=> aws_ring_buffer_acquire@_78_0 a!21)
                  (=> aws_ring_buffer_acquire@_78_0
@@ -1300,7 +1300,7 @@
                      (> aws_ring_buffer_acquire@%_8_0 0))
                  (=> aws_ring_buffer_acquire@_78_0
                      (= aws_ring_buffer_acquire@%.pmcpy4.unpack8_0
-                        (select aws_ring_buffer_acquire@%sm27_0
+                        (select aws_ring_buffer_acquire@%sm29_0
                                 aws_ring_buffer_acquire@%.pmcpy4.elt7_0)))
                  (=> aws_ring_buffer_acquire@_78_0 a!22)
                  (=> aws_ring_buffer_acquire@_78_0
@@ -1310,7 +1310,7 @@
                      (> aws_ring_buffer_acquire@%_8_0 0))
                  (=> aws_ring_buffer_acquire@_78_0
                      (= aws_ring_buffer_acquire@%.pmcpy4.unpack10_0
-                        (select aws_ring_buffer_acquire@%sm27_0
+                        (select aws_ring_buffer_acquire@%sm29_0
                                 aws_ring_buffer_acquire@%.pmcpy4.elt9_0)))
                  (=> aws_ring_buffer_acquire@_78_0 a!23)
                  (=> aws_ring_buffer_acquire@_78_0
@@ -1404,7 +1404,7 @@
                          (> aws_ring_buffer_acquire@%.pmcpy2.elt_0 0)))
                  (=> aws_ring_buffer_acquire@.critedge_0
                      (= aws_ring_buffer_acquire@%.pmcpy2.unpack_0
-                        (select aws_ring_buffer_acquire@%sm29_0
+                        (select aws_ring_buffer_acquire@%sm27_0
                                 aws_ring_buffer_acquire@%.pmcpy2.elt_0)))
                  (=> aws_ring_buffer_acquire@.critedge_0 a!30)
                  (=> aws_ring_buffer_acquire@.critedge_0
@@ -1414,7 +1414,7 @@
                      (> aws_ring_buffer_acquire@%_call33_0 0))
                  (=> aws_ring_buffer_acquire@.critedge_0
                      (= aws_ring_buffer_acquire@%.pmcpy2.unpack33_0
-                        (select aws_ring_buffer_acquire@%sm29_0
+                        (select aws_ring_buffer_acquire@%sm27_0
                                 aws_ring_buffer_acquire@%.pmcpy2.elt32_0)))
                  (=> aws_ring_buffer_acquire@.critedge_0 a!31)
                  (=> aws_ring_buffer_acquire@.critedge_0
@@ -1424,7 +1424,7 @@
                      (> aws_ring_buffer_acquire@%_call33_0 0))
                  (=> aws_ring_buffer_acquire@.critedge_0
                      (= aws_ring_buffer_acquire@%.pmcpy2.unpack35_0
-                        (select aws_ring_buffer_acquire@%sm29_0
+                        (select aws_ring_buffer_acquire@%sm27_0
                                 aws_ring_buffer_acquire@%.pmcpy2.elt34_0)))
                  (=> aws_ring_buffer_acquire@.critedge_0 a!32)
                  (=> aws_ring_buffer_acquire@.critedge_0
@@ -1434,7 +1434,7 @@
                      (> aws_ring_buffer_acquire@%_call33_0 0))
                  (=> aws_ring_buffer_acquire@.critedge_0
                      (= aws_ring_buffer_acquire@%.pmcpy2.unpack37_0
-                        (select aws_ring_buffer_acquire@%sm29_0
+                        (select aws_ring_buffer_acquire@%sm27_0
                                 aws_ring_buffer_acquire@%.pmcpy2.elt36_0)))
                  (=> aws_ring_buffer_acquire@.critedge_0 a!33)
                  (=> aws_ring_buffer_acquire@.critedge_0
@@ -1944,7 +1944,7 @@
   s_ring_buffer_mem_acquire@%shadow.mem.132.0_0
   s_ring_buffer_mem_acquire@%sm5_0
   s_ring_buffer_mem_acquire@%sh1_0
-  s_ring_buffer_mem_acquire@%sm7_0
+  s_ring_buffer_mem_acquire@%sm6_0
   s_ring_buffer_mem_acquire@arg.0_0
   s_ring_buffer_mem_acquire@arg.1_0
   s_ring_buffer_mem_acquire@%.0_0))
@@ -1955,7 +1955,7 @@
   s_ring_buffer_mem_acquire@%shadow.mem.132.0_0
   s_ring_buffer_mem_acquire@%sm5_0
   s_ring_buffer_mem_acquire@%sh1_0
-  s_ring_buffer_mem_acquire@%sm7_0
+  s_ring_buffer_mem_acquire@%sm6_0
   s_ring_buffer_mem_acquire@arg.0_0
   s_ring_buffer_mem_acquire@arg.1_0
   s_ring_buffer_mem_acquire@%.0_0))
@@ -1966,13 +1966,13 @@
   s_ring_buffer_mem_acquire@%shadow.mem.132.0_0
   s_ring_buffer_mem_acquire@%sm5_0
   s_ring_buffer_mem_acquire@%sh1_0
-  s_ring_buffer_mem_acquire@%sm7_0
+  s_ring_buffer_mem_acquire@%sm6_0
   s_ring_buffer_mem_acquire@arg.0_0
   s_ring_buffer_mem_acquire@arg.1_0
   s_ring_buffer_mem_acquire@%.0_0))
 (rule (s_ring_buffer_mem_acquire@_sm4
   s_ring_buffer_mem_acquire@%sm5_0
-  s_ring_buffer_mem_acquire@%sm7_0
+  s_ring_buffer_mem_acquire@%sm6_0
   s_ring_buffer_mem_acquire@arg.0_0
   s_ring_buffer_mem_acquire@arg.1_0
   s_ring_buffer_mem_acquire@%sm4_0))
@@ -1985,7 +1985,7 @@
                   (+ s_ring_buffer_mem_acquire@%_16_0 (* 4 1))))))
 (let ((a!4 (and (s_ring_buffer_mem_acquire@_sm4
                   s_ring_buffer_mem_acquire@%sm5_0
-                  s_ring_buffer_mem_acquire@%sm7_0
+                  s_ring_buffer_mem_acquire@%sm6_0
                   s_ring_buffer_mem_acquire@arg.0_0
                   s_ring_buffer_mem_acquire@arg.1_0
                   s_ring_buffer_mem_acquire@%sm4_0)
@@ -1997,7 +1997,7 @@
                     (> s_ring_buffer_mem_acquire@%_call_0 0))
                 (> s_ring_buffer_mem_acquire@arg.0_0 0)
                 (= s_ring_buffer_mem_acquire@%_6_0
-                   (select s_ring_buffer_mem_acquire@%sm7_0
+                   (select s_ring_buffer_mem_acquire@%sm6_0
                            s_ring_buffer_mem_acquire@%_call_0))
                 (= s_ring_buffer_mem_acquire@%_7_0
                    s_ring_buffer_mem_acquire@%_6_0)
@@ -2105,7 +2105,7 @@
         s_ring_buffer_mem_acquire@%shadow.mem.132.0_2
         s_ring_buffer_mem_acquire@%sm5_0
         s_ring_buffer_mem_acquire@%sh1_0
-        s_ring_buffer_mem_acquire@%sm7_0
+        s_ring_buffer_mem_acquire@%sm6_0
         s_ring_buffer_mem_acquire@%.0_2
         s_ring_buffer_mem_acquire@arg.0_0
         s_ring_buffer_mem_acquire@arg.1_0
@@ -2114,7 +2114,7 @@
       s_ring_buffer_mem_acquire@%shadow.mem.132.0_0
       s_ring_buffer_mem_acquire@%sm5_0
       s_ring_buffer_mem_acquire@%sh1_0
-      s_ring_buffer_mem_acquire@%sm7_0
+      s_ring_buffer_mem_acquire@%sm6_0
       s_ring_buffer_mem_acquire@%.0_0
       s_ring_buffer_mem_acquire@arg.0_0
       s_ring_buffer_mem_acquire@arg.1_0
@@ -2126,7 +2126,7 @@
       s_ring_buffer_mem_acquire@%shadow.mem.132.0_0
       s_ring_buffer_mem_acquire@%sm5_0
       s_ring_buffer_mem_acquire@%sh1_0
-      s_ring_buffer_mem_acquire@%sm7_0
+      s_ring_buffer_mem_acquire@%sm6_0
       s_ring_buffer_mem_acquire@arg.0_0
       s_ring_buffer_mem_acquire@arg.1_0
       s_ring_buffer_mem_acquire@%.0_0)))
@@ -2134,7 +2134,7 @@
   true
   true
   true
-  s_ring_buffer_mem_release@%sm4_0
+  s_ring_buffer_mem_release@%sm3_0
   s_ring_buffer_mem_release@%sm2_0
   s_ring_buffer_mem_release@%sm5_0
   s_ring_buffer_mem_release@%sm6_0
@@ -2144,7 +2144,7 @@
   false
   true
   true
-  s_ring_buffer_mem_release@%sm4_0
+  s_ring_buffer_mem_release@%sm3_0
   s_ring_buffer_mem_release@%sm2_0
   s_ring_buffer_mem_release@%sm5_0
   s_ring_buffer_mem_release@%sm6_0
@@ -2154,14 +2154,14 @@
   false
   false
   false
-  s_ring_buffer_mem_release@%sm4_0
+  s_ring_buffer_mem_release@%sm3_0
   s_ring_buffer_mem_release@%sm2_0
   s_ring_buffer_mem_release@%sm5_0
   s_ring_buffer_mem_release@%sm6_0
   s_ring_buffer_mem_release@arg.0_0
   s_ring_buffer_mem_release@arg.1_0))
 (rule (s_ring_buffer_mem_release@_sm3
-  s_ring_buffer_mem_release@%sm4_0
+  s_ring_buffer_mem_release@%sm3_0
   s_ring_buffer_mem_release@%sm5_0
   s_ring_buffer_mem_release@%sm6_0
   s_ring_buffer_mem_release@arg.1_0
@@ -2173,7 +2173,7 @@
       (a!3 (= s_ring_buffer_mem_release@%_call11_0
               (+ (+ s_ring_buffer_mem_release@%_4_0 (* 0 16)) 8))))
 (let ((a!4 (and (s_ring_buffer_mem_release@_sm3
-                  s_ring_buffer_mem_release@%sm4_0
+                  s_ring_buffer_mem_release@%sm3_0
                   s_ring_buffer_mem_release@%sm5_0
                   s_ring_buffer_mem_release@%sm6_0
                   s_ring_buffer_mem_release@arg.1_0
@@ -2197,7 +2197,7 @@
                     (> s_ring_buffer_mem_release@%_sm_0 0))
                 (> s_ring_buffer_mem_release@%_4_0 0)
                 (= s_ring_buffer_mem_release@%sm_0
-                   (store s_ring_buffer_mem_release@%sm3_0
+                   (store s_ring_buffer_mem_release@%sm4_0
                           s_ring_buffer_mem_release@%_sm_0
                           s_ring_buffer_mem_release@arg.0_0))
                 (= s_ring_buffer_mem_release@%_call8_0
@@ -2217,14 +2217,14 @@
                     (> s_ring_buffer_mem_release@%_call10_0 0))
                 (> s_ring_buffer_mem_release@%_4_0 0)
                 (= s_ring_buffer_mem_release@%_14_0
-                   (select s_ring_buffer_mem_release@%sm3_0
+                   (select s_ring_buffer_mem_release@%sm4_0
                            s_ring_buffer_mem_release@%_call10_0))
                 a!3
                 (or (<= s_ring_buffer_mem_release@%_4_0 0)
                     (> s_ring_buffer_mem_release@%_call11_0 0))
                 (> s_ring_buffer_mem_release@%_4_0 0)
                 (= s_ring_buffer_mem_release@%_16_0
-                   (select s_ring_buffer_mem_release@%sm3_0
+                   (select s_ring_buffer_mem_release@%sm4_0
                            s_ring_buffer_mem_release@%_call11_0))
                 (= s_ring_buffer_mem_release@%_call12_0
                    (+ s_ring_buffer_mem_release@%_14_0
@@ -2237,7 +2237,7 @@
                    s_ring_buffer_mem_release@%_18_0)
                 (> s_ring_buffer_mem_release@%_call9_0 0)
                 (= s_ring_buffer_mem_release@%sm1_0
-                   (store s_ring_buffer_mem_release@%sm4_0
+                   (store s_ring_buffer_mem_release@%sm3_0
                           s_ring_buffer_mem_release@%_sm1_0
                           s_ring_buffer_mem_release@%_call12_0))
                 (= s_ring_buffer_mem_release@%_sm2_0
@@ -2253,14 +2253,14 @@
                 s_ring_buffer_mem_release@.split_0)))
   (=> a!4
       (s_ring_buffer_mem_release@.split
-        s_ring_buffer_mem_release@%sm4_0
+        s_ring_buffer_mem_release@%sm3_0
         s_ring_buffer_mem_release@%sm2_0
         s_ring_buffer_mem_release@%sm5_0
         s_ring_buffer_mem_release@%sm6_0
         s_ring_buffer_mem_release@arg.1_0
         s_ring_buffer_mem_release@arg.0_0)))))
 (rule (=> (s_ring_buffer_mem_release@.split
-      s_ring_buffer_mem_release@%sm4_0
+      s_ring_buffer_mem_release@%sm3_0
       s_ring_buffer_mem_release@%sm2_0
       s_ring_buffer_mem_release@%sm5_0
       s_ring_buffer_mem_release@%sm6_0
@@ -2270,7 +2270,7 @@
       true
       false
       false
-      s_ring_buffer_mem_release@%sm4_0
+      s_ring_buffer_mem_release@%sm3_0
       s_ring_buffer_mem_release@%sm2_0
       s_ring_buffer_mem_release@%sm5_0
       s_ring_buffer_mem_release@%sm6_0
@@ -3825,7 +3825,7 @@
                          (> aws_ring_buffer_acquire_up_to@%.pmcpy10.elt_0 0)))
                  (=> aws_ring_buffer_acquire_up_to@.critedge97_0
                      (= aws_ring_buffer_acquire_up_to@%.pmcpy10.unpack_0
-                        (select aws_ring_buffer_acquire_up_to@%sm41_0
+                        (select aws_ring_buffer_acquire_up_to@%sm39_0
                                 aws_ring_buffer_acquire_up_to@%.pmcpy10.elt_0)))
                  (=> aws_ring_buffer_acquire_up_to@.critedge97_0 a!10)
                  (=> aws_ring_buffer_acquire_up_to@.critedge97_0
@@ -3835,7 +3835,7 @@
                      (> aws_ring_buffer_acquire_up_to@%_call47_0 0))
                  (=> aws_ring_buffer_acquire_up_to@.critedge97_0
                      (= aws_ring_buffer_acquire_up_to@%.pmcpy10.unpack56_0
-                        (select aws_ring_buffer_acquire_up_to@%sm41_0
+                        (select aws_ring_buffer_acquire_up_to@%sm39_0
                                 aws_ring_buffer_acquire_up_to@%.pmcpy10.elt55_0)))
                  (=> aws_ring_buffer_acquire_up_to@.critedge97_0 a!11)
                  (=> aws_ring_buffer_acquire_up_to@.critedge97_0
@@ -3845,7 +3845,7 @@
                      (> aws_ring_buffer_acquire_up_to@%_call47_0 0))
                  (=> aws_ring_buffer_acquire_up_to@.critedge97_0
                      (= aws_ring_buffer_acquire_up_to@%.pmcpy10.unpack58_0
-                        (select aws_ring_buffer_acquire_up_to@%sm41_0
+                        (select aws_ring_buffer_acquire_up_to@%sm39_0
                                 aws_ring_buffer_acquire_up_to@%.pmcpy10.elt57_0)))
                  (=> aws_ring_buffer_acquire_up_to@.critedge97_0 a!12)
                  (=> aws_ring_buffer_acquire_up_to@.critedge97_0
@@ -3855,7 +3855,7 @@
                      (> aws_ring_buffer_acquire_up_to@%_call47_0 0))
                  (=> aws_ring_buffer_acquire_up_to@.critedge97_0
                      (= aws_ring_buffer_acquire_up_to@%.pmcpy10.unpack60_0
-                        (select aws_ring_buffer_acquire_up_to@%sm41_0
+                        (select aws_ring_buffer_acquire_up_to@%sm39_0
                                 aws_ring_buffer_acquire_up_to@%.pmcpy10.elt59_0)))
                  (=> aws_ring_buffer_acquire_up_to@.critedge97_0 a!13)
                  (=> aws_ring_buffer_acquire_up_to@.critedge97_0
@@ -3953,7 +3953,7 @@
                          (> aws_ring_buffer_acquire_up_to@%.pmcpy12.elt_0 0)))
                  (=> aws_ring_buffer_acquire_up_to@.critedge99_0
                      (= aws_ring_buffer_acquire_up_to@%.pmcpy12.unpack_0
-                        (select aws_ring_buffer_acquire_up_to@%sm43_0
+                        (select aws_ring_buffer_acquire_up_to@%sm38_0
                                 aws_ring_buffer_acquire_up_to@%.pmcpy12.elt_0)))
                  (=> aws_ring_buffer_acquire_up_to@.critedge99_0 a!21)
                  (=> aws_ring_buffer_acquire_up_to@.critedge99_0
@@ -3963,7 +3963,7 @@
                      (> aws_ring_buffer_acquire_up_to@%_call49_0 0))
                  (=> aws_ring_buffer_acquire_up_to@.critedge99_0
                      (= aws_ring_buffer_acquire_up_to@%.pmcpy12.unpack28_0
-                        (select aws_ring_buffer_acquire_up_to@%sm43_0
+                        (select aws_ring_buffer_acquire_up_to@%sm38_0
                                 aws_ring_buffer_acquire_up_to@%.pmcpy12.elt27_0)))
                  (=> aws_ring_buffer_acquire_up_to@.critedge99_0 a!22)
                  (=> aws_ring_buffer_acquire_up_to@.critedge99_0
@@ -3973,7 +3973,7 @@
                      (> aws_ring_buffer_acquire_up_to@%_call49_0 0))
                  (=> aws_ring_buffer_acquire_up_to@.critedge99_0
                      (= aws_ring_buffer_acquire_up_to@%.pmcpy12.unpack30_0
-                        (select aws_ring_buffer_acquire_up_to@%sm43_0
+                        (select aws_ring_buffer_acquire_up_to@%sm38_0
                                 aws_ring_buffer_acquire_up_to@%.pmcpy12.elt29_0)))
                  (=> aws_ring_buffer_acquire_up_to@.critedge99_0 a!23)
                  (=> aws_ring_buffer_acquire_up_to@.critedge99_0
@@ -3983,7 +3983,7 @@
                      (> aws_ring_buffer_acquire_up_to@%_call49_0 0))
                  (=> aws_ring_buffer_acquire_up_to@.critedge99_0
                      (= aws_ring_buffer_acquire_up_to@%.pmcpy12.unpack32_0
-                        (select aws_ring_buffer_acquire_up_to@%sm43_0
+                        (select aws_ring_buffer_acquire_up_to@%sm38_0
                                 aws_ring_buffer_acquire_up_to@%.pmcpy12.elt31_0)))
                  (=> aws_ring_buffer_acquire_up_to@.critedge99_0 a!24)
                  (=> aws_ring_buffer_acquire_up_to@.critedge99_0
@@ -4076,7 +4076,7 @@
                          (> aws_ring_buffer_acquire_up_to@%.pmcpy13.elt_0 0)))
                  (=> aws_ring_buffer_acquire_up_to@.critedge100_0
                      (= aws_ring_buffer_acquire_up_to@%.pmcpy13.unpack_0
-                        (select aws_ring_buffer_acquire_up_to@%sm38_0
+                        (select aws_ring_buffer_acquire_up_to@%sm43_0
                                 aws_ring_buffer_acquire_up_to@%.pmcpy13.elt_0)))
                  (=> aws_ring_buffer_acquire_up_to@.critedge100_0 a!31)
                  (=> aws_ring_buffer_acquire_up_to@.critedge100_0
@@ -4086,7 +4086,7 @@
                      (> aws_ring_buffer_acquire_up_to@%_11_0 0))
                  (=> aws_ring_buffer_acquire_up_to@.critedge100_0
                      (= aws_ring_buffer_acquire_up_to@%.pmcpy13.unpack15_0
-                        (select aws_ring_buffer_acquire_up_to@%sm38_0
+                        (select aws_ring_buffer_acquire_up_to@%sm43_0
                                 aws_ring_buffer_acquire_up_to@%.pmcpy13.elt14_0)))
                  (=> aws_ring_buffer_acquire_up_to@.critedge100_0 a!32)
                  (=> aws_ring_buffer_acquire_up_to@.critedge100_0
@@ -4096,7 +4096,7 @@
                      (> aws_ring_buffer_acquire_up_to@%_11_0 0))
                  (=> aws_ring_buffer_acquire_up_to@.critedge100_0
                      (= aws_ring_buffer_acquire_up_to@%.pmcpy13.unpack17_0
-                        (select aws_ring_buffer_acquire_up_to@%sm38_0
+                        (select aws_ring_buffer_acquire_up_to@%sm43_0
                                 aws_ring_buffer_acquire_up_to@%.pmcpy13.elt16_0)))
                  (=> aws_ring_buffer_acquire_up_to@.critedge100_0 a!33)
                  (=> aws_ring_buffer_acquire_up_to@.critedge100_0
@@ -4106,7 +4106,7 @@
                      (> aws_ring_buffer_acquire_up_to@%_11_0 0))
                  (=> aws_ring_buffer_acquire_up_to@.critedge100_0
                      (= aws_ring_buffer_acquire_up_to@%.pmcpy13.unpack19_0
-                        (select aws_ring_buffer_acquire_up_to@%sm38_0
+                        (select aws_ring_buffer_acquire_up_to@%sm43_0
                                 aws_ring_buffer_acquire_up_to@%.pmcpy13.elt18_0)))
                  (=> aws_ring_buffer_acquire_up_to@.critedge100_0 a!34)
                  (=> aws_ring_buffer_acquire_up_to@.critedge100_0
@@ -4189,7 +4189,7 @@
                          (> aws_ring_buffer_acquire_up_to@%.pmcpy11.elt_0 0)))
                  (=> aws_ring_buffer_acquire_up_to@.critedge98_0
                      (= aws_ring_buffer_acquire_up_to@%.pmcpy11.unpack_0
-                        (select aws_ring_buffer_acquire_up_to@%sm40_0
+                        (select aws_ring_buffer_acquire_up_to@%sm42_0
                                 aws_ring_buffer_acquire_up_to@%.pmcpy11.elt_0)))
                  (=> aws_ring_buffer_acquire_up_to@.critedge98_0 a!40)
                  (=> aws_ring_buffer_acquire_up_to@.critedge98_0
@@ -4199,7 +4199,7 @@
                      (> aws_ring_buffer_acquire_up_to@%_call48_0 0))
                  (=> aws_ring_buffer_acquire_up_to@.critedge98_0
                      (= aws_ring_buffer_acquire_up_to@%.pmcpy11.unpack42_0
-                        (select aws_ring_buffer_acquire_up_to@%sm40_0
+                        (select aws_ring_buffer_acquire_up_to@%sm42_0
                                 aws_ring_buffer_acquire_up_to@%.pmcpy11.elt41_0)))
                  (=> aws_ring_buffer_acquire_up_to@.critedge98_0 a!41)
                  (=> aws_ring_buffer_acquire_up_to@.critedge98_0
@@ -4209,7 +4209,7 @@
                      (> aws_ring_buffer_acquire_up_to@%_call48_0 0))
                  (=> aws_ring_buffer_acquire_up_to@.critedge98_0
                      (= aws_ring_buffer_acquire_up_to@%.pmcpy11.unpack44_0
-                        (select aws_ring_buffer_acquire_up_to@%sm40_0
+                        (select aws_ring_buffer_acquire_up_to@%sm42_0
                                 aws_ring_buffer_acquire_up_to@%.pmcpy11.elt43_0)))
                  (=> aws_ring_buffer_acquire_up_to@.critedge98_0 a!42)
                  (=> aws_ring_buffer_acquire_up_to@.critedge98_0
@@ -4219,7 +4219,7 @@
                      (> aws_ring_buffer_acquire_up_to@%_call48_0 0))
                  (=> aws_ring_buffer_acquire_up_to@.critedge98_0
                      (= aws_ring_buffer_acquire_up_to@%.pmcpy11.unpack46_0
-                        (select aws_ring_buffer_acquire_up_to@%sm40_0
+                        (select aws_ring_buffer_acquire_up_to@%sm42_0
                                 aws_ring_buffer_acquire_up_to@%.pmcpy11.elt45_0)))
                  (=> aws_ring_buffer_acquire_up_to@.critedge98_0 a!43)
                  (=> aws_ring_buffer_acquire_up_to@.critedge98_0
@@ -4322,7 +4322,7 @@
                          (> aws_ring_buffer_acquire_up_to@%.pmcpy9.elt_0 0)))
                  (=> aws_ring_buffer_acquire_up_to@.critedge_0
                      (= aws_ring_buffer_acquire_up_to@%.pmcpy9.unpack_0
-                        (select aws_ring_buffer_acquire_up_to@%sm39_0
+                        (select aws_ring_buffer_acquire_up_to@%sm40_0
                                 aws_ring_buffer_acquire_up_to@%.pmcpy9.elt_0)))
                  (=> aws_ring_buffer_acquire_up_to@.critedge_0 a!51)
                  (=> aws_ring_buffer_acquire_up_to@.critedge_0
@@ -4332,7 +4332,7 @@
                      (> aws_ring_buffer_acquire_up_to@%_call46_0 0))
                  (=> aws_ring_buffer_acquire_up_to@.critedge_0
                      (= aws_ring_buffer_acquire_up_to@%.pmcpy9.unpack70_0
-                        (select aws_ring_buffer_acquire_up_to@%sm39_0
+                        (select aws_ring_buffer_acquire_up_to@%sm40_0
                                 aws_ring_buffer_acquire_up_to@%.pmcpy9.elt69_0)))
                  (=> aws_ring_buffer_acquire_up_to@.critedge_0 a!52)
                  (=> aws_ring_buffer_acquire_up_to@.critedge_0
@@ -4342,7 +4342,7 @@
                      (> aws_ring_buffer_acquire_up_to@%_call46_0 0))
                  (=> aws_ring_buffer_acquire_up_to@.critedge_0
                      (= aws_ring_buffer_acquire_up_to@%.pmcpy9.unpack72_0
-                        (select aws_ring_buffer_acquire_up_to@%sm39_0
+                        (select aws_ring_buffer_acquire_up_to@%sm40_0
                                 aws_ring_buffer_acquire_up_to@%.pmcpy9.elt71_0)))
                  (=> aws_ring_buffer_acquire_up_to@.critedge_0 a!53)
                  (=> aws_ring_buffer_acquire_up_to@.critedge_0
@@ -4352,7 +4352,7 @@
                      (> aws_ring_buffer_acquire_up_to@%_call46_0 0))
                  (=> aws_ring_buffer_acquire_up_to@.critedge_0
                      (= aws_ring_buffer_acquire_up_to@%.pmcpy9.unpack74_0
-                        (select aws_ring_buffer_acquire_up_to@%sm39_0
+                        (select aws_ring_buffer_acquire_up_to@%sm40_0
                                 aws_ring_buffer_acquire_up_to@%.pmcpy9.elt73_0)))
                  (=> aws_ring_buffer_acquire_up_to@.critedge_0 a!54)
                  (=> aws_ring_buffer_acquire_up_to@.critedge_0
@@ -4560,7 +4560,7 @@
                          (> aws_ring_buffer_acquire_up_to@%.pmcpy.elt_0 0)))
                  (=> aws_ring_buffer_acquire_up_to@_47_0
                      (= aws_ring_buffer_acquire_up_to@%.pmcpy.unpack_0
-                        (select aws_ring_buffer_acquire_up_to@%sm42_0
+                        (select aws_ring_buffer_acquire_up_to@%sm41_0
                                 aws_ring_buffer_acquire_up_to@%.pmcpy.elt_0)))
                  (=> aws_ring_buffer_acquire_up_to@_47_0 a!65)
                  (=> aws_ring_buffer_acquire_up_to@_47_0
@@ -4570,7 +4570,7 @@
                      (> aws_ring_buffer_acquire_up_to@%_call_0 0))
                  (=> aws_ring_buffer_acquire_up_to@_47_0
                      (= aws_ring_buffer_acquire_up_to@%.pmcpy.unpack84_0
-                        (select aws_ring_buffer_acquire_up_to@%sm42_0
+                        (select aws_ring_buffer_acquire_up_to@%sm41_0
                                 aws_ring_buffer_acquire_up_to@%.pmcpy.elt83_0)))
                  (=> aws_ring_buffer_acquire_up_to@_47_0 a!66)
                  (=> aws_ring_buffer_acquire_up_to@_47_0
@@ -4580,7 +4580,7 @@
                      (> aws_ring_buffer_acquire_up_to@%_call_0 0))
                  (=> aws_ring_buffer_acquire_up_to@_47_0
                      (= aws_ring_buffer_acquire_up_to@%.pmcpy.unpack86_0
-                        (select aws_ring_buffer_acquire_up_to@%sm42_0
+                        (select aws_ring_buffer_acquire_up_to@%sm41_0
                                 aws_ring_buffer_acquire_up_to@%.pmcpy.elt85_0)))
                  (=> aws_ring_buffer_acquire_up_to@_47_0 a!67)
                  (=> aws_ring_buffer_acquire_up_to@_47_0
@@ -4590,7 +4590,7 @@
                      (> aws_ring_buffer_acquire_up_to@%_call_0 0))
                  (=> aws_ring_buffer_acquire_up_to@_47_0
                      (= aws_ring_buffer_acquire_up_to@%.pmcpy.unpack88_0
-                        (select aws_ring_buffer_acquire_up_to@%sm42_0
+                        (select aws_ring_buffer_acquire_up_to@%sm41_0
                                 aws_ring_buffer_acquire_up_to@%.pmcpy.elt87_0)))
                  (=> aws_ring_buffer_acquire_up_to@_47_0 a!68)
                  (=> aws_ring_buffer_acquire_up_to@_47_0
@@ -4840,9 +4840,9 @@
   true
   true
   aws_ring_buffer_release@%sm3_0
-  aws_ring_buffer_release@%sm2_0
-  aws_ring_buffer_release@%sm4_0
   aws_ring_buffer_release@%sm1_0
+  aws_ring_buffer_release@%sm4_0
+  aws_ring_buffer_release@%sm2_0
   aws_ring_buffer_release@arg.0_0
   aws_ring_buffer_release@arg.1_0))
 (rule (aws_ring_buffer_release
@@ -4850,9 +4850,9 @@
   true
   true
   aws_ring_buffer_release@%sm3_0
-  aws_ring_buffer_release@%sm2_0
-  aws_ring_buffer_release@%sm4_0
   aws_ring_buffer_release@%sm1_0
+  aws_ring_buffer_release@%sm4_0
+  aws_ring_buffer_release@%sm2_0
   aws_ring_buffer_release@arg.0_0
   aws_ring_buffer_release@arg.1_0))
 (rule (aws_ring_buffer_release
@@ -4860,9 +4860,9 @@
   false
   false
   aws_ring_buffer_release@%sm3_0
-  aws_ring_buffer_release@%sm2_0
-  aws_ring_buffer_release@%sm4_0
   aws_ring_buffer_release@%sm1_0
+  aws_ring_buffer_release@%sm4_0
+  aws_ring_buffer_release@%sm2_0
   aws_ring_buffer_release@arg.0_0
   aws_ring_buffer_release@arg.1_0))
 (rule (aws_ring_buffer_release@_sm3
@@ -4889,14 +4889,14 @@
                     (> aws_ring_buffer_release@%_call_0 0))
                 (> aws_ring_buffer_release@arg.1_0 0)
                 (= aws_ring_buffer_release@%_6_0
-                   (select aws_ring_buffer_release@%sm3_0
+                   (select aws_ring_buffer_release@%sm4_0
                            aws_ring_buffer_release@%_call_0))
                 a!2
                 (or (<= aws_ring_buffer_release@arg.1_0 0)
                     (> aws_ring_buffer_release@%_call5_0 0))
                 (> aws_ring_buffer_release@arg.1_0 0)
                 (= aws_ring_buffer_release@%_8_0
-                   (select aws_ring_buffer_release@%sm3_0
+                   (select aws_ring_buffer_release@%sm4_0
                            aws_ring_buffer_release@%_call5_0))
                 (= aws_ring_buffer_release@%_tail_0
                    (+ aws_ring_buffer_release@%_6_0
@@ -4908,7 +4908,7 @@
                    aws_ring_buffer_release@%_10_0)
                 (> aws_ring_buffer_release@arg.0_0 0)
                 (= aws_ring_buffer_release@%sm_0
-                   (store aws_ring_buffer_release@%sm4_0
+                   (store aws_ring_buffer_release@%sm3_0
                           aws_ring_buffer_release@%_sm_0
                           aws_ring_buffer_release@%_tail_0))
                 (= aws_ring_buffer_release@%_sm1_0
@@ -4929,16 +4929,16 @@
   (=> a!3
       (aws_ring_buffer_release@.split
         aws_ring_buffer_release@%sm3_0
-        aws_ring_buffer_release@%sm2_0
-        aws_ring_buffer_release@%sm4_0
         aws_ring_buffer_release@%sm1_0
+        aws_ring_buffer_release@%sm4_0
+        aws_ring_buffer_release@%sm2_0
         aws_ring_buffer_release@arg.0_0
         aws_ring_buffer_release@arg.1_0)))))
 (rule (=> (aws_ring_buffer_release@.split
       aws_ring_buffer_release@%sm3_0
-      aws_ring_buffer_release@%sm2_0
-      aws_ring_buffer_release@%sm4_0
       aws_ring_buffer_release@%sm1_0
+      aws_ring_buffer_release@%sm4_0
+      aws_ring_buffer_release@%sm2_0
       aws_ring_buffer_release@arg.0_0
       aws_ring_buffer_release@arg.1_0)
     (aws_ring_buffer_release
@@ -4946,9 +4946,9 @@
       false
       false
       aws_ring_buffer_release@%sm3_0
-      aws_ring_buffer_release@%sm2_0
-      aws_ring_buffer_release@%sm4_0
       aws_ring_buffer_release@%sm1_0
+      aws_ring_buffer_release@%sm4_0
+      aws_ring_buffer_release@%sm2_0
       aws_ring_buffer_release@arg.0_0
       aws_ring_buffer_release@arg.1_0)))
 (rule (aws_ring_buffer_buf_belongs_to_pool true true true))
