@@ -27,6 +27,11 @@ class html_report:
         else:
             return ll[13]
 
+    def smt2_number_of_lines(smt2file):
+        if os.path.exists(smt2file):
+            return len(open(smt2file).readlines())
+        else:
+            return "-"
 
     def link_to_log(p):
         name = os.path.dirname(p) + "/log.txt"
@@ -76,6 +81,37 @@ class html_report:
         fileout.writelines(table)
         fileout.close()
 
+    def buildReport_2(dir, stat):
+        # filein = open("forReport", "r", encoding='ISO-8859-1')
+        filein = pickle.load(open("save_aws.p", "rb"))
+        fileout = open("{}/1_html_report.html".format(dir), "w")
+        # data = filein.readlines()
+        stat = stat.replace("\n","<br />\n")
+        fileout.writelines(stat)
+
+        table = "<table border=\"1\" cellspacing=\"0\" cellpadding=\"4\">\n"
+        table = html_report.create_header(table)
+
+        # Create the table's row data
+        i = 1
+        for line in filein:
+            print(line)
+            table += "  <tr>\n"
+            table += "    <td>{0}</td>\n".format(i)
+            table += "    <td>{0}<br/>{1}<br/>{2}<br/>{3}</td>\n".format(html_report.create_hyperlinnk_to_file(line[0]),
+                                                             html_report.create_hyperlinnk_to_file(line[1]),
+                                                             html_report.create_hyperlinnk_to_file(line[2]),
+                                                             html_report.create_hyperlinnk_to_file(line[3]))
+            table += "    <td>{0}</td>\n".format(html_report.smt2_number_of_lines(line[2]))
+            table += "    <td>{0}</td>\n".format("test")
+            table += "    <td>{0}</td>\n".format(html_report.link_to_log(line[0]))
+            table += "  </tr>\n"
+            i += 1
+
+        table += "</table>"
+
+        fileout.writelines(table)
+        fileout.close()
 
 if __name__ == '__main__':
     html_report.buildReport("../out",'')

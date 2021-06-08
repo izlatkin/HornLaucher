@@ -5,10 +5,10 @@ import hashlib
 import shutil
 import ReportBuilder
 
-SOURCE_PATH = "/Users/ilyazlatkin/CLionProjects/aws-c-common"
+#SOURCE_PATH = "/Users/ilyazlatkin/CLionProjects/aws-c-common"
 SOURCE_PATH = "/tmp/aws-c-common"
 SEA_PATH = "/Users/ilyazlatkin/CLionProjects/seahorn/build/run/bin/sea"
-SEA_OPTIONS = ['-I/tmp/aws-c-common/include/:/tmp/aws-c-common/verification/cbmc/include/:/tmp/aws-c-common/source']
+SEA_OPTIONS = ['-I/tmp/aws-c-common/include/:/tmp/aws-c-common/verification/cbmc/include/:/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/']
 #  ,'--show-invars'
    # ,'clang', '/Library/Developer/CommandLineTools_9.0.0/usr/bin/clang']
 #SEA_OPTIONS = ['-I/tmp/cbmc/include/']
@@ -25,6 +25,8 @@ SEA_TIMEOUT = 30
 # Z3_PATH = "/Users/ilyazlatkin/CLionProjects/seahorn/build/run/bin/z3"
 # Z3_TIMEOUT = 30
 LLVM_DIS_PATH = "/Users/ilyazlatkin/CLionProjects/seahorn/build/llvm-prefix/src/llvm-build/bin/llvm-dis"
+EXCLUDE_LIST = ['make_common_data_structures.c','utils.c']
+#EXCLUDE_LIST = []
 
 
 def contains_assert(s):
@@ -91,9 +93,10 @@ def run_sea_smt(files):
         content.append(smt2file)
         content.append(ll_file)
         command = [SEA_PATH]
-        command += SEA_OPTIONS
         command.append('fe')
+        command += SEA_OPTIONS
         command.append(f)
+        command += get_dependencies_list(f)
         command.append('-o')
         command.append(bc_file)
         print("{:.2f}".format(100 * index / len(files)), "%", " ".join(command))
@@ -103,6 +106,7 @@ def run_sea_smt(files):
 
             command = [SEA_PATH]
             command += SEA_OPTIONS
+            command.append('--horn-no-verif')
             command.append('horn')
             command.append(bc_file)
             command.append('-o')
@@ -223,8 +227,48 @@ def get_git_remote_url():
     return url
 
 
+def get_dependencies_list(filename):
+    result = []
+    path = os.path.dirname(filename)
+    if os.path.exists(path + "/Makefile"):
+        print("exist")
+        result += parse_makefile(path + "/Makefile")
+    else:
+        print("doesn't exist")
+        return result
+    print(result)
+    return result
+
+
+def find_all_files(name):
+    path = SOURCE_PATH
+    result = []
+    for root, dirs, files in os.walk(path):
+        if name in files and name not in EXCLUDE_LIST:
+            result.append(os.path.join(root, name))
+    return result
+
+
+def parse_makefile(filename):
+    print("parse_makefile {} ".format(filename))
+    result = []
+    file = open(filename, 'r')
+    lines = file.readlines()
+    for line in lines:
+        if ".c\n" in line:
+            potential_c_file = line[line.rindex('/') + 1:line.rindex('\n')]
+            #result.append(potential_c_file)
+            tmp = find_all_files(potential_c_file)
+            if (len(tmp) > 0):
+                result += tmp
+    return result
+
 if __name__ == '__main__':
     files = get_cfiles_with_assertions()
+    # for f in files:
+    #     print(f)
+    #     print(get_dependencies_list(f))
+    #files = ["/tmp/aws-c-common/verification/cbmc/proofs/aws_array_eq_c_str/aws_array_eq_c_str_harness.c"]
     run_sea_smt(files)
     out = pickle.load(open("save_aws.p", "rb"))
     stat = print_statistics(out)

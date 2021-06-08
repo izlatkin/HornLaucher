@@ -1,5 +1,6 @@
 import os
 import glob
+import shutil
 
 SOURCE_PATH = "/tmp/aws-c-common"
 INCLUDE_DIR = SOURCE_PATH + "/include"
@@ -15,9 +16,10 @@ def creat_dir_and_seahorn_header():
         for f in files_to_del:
             os.remove(f)
 
-    new_file = open(seahorn_header_dir + "/seahorn.h", 'a')
-    new_file.write("#define assert(X) if(!(X)) __VERIFIER_error () \n")
-    new_file.close()
+    # new_file = open(seahorn_header_dir + "/seahorn.h", 'a')
+    # new_file.write("#define assert(X) if(!(X)) __VERIFIER_error () \n")
+    # new_file.close()
+    shutil.copyfile("../resourses/seahorn.h", seahorn_header_dir + "/seahorn.h")
 
 
 def get_cfiles_with_assertions():

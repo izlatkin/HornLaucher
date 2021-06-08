@@ -1,5 +1,5 @@
 ; ModuleID = '../out/aws_is_power_of_two_harness.c/aws_is_power_of_two_harnessdc618.bc.txt'
-source_filename = "/tmp/aws-c-common/verification/cbmc/proofs/aws_is_power_of_two/aws_is_power_of_two_harness.c"
+source_filename = "llvm-link"
 target datalayout = "e-m:o-p:32:32-p270:32:32-p271:32:32-p272:64:64-f64:32:64-f80:128-n8:16:32-S128"
 target triple = "i386-apple-macosx11.0.0"
 
@@ -59,12 +59,12 @@ attributes #3 = { inaccessiblememonly nofree norecurse noreturn nounwind }
 attributes #4 = { inaccessiblememonly }
 attributes #5 = { nounwind }
 
-!llvm.module.flags = !{!0, !1, !2, !3}
-!llvm.ident = !{!4}
+!llvm.ident = !{!0, !0}
+!llvm.module.flags = !{!1, !2, !3, !4}
 
-!0 = !{i32 2, !"SDK Version", [2 x i32] [i32 11, i32 3]}
-!1 = !{i32 1, !"NumRegisterParameters", i32 0}
-!2 = !{i32 1, !"wchar_size", i32 4}
-!3 = !{i32 7, !"PIC Level", i32 2}
-!4 = !{!"Apple clang version 12.0.5 (clang-1205.0.22.9)"}
+!0 = !{!"Apple clang version 12.0.5 (clang-1205.0.22.9)"}
+!1 = !{i32 2, !"SDK Version", [2 x i32] [i32 11, i32 3]}
+!2 = !{i32 1, !"NumRegisterParameters", i32 0}
+!3 = !{i32 1, !"wchar_size", i32 4}
+!4 = !{i32 7, !"PIC Level", i32 2}
 !5 = !{i32 0, i32 33}

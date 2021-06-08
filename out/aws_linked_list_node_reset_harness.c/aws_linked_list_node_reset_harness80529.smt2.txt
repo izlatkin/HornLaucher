@@ -1,20 +1,115 @@
 (set-info :original "../out/aws_linked_list_node_reset_harness.c/aws_linked_list_node_reset_harness80529.bc.txt")
 (set-info :authors "SeaHorn v.10.0.0-rc0")
 (declare-rel verifier.error (Bool Bool Bool ))
-(declare-rel aws_linked_list_node_reset@_sm1 ((Array Int Int) Int ))
-(declare-rel aws_linked_list_node_reset@.split ((Array Int Int) (Array Int Int) Int ))
-(declare-rel aws_linked_list_node_reset (Bool Bool Bool (Array Int Int) (Array Int Int) Int ))
-(declare-rel aws_is_mem_zeroed@_sm ((Array Int Int) Int ))
-(declare-rel aws_is_mem_zeroed@.split ((Array Int Int) Bool Int ))
-(declare-rel aws_is_mem_zeroed (Bool Bool Bool (Array Int Int) (Array Int Int) Int Bool ))
-(declare-rel main@entry ())
+(declare-rel s_default_malloc@_sm1 ((Array Int Int) Int ))
+(declare-rel s_default_malloc@.split ((Array Int Int) Int Int ))
+(declare-rel s_default_malloc (Bool Bool Bool (Array Int Int) (Array Int Int) Int Int ))
+(declare-rel s_default_free@_sm ((Array Int Int) ))
+(declare-rel s_default_free@.split ((Array Int Int) ))
+(declare-rel s_default_free (Bool Bool Bool (Array Int Int) (Array Int Int) ))
+(declare-rel s_default_realloc@_sm2 ((Array Int Int) (Array Int Int) Int Int Int ))
+(declare-rel s_default_realloc@.split ((Array Int Int) (Array Int Int) (Array Int Int) Int Int Int Int ))
+(declare-rel s_default_realloc (Bool Bool Bool (Array Int Int) (Array Int Int) (Array Int Int) (Array Int Int) Int Int Int Int ))
+(declare-rel s_default_calloc@_sm2 ((Array Int Int) (Array Int Int) Int Int ))
+(declare-rel s_default_calloc@_shadow.mem.41.0 ((Array Int Int) (Array Int Int) Int (Array Int Int) Int Int ))
+(declare-rel s_default_calloc (Bool Bool Bool (Array Int Int) (Array Int Int) (Array Int Int) Int Int Int ))
+(declare-rel aws_linked_list_node_reset@_sm1 ((Array Int Int) (Array Int Int) Int ))
+(declare-rel aws_linked_list_node_reset@.split ((Array Int Int) (Array Int Int) (Array Int Int) Int ))
+(declare-rel aws_linked_list_node_reset (Bool Bool Bool (Array Int Int) (Array Int Int) (Array Int Int) (Array Int Int) Int ))
+(declare-rel aws_is_mem_zeroed@_sm ((Array Int Int) (Array Int Int) Int ))
+(declare-rel aws_is_mem_zeroed@.split ((Array Int Int) (Array Int Int) Bool Int ))
+(declare-rel aws_is_mem_zeroed (Bool Bool Bool (Array Int Int) (Array Int Int) (Array Int Int) (Array Int Int) Int Bool ))
+(declare-rel main@entry ((Array Int Int) Int Int Int Int ))
 (declare-rel main@entry.split ())
+(declare-var s_default_malloc@%sm2_0 (Array Int Int) )
+(declare-var s_default_malloc@%sm1_0 (Array Int Int) )
+(declare-var s_default_malloc@%_4_0 Int )
+(declare-var s_default_malloc@%_5_0 Bool )
+(declare-var s_default_malloc@arg.1_0 Int )
+(declare-var s_default_malloc@%_6_0 Int )
+(declare-var s_default_malloc@%_call_0 Int )
+(declare-var s_default_malloc@%sm_0 (Array Int Int) )
+(declare-var s_default_malloc@%_8_0 Int )
+(declare-var s_default_malloc@%_call3_0 Bool )
+(declare-var s_default_malloc@%_10_0 Int )
+(declare-var s_default_malloc@%_call4_0 Int )
+(declare-var s_default_malloc@_sm1_0 Bool )
+(declare-var s_default_malloc@.split_0 Bool )
+(declare-var s_default_free@%sm_0 (Array Int Int) )
+(declare-var s_default_free@_sm_0 Bool )
+(declare-var s_default_free@.split_0 Bool )
+(declare-var s_default_realloc@%sm4_0 (Array Int Int) )
+(declare-var s_default_realloc@%_13_0 Bool )
+(declare-var s_default_realloc@%_14_0 Int )
+(declare-var s_default_realloc@%_call_0 Int )
+(declare-var s_default_realloc@%sm_0 (Array Int Int) )
+(declare-var s_default_realloc@%_16_0 Int )
+(declare-var s_default_realloc@%_call7_0 Bool )
+(declare-var s_default_realloc@%_19_0 Bool )
+(declare-var s_default_realloc@%_br9_0 Bool )
+(declare-var s_default_realloc@%_br_0 Bool )
+(declare-var s_default_realloc@arg.2_0 Int )
+(declare-var s_default_realloc@%shadow.mem.36.0_4 (Array Int Int) )
+(declare-var s_default_realloc@%.0_4 Int )
+(declare-var s_default_realloc@%_7_0 Bool )
+(declare-var s_default_realloc@%_or.cond_0 Bool )
+(declare-var s_default_realloc@%or.cond_0 Bool )
+(declare-var s_default_realloc@%sm2_0 (Array Int Int) )
+(declare-var s_default_realloc@%shadow.mem.36.0_0 (Array Int Int) )
+(declare-var s_default_realloc@arg.1_0 Int )
+(declare-var s_default_realloc@arg.3_0 Int )
+(declare-var s_default_realloc@%.0_0 Int )
+(declare-var s_default_realloc@_sm2_0 Bool )
+(declare-var s_default_realloc@%sm3_0 (Array Int Int) )
+(declare-var s_default_realloc@%_tail_0 Int )
+(declare-var s_default_realloc@_tail5_0 Bool )
+(declare-var s_default_realloc@_10_0 Bool )
+(declare-var s_default_realloc@_tail6_0 Bool )
+(declare-var s_default_realloc@%_call8_0 Int )
+(declare-var s_default_realloc@_call10_0 Bool )
+(declare-var s_default_realloc@%sm1_0 (Array Int Int) )
+(declare-var s_default_realloc@_shadow.mem.36.0_0 Bool )
+(declare-var |tuple(s_default_realloc@_tail6_0, s_default_realloc@_shadow.mem.36.0_0)| Bool )
+(declare-var |tuple(s_default_realloc@_10_0, s_default_realloc@_shadow.mem.36.0_0)| Bool )
+(declare-var s_default_realloc@%shadow.mem.36.0_1 (Array Int Int) )
+(declare-var s_default_realloc@%.0_1 Int )
+(declare-var s_default_realloc@%shadow.mem.36.0_2 (Array Int Int) )
+(declare-var s_default_realloc@%.0_2 Int )
+(declare-var s_default_realloc@%shadow.mem.36.0_3 (Array Int Int) )
+(declare-var s_default_realloc@%.0_3 Int )
+(declare-var s_default_realloc@.split_0 Bool )
+(declare-var s_default_calloc@%sm4_0 (Array Int Int) )
+(declare-var s_default_calloc@%sm3_0 (Array Int Int) )
+(declare-var s_default_calloc@%_tail_0 Int )
+(declare-var s_default_calloc@%_tail5_0 Int )
+(declare-var s_default_calloc@arg.2_0 Int )
+(declare-var s_default_calloc@arg.1_0 Int )
+(declare-var s_default_calloc@%_7_0 Bool )
+(declare-var s_default_calloc@%_8_0 Int )
+(declare-var s_default_calloc@%_call_0 Int )
+(declare-var s_default_calloc@%sm_0 (Array Int Int) )
+(declare-var s_default_calloc@%_10_0 Int )
+(declare-var s_default_calloc@%_call6_0 Bool )
+(declare-var s_default_calloc@%_12_0 Int )
+(declare-var s_default_calloc@%_br_0 Bool )
+(declare-var s_default_calloc@%shadow.mem.41.0_2 (Array Int Int) )
+(declare-var s_default_calloc@%shadow.mem.41.0_0 (Array Int Int) )
+(declare-var s_default_calloc@%_call7_0 Int )
+(declare-var s_default_calloc@%sm2_0 (Array Int Int) )
+(declare-var s_default_calloc@_sm2_0 Bool )
+(declare-var s_default_calloc@_sm1_0 Bool )
+(declare-var s_default_calloc@%sm1_0 (Array Int Int) )
+(declare-var s_default_calloc@_shadow.mem.41.0_0 Bool )
+(declare-var |tuple(s_default_calloc@_sm2_0, s_default_calloc@_shadow.mem.41.0_0)| Bool )
+(declare-var s_default_calloc@%shadow.mem.41.0_1 (Array Int Int) )
+(declare-var aws_linked_list_node_reset@%sm2_0 (Array Int Int) )
 (declare-var aws_linked_list_node_reset@%_sm_0 Int )
 (declare-var aws_linked_list_node_reset@arg.0_0 Int )
 (declare-var aws_linked_list_node_reset@%sm1_0 (Array Int Int) )
 (declare-var aws_linked_list_node_reset@%sm_0 (Array Int Int) )
 (declare-var aws_linked_list_node_reset@_sm1_0 Bool )
 (declare-var aws_linked_list_node_reset@.split_0 Bool )
+(declare-var aws_is_mem_zeroed@%sm1_0 (Array Int Int) )
 (declare-var aws_is_mem_zeroed@%_call_0 Int )
 (declare-var aws_is_mem_zeroed@arg.0_0 Int )
 (declare-var aws_is_mem_zeroed@%_4_0 Int )
@@ -22,25 +117,430 @@
 (declare-var aws_is_mem_zeroed@%_br_0 Bool )
 (declare-var aws_is_mem_zeroed@_sm_0 Bool )
 (declare-var aws_is_mem_zeroed@.split_0 Bool )
+(declare-var @default_allocator_0 Int )
+(declare-var main@%sm10_0 (Array Int Int) )
+(declare-var main@%sm11_0 (Array Int Int) )
 (declare-var main@%sm_0 (Array Int Int) )
+(declare-var main@%sm1_0 (Array Int Int) )
 (declare-var main@%_0_0 Int )
-(declare-var main@%_1_0 Bool )
+(declare-var main@%_1_0 Int )
+(declare-var main@%sm2_0 (Array Int Int) )
+(declare-var @s_default_malloc_0 Int )
 (declare-var main@%_2_0 Int )
+(declare-var main@%sm3_0 (Array Int Int) )
+(declare-var @s_default_free_0 Int )
+(declare-var main@%_3_0 Int )
+(declare-var main@%sm4_0 (Array Int Int) )
+(declare-var @s_default_realloc_0 Int )
+(declare-var main@%_4_0 Int )
+(declare-var main@%sm5_0 (Array Int Int) )
+(declare-var @s_default_calloc_0 Int )
+(declare-var main@%_5_0 Int )
+(declare-var main@%sm6_0 (Array Int Int) )
+(declare-var main@%_6_0 Bool )
+(declare-var main@%_7_0 Int )
 (declare-var main@%sh_0 (Array Int Int) )
-(declare-var main@%sh1_0 (Array Int Int) )
-(declare-var main@%_3_0 Bool )
+(declare-var main@%sh7_0 (Array Int Int) )
+(declare-var main@%sh8_0 (Array Int Int) )
+(declare-var main@%sh9_0 (Array Int Int) )
+(declare-var main@%_8_0 Bool )
 (declare-var main@entry_0 Bool )
 (declare-var main@entry.split_0 Bool )
 (rule (verifier.error false false false))
 (rule (verifier.error false true true))
 (rule (verifier.error true false true))
 (rule (verifier.error true true true))
+(rule (s_default_malloc true
+                  true
+                  true
+                  s_default_malloc@%sm2_0
+                  s_default_malloc@%sm2_0
+                  s_default_malloc@arg.1_0
+                  s_default_malloc@%_call4_0))
+(rule (s_default_malloc false
+                  true
+                  true
+                  s_default_malloc@%sm2_0
+                  s_default_malloc@%sm2_0
+                  s_default_malloc@arg.1_0
+                  s_default_malloc@%_call4_0))
+(rule (s_default_malloc false
+                  false
+                  false
+                  s_default_malloc@%sm2_0
+                  s_default_malloc@%sm2_0
+                  s_default_malloc@arg.1_0
+                  s_default_malloc@%_call4_0))
+(rule (s_default_malloc@_sm1 s_default_malloc@%sm2_0 s_default_malloc@arg.1_0))
+(rule (let ((a!1 (and (s_default_malloc@_sm1
+                  s_default_malloc@%sm2_0
+                  s_default_malloc@arg.1_0)
+                true
+                (> s_default_malloc@%_4_0 0)
+                (= s_default_malloc@%_5_0
+                   (ite (>= s_default_malloc@arg.1_0 0)
+                        (< 4096 s_default_malloc@arg.1_0)
+                        true))
+                (= s_default_malloc@%_6_0 (ite s_default_malloc@%_5_0 32 8))
+                (= s_default_malloc@%_call_0 s_default_malloc@%_4_0)
+                (= s_default_malloc@%sm_0
+                   (store s_default_malloc@%sm1_0 s_default_malloc@%_4_0 0))
+                (= s_default_malloc@%_call3_0 (= s_default_malloc@%_8_0 0))
+                (= s_default_malloc@%_10_0
+                   (select s_default_malloc@%sm_0 s_default_malloc@%_4_0))
+                (= s_default_malloc@%_call4_0
+                   (ite s_default_malloc@%_call3_0 s_default_malloc@%_10_0 0))
+                (=> s_default_malloc@.split_0
+                    (and s_default_malloc@.split_0 s_default_malloc@_sm1_0))
+                s_default_malloc@.split_0)))
+  (=> a!1
+      (s_default_malloc@.split
+        s_default_malloc@%sm2_0
+        s_default_malloc@%_call4_0
+        s_default_malloc@arg.1_0))))
+(rule (=> (s_default_malloc@.split
+      s_default_malloc@%sm2_0
+      s_default_malloc@%_call4_0
+      s_default_malloc@arg.1_0)
+    (s_default_malloc true
+                      false
+                      false
+                      s_default_malloc@%sm2_0
+                      s_default_malloc@%sm2_0
+                      s_default_malloc@arg.1_0
+                      s_default_malloc@%_call4_0)))
+(rule (s_default_free true true true s_default_free@%sm_0 s_default_free@%sm_0))
+(rule (s_default_free false true true s_default_free@%sm_0 s_default_free@%sm_0))
+(rule (s_default_free false false false s_default_free@%sm_0 s_default_free@%sm_0))
+(rule (s_default_free@_sm s_default_free@%sm_0))
+(rule (=> (and (s_default_free@_sm s_default_free@%sm_0)
+         true
+         (=> s_default_free@.split_0
+             (and s_default_free@.split_0 s_default_free@_sm_0))
+         s_default_free@.split_0)
+    (s_default_free@.split s_default_free@%sm_0)))
+(rule (=> (s_default_free@.split s_default_free@%sm_0)
+    (s_default_free true false false s_default_free@%sm_0 s_default_free@%sm_0)))
+(rule (s_default_realloc
+  true
+  true
+  true
+  s_default_realloc@%sm2_0
+  s_default_realloc@%shadow.mem.36.0_0
+  s_default_realloc@%sm4_0
+  s_default_realloc@%sm4_0
+  s_default_realloc@arg.1_0
+  s_default_realloc@arg.2_0
+  s_default_realloc@arg.3_0
+  s_default_realloc@%.0_0))
+(rule (s_default_realloc
+  false
+  true
+  true
+  s_default_realloc@%sm2_0
+  s_default_realloc@%shadow.mem.36.0_0
+  s_default_realloc@%sm4_0
+  s_default_realloc@%sm4_0
+  s_default_realloc@arg.1_0
+  s_default_realloc@arg.2_0
+  s_default_realloc@arg.3_0
+  s_default_realloc@%.0_0))
+(rule (s_default_realloc
+  false
+  false
+  false
+  s_default_realloc@%sm2_0
+  s_default_realloc@%shadow.mem.36.0_0
+  s_default_realloc@%sm4_0
+  s_default_realloc@%sm4_0
+  s_default_realloc@arg.1_0
+  s_default_realloc@arg.2_0
+  s_default_realloc@arg.3_0
+  s_default_realloc@%.0_0))
+(rule (s_default_realloc@_sm2
+  s_default_realloc@%sm2_0
+  s_default_realloc@%sm4_0
+  s_default_realloc@arg.3_0
+  s_default_realloc@arg.2_0
+  s_default_realloc@arg.1_0))
+(rule (let ((a!1 (= s_default_realloc@%_br_0
+              (ite (>= s_default_realloc@arg.2_0 0)
+                   (ite (>= s_default_realloc@arg.3_0 0)
+                        (< s_default_realloc@arg.2_0 s_default_realloc@arg.3_0)
+                        true)
+                   (ite (< s_default_realloc@arg.3_0 0)
+                        (< s_default_realloc@arg.2_0 s_default_realloc@arg.3_0)
+                        false))))
+      (a!2 (=> s_default_realloc@_tail6_0
+               (= s_default_realloc@%_13_0
+                  (ite (>= s_default_realloc@arg.3_0 0)
+                       (< 4096 s_default_realloc@arg.3_0)
+                       true))))
+      (a!3 (=> s_default_realloc@_tail6_0
+               (= s_default_realloc@%_call7_0
+                  (not (= s_default_realloc@%_16_0 0))))))
+(let ((a!4 (and (s_default_realloc@_sm2
+                  s_default_realloc@%sm2_0
+                  s_default_realloc@%sm4_0
+                  s_default_realloc@arg.3_0
+                  s_default_realloc@arg.2_0
+                  s_default_realloc@arg.1_0)
+                true
+                (> s_default_realloc@%_tail_0 0)
+                (= s_default_realloc@%_7_0
+                   (not (= s_default_realloc@arg.3_0 0)))
+                (= s_default_realloc@%_or.cond_0
+                   (not (= s_default_realloc@arg.1_0 0)))
+                (= s_default_realloc@%or.cond_0
+                   (and s_default_realloc@%_or.cond_0 s_default_realloc@%_7_0))
+                (=> s_default_realloc@_tail5_0
+                    (and s_default_realloc@_tail5_0 s_default_realloc@_sm2_0))
+                (=> (and s_default_realloc@_tail5_0 s_default_realloc@_sm2_0)
+                    (not s_default_realloc@%or.cond_0))
+                (=> s_default_realloc@_10_0
+                    (and s_default_realloc@_10_0 s_default_realloc@_sm2_0))
+                (=> (and s_default_realloc@_10_0 s_default_realloc@_sm2_0)
+                    s_default_realloc@%or.cond_0)
+                (=> s_default_realloc@_10_0 a!1)
+                (=> s_default_realloc@_tail6_0
+                    (and s_default_realloc@_tail6_0 s_default_realloc@_10_0))
+                (=> (and s_default_realloc@_tail6_0 s_default_realloc@_10_0)
+                    s_default_realloc@%_br_0)
+                a!2
+                (=> s_default_realloc@_tail6_0
+                    (= s_default_realloc@%_14_0
+                       (ite s_default_realloc@%_13_0 32 8)))
+                (=> s_default_realloc@_tail6_0
+                    (= s_default_realloc@%_call_0 s_default_realloc@%_tail_0))
+                (=> s_default_realloc@_tail6_0
+                    (= s_default_realloc@%sm_0
+                       (store s_default_realloc@%sm3_0
+                              s_default_realloc@%_tail_0
+                              0)))
+                a!3
+                (=> s_default_realloc@_tail6_0
+                    (= s_default_realloc@%_call8_0
+                       (select s_default_realloc@%sm_0
+                               s_default_realloc@%_tail_0)))
+                (=> s_default_realloc@_tail6_0
+                    (= s_default_realloc@%_19_0
+                       (= s_default_realloc@%_call8_0 0)))
+                (=> s_default_realloc@_tail6_0
+                    (= s_default_realloc@%_br9_0
+                       (or s_default_realloc@%_call7_0 s_default_realloc@%_19_0)))
+                (=> s_default_realloc@_call10_0
+                    (and s_default_realloc@_call10_0 s_default_realloc@_tail6_0))
+                (=> (and s_default_realloc@_call10_0 s_default_realloc@_tail6_0)
+                    (not s_default_realloc@%_br9_0))
+                (=> |tuple(s_default_realloc@_tail6_0, s_default_realloc@_shadow.mem.36.0_0)|
+                    s_default_realloc@_tail6_0)
+                (=> |tuple(s_default_realloc@_10_0, s_default_realloc@_shadow.mem.36.0_0)|
+                    s_default_realloc@_10_0)
+                (=> s_default_realloc@_shadow.mem.36.0_0
+                    (or (and s_default_realloc@_shadow.mem.36.0_0
+                             s_default_realloc@_call10_0)
+                        |tuple(s_default_realloc@_tail6_0, s_default_realloc@_shadow.mem.36.0_0)|
+                        |tuple(s_default_realloc@_10_0, s_default_realloc@_shadow.mem.36.0_0)|
+                        (and s_default_realloc@_shadow.mem.36.0_0
+                             s_default_realloc@_tail5_0)))
+                (=> |tuple(s_default_realloc@_tail6_0, s_default_realloc@_shadow.mem.36.0_0)|
+                    s_default_realloc@%_br9_0)
+                (=> |tuple(s_default_realloc@_10_0, s_default_realloc@_shadow.mem.36.0_0)|
+                    (not s_default_realloc@%_br_0))
+                (=> (and s_default_realloc@_shadow.mem.36.0_0
+                         s_default_realloc@_call10_0)
+                    (= s_default_realloc@%shadow.mem.36.0_0
+                       s_default_realloc@%sm1_0))
+                (=> (and s_default_realloc@_shadow.mem.36.0_0
+                         s_default_realloc@_call10_0)
+                    (= s_default_realloc@%.0_0 s_default_realloc@%_call8_0))
+                (=> |tuple(s_default_realloc@_tail6_0, s_default_realloc@_shadow.mem.36.0_0)|
+                    (= s_default_realloc@%shadow.mem.36.0_1
+                       s_default_realloc@%sm2_0))
+                (=> |tuple(s_default_realloc@_tail6_0, s_default_realloc@_shadow.mem.36.0_0)|
+                    (= s_default_realloc@%.0_1 0))
+                (=> |tuple(s_default_realloc@_10_0, s_default_realloc@_shadow.mem.36.0_0)|
+                    (= s_default_realloc@%shadow.mem.36.0_2
+                       s_default_realloc@%sm2_0))
+                (=> |tuple(s_default_realloc@_10_0, s_default_realloc@_shadow.mem.36.0_0)|
+                    (= s_default_realloc@%.0_2 s_default_realloc@arg.1_0))
+                (=> (and s_default_realloc@_shadow.mem.36.0_0
+                         s_default_realloc@_tail5_0)
+                    (= s_default_realloc@%shadow.mem.36.0_3
+                       s_default_realloc@%sm2_0))
+                (=> (and s_default_realloc@_shadow.mem.36.0_0
+                         s_default_realloc@_tail5_0)
+                    (= s_default_realloc@%.0_3 0))
+                (=> (and s_default_realloc@_shadow.mem.36.0_0
+                         s_default_realloc@_call10_0)
+                    (= s_default_realloc@%shadow.mem.36.0_4
+                       s_default_realloc@%shadow.mem.36.0_0))
+                (=> (and s_default_realloc@_shadow.mem.36.0_0
+                         s_default_realloc@_call10_0)
+                    (= s_default_realloc@%.0_4 s_default_realloc@%.0_0))
+                (=> |tuple(s_default_realloc@_tail6_0, s_default_realloc@_shadow.mem.36.0_0)|
+                    (= s_default_realloc@%shadow.mem.36.0_4
+                       s_default_realloc@%shadow.mem.36.0_1))
+                (=> |tuple(s_default_realloc@_tail6_0, s_default_realloc@_shadow.mem.36.0_0)|
+                    (= s_default_realloc@%.0_4 s_default_realloc@%.0_1))
+                (=> |tuple(s_default_realloc@_10_0, s_default_realloc@_shadow.mem.36.0_0)|
+                    (= s_default_realloc@%shadow.mem.36.0_4
+                       s_default_realloc@%shadow.mem.36.0_2))
+                (=> |tuple(s_default_realloc@_10_0, s_default_realloc@_shadow.mem.36.0_0)|
+                    (= s_default_realloc@%.0_4 s_default_realloc@%.0_2))
+                (=> (and s_default_realloc@_shadow.mem.36.0_0
+                         s_default_realloc@_tail5_0)
+                    (= s_default_realloc@%shadow.mem.36.0_4
+                       s_default_realloc@%shadow.mem.36.0_3))
+                (=> (and s_default_realloc@_shadow.mem.36.0_0
+                         s_default_realloc@_tail5_0)
+                    (= s_default_realloc@%.0_4 s_default_realloc@%.0_3))
+                (=> s_default_realloc@.split_0
+                    (and s_default_realloc@.split_0
+                         s_default_realloc@_shadow.mem.36.0_0))
+                s_default_realloc@.split_0)))
+  (=> a!4
+      (s_default_realloc@.split
+        s_default_realloc@%sm2_0
+        s_default_realloc@%shadow.mem.36.0_4
+        s_default_realloc@%sm4_0
+        s_default_realloc@%.0_4
+        s_default_realloc@arg.3_0
+        s_default_realloc@arg.2_0
+        s_default_realloc@arg.1_0)))))
+(rule (=> (s_default_realloc@.split
+      s_default_realloc@%sm2_0
+      s_default_realloc@%shadow.mem.36.0_0
+      s_default_realloc@%sm4_0
+      s_default_realloc@%.0_0
+      s_default_realloc@arg.3_0
+      s_default_realloc@arg.2_0
+      s_default_realloc@arg.1_0)
+    (s_default_realloc
+      true
+      false
+      false
+      s_default_realloc@%sm2_0
+      s_default_realloc@%shadow.mem.36.0_0
+      s_default_realloc@%sm4_0
+      s_default_realloc@%sm4_0
+      s_default_realloc@arg.1_0
+      s_default_realloc@arg.2_0
+      s_default_realloc@arg.3_0
+      s_default_realloc@%.0_0)))
+(rule (s_default_calloc true
+                  true
+                  true
+                  s_default_calloc@%shadow.mem.41.0_0
+                  s_default_calloc@%sm4_0
+                  s_default_calloc@%sm4_0
+                  s_default_calloc@arg.1_0
+                  s_default_calloc@arg.2_0
+                  s_default_calloc@%_call7_0))
+(rule (s_default_calloc false
+                  true
+                  true
+                  s_default_calloc@%shadow.mem.41.0_0
+                  s_default_calloc@%sm4_0
+                  s_default_calloc@%sm4_0
+                  s_default_calloc@arg.1_0
+                  s_default_calloc@arg.2_0
+                  s_default_calloc@%_call7_0))
+(rule (s_default_calloc false
+                  false
+                  false
+                  s_default_calloc@%shadow.mem.41.0_0
+                  s_default_calloc@%sm4_0
+                  s_default_calloc@%sm4_0
+                  s_default_calloc@arg.1_0
+                  s_default_calloc@arg.2_0
+                  s_default_calloc@%_call7_0))
+(rule (s_default_calloc@_sm2
+  s_default_calloc@%sm4_0
+  s_default_calloc@%sm2_0
+  s_default_calloc@arg.2_0
+  s_default_calloc@arg.1_0))
+(rule (let ((a!1 (and (s_default_calloc@_sm2
+                  s_default_calloc@%sm4_0
+                  s_default_calloc@%sm2_0
+                  s_default_calloc@arg.2_0
+                  s_default_calloc@arg.1_0)
+                true
+                (> s_default_calloc@%_tail_0 0)
+                (= s_default_calloc@%_7_0
+                   (ite (>= s_default_calloc@%_tail5_0 0)
+                        (< 4096 s_default_calloc@%_tail5_0)
+                        true))
+                (= s_default_calloc@%_8_0 (ite s_default_calloc@%_7_0 32 8))
+                (= s_default_calloc@%_call_0 s_default_calloc@%_tail_0)
+                (= s_default_calloc@%sm_0
+                   (store s_default_calloc@%sm3_0 s_default_calloc@%_tail_0 0))
+                (= s_default_calloc@%_call6_0 (= s_default_calloc@%_10_0 0))
+                (= s_default_calloc@%_12_0
+                   (select s_default_calloc@%sm_0 s_default_calloc@%_tail_0))
+                (= s_default_calloc@%_call7_0
+                   (ite s_default_calloc@%_call6_0 s_default_calloc@%_12_0 0))
+                (= s_default_calloc@%_br_0 (= s_default_calloc@%_call7_0 0))
+                (=> s_default_calloc@_sm1_0
+                    (and s_default_calloc@_sm1_0 s_default_calloc@_sm2_0))
+                (=> (and s_default_calloc@_sm1_0 s_default_calloc@_sm2_0)
+                    (not s_default_calloc@%_br_0))
+                (= s_default_calloc@%sm1_0 ((as const (Array Int Int)) 0))
+                (=> |tuple(s_default_calloc@_sm2_0, s_default_calloc@_shadow.mem.41.0_0)|
+                    s_default_calloc@_sm2_0)
+                (=> s_default_calloc@_shadow.mem.41.0_0
+                    (or (and s_default_calloc@_shadow.mem.41.0_0
+                             s_default_calloc@_sm1_0)
+                        |tuple(s_default_calloc@_sm2_0, s_default_calloc@_shadow.mem.41.0_0)|))
+                (=> |tuple(s_default_calloc@_sm2_0, s_default_calloc@_shadow.mem.41.0_0)|
+                    s_default_calloc@%_br_0)
+                (=> (and s_default_calloc@_shadow.mem.41.0_0
+                         s_default_calloc@_sm1_0)
+                    (= s_default_calloc@%shadow.mem.41.0_0
+                       s_default_calloc@%sm1_0))
+                (=> |tuple(s_default_calloc@_sm2_0, s_default_calloc@_shadow.mem.41.0_0)|
+                    (= s_default_calloc@%shadow.mem.41.0_1
+                       s_default_calloc@%sm2_0))
+                (=> (and s_default_calloc@_shadow.mem.41.0_0
+                         s_default_calloc@_sm1_0)
+                    (= s_default_calloc@%shadow.mem.41.0_2
+                       s_default_calloc@%shadow.mem.41.0_0))
+                (=> |tuple(s_default_calloc@_sm2_0, s_default_calloc@_shadow.mem.41.0_0)|
+                    (= s_default_calloc@%shadow.mem.41.0_2
+                       s_default_calloc@%shadow.mem.41.0_1))
+                s_default_calloc@_shadow.mem.41.0_0)))
+  (=> a!1
+      (s_default_calloc@_shadow.mem.41.0
+        s_default_calloc@%shadow.mem.41.0_2
+        s_default_calloc@%sm4_0
+        s_default_calloc@%_call7_0
+        s_default_calloc@%sm2_0
+        s_default_calloc@arg.2_0
+        s_default_calloc@arg.1_0))))
+(rule (=> (s_default_calloc@_shadow.mem.41.0
+      s_default_calloc@%shadow.mem.41.0_0
+      s_default_calloc@%sm4_0
+      s_default_calloc@%_call7_0
+      s_default_calloc@%sm2_0
+      s_default_calloc@arg.2_0
+      s_default_calloc@arg.1_0)
+    (s_default_calloc true
+                      false
+                      false
+                      s_default_calloc@%shadow.mem.41.0_0
+                      s_default_calloc@%sm4_0
+                      s_default_calloc@%sm4_0
+                      s_default_calloc@arg.1_0
+                      s_default_calloc@arg.2_0
+                      s_default_calloc@%_call7_0)))
 (rule (aws_linked_list_node_reset
   true
   true
   true
   aws_linked_list_node_reset@%sm1_0
   aws_linked_list_node_reset@%sm_0
+  aws_linked_list_node_reset@%sm2_0
+  aws_linked_list_node_reset@%sm2_0
   aws_linked_list_node_reset@arg.0_0))
 (rule (aws_linked_list_node_reset
   false
@@ -48,6 +548,8 @@
   true
   aws_linked_list_node_reset@%sm1_0
   aws_linked_list_node_reset@%sm_0
+  aws_linked_list_node_reset@%sm2_0
+  aws_linked_list_node_reset@%sm2_0
   aws_linked_list_node_reset@arg.0_0))
 (rule (aws_linked_list_node_reset
   false
@@ -55,12 +557,16 @@
   false
   aws_linked_list_node_reset@%sm1_0
   aws_linked_list_node_reset@%sm_0
+  aws_linked_list_node_reset@%sm2_0
+  aws_linked_list_node_reset@%sm2_0
   aws_linked_list_node_reset@arg.0_0))
 (rule (aws_linked_list_node_reset@_sm1
   aws_linked_list_node_reset@%sm1_0
+  aws_linked_list_node_reset@%sm2_0
   aws_linked_list_node_reset@arg.0_0))
 (rule (=> (and (aws_linked_list_node_reset@_sm1
            aws_linked_list_node_reset@%sm1_0
+           aws_linked_list_node_reset@%sm2_0
            aws_linked_list_node_reset@arg.0_0)
          true
          (= aws_linked_list_node_reset@%_sm_0
@@ -76,10 +582,12 @@
     (aws_linked_list_node_reset@.split
       aws_linked_list_node_reset@%sm1_0
       aws_linked_list_node_reset@%sm_0
+      aws_linked_list_node_reset@%sm2_0
       aws_linked_list_node_reset@arg.0_0)))
 (rule (=> (aws_linked_list_node_reset@.split
       aws_linked_list_node_reset@%sm1_0
       aws_linked_list_node_reset@%sm_0
+      aws_linked_list_node_reset@%sm2_0
       aws_linked_list_node_reset@arg.0_0)
     (aws_linked_list_node_reset
       true
@@ -87,6 +595,8 @@
       false
       aws_linked_list_node_reset@%sm1_0
       aws_linked_list_node_reset@%sm_0
+      aws_linked_list_node_reset@%sm2_0
+      aws_linked_list_node_reset@%sm2_0
       aws_linked_list_node_reset@arg.0_0)))
 (rule (aws_is_mem_zeroed
   true
@@ -94,6 +604,8 @@
   true
   aws_is_mem_zeroed@%sm_0
   aws_is_mem_zeroed@%sm_0
+  aws_is_mem_zeroed@%sm1_0
+  aws_is_mem_zeroed@%sm1_0
   aws_is_mem_zeroed@arg.0_0
   aws_is_mem_zeroed@%_br_0))
 (rule (aws_is_mem_zeroed
@@ -102,6 +614,8 @@
   true
   aws_is_mem_zeroed@%sm_0
   aws_is_mem_zeroed@%sm_0
+  aws_is_mem_zeroed@%sm1_0
+  aws_is_mem_zeroed@%sm1_0
   aws_is_mem_zeroed@arg.0_0
   aws_is_mem_zeroed@%_br_0))
 (rule (aws_is_mem_zeroed
@@ -110,11 +624,17 @@
   false
   aws_is_mem_zeroed@%sm_0
   aws_is_mem_zeroed@%sm_0
+  aws_is_mem_zeroed@%sm1_0
+  aws_is_mem_zeroed@%sm1_0
   aws_is_mem_zeroed@arg.0_0
   aws_is_mem_zeroed@%_br_0))
-(rule (aws_is_mem_zeroed@_sm aws_is_mem_zeroed@%sm_0 aws_is_mem_zeroed@arg.0_0))
+(rule (aws_is_mem_zeroed@_sm
+  aws_is_mem_zeroed@%sm_0
+  aws_is_mem_zeroed@%sm1_0
+  aws_is_mem_zeroed@arg.0_0))
 (rule (=> (and (aws_is_mem_zeroed@_sm
            aws_is_mem_zeroed@%sm_0
+           aws_is_mem_zeroed@%sm1_0
            aws_is_mem_zeroed@arg.0_0)
          true
          (= aws_is_mem_zeroed@%_call_0 aws_is_mem_zeroed@arg.0_0)
@@ -126,10 +646,12 @@
          aws_is_mem_zeroed@.split_0)
     (aws_is_mem_zeroed@.split
       aws_is_mem_zeroed@%sm_0
+      aws_is_mem_zeroed@%sm1_0
       aws_is_mem_zeroed@%_br_0
       aws_is_mem_zeroed@arg.0_0)))
 (rule (=> (aws_is_mem_zeroed@.split
       aws_is_mem_zeroed@%sm_0
+      aws_is_mem_zeroed@%sm1_0
       aws_is_mem_zeroed@%_br_0
       aws_is_mem_zeroed@arg.0_0)
     (aws_is_mem_zeroed
@@ -138,32 +660,71 @@
       false
       aws_is_mem_zeroed@%sm_0
       aws_is_mem_zeroed@%sm_0
+      aws_is_mem_zeroed@%sm1_0
+      aws_is_mem_zeroed@%sm1_0
       aws_is_mem_zeroed@arg.0_0
       aws_is_mem_zeroed@%_br_0)))
-(rule main@entry)
-(rule (=> (and main@entry
-         true
-         (> main@%_0_0 0)
-         (not main@%_1_0)
-         (= main@%_2_0 main@%_0_0)
-         (aws_linked_list_node_reset
+(rule (main@entry main@%sm11_0
+            @s_default_malloc_0
+            @s_default_free_0
+            @s_default_realloc_0
+            @s_default_calloc_0))
+(rule (let ((a!1 (= main@%_1_0 (+ (+ @default_allocator_0 (* 0 20)) 0)))
+      (a!2 (= main@%_2_0 (+ (+ @default_allocator_0 (* 0 20)) 4)))
+      (a!3 (= main@%_3_0 (+ (+ @default_allocator_0 (* 0 20)) 8)))
+      (a!4 (= main@%_4_0 (+ (+ @default_allocator_0 (* 0 20)) 12)))
+      (a!5 (= main@%_5_0 (+ (+ @default_allocator_0 (* 0 20)) 16))))
+  (=> (and (main@entry main@%sm11_0
+                       @s_default_malloc_0
+                       @s_default_free_0
+                       @s_default_realloc_0
+                       @s_default_calloc_0)
            true
-           false
-           false
-           main@%sm_0
-           main@%sh_0
-           main@%_0_0)
-         (aws_is_mem_zeroed
-           true
-           false
-           false
-           main@%sh_0
-           main@%sh1_0
-           main@%_2_0
-           main@%_3_0)
-         (not main@%_3_0)
-         (=> main@entry.split_0 (and main@entry.split_0 main@entry_0))
-         main@entry.split_0)
-    main@entry.split))
+           (= main@%sm_0 main@%sm11_0)
+           (> main@%_0_0 0)
+           a!1
+           (or (<= @default_allocator_0 0) (> main@%_1_0 0))
+           (= main@%sm2_0 (store main@%sm1_0 main@%_1_0 @s_default_malloc_0))
+           a!2
+           (or (<= @default_allocator_0 0) (> main@%_2_0 0))
+           (> @default_allocator_0 0)
+           (= main@%sm3_0 (store main@%sm2_0 main@%_2_0 @s_default_free_0))
+           a!3
+           (or (<= @default_allocator_0 0) (> main@%_3_0 0))
+           (> @default_allocator_0 0)
+           (= main@%sm4_0 (store main@%sm3_0 main@%_3_0 @s_default_realloc_0))
+           a!4
+           (or (<= @default_allocator_0 0) (> main@%_4_0 0))
+           (> @default_allocator_0 0)
+           (= main@%sm5_0 (store main@%sm4_0 main@%_4_0 @s_default_calloc_0))
+           a!5
+           (or (<= @default_allocator_0 0) (> main@%_5_0 0))
+           (> @default_allocator_0 0)
+           (= main@%sm6_0 (store main@%sm5_0 main@%_5_0 0))
+           (not main@%_6_0)
+           (= main@%_7_0 main@%_0_0)
+           (aws_linked_list_node_reset
+             true
+             false
+             false
+             main@%sm10_0
+             main@%sh_0
+             main@%sm6_0
+             main@%sh7_0
+             main@%_0_0)
+           (aws_is_mem_zeroed
+             true
+             false
+             false
+             main@%sh_0
+             main@%sh8_0
+             main@%sh7_0
+             main@%sh9_0
+             main@%_7_0
+             main@%_8_0)
+           (not main@%_8_0)
+           (=> main@entry.split_0 (and main@entry.split_0 main@entry_0))
+           main@entry.split_0)
+      main@entry.split)))
 (query main@entry.split)
 

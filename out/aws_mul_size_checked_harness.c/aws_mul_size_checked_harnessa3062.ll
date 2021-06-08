@@ -1,8 +1,23 @@
 ; ModuleID = '../out/aws_mul_size_checked_harness.c/aws_mul_size_checked_harnessa3062.bc.txt'
-source_filename = "/tmp/aws-c-common/verification/cbmc/proofs/aws_mul_size_checked/aws_mul_size_checked_harness.c"
+source_filename = "llvm-link"
 target datalayout = "e-m:o-p:32:32-p270:32:32-p271:32:32-p272:64:64-f64:32:64-f80:128-n8:16:32-S128"
 target triple = "i386-apple-macosx11.0.0"
 
+%struct.aws_log_subject_info_list = type { %struct.aws_log_subject_info*, i32 }
+%struct.aws_log_subject_info = type { i32, i8*, i8* }
+
+@s_common_log_subject_list = internal unnamed_addr global %struct.aws_log_subject_info_list { %struct.aws_log_subject_info* getelementptr inbounds ([5 x %struct.aws_log_subject_info], [5 x %struct.aws_log_subject_info]* @s_common_log_subject_infos, i32 0, i32 0), i32 5 }, align 8
+@s_common_log_subject_infos = internal global [5 x %struct.aws_log_subject_info] [%struct.aws_log_subject_info { i32 0, i8* getelementptr inbounds ([13 x i8], [13 x i8]* @.str.26, i32 0, i32 0), i8* getelementptr inbounds ([80 x i8], [80 x i8]* @.str.175, i32 0, i32 0) }, %struct.aws_log_subject_info { i32 1, i8* getelementptr inbounds ([15 x i8], [15 x i8]* @.str.176, i32 0, i32 0), i8* getelementptr inbounds ([53 x i8], [53 x i8]* @.str.177, i32 0, i32 0) }, %struct.aws_log_subject_info { i32 2, i8* getelementptr inbounds ([7 x i8], [7 x i8]* @.str.178, i32 0, i32 0), i8* getelementptr inbounds ([46 x i8], [46 x i8]* @.str.179, i32 0, i32 0) }, %struct.aws_log_subject_info { i32 3, i8* getelementptr inbounds ([9 x i8], [9 x i8]* @.str.180, i32 0, i32 0), i8* getelementptr inbounds ([44 x i8], [44 x i8]* @.str.181, i32 0, i32 0) }, %struct.aws_log_subject_info { i32 4, i8* getelementptr inbounds ([11 x i8], [11 x i8]* @.str.182, i32 0, i32 0), i8* getelementptr inbounds ([41 x i8], [41 x i8]* @.str.183, i32 0, i32 0) }], align 4
+@.str.26 = private unnamed_addr constant [13 x i8] c"aws-c-common\00", align 1
+@.str.175 = private unnamed_addr constant [80 x i8] c"Subject for aws-c-common logging that doesn't belong to any particular category\00", align 1
+@.str.176 = private unnamed_addr constant [15 x i8] c"task-scheduler\00", align 1
+@.str.177 = private unnamed_addr constant [53 x i8] c"Subject for task scheduler or task specific logging.\00", align 1
+@.str.178 = private unnamed_addr constant [7 x i8] c"thread\00", align 1
+@.str.179 = private unnamed_addr constant [46 x i8] c"Subject for logging thread related functions.\00", align 1
+@.str.180 = private unnamed_addr constant [9 x i8] c"memtrace\00", align 1
+@.str.181 = private unnamed_addr constant [44 x i8] c"Output from the aws_mem_trace_dump function\00", align 1
+@.str.182 = private unnamed_addr constant [11 x i8] c"xml-parser\00", align 1
+@.str.183 = private unnamed_addr constant [41 x i8] c"Subject for xml parser specific logging.\00", align 1
 @llvm.used = appending global [4 x i8*] [i8* bitcast (void ()* @seahorn.fail to i8*), i8* bitcast (void (i1)* @verifier.assume to i8*), i8* bitcast (void (i1)* @verifier.assume.not to i8*), i8* bitcast (void ()* @verifier.error to i8*)], section "llvm.metadata"
 
 declare zeroext i1 @nondet_bool(...) local_unnamed_addr #0
@@ -51,6 +66,8 @@ define i32 @main() local_unnamed_addr {
 entry:
   %0 = alloca i64, align 8
   %1 = alloca i32, align 4
+  store %struct.aws_log_subject_info* getelementptr inbounds ([5 x %struct.aws_log_subject_info], [5 x %struct.aws_log_subject_info]* @s_common_log_subject_infos, i32 0, i32 0), %struct.aws_log_subject_info** getelementptr inbounds (%struct.aws_log_subject_info_list, %struct.aws_log_subject_info_list* @s_common_log_subject_list, i32 0, i32 0), align 8
+  store i32 5, i32* getelementptr inbounds (%struct.aws_log_subject_info_list, %struct.aws_log_subject_info_list* @s_common_log_subject_list, i32 0, i32 1), align 4
   tail call void @seahorn.fn.enter()
   %2 = tail call i1 @nondet.bool()
   tail call void @verifier.assume.not(i1 %2)
@@ -105,14 +122,14 @@ attributes #4 = { inaccessiblememonly nofree norecurse noreturn nounwind }
 attributes #5 = { inaccessiblememonly }
 attributes #6 = { nounwind }
 
-!llvm.module.flags = !{!0, !1, !2, !3}
-!llvm.ident = !{!4}
+!llvm.ident = !{!0, !0, !0, !0, !0}
+!llvm.module.flags = !{!1, !2, !3, !4}
 
-!0 = !{i32 2, !"SDK Version", [2 x i32] [i32 11, i32 3]}
-!1 = !{i32 1, !"NumRegisterParameters", i32 0}
-!2 = !{i32 1, !"wchar_size", i32 4}
-!3 = !{i32 7, !"PIC Level", i32 2}
-!4 = !{!"Apple clang version 12.0.5 (clang-1205.0.22.9)"}
+!0 = !{!"Apple clang version 12.0.5 (clang-1205.0.22.9)"}
+!1 = !{i32 2, !"SDK Version", [2 x i32] [i32 11, i32 3]}
+!2 = !{i32 1, !"NumRegisterParameters", i32 0}
+!3 = !{i32 1, !"wchar_size", i32 4}
+!4 = !{i32 7, !"PIC Level", i32 2}
 !5 = !{!6, !6, i64 0}
 !6 = !{!"long long", !7, i64 0}
 !7 = !{!"omnipotent char", !8, i64 0}
