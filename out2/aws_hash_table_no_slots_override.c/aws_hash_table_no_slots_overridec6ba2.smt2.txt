@@ -1,0 +1,1470 @@
+(set-info :original "../out2/aws_hash_table_no_slots_override.c/aws_hash_table_no_slots_overridec6ba2.bc.txt")
+(set-info :authors "SeaHorn v.10.0.0-rc0")
+(declare-rel verifier.error (Bool Bool Bool ))
+(declare-rel aws_hash_table_is_valid@_sm ((Array Int Int) Int ))
+(declare-rel aws_hash_table_is_valid@.split ((Array Int Int) Bool Int ))
+(declare-rel aws_hash_table_is_valid (Bool Bool Bool (Array Int Int) Int Bool ))
+(declare-rel aws_hash_iter_is_valid@_sm ((Array Int Int) Int ))
+(declare-rel aws_hash_iter_is_valid@UnifiedReturnBlock ((Array Int Int) Int ))
+(declare-rel aws_hash_iter_is_valid (Bool Bool Bool (Array Int Int) Int ))
+(declare-rel make_hash_table_with_no_backing_store@_sm1 ((Array Int Int) (Array Int Int) Int ))
+(declare-rel make_hash_table_with_no_backing_store@_shadow.mem.9.0 ((Array Int Int) (Array Int Int) (Array Int Int) Int ))
+(declare-rel make_hash_table_with_no_backing_store (Bool Bool Bool (Array Int Int) (Array Int Int) Int ))
+(declare-rel aws_hash_table_clear@_sm1 ((Array Int Int) (Array Int Int) Int ))
+(declare-rel aws_hash_table_clear@.split ((Array Int Int) (Array Int Int) (Array Int Int) Int ))
+(declare-rel aws_hash_table_clear (Bool Bool Bool (Array Int Int) (Array Int Int) (Array Int Int) Int ))
+(declare-rel aws_hash_table_put@_sm2 ((Array Int Int) (Array Int Int) (Array Int Int) Int Int ))
+(declare-rel aws_hash_table_put@_shadow.mem.53.0 ((Array Int Int) (Array Int Int) (Array Int Int) (Array Int Int) (Array Int Int) Int Int ))
+(declare-rel aws_hash_table_put (Bool Bool Bool (Array Int Int) (Array Int Int) (Array Int Int) (Array Int Int) (Array Int Int) Int Int ))
+(declare-rel aws_hash_table_find@_sm2 ((Array Int Int) Int (Array Int Int) Int ))
+(declare-rel aws_hash_table_find@_shadow.mem.81.0 ((Array Int Int) (Array Int Int) Int (Array Int Int) Int ))
+(declare-rel aws_hash_table_find (Bool Bool Bool (Array Int Int) (Array Int Int) Int ))
+(declare-rel aws_hash_iter_begin@_sm4 ((Array Int Int) (Array Int Int) (Array Int Int) Int Int ))
+(declare-rel aws_hash_iter_begin@.split ((Array Int Int) (Array Int Int) (Array Int Int) (Array Int Int) Int Int ))
+(declare-rel aws_hash_iter_begin (Bool Bool Bool (Array Int Int) (Array Int Int) (Array Int Int) (Array Int Int) Int Int ))
+(declare-rel aws_hash_iter_done@_tail ())
+(declare-rel aws_hash_iter_done@.split ())
+(declare-rel aws_hash_iter_done (Bool Bool Bool ))
+(declare-rel aws_hash_iter_next@_sm7 ((Array Int Int) Int ))
+(declare-rel aws_hash_iter_next@.split ((Array Int Int) (Array Int Int) Int ))
+(declare-rel aws_hash_iter_next (Bool Bool Bool (Array Int Int) (Array Int Int) Int ))
+(declare-rel aws_hash_iter_delete@_sm8 ((Array Int Int) (Array Int Int) (Array Int Int) Int ))
+(declare-rel aws_hash_iter_delete@.split ((Array Int Int) (Array Int Int) (Array Int Int) (Array Int Int) (Array Int Int) Int ))
+(declare-rel aws_hash_iter_delete (Bool Bool Bool (Array Int Int) (Array Int Int) (Array Int Int) (Array Int Int) (Array Int Int) Int ))
+(declare-rel main@_sm ())
+(declare-rel main@.split ())
+(declare-var aws_hash_table_is_valid@%_call_0 Int )
+(declare-var aws_hash_table_is_valid@%_6_0 Int )
+(declare-var aws_hash_table_is_valid@%_br_0 Bool )
+(declare-var aws_hash_table_is_valid@%_br2_2 Bool )
+(declare-var aws_hash_table_is_valid@%sm_0 (Array Int Int) )
+(declare-var aws_hash_table_is_valid@arg.0_0 Int )
+(declare-var aws_hash_table_is_valid@%_br2_0 Bool )
+(declare-var aws_hash_table_is_valid@_sm_0 Bool )
+(declare-var aws_hash_table_is_valid@_4_0 Bool )
+(declare-var aws_hash_table_is_valid@%_br1_0 Bool )
+(declare-var aws_hash_table_is_valid@_8_0 Bool )
+(declare-var |tuple(aws_hash_table_is_valid@_sm_0, aws_hash_table_is_valid@_8_0)| Bool )
+(declare-var aws_hash_table_is_valid@%_br2_1 Bool )
+(declare-var aws_hash_table_is_valid@.split_0 Bool )
+(declare-var aws_hash_iter_is_valid@%_call_0 Int )
+(declare-var aws_hash_iter_is_valid@%_6_0 Int )
+(declare-var aws_hash_iter_is_valid@%_br1_0 Bool )
+(declare-var aws_hash_iter_is_valid@%_br_0 Bool )
+(declare-var aws_hash_iter_is_valid@%sm_0 (Array Int Int) )
+(declare-var aws_hash_iter_is_valid@arg.0_0 Int )
+(declare-var aws_hash_iter_is_valid@_sm_0 Bool )
+(declare-var aws_hash_iter_is_valid@_4_0 Bool )
+(declare-var aws_hash_iter_is_valid@aws_hash_table_is_valid.exit_0 Bool )
+(declare-var aws_hash_iter_is_valid@NewDefault_0 Bool )
+(declare-var |tuple(aws_hash_iter_is_valid@_4_0, aws_hash_iter_is_valid@NewDefault_0)| Bool )
+(declare-var |tuple(aws_hash_iter_is_valid@_sm_0, aws_hash_iter_is_valid@NewDefault_0)| Bool )
+(declare-var aws_hash_iter_is_valid@UnifiedReturnBlock_0 Bool )
+(declare-var make_hash_table_with_no_backing_store@%sm1_0 (Array Int Int) )
+(declare-var make_hash_table_with_no_backing_store@%_6_0 Int )
+(declare-var make_hash_table_with_no_backing_store@%_sm_0 Int )
+(declare-var make_hash_table_with_no_backing_store@%_tail_0 Bool )
+(declare-var make_hash_table_with_no_backing_store@%_br_0 Bool )
+(declare-var make_hash_table_with_no_backing_store@%shadow.mem.9.0_2 (Array Int Int) )
+(declare-var make_hash_table_with_no_backing_store@%sm2_0 (Array Int Int) )
+(declare-var make_hash_table_with_no_backing_store@%shadow.mem.9.0_0 (Array Int Int) )
+(declare-var make_hash_table_with_no_backing_store@arg.0_0 Int )
+(declare-var make_hash_table_with_no_backing_store@_sm1_0 Bool )
+(declare-var make_hash_table_with_no_backing_store@_call_0 Bool )
+(declare-var make_hash_table_with_no_backing_store@%sm_0 (Array Int Int) )
+(declare-var make_hash_table_with_no_backing_store@_shadow.mem.9.0_0 Bool )
+(declare-var |tuple(make_hash_table_with_no_backing_store@_sm1_0, make_hash_table_with_no_backing_store@_shadow.mem.9.0_0)| Bool )
+(declare-var make_hash_table_with_no_backing_store@%shadow.mem.9.0_1 (Array Int Int) )
+(declare-var aws_hash_table_clear@%_call_0 Int )
+(declare-var aws_hash_table_clear@arg.0_0 Int )
+(declare-var aws_hash_table_clear@%_4_0 Int )
+(declare-var aws_hash_table_clear@%_sm_0 Int )
+(declare-var aws_hash_table_clear@%sm1_0 (Array Int Int) )
+(declare-var aws_hash_table_clear@%sm_0 (Array Int Int) )
+(declare-var aws_hash_table_clear@%sm2_0 (Array Int Int) )
+(declare-var aws_hash_table_clear@_sm1_0 Bool )
+(declare-var aws_hash_table_clear@.split_0 Bool )
+(declare-var aws_hash_table_put@%_sm1_0 Int )
+(declare-var aws_hash_table_put@%_call_0 Int )
+(declare-var aws_hash_table_put@arg.0_0 Int )
+(declare-var aws_hash_table_put@%_13_0 Bool )
+(declare-var aws_hash_table_put@%_or.cond_0 Bool )
+(declare-var aws_hash_table_put@%or.cond_0 Bool )
+(declare-var aws_hash_table_put@%shadow.mem.53.0_2 (Array Int Int) )
+(declare-var aws_hash_table_put@%_br_0 Bool )
+(declare-var aws_hash_table_put@%shadow.mem.45.0_2 (Array Int Int) )
+(declare-var aws_hash_table_put@%sm2_0 (Array Int Int) )
+(declare-var aws_hash_table_put@%shadow.mem.53.0_0 (Array Int Int) )
+(declare-var aws_hash_table_put@%sm3_0 (Array Int Int) )
+(declare-var aws_hash_table_put@%shadow.mem.45.0_0 (Array Int Int) )
+(declare-var aws_hash_table_put@%sm4_0 (Array Int Int) )
+(declare-var aws_hash_table_put@arg.1_0 Int )
+(declare-var aws_hash_table_put@_sm2_0 Bool )
+(declare-var aws_hash_table_put@%_4_0 Int )
+(declare-var aws_hash_table_put@%_tail_0 Int )
+(declare-var aws_hash_table_put@_sm_0 Bool )
+(declare-var aws_hash_table_put@%sm_0 (Array Int Int) )
+(declare-var aws_hash_table_put@_shadow.mem.45.0_0 Bool )
+(declare-var |tuple(aws_hash_table_put@_sm2_0, aws_hash_table_put@_shadow.mem.45.0_0)| Bool )
+(declare-var aws_hash_table_put@%shadow.mem.45.0_1 (Array Int Int) )
+(declare-var aws_hash_table_put@%_10_0 Int )
+(declare-var aws_hash_table_put@%_call5_0 Int )
+(declare-var aws_hash_table_put@%_12_0 Int )
+(declare-var aws_hash_table_put@_15_0 Bool )
+(declare-var aws_hash_table_put@%sm1_0 (Array Int Int) )
+(declare-var aws_hash_table_put@_shadow.mem.53.0_0 Bool )
+(declare-var |tuple(aws_hash_table_put@_shadow.mem.45.0_0, aws_hash_table_put@_shadow.mem.53.0_0)| Bool )
+(declare-var aws_hash_table_put@%shadow.mem.53.0_1 (Array Int Int) )
+(declare-var aws_hash_table_find@%sm2_0 (Array Int Int) )
+(declare-var aws_hash_table_find@%_7_0 Int )
+(declare-var aws_hash_table_find@%_sm1_0 Int )
+(declare-var aws_hash_table_find@%shadow.mem.81.0_2 (Array Int Int) )
+(declare-var aws_hash_table_find@%_3_0 Int )
+(declare-var @nondet_bool_0 Int )
+(declare-var aws_hash_table_find@%_br_0 Bool )
+(declare-var aws_hash_table_find@%sm3_0 (Array Int Int) )
+(declare-var aws_hash_table_find@%shadow.mem.81.0_0 (Array Int Int) )
+(declare-var aws_hash_table_find@arg.0_0 Int )
+(declare-var aws_hash_table_find@_sm2_0 Bool )
+(declare-var aws_hash_table_find@_call_0 Bool )
+(declare-var aws_hash_table_find@%sm1_0 (Array Int Int) )
+(declare-var aws_hash_table_find@_sm_0 Bool )
+(declare-var aws_hash_table_find@%sm_0 (Array Int Int) )
+(declare-var aws_hash_table_find@_shadow.mem.81.0_0 Bool )
+(declare-var aws_hash_table_find@%shadow.mem.81.0_1 (Array Int Int) )
+(declare-var aws_hash_iter_begin@%_sm_0 Int )
+(declare-var aws_hash_iter_begin@arg.0_0 Int )
+(declare-var aws_hash_iter_begin@%sm_0 (Array Int Int) )
+(declare-var aws_hash_iter_begin@arg.1_0 Int )
+(declare-var aws_hash_iter_begin@%_call_0 Int )
+(declare-var aws_hash_iter_begin@%_6_0 Int )
+(declare-var aws_hash_iter_begin@%_call7_0 Int )
+(declare-var aws_hash_iter_begin@%_8_0 Int )
+(declare-var aws_hash_iter_begin@%_sm1_0 Int )
+(declare-var aws_hash_iter_begin@%sm1_0 (Array Int Int) )
+(declare-var aws_hash_iter_begin@%_sm2_0 Int )
+(declare-var aws_hash_iter_begin@%sm2_0 (Array Int Int) )
+(declare-var aws_hash_iter_begin@%_11_0 Bool )
+(declare-var aws_hash_iter_begin@%_12_0 Int )
+(declare-var aws_hash_iter_begin@%_sm3_0 Int )
+(declare-var aws_hash_iter_begin@%sm4_0 (Array Int Int) )
+(declare-var aws_hash_iter_begin@%sm5_0 (Array Int Int) )
+(declare-var aws_hash_iter_begin@%sm3_0 (Array Int Int) )
+(declare-var aws_hash_iter_begin@%sm6_0 (Array Int Int) )
+(declare-var aws_hash_iter_begin@_sm4_0 Bool )
+(declare-var aws_hash_iter_begin@.split_0 Bool )
+(declare-var aws_hash_iter_done@_tail_0 Bool )
+(declare-var aws_hash_iter_done@.split_0 Bool )
+(declare-var aws_hash_iter_next@%_sm6_0 Int )
+(declare-var aws_hash_iter_next@%_14_0 Int )
+(declare-var aws_hash_iter_next@%_15_0 Bool )
+(declare-var aws_hash_iter_next@%.repack19.repack_0 Int )
+(declare-var aws_hash_iter_next@%sm_0 (Array Int Int) )
+(declare-var aws_hash_iter_next@%.repack19.repack33_0 Int )
+(declare-var aws_hash_iter_next@%sm1_0 (Array Int Int) )
+(declare-var aws_hash_iter_next@%sm2_0 (Array Int Int) )
+(declare-var aws_hash_iter_next@%.repack27_0 Int )
+(declare-var aws_hash_iter_next@%sm3_0 (Array Int Int) )
+(declare-var aws_hash_iter_next@%.repack29_0 Int )
+(declare-var aws_hash_iter_next@%sm4_0 (Array Int Int) )
+(declare-var aws_hash_iter_next@%.repack31_0 Int )
+(declare-var aws_hash_iter_next@%_call8_0 Int )
+(declare-var aws_hash_iter_next@%_br_0 Bool )
+(declare-var aws_hash_iter_next@%shadow.mem.142.0_2 (Array Int Int) )
+(declare-var aws_hash_iter_next@%.sink_2 Int )
+(declare-var aws_hash_iter_next@%sm7_0 (Array Int Int) )
+(declare-var aws_hash_iter_next@%sm6_0 (Array Int Int) )
+(declare-var aws_hash_iter_next@arg.0_0 Int )
+(declare-var aws_hash_iter_next@_sm7_0 Bool )
+(declare-var aws_hash_iter_next@%_3_0 Int )
+(declare-var aws_hash_iter_next@%_4_0 Int )
+(declare-var aws_hash_iter_next@%_5_0 Int )
+(declare-var aws_hash_iter_next@%_6_0 Int )
+(declare-var aws_hash_iter_next@%_tail_0 Int )
+(declare-var aws_hash_iter_next@%_call_0 Int )
+(declare-var aws_hash_iter_next@%_9_0 Int )
+(declare-var aws_hash_iter_next@%_11_0 Int )
+(declare-var aws_hash_iter_next@_13_0 Bool )
+(declare-var aws_hash_iter_next@%_.repack19.repack_0 Int )
+(declare-var aws_hash_iter_next@%sm5_0 (Array Int Int) )
+(declare-var aws_hash_iter_next@_shadow.mem.142.0_0 Bool )
+(declare-var |tuple(aws_hash_iter_next@_sm7_0, aws_hash_iter_next@_shadow.mem.142.0_0)| Bool )
+(declare-var aws_hash_iter_next@%shadow.mem.142.0_0 (Array Int Int) )
+(declare-var aws_hash_iter_next@%.sink_0 Int )
+(declare-var aws_hash_iter_next@%shadow.mem.142.0_1 (Array Int Int) )
+(declare-var aws_hash_iter_next@%.sink_1 Int )
+(declare-var aws_hash_iter_next@.split_0 Bool )
+(declare-var aws_hash_iter_delete@%_3_0 Int )
+(declare-var aws_hash_iter_delete@%_4_0 Int )
+(declare-var aws_hash_iter_delete@%_5_0 Int )
+(declare-var aws_hash_iter_delete@%_6_0 Int )
+(declare-var aws_hash_iter_delete@%_tail_0 Int )
+(declare-var aws_hash_iter_delete@%_call_0 Int )
+(declare-var aws_hash_iter_delete@arg.0_0 Int )
+(declare-var aws_hash_iter_delete@%_9_0 Int )
+(declare-var aws_hash_iter_delete@%_call11_0 Int )
+(declare-var aws_hash_iter_delete@%_11_0 Int )
+(declare-var aws_hash_iter_delete@%_call12_0 Int )
+(declare-var aws_hash_iter_delete@%_13_0 Int )
+(declare-var aws_hash_iter_delete@%_sm_0 Int )
+(declare-var aws_hash_iter_delete@%_call13_0 Int )
+(declare-var aws_hash_iter_delete@%_16_0 Int )
+(declare-var aws_hash_iter_delete@%_.repack19.repack_0 Int )
+(declare-var aws_hash_iter_delete@%.repack19.repack_0 Int )
+(declare-var aws_hash_iter_delete@%sm1_0 (Array Int Int) )
+(declare-var aws_hash_iter_delete@%.repack19.repack33_0 Int )
+(declare-var aws_hash_iter_delete@%sm2_0 (Array Int Int) )
+(declare-var aws_hash_iter_delete@%sm3_0 (Array Int Int) )
+(declare-var aws_hash_iter_delete@%.repack25_0 Int )
+(declare-var aws_hash_iter_delete@%sm4_0 (Array Int Int) )
+(declare-var aws_hash_iter_delete@%.repack27_0 Int )
+(declare-var aws_hash_iter_delete@%sm5_0 (Array Int Int) )
+(declare-var aws_hash_iter_delete@%.repack29_0 Int )
+(declare-var aws_hash_iter_delete@%sm6_0 (Array Int Int) )
+(declare-var aws_hash_iter_delete@%.repack31_0 Int )
+(declare-var aws_hash_iter_delete@%sm8_0 (Array Int Int) )
+(declare-var aws_hash_iter_delete@%sm9_0 (Array Int Int) )
+(declare-var aws_hash_iter_delete@%sm_0 (Array Int Int) )
+(declare-var aws_hash_iter_delete@%sm10_0 (Array Int Int) )
+(declare-var aws_hash_iter_delete@%sm7_0 (Array Int Int) )
+(declare-var aws_hash_iter_delete@_sm8_0 Bool )
+(declare-var aws_hash_iter_delete@.split_0 Bool )
+(declare-var main@%sm_0 (Array Int Int) )
+(declare-var main@%sm9_0 (Array Int Int) )
+(declare-var main@%sm10_0 (Array Int Int) )
+(declare-var main@%sm11_0 (Array Int Int) )
+(declare-var main@%sm12_0 (Array Int Int) )
+(declare-var main@%sm13_0 (Array Int Int) )
+(declare-var main@%sm14_0 (Array Int Int) )
+(declare-var main@%sm15_0 (Array Int Int) )
+(declare-var main@%sm16_0 (Array Int Int) )
+(declare-var main@%sm17_0 (Array Int Int) )
+(declare-var main@%sm18_0 (Array Int Int) )
+(declare-var main@%sm19_0 (Array Int Int) )
+(declare-var main@%sm20_0 (Array Int Int) )
+(declare-var main@%sm21_0 (Array Int Int) )
+(declare-var main@%sm22_0 (Array Int Int) )
+(declare-var main@%sm23_0 (Array Int Int) )
+(declare-var main@%_call_0 Int )
+(declare-var main@%_3_0 Bool )
+(declare-var main@%_call24_0 Int )
+(declare-var main@%_5_0 Int )
+(declare-var main@%sh_0 (Array Int Int) )
+(declare-var main@%_sh1_0 Int )
+(declare-var main@%sh1_0 (Array Int Int) )
+(declare-var main@%_8_0 Int )
+(declare-var main@%_sh2_0 Int )
+(declare-var main@%sh2_0 (Array Int Int) )
+(declare-var main@%sh3_0 (Array Int Int) )
+(declare-var main@%_sh4_0 Int )
+(declare-var main@%sh4_0 (Array Int Int) )
+(declare-var main@%_11_0 Int )
+(declare-var main@%_call25_0 Int )
+(declare-var main@%sh5_0 (Array Int Int) )
+(declare-var main@%_sh6_0 Int )
+(declare-var main@%sh6_0 (Array Int Int) )
+(declare-var main@%_call26_0 Int )
+(declare-var main@%sh7_0 (Array Int Int) )
+(declare-var main@%sh8_0 (Array Int Int) )
+(declare-var main@_sm_0 Bool )
+(declare-var main@.split_0 Bool )
+(rule (verifier.error false false false))
+(rule (verifier.error false true true))
+(rule (verifier.error true false true))
+(rule (verifier.error true true true))
+(rule (aws_hash_table_is_valid
+  true
+  true
+  true
+  aws_hash_table_is_valid@%sm_0
+  aws_hash_table_is_valid@arg.0_0
+  aws_hash_table_is_valid@%_br2_0))
+(rule (aws_hash_table_is_valid
+  false
+  true
+  true
+  aws_hash_table_is_valid@%sm_0
+  aws_hash_table_is_valid@arg.0_0
+  aws_hash_table_is_valid@%_br2_0))
+(rule (aws_hash_table_is_valid
+  false
+  false
+  false
+  aws_hash_table_is_valid@%sm_0
+  aws_hash_table_is_valid@arg.0_0
+  aws_hash_table_is_valid@%_br2_0))
+(rule (aws_hash_table_is_valid@_sm
+  aws_hash_table_is_valid@%sm_0
+  aws_hash_table_is_valid@arg.0_0))
+(rule (let ((a!1 (=> aws_hash_table_is_valid@_4_0
+               (= aws_hash_table_is_valid@%_call_0
+                  (+ aws_hash_table_is_valid@arg.0_0 (* 0 4) 0))))
+      (a!2 (=> aws_hash_table_is_valid@_4_0
+               (= aws_hash_table_is_valid@%_br1_0
+                  (not (= aws_hash_table_is_valid@%_6_0 0))))))
+(let ((a!3 (and (aws_hash_table_is_valid@_sm
+                  aws_hash_table_is_valid@%sm_0
+                  aws_hash_table_is_valid@arg.0_0)
+                true
+                (= aws_hash_table_is_valid@%_br_0
+                   (= aws_hash_table_is_valid@arg.0_0 0))
+                (=> aws_hash_table_is_valid@_4_0
+                    (and aws_hash_table_is_valid@_4_0
+                         aws_hash_table_is_valid@_sm_0))
+                (=> (and aws_hash_table_is_valid@_4_0
+                         aws_hash_table_is_valid@_sm_0)
+                    (not aws_hash_table_is_valid@%_br_0))
+                a!1
+                (=> aws_hash_table_is_valid@_4_0
+                    (or (<= aws_hash_table_is_valid@arg.0_0 0)
+                        (> aws_hash_table_is_valid@%_call_0 0)))
+                (=> aws_hash_table_is_valid@_4_0
+                    (= aws_hash_table_is_valid@%_6_0
+                       (select aws_hash_table_is_valid@%sm_0
+                               aws_hash_table_is_valid@%_call_0)))
+                a!2
+                (=> |tuple(aws_hash_table_is_valid@_sm_0, aws_hash_table_is_valid@_8_0)|
+                    aws_hash_table_is_valid@_sm_0)
+                (=> aws_hash_table_is_valid@_8_0
+                    (or (and aws_hash_table_is_valid@_8_0
+                             aws_hash_table_is_valid@_4_0)
+                        |tuple(aws_hash_table_is_valid@_sm_0, aws_hash_table_is_valid@_8_0)|))
+                (=> |tuple(aws_hash_table_is_valid@_sm_0, aws_hash_table_is_valid@_8_0)|
+                    aws_hash_table_is_valid@%_br_0)
+                (=> (and aws_hash_table_is_valid@_8_0
+                         aws_hash_table_is_valid@_4_0)
+                    (= aws_hash_table_is_valid@%_br2_0
+                       aws_hash_table_is_valid@%_br1_0))
+                (=> |tuple(aws_hash_table_is_valid@_sm_0, aws_hash_table_is_valid@_8_0)|
+                    (= aws_hash_table_is_valid@%_br2_1 false))
+                (=> (and aws_hash_table_is_valid@_8_0
+                         aws_hash_table_is_valid@_4_0)
+                    (= aws_hash_table_is_valid@%_br2_2
+                       aws_hash_table_is_valid@%_br2_0))
+                (=> |tuple(aws_hash_table_is_valid@_sm_0, aws_hash_table_is_valid@_8_0)|
+                    (= aws_hash_table_is_valid@%_br2_2
+                       aws_hash_table_is_valid@%_br2_1))
+                (=> aws_hash_table_is_valid@.split_0
+                    (and aws_hash_table_is_valid@.split_0
+                         aws_hash_table_is_valid@_8_0))
+                aws_hash_table_is_valid@.split_0)))
+  (=> a!3
+      (aws_hash_table_is_valid@.split
+        aws_hash_table_is_valid@%sm_0
+        aws_hash_table_is_valid@%_br2_2
+        aws_hash_table_is_valid@arg.0_0)))))
+(rule (=> (aws_hash_table_is_valid@.split
+      aws_hash_table_is_valid@%sm_0
+      aws_hash_table_is_valid@%_br2_0
+      aws_hash_table_is_valid@arg.0_0)
+    (aws_hash_table_is_valid
+      true
+      false
+      false
+      aws_hash_table_is_valid@%sm_0
+      aws_hash_table_is_valid@arg.0_0
+      aws_hash_table_is_valid@%_br2_0)))
+(rule (aws_hash_iter_is_valid
+  true
+  true
+  true
+  aws_hash_iter_is_valid@%sm_0
+  aws_hash_iter_is_valid@arg.0_0))
+(rule (aws_hash_iter_is_valid
+  false
+  true
+  true
+  aws_hash_iter_is_valid@%sm_0
+  aws_hash_iter_is_valid@arg.0_0))
+(rule (aws_hash_iter_is_valid
+  false
+  false
+  false
+  aws_hash_iter_is_valid@%sm_0
+  aws_hash_iter_is_valid@arg.0_0))
+(rule (aws_hash_iter_is_valid@_sm
+  aws_hash_iter_is_valid@%sm_0
+  aws_hash_iter_is_valid@arg.0_0))
+(rule (let ((a!1 (=> aws_hash_iter_is_valid@_4_0
+               (= aws_hash_iter_is_valid@%_call_0
+                  (+ aws_hash_iter_is_valid@arg.0_0 (* 0 36) 0)))))
+(let ((a!2 (and (aws_hash_iter_is_valid@_sm
+                  aws_hash_iter_is_valid@%sm_0
+                  aws_hash_iter_is_valid@arg.0_0)
+                true
+                (= aws_hash_iter_is_valid@%_br_0
+                   (= aws_hash_iter_is_valid@arg.0_0 0))
+                (=> aws_hash_iter_is_valid@_4_0
+                    (and aws_hash_iter_is_valid@_4_0
+                         aws_hash_iter_is_valid@_sm_0))
+                (=> (and aws_hash_iter_is_valid@_4_0
+                         aws_hash_iter_is_valid@_sm_0)
+                    (not aws_hash_iter_is_valid@%_br_0))
+                a!1
+                (=> aws_hash_iter_is_valid@_4_0
+                    (or (<= aws_hash_iter_is_valid@arg.0_0 0)
+                        (> aws_hash_iter_is_valid@%_call_0 0)))
+                (=> aws_hash_iter_is_valid@_4_0
+                    (= aws_hash_iter_is_valid@%_6_0
+                       (select aws_hash_iter_is_valid@%sm_0
+                               aws_hash_iter_is_valid@%_call_0)))
+                (=> aws_hash_iter_is_valid@_4_0
+                    (= aws_hash_iter_is_valid@%_br1_0
+                       (= aws_hash_iter_is_valid@%_6_0 0)))
+                (=> aws_hash_iter_is_valid@aws_hash_table_is_valid.exit_0
+                    (and aws_hash_iter_is_valid@aws_hash_table_is_valid.exit_0
+                         aws_hash_iter_is_valid@_4_0))
+                (=> (and aws_hash_iter_is_valid@aws_hash_table_is_valid.exit_0
+                         aws_hash_iter_is_valid@_4_0)
+                    (not aws_hash_iter_is_valid@%_br1_0))
+                (=> |tuple(aws_hash_iter_is_valid@_4_0, aws_hash_iter_is_valid@NewDefault_0)|
+                    aws_hash_iter_is_valid@_4_0)
+                (=> |tuple(aws_hash_iter_is_valid@_sm_0, aws_hash_iter_is_valid@NewDefault_0)|
+                    aws_hash_iter_is_valid@_sm_0)
+                (=> aws_hash_iter_is_valid@NewDefault_0
+                    (or |tuple(aws_hash_iter_is_valid@_4_0, aws_hash_iter_is_valid@NewDefault_0)|
+                        |tuple(aws_hash_iter_is_valid@_sm_0, aws_hash_iter_is_valid@NewDefault_0)|))
+                (=> |tuple(aws_hash_iter_is_valid@_4_0, aws_hash_iter_is_valid@NewDefault_0)|
+                    aws_hash_iter_is_valid@%_br1_0)
+                (=> |tuple(aws_hash_iter_is_valid@_sm_0, aws_hash_iter_is_valid@NewDefault_0)|
+                    aws_hash_iter_is_valid@%_br_0)
+                (=> aws_hash_iter_is_valid@UnifiedReturnBlock_0
+                    (or (and aws_hash_iter_is_valid@UnifiedReturnBlock_0
+                             aws_hash_iter_is_valid@NewDefault_0)
+                        (and aws_hash_iter_is_valid@UnifiedReturnBlock_0
+                             aws_hash_iter_is_valid@aws_hash_table_is_valid.exit_0)))
+                aws_hash_iter_is_valid@UnifiedReturnBlock_0)))
+  (=> a!2
+      (aws_hash_iter_is_valid@UnifiedReturnBlock
+        aws_hash_iter_is_valid@%sm_0
+        aws_hash_iter_is_valid@arg.0_0)))))
+(rule (=> (aws_hash_iter_is_valid@UnifiedReturnBlock
+      aws_hash_iter_is_valid@%sm_0
+      aws_hash_iter_is_valid@arg.0_0)
+    (aws_hash_iter_is_valid
+      true
+      false
+      false
+      aws_hash_iter_is_valid@%sm_0
+      aws_hash_iter_is_valid@arg.0_0)))
+(rule (make_hash_table_with_no_backing_store
+  true
+  true
+  true
+  make_hash_table_with_no_backing_store@%sm2_0
+  make_hash_table_with_no_backing_store@%shadow.mem.9.0_0
+  make_hash_table_with_no_backing_store@arg.0_0))
+(rule (make_hash_table_with_no_backing_store
+  false
+  true
+  true
+  make_hash_table_with_no_backing_store@%sm2_0
+  make_hash_table_with_no_backing_store@%shadow.mem.9.0_0
+  make_hash_table_with_no_backing_store@arg.0_0))
+(rule (make_hash_table_with_no_backing_store
+  false
+  false
+  false
+  make_hash_table_with_no_backing_store@%sm2_0
+  make_hash_table_with_no_backing_store@%shadow.mem.9.0_0
+  make_hash_table_with_no_backing_store@arg.0_0))
+(rule (make_hash_table_with_no_backing_store@_sm1
+  make_hash_table_with_no_backing_store@%sm2_0
+  make_hash_table_with_no_backing_store@%sm1_0
+  make_hash_table_with_no_backing_store@arg.0_0))
+(rule (let ((a!1 (=> make_hash_table_with_no_backing_store@_call_0
+               (= make_hash_table_with_no_backing_store@%_tail_0
+                  (not (= make_hash_table_with_no_backing_store@%_6_0 0))))))
+(let ((a!2 (and (make_hash_table_with_no_backing_store@_sm1
+                  make_hash_table_with_no_backing_store@%sm2_0
+                  make_hash_table_with_no_backing_store@%sm1_0
+                  make_hash_table_with_no_backing_store@arg.0_0)
+                true
+                (= make_hash_table_with_no_backing_store@%_br_0
+                   (= make_hash_table_with_no_backing_store@arg.0_0 0))
+                (=> make_hash_table_with_no_backing_store@_call_0
+                    (and make_hash_table_with_no_backing_store@_call_0
+                         make_hash_table_with_no_backing_store@_sm1_0))
+                (=> (and make_hash_table_with_no_backing_store@_call_0
+                         make_hash_table_with_no_backing_store@_sm1_0)
+                    (not make_hash_table_with_no_backing_store@%_br_0))
+                (=> make_hash_table_with_no_backing_store@_call_0
+                    (= make_hash_table_with_no_backing_store@%_sm_0
+                       make_hash_table_with_no_backing_store@arg.0_0))
+                (=> make_hash_table_with_no_backing_store@_call_0
+                    (= make_hash_table_with_no_backing_store@%sm_0
+                       (store make_hash_table_with_no_backing_store@%sm2_0
+                              make_hash_table_with_no_backing_store@%_sm_0
+                              make_hash_table_with_no_backing_store@%_6_0)))
+                a!1
+                (=> make_hash_table_with_no_backing_store@_call_0
+                    make_hash_table_with_no_backing_store@%_tail_0)
+                true
+                (=> |tuple(make_hash_table_with_no_backing_store@_sm1_0, make_hash_table_with_no_backing_store@_shadow.mem.9.0_0)|
+                    make_hash_table_with_no_backing_store@_sm1_0)
+                (=> make_hash_table_with_no_backing_store@_shadow.mem.9.0_0
+                    (or (and make_hash_table_with_no_backing_store@_shadow.mem.9.0_0
+                             make_hash_table_with_no_backing_store@_call_0)
+                        |tuple(make_hash_table_with_no_backing_store@_sm1_0, make_hash_table_with_no_backing_store@_shadow.mem.9.0_0)|))
+                (=> |tuple(make_hash_table_with_no_backing_store@_sm1_0, make_hash_table_with_no_backing_store@_shadow.mem.9.0_0)|
+                    make_hash_table_with_no_backing_store@%_br_0)
+                (=> (and make_hash_table_with_no_backing_store@_shadow.mem.9.0_0
+                         make_hash_table_with_no_backing_store@_call_0)
+                    (= make_hash_table_with_no_backing_store@%shadow.mem.9.0_0
+                       make_hash_table_with_no_backing_store@%sm_0))
+                (=> |tuple(make_hash_table_with_no_backing_store@_sm1_0, make_hash_table_with_no_backing_store@_shadow.mem.9.0_0)|
+                    (= make_hash_table_with_no_backing_store@%shadow.mem.9.0_1
+                       make_hash_table_with_no_backing_store@%sm2_0))
+                (=> (and make_hash_table_with_no_backing_store@_shadow.mem.9.0_0
+                         make_hash_table_with_no_backing_store@_call_0)
+                    (= make_hash_table_with_no_backing_store@%shadow.mem.9.0_2
+                       make_hash_table_with_no_backing_store@%shadow.mem.9.0_0))
+                (=> |tuple(make_hash_table_with_no_backing_store@_sm1_0, make_hash_table_with_no_backing_store@_shadow.mem.9.0_0)|
+                    (= make_hash_table_with_no_backing_store@%shadow.mem.9.0_2
+                       make_hash_table_with_no_backing_store@%shadow.mem.9.0_1))
+                make_hash_table_with_no_backing_store@_shadow.mem.9.0_0)))
+  (=> a!2
+      (make_hash_table_with_no_backing_store@_shadow.mem.9.0
+        make_hash_table_with_no_backing_store@%sm2_0
+        make_hash_table_with_no_backing_store@%shadow.mem.9.0_2
+        make_hash_table_with_no_backing_store@%sm1_0
+        make_hash_table_with_no_backing_store@arg.0_0)))))
+(rule (=> (make_hash_table_with_no_backing_store@_shadow.mem.9.0
+      make_hash_table_with_no_backing_store@%sm2_0
+      make_hash_table_with_no_backing_store@%shadow.mem.9.0_0
+      make_hash_table_with_no_backing_store@%sm1_0
+      make_hash_table_with_no_backing_store@arg.0_0)
+    (make_hash_table_with_no_backing_store
+      true
+      false
+      false
+      make_hash_table_with_no_backing_store@%sm2_0
+      make_hash_table_with_no_backing_store@%shadow.mem.9.0_0
+      make_hash_table_with_no_backing_store@arg.0_0)))
+(rule (aws_hash_table_clear
+  true
+  true
+  true
+  aws_hash_table_clear@%sm1_0
+  aws_hash_table_clear@%sm_0
+  aws_hash_table_clear@%sm2_0
+  aws_hash_table_clear@arg.0_0))
+(rule (aws_hash_table_clear
+  false
+  true
+  true
+  aws_hash_table_clear@%sm1_0
+  aws_hash_table_clear@%sm_0
+  aws_hash_table_clear@%sm2_0
+  aws_hash_table_clear@arg.0_0))
+(rule (aws_hash_table_clear
+  false
+  false
+  false
+  aws_hash_table_clear@%sm1_0
+  aws_hash_table_clear@%sm_0
+  aws_hash_table_clear@%sm2_0
+  aws_hash_table_clear@arg.0_0))
+(rule (aws_hash_table_clear@_sm1
+  aws_hash_table_clear@%sm1_0
+  aws_hash_table_clear@%sm2_0
+  aws_hash_table_clear@arg.0_0))
+(rule (let ((a!1 (and (aws_hash_table_clear@_sm1
+                  aws_hash_table_clear@%sm1_0
+                  aws_hash_table_clear@%sm2_0
+                  aws_hash_table_clear@arg.0_0)
+                true
+                (= aws_hash_table_clear@%_call_0
+                   (+ aws_hash_table_clear@arg.0_0 (* 0 4) 0))
+                (or (<= aws_hash_table_clear@arg.0_0 0)
+                    (> aws_hash_table_clear@%_call_0 0))
+                (= aws_hash_table_clear@%_4_0
+                   (select aws_hash_table_clear@%sm2_0
+                           aws_hash_table_clear@%_call_0))
+                (= aws_hash_table_clear@%_sm_0
+                   (+ aws_hash_table_clear@%_4_0 (* 0 44) 24))
+                (or (<= aws_hash_table_clear@%_4_0 0)
+                    (> aws_hash_table_clear@%_sm_0 0))
+                (> aws_hash_table_clear@%_4_0 0)
+                (= aws_hash_table_clear@%sm_0
+                   (store aws_hash_table_clear@%sm1_0
+                          aws_hash_table_clear@%_sm_0
+                          0))
+                (=> aws_hash_table_clear@.split_0
+                    (and aws_hash_table_clear@.split_0
+                         aws_hash_table_clear@_sm1_0))
+                aws_hash_table_clear@.split_0)))
+  (=> a!1
+      (aws_hash_table_clear@.split
+        aws_hash_table_clear@%sm1_0
+        aws_hash_table_clear@%sm_0
+        aws_hash_table_clear@%sm2_0
+        aws_hash_table_clear@arg.0_0))))
+(rule (=> (aws_hash_table_clear@.split
+      aws_hash_table_clear@%sm1_0
+      aws_hash_table_clear@%sm_0
+      aws_hash_table_clear@%sm2_0
+      aws_hash_table_clear@arg.0_0)
+    (aws_hash_table_clear
+      true
+      false
+      false
+      aws_hash_table_clear@%sm1_0
+      aws_hash_table_clear@%sm_0
+      aws_hash_table_clear@%sm2_0
+      aws_hash_table_clear@arg.0_0)))
+(rule (aws_hash_table_put
+  true
+  true
+  true
+  aws_hash_table_put@%sm2_0
+  aws_hash_table_put@%shadow.mem.53.0_0
+  aws_hash_table_put@%sm3_0
+  aws_hash_table_put@%shadow.mem.45.0_0
+  aws_hash_table_put@%sm4_0
+  aws_hash_table_put@arg.0_0
+  aws_hash_table_put@arg.1_0))
+(rule (aws_hash_table_put
+  false
+  true
+  true
+  aws_hash_table_put@%sm2_0
+  aws_hash_table_put@%shadow.mem.53.0_0
+  aws_hash_table_put@%sm3_0
+  aws_hash_table_put@%shadow.mem.45.0_0
+  aws_hash_table_put@%sm4_0
+  aws_hash_table_put@arg.0_0
+  aws_hash_table_put@arg.1_0))
+(rule (aws_hash_table_put
+  false
+  false
+  false
+  aws_hash_table_put@%sm2_0
+  aws_hash_table_put@%shadow.mem.53.0_0
+  aws_hash_table_put@%sm3_0
+  aws_hash_table_put@%shadow.mem.45.0_0
+  aws_hash_table_put@%sm4_0
+  aws_hash_table_put@arg.0_0
+  aws_hash_table_put@arg.1_0))
+(rule (aws_hash_table_put@_sm2
+  aws_hash_table_put@%sm2_0
+  aws_hash_table_put@%sm3_0
+  aws_hash_table_put@%sm4_0
+  aws_hash_table_put@arg.0_0
+  aws_hash_table_put@arg.1_0))
+(rule (let ((a!1 (=> aws_hash_table_put@_shadow.mem.45.0_0
+               (= aws_hash_table_put@%_call_0
+                  (+ aws_hash_table_put@arg.0_0 (* 0 4) 0))))
+      (a!2 (=> aws_hash_table_put@_shadow.mem.45.0_0
+               (= aws_hash_table_put@%_call5_0
+                  (+ aws_hash_table_put@%_10_0 (* 0 44) 24))))
+      (a!3 (=> aws_hash_table_put@_shadow.mem.45.0_0
+               (= aws_hash_table_put@%_13_0
+                  (not (= aws_hash_table_put@%_12_0 (- 1)))))))
+(let ((a!4 (and (aws_hash_table_put@_sm2
+                  aws_hash_table_put@%sm2_0
+                  aws_hash_table_put@%sm3_0
+                  aws_hash_table_put@%sm4_0
+                  aws_hash_table_put@arg.0_0
+                  aws_hash_table_put@arg.1_0)
+                true
+                (= aws_hash_table_put@%_br_0 (= aws_hash_table_put@arg.1_0 0))
+                (=> aws_hash_table_put@_sm_0
+                    (and aws_hash_table_put@_sm_0 aws_hash_table_put@_sm2_0))
+                (=> (and aws_hash_table_put@_sm_0 aws_hash_table_put@_sm2_0)
+                    (not aws_hash_table_put@%_br_0))
+                (=> aws_hash_table_put@_sm_0
+                    (= aws_hash_table_put@%sm_0
+                       (store aws_hash_table_put@%sm3_0
+                              aws_hash_table_put@arg.1_0
+                              aws_hash_table_put@%_tail_0)))
+                (=> |tuple(aws_hash_table_put@_sm2_0, aws_hash_table_put@_shadow.mem.45.0_0)|
+                    aws_hash_table_put@_sm2_0)
+                (=> aws_hash_table_put@_shadow.mem.45.0_0
+                    (or (and aws_hash_table_put@_shadow.mem.45.0_0
+                             aws_hash_table_put@_sm_0)
+                        |tuple(aws_hash_table_put@_sm2_0, aws_hash_table_put@_shadow.mem.45.0_0)|))
+                (=> |tuple(aws_hash_table_put@_sm2_0, aws_hash_table_put@_shadow.mem.45.0_0)|
+                    aws_hash_table_put@%_br_0)
+                (=> (and aws_hash_table_put@_shadow.mem.45.0_0
+                         aws_hash_table_put@_sm_0)
+                    (= aws_hash_table_put@%shadow.mem.45.0_0
+                       aws_hash_table_put@%sm_0))
+                (=> |tuple(aws_hash_table_put@_sm2_0, aws_hash_table_put@_shadow.mem.45.0_0)|
+                    (= aws_hash_table_put@%shadow.mem.45.0_1
+                       aws_hash_table_put@%sm3_0))
+                (=> (and aws_hash_table_put@_shadow.mem.45.0_0
+                         aws_hash_table_put@_sm_0)
+                    (= aws_hash_table_put@%shadow.mem.45.0_2
+                       aws_hash_table_put@%shadow.mem.45.0_0))
+                (=> |tuple(aws_hash_table_put@_sm2_0, aws_hash_table_put@_shadow.mem.45.0_0)|
+                    (= aws_hash_table_put@%shadow.mem.45.0_2
+                       aws_hash_table_put@%shadow.mem.45.0_1))
+                a!1
+                (=> aws_hash_table_put@_shadow.mem.45.0_0
+                    (or (<= aws_hash_table_put@arg.0_0 0)
+                        (> aws_hash_table_put@%_call_0 0)))
+                (=> aws_hash_table_put@_shadow.mem.45.0_0
+                    (= aws_hash_table_put@%_10_0
+                       (select aws_hash_table_put@%sm4_0
+                               aws_hash_table_put@%_call_0)))
+                a!2
+                (=> aws_hash_table_put@_shadow.mem.45.0_0
+                    (or (<= aws_hash_table_put@%_10_0 0)
+                        (> aws_hash_table_put@%_call5_0 0)))
+                (=> aws_hash_table_put@_shadow.mem.45.0_0
+                    (> aws_hash_table_put@%_10_0 0))
+                (=> aws_hash_table_put@_shadow.mem.45.0_0
+                    (= aws_hash_table_put@%_12_0
+                       (select aws_hash_table_put@%sm2_0
+                               aws_hash_table_put@%_call5_0)))
+                a!3
+                (=> aws_hash_table_put@_shadow.mem.45.0_0
+                    (= aws_hash_table_put@%_or.cond_0
+                       (= aws_hash_table_put@%_4_0 0)))
+                (=> aws_hash_table_put@_shadow.mem.45.0_0
+                    (= aws_hash_table_put@%or.cond_0
+                       (and aws_hash_table_put@%_or.cond_0
+                            aws_hash_table_put@%_13_0)))
+                (=> aws_hash_table_put@_15_0
+                    (and aws_hash_table_put@_15_0
+                         aws_hash_table_put@_shadow.mem.45.0_0))
+                (=> (and aws_hash_table_put@_15_0
+                         aws_hash_table_put@_shadow.mem.45.0_0)
+                    aws_hash_table_put@%or.cond_0)
+                (=> aws_hash_table_put@_15_0
+                    (= aws_hash_table_put@%_sm1_0
+                       (+ aws_hash_table_put@%_12_0 1)))
+                (=> aws_hash_table_put@_15_0 (> aws_hash_table_put@%_10_0 0))
+                (=> aws_hash_table_put@_15_0
+                    (= aws_hash_table_put@%sm1_0
+                       (store aws_hash_table_put@%sm2_0
+                              aws_hash_table_put@%_call5_0
+                              aws_hash_table_put@%_sm1_0)))
+                (=> |tuple(aws_hash_table_put@_shadow.mem.45.0_0, aws_hash_table_put@_shadow.mem.53.0_0)|
+                    aws_hash_table_put@_shadow.mem.45.0_0)
+                (=> aws_hash_table_put@_shadow.mem.53.0_0
+                    (or |tuple(aws_hash_table_put@_shadow.mem.45.0_0, aws_hash_table_put@_shadow.mem.53.0_0)|
+                        (and aws_hash_table_put@_shadow.mem.53.0_0
+                             aws_hash_table_put@_15_0)))
+                (=> |tuple(aws_hash_table_put@_shadow.mem.45.0_0, aws_hash_table_put@_shadow.mem.53.0_0)|
+                    (not aws_hash_table_put@%or.cond_0))
+                (=> |tuple(aws_hash_table_put@_shadow.mem.45.0_0, aws_hash_table_put@_shadow.mem.53.0_0)|
+                    (= aws_hash_table_put@%shadow.mem.53.0_0
+                       aws_hash_table_put@%sm2_0))
+                (=> (and aws_hash_table_put@_shadow.mem.53.0_0
+                         aws_hash_table_put@_15_0)
+                    (= aws_hash_table_put@%shadow.mem.53.0_1
+                       aws_hash_table_put@%sm1_0))
+                (=> |tuple(aws_hash_table_put@_shadow.mem.45.0_0, aws_hash_table_put@_shadow.mem.53.0_0)|
+                    (= aws_hash_table_put@%shadow.mem.53.0_2
+                       aws_hash_table_put@%shadow.mem.53.0_0))
+                (=> (and aws_hash_table_put@_shadow.mem.53.0_0
+                         aws_hash_table_put@_15_0)
+                    (= aws_hash_table_put@%shadow.mem.53.0_2
+                       aws_hash_table_put@%shadow.mem.53.0_1))
+                aws_hash_table_put@_shadow.mem.53.0_0)))
+  (=> a!4
+      (aws_hash_table_put@_shadow.mem.53.0
+        aws_hash_table_put@%sm2_0
+        aws_hash_table_put@%shadow.mem.53.0_2
+        aws_hash_table_put@%sm3_0
+        aws_hash_table_put@%shadow.mem.45.0_2
+        aws_hash_table_put@%sm4_0
+        aws_hash_table_put@arg.0_0
+        aws_hash_table_put@arg.1_0)))))
+(rule (=> (aws_hash_table_put@_shadow.mem.53.0
+      aws_hash_table_put@%sm2_0
+      aws_hash_table_put@%shadow.mem.53.0_0
+      aws_hash_table_put@%sm3_0
+      aws_hash_table_put@%shadow.mem.45.0_0
+      aws_hash_table_put@%sm4_0
+      aws_hash_table_put@arg.0_0
+      aws_hash_table_put@arg.1_0)
+    (aws_hash_table_put
+      true
+      false
+      false
+      aws_hash_table_put@%sm2_0
+      aws_hash_table_put@%shadow.mem.53.0_0
+      aws_hash_table_put@%sm3_0
+      aws_hash_table_put@%shadow.mem.45.0_0
+      aws_hash_table_put@%sm4_0
+      aws_hash_table_put@arg.0_0
+      aws_hash_table_put@arg.1_0)))
+(rule (aws_hash_table_find
+  true
+  true
+  true
+  aws_hash_table_find@%sm3_0
+  aws_hash_table_find@%shadow.mem.81.0_0
+  aws_hash_table_find@arg.0_0))
+(rule (aws_hash_table_find
+  false
+  true
+  true
+  aws_hash_table_find@%sm3_0
+  aws_hash_table_find@%shadow.mem.81.0_0
+  aws_hash_table_find@arg.0_0))
+(rule (aws_hash_table_find
+  false
+  false
+  false
+  aws_hash_table_find@%sm3_0
+  aws_hash_table_find@%shadow.mem.81.0_0
+  aws_hash_table_find@arg.0_0))
+(rule (aws_hash_table_find@_sm2
+  aws_hash_table_find@%sm3_0
+  aws_hash_table_find@arg.0_0
+  aws_hash_table_find@%sm2_0
+  @nondet_bool_0))
+(rule (let ((a!1 (and (aws_hash_table_find@_sm2
+                  aws_hash_table_find@%sm3_0
+                  aws_hash_table_find@arg.0_0
+                  aws_hash_table_find@%sm2_0
+                  @nondet_bool_0)
+                true
+                (= aws_hash_table_find@%_3_0 @nondet_bool_0)
+                (=> aws_hash_table_find@_call_0
+                    (and aws_hash_table_find@_call_0 aws_hash_table_find@_sm2_0))
+                (=> (and aws_hash_table_find@_call_0 aws_hash_table_find@_sm2_0)
+                    (not aws_hash_table_find@%_br_0))
+                (=> aws_hash_table_find@_call_0
+                    (= aws_hash_table_find@%_sm1_0 aws_hash_table_find@arg.0_0))
+                (=> aws_hash_table_find@_call_0
+                    (= aws_hash_table_find@%sm1_0
+                       (store aws_hash_table_find@%sm3_0
+                              aws_hash_table_find@%_sm1_0
+                              aws_hash_table_find@%_7_0)))
+                (=> aws_hash_table_find@_sm_0
+                    (and aws_hash_table_find@_sm_0 aws_hash_table_find@_sm2_0))
+                (=> (and aws_hash_table_find@_sm_0 aws_hash_table_find@_sm2_0)
+                    aws_hash_table_find@%_br_0)
+                (=> aws_hash_table_find@_sm_0
+                    (= aws_hash_table_find@%sm_0
+                       (store aws_hash_table_find@%sm3_0
+                              aws_hash_table_find@arg.0_0
+                              0)))
+                (=> aws_hash_table_find@_shadow.mem.81.0_0
+                    (or (and aws_hash_table_find@_shadow.mem.81.0_0
+                             aws_hash_table_find@_call_0)
+                        (and aws_hash_table_find@_shadow.mem.81.0_0
+                             aws_hash_table_find@_sm_0)))
+                (=> (and aws_hash_table_find@_shadow.mem.81.0_0
+                         aws_hash_table_find@_call_0)
+                    (= aws_hash_table_find@%shadow.mem.81.0_0
+                       aws_hash_table_find@%sm1_0))
+                (=> (and aws_hash_table_find@_shadow.mem.81.0_0
+                         aws_hash_table_find@_sm_0)
+                    (= aws_hash_table_find@%shadow.mem.81.0_1
+                       aws_hash_table_find@%sm_0))
+                (=> (and aws_hash_table_find@_shadow.mem.81.0_0
+                         aws_hash_table_find@_call_0)
+                    (= aws_hash_table_find@%shadow.mem.81.0_2
+                       aws_hash_table_find@%shadow.mem.81.0_0))
+                (=> (and aws_hash_table_find@_shadow.mem.81.0_0
+                         aws_hash_table_find@_sm_0)
+                    (= aws_hash_table_find@%shadow.mem.81.0_2
+                       aws_hash_table_find@%shadow.mem.81.0_1))
+                aws_hash_table_find@_shadow.mem.81.0_0)))
+  (=> a!1
+      (aws_hash_table_find@_shadow.mem.81.0
+        aws_hash_table_find@%sm3_0
+        aws_hash_table_find@%shadow.mem.81.0_2
+        aws_hash_table_find@arg.0_0
+        aws_hash_table_find@%sm2_0
+        @nondet_bool_0))))
+(rule (=> (aws_hash_table_find@_shadow.mem.81.0
+      aws_hash_table_find@%sm3_0
+      aws_hash_table_find@%shadow.mem.81.0_0
+      aws_hash_table_find@arg.0_0
+      aws_hash_table_find@%sm2_0
+      @nondet_bool_0)
+    (aws_hash_table_find
+      true
+      false
+      false
+      aws_hash_table_find@%sm3_0
+      aws_hash_table_find@%shadow.mem.81.0_0
+      aws_hash_table_find@arg.0_0)))
+(rule (aws_hash_iter_begin
+  true
+  true
+  true
+  aws_hash_iter_begin@%sm4_0
+  aws_hash_iter_begin@%sm5_0
+  aws_hash_iter_begin@%sm3_0
+  aws_hash_iter_begin@%sm6_0
+  aws_hash_iter_begin@arg.0_0
+  aws_hash_iter_begin@arg.1_0))
+(rule (aws_hash_iter_begin
+  false
+  true
+  true
+  aws_hash_iter_begin@%sm4_0
+  aws_hash_iter_begin@%sm5_0
+  aws_hash_iter_begin@%sm3_0
+  aws_hash_iter_begin@%sm6_0
+  aws_hash_iter_begin@arg.0_0
+  aws_hash_iter_begin@arg.1_0))
+(rule (aws_hash_iter_begin
+  false
+  false
+  false
+  aws_hash_iter_begin@%sm4_0
+  aws_hash_iter_begin@%sm5_0
+  aws_hash_iter_begin@%sm3_0
+  aws_hash_iter_begin@%sm6_0
+  aws_hash_iter_begin@arg.0_0
+  aws_hash_iter_begin@arg.1_0))
+(rule (aws_hash_iter_begin@_sm4
+  aws_hash_iter_begin@%sm4_0
+  aws_hash_iter_begin@%sm5_0
+  aws_hash_iter_begin@%sm6_0
+  aws_hash_iter_begin@arg.0_0
+  aws_hash_iter_begin@arg.1_0))
+(rule (let ((a!1 (= aws_hash_iter_begin@%_sm_0
+              (+ (+ aws_hash_iter_begin@arg.0_0 (* 0 36)) 0)))
+      (a!2 (= aws_hash_iter_begin@%_sm1_0
+              (+ (+ aws_hash_iter_begin@arg.0_0 (* 0 36)) 16)))
+      (a!3 (= aws_hash_iter_begin@%_sm2_0
+              (+ (+ aws_hash_iter_begin@arg.0_0 (* 0 36)) 12)))
+      (a!4 (= aws_hash_iter_begin@%_sm3_0
+              (+ (+ aws_hash_iter_begin@arg.0_0 (* 0 36)) 20))))
+(let ((a!5 (and (aws_hash_iter_begin@_sm4
+                  aws_hash_iter_begin@%sm4_0
+                  aws_hash_iter_begin@%sm5_0
+                  aws_hash_iter_begin@%sm6_0
+                  aws_hash_iter_begin@arg.0_0
+                  aws_hash_iter_begin@arg.1_0)
+                true
+                a!1
+                (or (<= aws_hash_iter_begin@arg.0_0 0)
+                    (> aws_hash_iter_begin@%_sm_0 0))
+                (= aws_hash_iter_begin@%sm_0
+                   (store aws_hash_iter_begin@%sm5_0
+                          aws_hash_iter_begin@%_sm_0
+                          aws_hash_iter_begin@arg.1_0))
+                (= aws_hash_iter_begin@%_call_0
+                   (+ aws_hash_iter_begin@arg.1_0 (* 0 4) 0))
+                (or (<= aws_hash_iter_begin@arg.1_0 0)
+                    (> aws_hash_iter_begin@%_call_0 0))
+                (= aws_hash_iter_begin@%_6_0
+                   (select aws_hash_iter_begin@%sm6_0
+                           aws_hash_iter_begin@%_call_0))
+                (= aws_hash_iter_begin@%_call7_0
+                   (+ aws_hash_iter_begin@%_6_0 (* 0 44) 24))
+                (or (<= aws_hash_iter_begin@%_6_0 0)
+                    (> aws_hash_iter_begin@%_call7_0 0))
+                (> aws_hash_iter_begin@%_6_0 0)
+                (= aws_hash_iter_begin@%_8_0
+                   (select aws_hash_iter_begin@%sm4_0
+                           aws_hash_iter_begin@%_call7_0))
+                a!2
+                (or (<= aws_hash_iter_begin@arg.0_0 0)
+                    (> aws_hash_iter_begin@%_sm1_0 0))
+                (> aws_hash_iter_begin@arg.0_0 0)
+                (= aws_hash_iter_begin@%sm1_0
+                   (store aws_hash_iter_begin@%sm_0
+                          aws_hash_iter_begin@%_sm1_0
+                          aws_hash_iter_begin@%_8_0))
+                a!3
+                (or (<= aws_hash_iter_begin@arg.0_0 0)
+                    (> aws_hash_iter_begin@%_sm2_0 0))
+                (> aws_hash_iter_begin@arg.0_0 0)
+                (= aws_hash_iter_begin@%sm2_0
+                   (store aws_hash_iter_begin@%sm1_0
+                          aws_hash_iter_begin@%_sm2_0
+                          0))
+                (= aws_hash_iter_begin@%_11_0 (= aws_hash_iter_begin@%_8_0 0))
+                (= aws_hash_iter_begin@%_12_0
+                   (ite aws_hash_iter_begin@%_11_0 0 2))
+                a!4
+                (or (<= aws_hash_iter_begin@arg.0_0 0)
+                    (> aws_hash_iter_begin@%_sm3_0 0))
+                (> aws_hash_iter_begin@arg.0_0 0)
+                (= aws_hash_iter_begin@%sm3_0
+                   (store aws_hash_iter_begin@%sm2_0
+                          aws_hash_iter_begin@%_sm3_0
+                          aws_hash_iter_begin@%_12_0))
+                (=> aws_hash_iter_begin@.split_0
+                    (and aws_hash_iter_begin@.split_0
+                         aws_hash_iter_begin@_sm4_0))
+                aws_hash_iter_begin@.split_0)))
+  (=> a!5
+      (aws_hash_iter_begin@.split
+        aws_hash_iter_begin@%sm4_0
+        aws_hash_iter_begin@%sm5_0
+        aws_hash_iter_begin@%sm3_0
+        aws_hash_iter_begin@%sm6_0
+        aws_hash_iter_begin@arg.0_0
+        aws_hash_iter_begin@arg.1_0)))))
+(rule (=> (aws_hash_iter_begin@.split
+      aws_hash_iter_begin@%sm4_0
+      aws_hash_iter_begin@%sm5_0
+      aws_hash_iter_begin@%sm3_0
+      aws_hash_iter_begin@%sm6_0
+      aws_hash_iter_begin@arg.0_0
+      aws_hash_iter_begin@arg.1_0)
+    (aws_hash_iter_begin
+      true
+      false
+      false
+      aws_hash_iter_begin@%sm4_0
+      aws_hash_iter_begin@%sm5_0
+      aws_hash_iter_begin@%sm3_0
+      aws_hash_iter_begin@%sm6_0
+      aws_hash_iter_begin@arg.0_0
+      aws_hash_iter_begin@arg.1_0)))
+(rule (aws_hash_iter_done true true true))
+(rule (aws_hash_iter_done false true true))
+(rule (aws_hash_iter_done false false false))
+(rule aws_hash_iter_done@_tail)
+(rule (=> (and aws_hash_iter_done@_tail
+         true
+         (=> aws_hash_iter_done@.split_0
+             (and aws_hash_iter_done@.split_0 aws_hash_iter_done@_tail_0))
+         aws_hash_iter_done@.split_0)
+    aws_hash_iter_done@.split))
+(rule (=> aws_hash_iter_done@.split (aws_hash_iter_done true false false)))
+(rule (aws_hash_iter_next
+  true
+  true
+  true
+  aws_hash_iter_next@%sm7_0
+  aws_hash_iter_next@%sm6_0
+  aws_hash_iter_next@arg.0_0))
+(rule (aws_hash_iter_next
+  false
+  true
+  true
+  aws_hash_iter_next@%sm7_0
+  aws_hash_iter_next@%sm6_0
+  aws_hash_iter_next@arg.0_0))
+(rule (aws_hash_iter_next
+  false
+  false
+  false
+  aws_hash_iter_next@%sm7_0
+  aws_hash_iter_next@%sm6_0
+  aws_hash_iter_next@arg.0_0))
+(rule (aws_hash_iter_next@_sm7 aws_hash_iter_next@%sm7_0 aws_hash_iter_next@arg.0_0))
+(rule (let ((a!1 (= aws_hash_iter_next@%_call_0
+              (+ (+ aws_hash_iter_next@arg.0_0 (* 0 36)) 12)))
+      (a!2 (= aws_hash_iter_next@%_call8_0
+              (+ (+ aws_hash_iter_next@arg.0_0 (* 0 36)) 16)))
+      (a!3 (+ (+ (+ aws_hash_iter_next@arg.0_0 (* 0 36)) 4) 0))
+      (a!4 (+ (+ (+ aws_hash_iter_next@arg.0_0 (* 0 36)) 4) 4))
+      (a!5 (= aws_hash_iter_next@%.repack27_0
+              (+ (+ aws_hash_iter_next@arg.0_0 (* 0 36)) 24)))
+      (a!6 (= aws_hash_iter_next@%.repack29_0
+              (+ (+ aws_hash_iter_next@arg.0_0 (* 0 36)) 28)))
+      (a!7 (= aws_hash_iter_next@%.repack31_0
+              (+ (+ aws_hash_iter_next@arg.0_0 (* 0 36)) 32)))
+      (a!8 (= aws_hash_iter_next@%_sm6_0
+              (+ (+ aws_hash_iter_next@arg.0_0 (* 0 36)) 20))))
+(let ((a!9 (and (aws_hash_iter_next@_sm7
+                  aws_hash_iter_next@%sm7_0
+                  aws_hash_iter_next@arg.0_0)
+                true
+                a!1
+                (or (<= aws_hash_iter_next@arg.0_0 0)
+                    (> aws_hash_iter_next@%_call_0 0))
+                (> aws_hash_iter_next@arg.0_0 0)
+                (= aws_hash_iter_next@%_9_0
+                   (select aws_hash_iter_next@%sm7_0
+                           aws_hash_iter_next@%_call_0))
+                a!2
+                (or (<= aws_hash_iter_next@arg.0_0 0)
+                    (> aws_hash_iter_next@%_call8_0 0))
+                (> aws_hash_iter_next@arg.0_0 0)
+                (= aws_hash_iter_next@%_11_0
+                   (select aws_hash_iter_next@%sm7_0
+                           aws_hash_iter_next@%_call8_0))
+                (= aws_hash_iter_next@%_br_0
+                   (= aws_hash_iter_next@%_9_0 aws_hash_iter_next@%_11_0))
+                (=> aws_hash_iter_next@_13_0
+                    (and aws_hash_iter_next@_13_0 aws_hash_iter_next@_sm7_0))
+                (=> (and aws_hash_iter_next@_13_0 aws_hash_iter_next@_sm7_0)
+                    (not aws_hash_iter_next@%_br_0))
+                (=> aws_hash_iter_next@_13_0
+                    (= aws_hash_iter_next@%_14_0 (+ aws_hash_iter_next@%_9_0 1)))
+                (=> aws_hash_iter_next@_13_0
+                    (= aws_hash_iter_next@%_15_0
+                       (= aws_hash_iter_next@%_14_0 aws_hash_iter_next@%_11_0)))
+                (=> aws_hash_iter_next@_13_0
+                    (= aws_hash_iter_next@%_.repack19.repack_0
+                       (ite aws_hash_iter_next@%_15_0 0 2)))
+                (=> aws_hash_iter_next@_13_0
+                    (= aws_hash_iter_next@%.repack19.repack_0 a!3))
+                (=> aws_hash_iter_next@_13_0
+                    (or (<= aws_hash_iter_next@arg.0_0 0)
+                        (> aws_hash_iter_next@%.repack19.repack_0 0)))
+                (=> aws_hash_iter_next@_13_0 (> aws_hash_iter_next@arg.0_0 0))
+                (=> aws_hash_iter_next@_13_0
+                    (= aws_hash_iter_next@%sm_0
+                       (store aws_hash_iter_next@%sm7_0
+                              aws_hash_iter_next@%.repack19.repack_0
+                              aws_hash_iter_next@%_tail_0)))
+                (=> aws_hash_iter_next@_13_0
+                    (= aws_hash_iter_next@%.repack19.repack33_0 a!4))
+                (=> aws_hash_iter_next@_13_0
+                    (or (<= aws_hash_iter_next@arg.0_0 0)
+                        (> aws_hash_iter_next@%.repack19.repack33_0 0)))
+                (=> aws_hash_iter_next@_13_0 (> aws_hash_iter_next@arg.0_0 0))
+                (=> aws_hash_iter_next@_13_0
+                    (= aws_hash_iter_next@%sm1_0
+                       (store aws_hash_iter_next@%sm_0
+                              aws_hash_iter_next@%.repack19.repack33_0
+                              aws_hash_iter_next@%_6_0)))
+                (=> aws_hash_iter_next@_13_0 (> aws_hash_iter_next@arg.0_0 0))
+                (=> aws_hash_iter_next@_13_0
+                    (= aws_hash_iter_next@%sm2_0
+                       (store aws_hash_iter_next@%sm1_0
+                              aws_hash_iter_next@%_call_0
+                              aws_hash_iter_next@%_14_0)))
+                (=> aws_hash_iter_next@_13_0 a!5)
+                (=> aws_hash_iter_next@_13_0
+                    (or (<= aws_hash_iter_next@arg.0_0 0)
+                        (> aws_hash_iter_next@%.repack27_0 0)))
+                (=> aws_hash_iter_next@_13_0 (> aws_hash_iter_next@arg.0_0 0))
+                (=> aws_hash_iter_next@_13_0
+                    (= aws_hash_iter_next@%sm3_0
+                       (store aws_hash_iter_next@%sm2_0
+                              aws_hash_iter_next@%.repack27_0
+                              aws_hash_iter_next@%_5_0)))
+                (=> aws_hash_iter_next@_13_0 a!6)
+                (=> aws_hash_iter_next@_13_0
+                    (or (<= aws_hash_iter_next@arg.0_0 0)
+                        (> aws_hash_iter_next@%.repack29_0 0)))
+                (=> aws_hash_iter_next@_13_0 (> aws_hash_iter_next@arg.0_0 0))
+                (=> aws_hash_iter_next@_13_0
+                    (= aws_hash_iter_next@%sm4_0
+                       (store aws_hash_iter_next@%sm3_0
+                              aws_hash_iter_next@%.repack29_0
+                              aws_hash_iter_next@%_4_0)))
+                (=> aws_hash_iter_next@_13_0 a!7)
+                (=> aws_hash_iter_next@_13_0
+                    (or (<= aws_hash_iter_next@arg.0_0 0)
+                        (> aws_hash_iter_next@%.repack31_0 0)))
+                (=> aws_hash_iter_next@_13_0 (> aws_hash_iter_next@arg.0_0 0))
+                (=> aws_hash_iter_next@_13_0
+                    (= aws_hash_iter_next@%sm5_0
+                       (store aws_hash_iter_next@%sm4_0
+                              aws_hash_iter_next@%.repack31_0
+                              aws_hash_iter_next@%_3_0)))
+                (=> |tuple(aws_hash_iter_next@_sm7_0, aws_hash_iter_next@_shadow.mem.142.0_0)|
+                    aws_hash_iter_next@_sm7_0)
+                (=> aws_hash_iter_next@_shadow.mem.142.0_0
+                    (or |tuple(aws_hash_iter_next@_sm7_0, aws_hash_iter_next@_shadow.mem.142.0_0)|
+                        (and aws_hash_iter_next@_shadow.mem.142.0_0
+                             aws_hash_iter_next@_13_0)))
+                (=> |tuple(aws_hash_iter_next@_sm7_0, aws_hash_iter_next@_shadow.mem.142.0_0)|
+                    aws_hash_iter_next@%_br_0)
+                (=> |tuple(aws_hash_iter_next@_sm7_0, aws_hash_iter_next@_shadow.mem.142.0_0)|
+                    (= aws_hash_iter_next@%shadow.mem.142.0_0
+                       aws_hash_iter_next@%sm7_0))
+                (=> |tuple(aws_hash_iter_next@_sm7_0, aws_hash_iter_next@_shadow.mem.142.0_0)|
+                    (= aws_hash_iter_next@%.sink_0 0))
+                (=> (and aws_hash_iter_next@_shadow.mem.142.0_0
+                         aws_hash_iter_next@_13_0)
+                    (= aws_hash_iter_next@%shadow.mem.142.0_1
+                       aws_hash_iter_next@%sm5_0))
+                (=> (and aws_hash_iter_next@_shadow.mem.142.0_0
+                         aws_hash_iter_next@_13_0)
+                    (= aws_hash_iter_next@%.sink_1
+                       aws_hash_iter_next@%_.repack19.repack_0))
+                (=> |tuple(aws_hash_iter_next@_sm7_0, aws_hash_iter_next@_shadow.mem.142.0_0)|
+                    (= aws_hash_iter_next@%shadow.mem.142.0_2
+                       aws_hash_iter_next@%shadow.mem.142.0_0))
+                (=> |tuple(aws_hash_iter_next@_sm7_0, aws_hash_iter_next@_shadow.mem.142.0_0)|
+                    (= aws_hash_iter_next@%.sink_2 aws_hash_iter_next@%.sink_0))
+                (=> (and aws_hash_iter_next@_shadow.mem.142.0_0
+                         aws_hash_iter_next@_13_0)
+                    (= aws_hash_iter_next@%shadow.mem.142.0_2
+                       aws_hash_iter_next@%shadow.mem.142.0_1))
+                (=> (and aws_hash_iter_next@_shadow.mem.142.0_0
+                         aws_hash_iter_next@_13_0)
+                    (= aws_hash_iter_next@%.sink_2 aws_hash_iter_next@%.sink_1))
+                (=> aws_hash_iter_next@_shadow.mem.142.0_0 a!8)
+                (=> aws_hash_iter_next@_shadow.mem.142.0_0
+                    (or (<= aws_hash_iter_next@arg.0_0 0)
+                        (> aws_hash_iter_next@%_sm6_0 0)))
+                (=> aws_hash_iter_next@_shadow.mem.142.0_0
+                    (> aws_hash_iter_next@arg.0_0 0))
+                (=> aws_hash_iter_next@_shadow.mem.142.0_0
+                    (= aws_hash_iter_next@%sm6_0
+                       (store aws_hash_iter_next@%shadow.mem.142.0_2
+                              aws_hash_iter_next@%_sm6_0
+                              aws_hash_iter_next@%.sink_2)))
+                (=> aws_hash_iter_next@.split_0
+                    (and aws_hash_iter_next@.split_0
+                         aws_hash_iter_next@_shadow.mem.142.0_0))
+                aws_hash_iter_next@.split_0)))
+  (=> a!9
+      (aws_hash_iter_next@.split
+        aws_hash_iter_next@%sm7_0
+        aws_hash_iter_next@%sm6_0
+        aws_hash_iter_next@arg.0_0)))))
+(rule (=> (aws_hash_iter_next@.split
+      aws_hash_iter_next@%sm7_0
+      aws_hash_iter_next@%sm6_0
+      aws_hash_iter_next@arg.0_0)
+    (aws_hash_iter_next
+      true
+      false
+      false
+      aws_hash_iter_next@%sm7_0
+      aws_hash_iter_next@%sm6_0
+      aws_hash_iter_next@arg.0_0)))
+(rule (aws_hash_iter_delete
+  true
+  true
+  true
+  aws_hash_iter_delete@%sm8_0
+  aws_hash_iter_delete@%sm9_0
+  aws_hash_iter_delete@%sm_0
+  aws_hash_iter_delete@%sm10_0
+  aws_hash_iter_delete@%sm7_0
+  aws_hash_iter_delete@arg.0_0))
+(rule (aws_hash_iter_delete
+  false
+  true
+  true
+  aws_hash_iter_delete@%sm8_0
+  aws_hash_iter_delete@%sm9_0
+  aws_hash_iter_delete@%sm_0
+  aws_hash_iter_delete@%sm10_0
+  aws_hash_iter_delete@%sm7_0
+  aws_hash_iter_delete@arg.0_0))
+(rule (aws_hash_iter_delete
+  false
+  false
+  false
+  aws_hash_iter_delete@%sm8_0
+  aws_hash_iter_delete@%sm9_0
+  aws_hash_iter_delete@%sm_0
+  aws_hash_iter_delete@%sm10_0
+  aws_hash_iter_delete@%sm7_0
+  aws_hash_iter_delete@arg.0_0))
+(rule (aws_hash_iter_delete@_sm8
+  aws_hash_iter_delete@%sm8_0
+  aws_hash_iter_delete@%sm9_0
+  aws_hash_iter_delete@%sm10_0
+  aws_hash_iter_delete@arg.0_0))
+(rule (let ((a!1 (= aws_hash_iter_delete@%_call_0
+              (+ (+ aws_hash_iter_delete@arg.0_0 (* 0 36)) 0)))
+      (a!2 (= aws_hash_iter_delete@%_call13_0
+              (+ (+ aws_hash_iter_delete@arg.0_0 (* 0 36)) 16)))
+      (a!3 (+ (+ (+ aws_hash_iter_delete@arg.0_0 (* 0 36)) 4) 0))
+      (a!4 (+ (+ (+ aws_hash_iter_delete@arg.0_0 (* 0 36)) 4) 4))
+      (a!5 (= aws_hash_iter_delete@%.repack25_0
+              (+ (+ aws_hash_iter_delete@arg.0_0 (* 0 36)) 20)))
+      (a!6 (= aws_hash_iter_delete@%.repack27_0
+              (+ (+ aws_hash_iter_delete@arg.0_0 (* 0 36)) 24)))
+      (a!7 (= aws_hash_iter_delete@%.repack29_0
+              (+ (+ aws_hash_iter_delete@arg.0_0 (* 0 36)) 28)))
+      (a!8 (= aws_hash_iter_delete@%.repack31_0
+              (+ (+ aws_hash_iter_delete@arg.0_0 (* 0 36)) 32))))
+(let ((a!9 (and (aws_hash_iter_delete@_sm8
+                  aws_hash_iter_delete@%sm8_0
+                  aws_hash_iter_delete@%sm9_0
+                  aws_hash_iter_delete@%sm10_0
+                  aws_hash_iter_delete@arg.0_0)
+                true
+                a!1
+                (or (<= aws_hash_iter_delete@arg.0_0 0)
+                    (> aws_hash_iter_delete@%_call_0 0))
+                (= aws_hash_iter_delete@%_9_0
+                   (select aws_hash_iter_delete@%sm10_0
+                           aws_hash_iter_delete@%_call_0))
+                (= aws_hash_iter_delete@%_call11_0
+                   (+ aws_hash_iter_delete@%_9_0 (* 0 4) 0))
+                (or (<= aws_hash_iter_delete@%_9_0 0)
+                    (> aws_hash_iter_delete@%_call11_0 0))
+                (= aws_hash_iter_delete@%_11_0
+                   (select aws_hash_iter_delete@%sm8_0
+                           aws_hash_iter_delete@%_call11_0))
+                (= aws_hash_iter_delete@%_call12_0
+                   (+ aws_hash_iter_delete@%_11_0 (* 0 44) 24))
+                (or (<= aws_hash_iter_delete@%_11_0 0)
+                    (> aws_hash_iter_delete@%_call12_0 0))
+                (> aws_hash_iter_delete@%_11_0 0)
+                (= aws_hash_iter_delete@%_13_0
+                   (select aws_hash_iter_delete@%sm9_0
+                           aws_hash_iter_delete@%_call12_0))
+                (= aws_hash_iter_delete@%_sm_0
+                   (+ aws_hash_iter_delete@%_13_0 (- 1)))
+                (> aws_hash_iter_delete@%_11_0 0)
+                (= aws_hash_iter_delete@%sm_0
+                   (store aws_hash_iter_delete@%sm9_0
+                          aws_hash_iter_delete@%_call12_0
+                          aws_hash_iter_delete@%_sm_0))
+                a!2
+                (or (<= aws_hash_iter_delete@arg.0_0 0)
+                    (> aws_hash_iter_delete@%_call13_0 0))
+                (> aws_hash_iter_delete@arg.0_0 0)
+                (= aws_hash_iter_delete@%_16_0
+                   (select aws_hash_iter_delete@%sm10_0
+                           aws_hash_iter_delete@%_call13_0))
+                (= aws_hash_iter_delete@%_.repack19.repack_0
+                   (+ aws_hash_iter_delete@%_16_0 (- 1)))
+                (= aws_hash_iter_delete@%.repack19.repack_0 a!3)
+                (or (<= aws_hash_iter_delete@arg.0_0 0)
+                    (> aws_hash_iter_delete@%.repack19.repack_0 0))
+                (> aws_hash_iter_delete@arg.0_0 0)
+                (= aws_hash_iter_delete@%sm1_0
+                   (store aws_hash_iter_delete@%sm10_0
+                          aws_hash_iter_delete@%.repack19.repack_0
+                          aws_hash_iter_delete@%_tail_0))
+                (= aws_hash_iter_delete@%.repack19.repack33_0 a!4)
+                (or (<= aws_hash_iter_delete@arg.0_0 0)
+                    (> aws_hash_iter_delete@%.repack19.repack33_0 0))
+                (> aws_hash_iter_delete@arg.0_0 0)
+                (= aws_hash_iter_delete@%sm2_0
+                   (store aws_hash_iter_delete@%sm1_0
+                          aws_hash_iter_delete@%.repack19.repack33_0
+                          aws_hash_iter_delete@%_6_0))
+                (> aws_hash_iter_delete@arg.0_0 0)
+                (= aws_hash_iter_delete@%sm3_0
+                   (store aws_hash_iter_delete@%sm2_0
+                          aws_hash_iter_delete@%_call13_0
+                          aws_hash_iter_delete@%_.repack19.repack_0))
+                a!5
+                (or (<= aws_hash_iter_delete@arg.0_0 0)
+                    (> aws_hash_iter_delete@%.repack25_0 0))
+                (> aws_hash_iter_delete@arg.0_0 0)
+                (= aws_hash_iter_delete@%sm4_0
+                   (store aws_hash_iter_delete@%sm3_0
+                          aws_hash_iter_delete@%.repack25_0
+                          1))
+                a!6
+                (or (<= aws_hash_iter_delete@arg.0_0 0)
+                    (> aws_hash_iter_delete@%.repack27_0 0))
+                (> aws_hash_iter_delete@arg.0_0 0)
+                (= aws_hash_iter_delete@%sm5_0
+                   (store aws_hash_iter_delete@%sm4_0
+                          aws_hash_iter_delete@%.repack27_0
+                          aws_hash_iter_delete@%_5_0))
+                a!7
+                (or (<= aws_hash_iter_delete@arg.0_0 0)
+                    (> aws_hash_iter_delete@%.repack29_0 0))
+                (> aws_hash_iter_delete@arg.0_0 0)
+                (= aws_hash_iter_delete@%sm6_0
+                   (store aws_hash_iter_delete@%sm5_0
+                          aws_hash_iter_delete@%.repack29_0
+                          aws_hash_iter_delete@%_4_0))
+                a!8
+                (or (<= aws_hash_iter_delete@arg.0_0 0)
+                    (> aws_hash_iter_delete@%.repack31_0 0))
+                (> aws_hash_iter_delete@arg.0_0 0)
+                (= aws_hash_iter_delete@%sm7_0
+                   (store aws_hash_iter_delete@%sm6_0
+                          aws_hash_iter_delete@%.repack31_0
+                          aws_hash_iter_delete@%_3_0))
+                (=> aws_hash_iter_delete@.split_0
+                    (and aws_hash_iter_delete@.split_0
+                         aws_hash_iter_delete@_sm8_0))
+                aws_hash_iter_delete@.split_0)))
+  (=> a!9
+      (aws_hash_iter_delete@.split
+        aws_hash_iter_delete@%sm8_0
+        aws_hash_iter_delete@%sm9_0
+        aws_hash_iter_delete@%sm_0
+        aws_hash_iter_delete@%sm10_0
+        aws_hash_iter_delete@%sm7_0
+        aws_hash_iter_delete@arg.0_0)))))
+(rule (=> (aws_hash_iter_delete@.split
+      aws_hash_iter_delete@%sm8_0
+      aws_hash_iter_delete@%sm9_0
+      aws_hash_iter_delete@%sm_0
+      aws_hash_iter_delete@%sm10_0
+      aws_hash_iter_delete@%sm7_0
+      aws_hash_iter_delete@arg.0_0)
+    (aws_hash_iter_delete
+      true
+      false
+      false
+      aws_hash_iter_delete@%sm8_0
+      aws_hash_iter_delete@%sm9_0
+      aws_hash_iter_delete@%sm_0
+      aws_hash_iter_delete@%sm10_0
+      aws_hash_iter_delete@%sm7_0
+      aws_hash_iter_delete@arg.0_0)))
+(rule main@_sm)
+(rule (=> (and main@_sm
+         true
+         (aws_hash_table_is_valid
+           true
+           false
+           false
+           main@%sm17_0
+           main@%_call_0
+           main@%_3_0)
+         (aws_hash_iter_is_valid true false false main@%sm14_0 main@%_call24_0)
+         (make_hash_table_with_no_backing_store
+           true
+           false
+           false
+           main@%sm23_0
+           main@%sh_0
+           main@%_5_0)
+         (aws_hash_table_clear
+           true
+           false
+           false
+           main@%sm_0
+           main@%sh1_0
+           main@%sm21_0
+           main@%_sh1_0)
+         (aws_hash_table_put
+           true
+           false
+           false
+           main@%sm9_0
+           main@%sh2_0
+           main@%sm15_0
+           main@%sh3_0
+           main@%sm18_0
+           main@%_8_0
+           main@%_sh2_0)
+         (aws_hash_table_find
+           true
+           false
+           false
+           main@%sm22_0
+           main@%sh4_0
+           main@%_sh4_0)
+         (aws_hash_iter_begin
+           true
+           false
+           false
+           main@%sm10_0
+           main@%sm19_0
+           main@%sh5_0
+           main@%sm20_0
+           main@%_11_0
+           main@%_call25_0)
+         (aws_hash_iter_done true false false)
+         (aws_hash_iter_next
+           true
+           false
+           false
+           main@%sm13_0
+           main@%sh6_0
+           main@%_sh6_0)
+         (aws_hash_iter_delete
+           true
+           false
+           false
+           main@%sm11_0
+           main@%sm12_0
+           main@%sh7_0
+           main@%sm16_0
+           main@%sh8_0
+           main@%_call26_0)
+         (=> main@.split_0 (and main@.split_0 main@_sm_0))
+         main@.split_0)
+    main@.split))
+(query main@.split)
+

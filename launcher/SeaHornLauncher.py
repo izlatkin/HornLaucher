@@ -13,7 +13,7 @@ SEA_OPTIONS = ['-I/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/includ
    # ,'clang', '/Library/Developer/CommandLineTools_9.0.0/usr/bin/clang']
 #SEA_OPTIONS = ['-I/tmp/cbmc/include/']
 #SEA_OPTIONS = ['--step=small']
-OUTPUT_DIR = "../out"
+OUTPUT_DIR = "../out2"
 Z3_PATH = "/Users/ilyazlatkin/CLionProjects/seahorn/build/run/bin/z3"
 Z3_TIMEOUT = 60
 SEA_TIMEOUT = 30
@@ -268,7 +268,7 @@ if __name__ == '__main__':
     # for f in files:
     #     print(f)
     #     print(get_dependencies_list(f))
-    # files = ["/tmp/aws-c-common/verification/cbmc/proofs/aws_string_new_from_array/aws_string_new_from_array_harness.c"]
+    #ifiles = ["/tmp/aws-c-common/verification/cbmc/proofs/aws_string_new_from_array/aws_string_new_from_array_harness.c"]
     run_sea_smt(files)
     out = pickle.load(open("save_aws.p", "rb"))
     stat = print_statistics(out)

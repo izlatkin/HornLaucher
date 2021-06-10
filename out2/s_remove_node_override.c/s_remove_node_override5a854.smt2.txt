@@ -1,0 +1,1093 @@
+(set-info :original "../out2/s_remove_node_override.c/s_remove_node_override5a854.bc.txt")
+(set-info :authors "SeaHorn v.10.0.0-rc0")
+(declare-rel verifier.error (Bool Bool Bool ))
+(declare-rel __CPROVER_file_local_priority_queue_c_s_remove_node@_sm3 ((Array Int Int) (Array Int Int) (Array Int Int) Int Int Int Int ))
+(declare-rel __CPROVER_file_local_priority_queue_c_s_remove_node@_13 ((Array Int Int) (Array Int Int) (Array Int Int) Int Int Int Int ))
+(declare-rel __CPROVER_file_local_priority_queue_c_s_remove_node@_shadow.mem.0.1 ((Array Int Int) (Array Int Int) (Array Int Int) (Array Int Int) (Array Int Int) Int Int Int Int ))
+(declare-rel __CPROVER_file_local_priority_queue_c_s_remove_node (Bool Bool Bool (Array Int Int) (Array Int Int) (Array Int Int) (Array Int Int) (Array Int Int) Int Int Int Int ))
+(declare-rel aws_array_list_get_at@_sm1 (Int Int (Array Int Int) (Array Int Int) (Array Int Int) Int Int ))
+(declare-rel aws_array_list_get_at@_12 (Int Int (Array Int Int) (Array Int Int) (Array Int Int) Int Int ))
+(declare-rel aws_array_list_get_at@.split (Int Int (Array Int Int) (Array Int Int) (Array Int Int) (Array Int Int) Int Int Int ))
+(declare-rel aws_array_list_get_at (Bool Bool Bool (Array Int Int) (Array Int Int) (Array Int Int) (Array Int Int) Int Int Int Int Int ))
+(declare-rel aws_array_list_length@_sm (Int Int (Array Int Int) Int ))
+(declare-rel aws_array_list_length@_10 (Int Int (Array Int Int) Int ))
+(declare-rel aws_array_list_length@_call3 (Int Int (Array Int Int) Int Int ))
+(declare-rel aws_array_list_length (Bool Bool Bool (Array Int Int) Int Int Int Int ))
+(declare-rel aws_raise_error@_tail ())
+(declare-rel aws_raise_error@.split ())
+(declare-rel aws_raise_error (Bool Bool Bool ))
+(declare-rel main@_sm4 ((Array Int Int) (Array Int Int) ))
+(declare-rel main@.split ())
+(declare-var __CPROVER_file_local_priority_queue_c_s_remove_node@%sm3_0 (Array Int Int) )
+(declare-var __CPROVER_file_local_priority_queue_c_s_remove_node@%_call17_0 Int )
+(declare-var __CPROVER_file_local_priority_queue_c_s_remove_node@%_33_0 Int )
+(declare-var __CPROVER_file_local_priority_queue_c_s_remove_node@%_sm2_0 Int )
+(declare-var __CPROVER_file_local_priority_queue_c_s_remove_node@%_call12_0 Int )
+(declare-var __CPROVER_file_local_priority_queue_c_s_remove_node@%_21_0 Int )
+(declare-var __CPROVER_file_local_priority_queue_c_s_remove_node@%_call13_0 Int )
+(declare-var __CPROVER_file_local_priority_queue_c_s_remove_node@%_23_0 Int )
+(declare-var __CPROVER_file_local_priority_queue_c_s_remove_node@%_24_0 Int )
+(declare-var __CPROVER_file_local_priority_queue_c_s_remove_node@%_call14_0 Int )
+(declare-var __CPROVER_file_local_priority_queue_c_s_remove_node@%_26_0 Int )
+(declare-var __CPROVER_file_local_priority_queue_c_s_remove_node@%_sm1_0 Int )
+(declare-var __CPROVER_file_local_priority_queue_c_s_remove_node@%_call15_0 Int )
+(declare-var __CPROVER_file_local_priority_queue_c_s_remove_node@%_29_0 Int )
+(declare-var __CPROVER_file_local_priority_queue_c_s_remove_node@%_br16_0 Bool )
+(declare-var __CPROVER_file_local_priority_queue_c_s_remove_node@%shadow.mem.0.0_2 (Array Int Int) )
+(declare-var __CPROVER_file_local_priority_queue_c_s_remove_node@%shadow.mem.0.1_2 (Array Int Int) )
+(declare-var __CPROVER_file_local_priority_queue_c_s_remove_node@%shadow.mem.45.0_2 (Array Int Int) )
+(declare-var __CPROVER_file_local_priority_queue_c_s_remove_node@%_br9_0 Bool )
+(declare-var __CPROVER_file_local_priority_queue_c_s_remove_node@%_14_0 Int )
+(declare-var @.str.1_0 Int )
+(declare-var __CPROVER_file_local_priority_queue_c_s_remove_node@%_tail8_0 Int )
+(declare-var @.str.2_0 Int )
+(declare-var __CPROVER_file_local_priority_queue_c_s_remove_node@%_call6_0 Int )
+(declare-var __CPROVER_file_local_priority_queue_c_s_remove_node@%_11_0 Int )
+(declare-var __CPROVER_file_local_priority_queue_c_s_remove_node@%_br7_0 Bool )
+(declare-var __CPROVER_file_local_priority_queue_c_s_remove_node@%_br_0 Bool )
+(declare-var __CPROVER_file_local_priority_queue_c_s_remove_node@%sm4_0 (Array Int Int) )
+(declare-var __CPROVER_file_local_priority_queue_c_s_remove_node@%shadow.mem.0.1_0 (Array Int Int) )
+(declare-var __CPROVER_file_local_priority_queue_c_s_remove_node@%sm5_0 (Array Int Int) )
+(declare-var __CPROVER_file_local_priority_queue_c_s_remove_node@%shadow.mem.45.0_0 (Array Int Int) )
+(declare-var __CPROVER_file_local_priority_queue_c_s_remove_node@arg.0_0 Int )
+(declare-var __CPROVER_file_local_priority_queue_c_s_remove_node@arg.2_0 Int )
+(declare-var __CPROVER_file_local_priority_queue_c_s_remove_node@_sm3_0 Bool )
+(declare-var __CPROVER_file_local_priority_queue_c_s_remove_node@%_call_0 Int )
+(declare-var __CPROVER_file_local_priority_queue_c_s_remove_node@%_7_0 Int )
+(declare-var __CPROVER_file_local_priority_queue_c_s_remove_node@_9_0 Bool )
+(declare-var __CPROVER_file_local_priority_queue_c_s_remove_node@_13_0 Bool )
+(declare-var __CPROVER_file_local_priority_queue_c_s_remove_node@aws_array_list_length.exit.i_0 Bool )
+(declare-var |tuple(__CPROVER_file_local_priority_queue_c_s_remove_node@_9_0, __CPROVER_file_local_priority_queue_c_s_remove_node@aws_array_list_length.exit.i_0)| Bool )
+(declare-var |tuple(__CPROVER_file_local_priority_queue_c_s_remove_node@_sm3_0, __CPROVER_file_local_priority_queue_c_s_remove_node@aws_array_list_length.exit.i_0)| Bool )
+(declare-var __CPROVER_file_local_priority_queue_c_s_remove_node@_tail10_0 Bool )
+(declare-var __CPROVER_file_local_priority_queue_c_s_remove_node@_19_0 Bool )
+(declare-var __CPROVER_file_local_priority_queue_c_s_remove_node@%sm_0 (Array Int Int) )
+(declare-var __CPROVER_file_local_priority_queue_c_s_remove_node@%sm1_0 (Array Int Int) )
+(declare-var __CPROVER_file_local_priority_queue_c_s_remove_node@_31_0 Bool )
+(declare-var __CPROVER_file_local_priority_queue_c_s_remove_node@%sm2_0 (Array Int Int) )
+(declare-var __CPROVER_file_local_priority_queue_c_s_remove_node@_shadow.mem.0.0_0 Bool )
+(declare-var |tuple(__CPROVER_file_local_priority_queue_c_s_remove_node@_19_0, __CPROVER_file_local_priority_queue_c_s_remove_node@_shadow.mem.0.0_0)| Bool )
+(declare-var __CPROVER_file_local_priority_queue_c_s_remove_node@%shadow.mem.0.0_0 (Array Int Int) )
+(declare-var __CPROVER_file_local_priority_queue_c_s_remove_node@%shadow.mem.0.0_1 (Array Int Int) )
+(declare-var __CPROVER_file_local_priority_queue_c_s_remove_node@_shadow.mem.0.1_0 Bool )
+(declare-var __CPROVER_file_local_priority_queue_c_s_remove_node@%shadow.mem.0.1_1 (Array Int Int) )
+(declare-var __CPROVER_file_local_priority_queue_c_s_remove_node@%shadow.mem.45.0_1 (Array Int Int) )
+(declare-var aws_array_list_get_at@%sm1_0 (Array Int Int) )
+(declare-var aws_array_list_get_at@%_call7_0 Int )
+(declare-var aws_array_list_get_at@%_18_0 Int )
+(declare-var aws_array_list_get_at@%_call8_0 Int )
+(declare-var aws_array_list_get_at@%_20_0 Int )
+(declare-var aws_array_list_get_at@%_21_0 Int )
+(declare-var aws_array_list_get_at@%_call9_0 Int )
+(declare-var aws_array_list_get_at@%shadow.mem.67.0_2 (Array Int Int) )
+(declare-var aws_array_list_get_at@%.0_2 Int )
+(declare-var aws_array_list_get_at@%_br6_0 Bool )
+(declare-var aws_array_list_get_at@%_13_0 Int )
+(declare-var aws_array_list_get_at@%_tail_0 Int )
+(declare-var aws_array_list_get_at@%_call4_0 Int )
+(declare-var aws_array_list_get_at@%_10_0 Int )
+(declare-var aws_array_list_get_at@%_br5_0 Bool )
+(declare-var aws_array_list_get_at@%_call_0 Int )
+(declare-var aws_array_list_get_at@%_br_0 Bool )
+(declare-var aws_array_list_get_at@%sm2_0 (Array Int Int) )
+(declare-var aws_array_list_get_at@%sm3_0 (Array Int Int) )
+(declare-var aws_array_list_get_at@%shadow.mem.67.0_0 (Array Int Int) )
+(declare-var aws_array_list_get_at@arg.0_0 Int )
+(declare-var aws_array_list_get_at@arg.2_0 Int )
+(declare-var aws_array_list_get_at@%.0_0 Int )
+(declare-var aws_array_list_get_at@_sm1_0 Bool )
+(declare-var aws_array_list_get_at@%_6_0 Int )
+(declare-var aws_array_list_get_at@_8_0 Bool )
+(declare-var aws_array_list_get_at@_12_0 Bool )
+(declare-var aws_array_list_get_at@aws_array_list_length.exit_0 Bool )
+(declare-var |tuple(aws_array_list_get_at@_sm1_0, aws_array_list_get_at@aws_array_list_length.exit_0)| Bool )
+(declare-var |tuple(aws_array_list_get_at@_8_0, aws_array_list_get_at@aws_array_list_length.exit_0)| Bool )
+(declare-var aws_array_list_get_at@_tail10_0 Bool )
+(declare-var aws_array_list_get_at@_16_0 Bool )
+(declare-var aws_array_list_get_at@%sm_0 (Array Int Int) )
+(declare-var aws_array_list_get_at@_shadow.mem.67.0_0 Bool )
+(declare-var aws_array_list_get_at@%shadow.mem.67.0_1 (Array Int Int) )
+(declare-var aws_array_list_get_at@%.0_1 Int )
+(declare-var aws_array_list_get_at@.split_0 Bool )
+(declare-var aws_array_list_length@%_11_0 Int )
+(declare-var aws_array_list_length@%_tail_0 Int )
+(declare-var aws_array_list_length@%_call1_0 Int )
+(declare-var aws_array_list_length@%_8_0 Int )
+(declare-var aws_array_list_length@%_br2_0 Bool )
+(declare-var aws_array_list_length@%_call_0 Int )
+(declare-var aws_array_list_length@%_br_0 Bool )
+(declare-var aws_array_list_length@%sm_0 (Array Int Int) )
+(declare-var aws_array_list_length@arg.0_0 Int )
+(declare-var aws_array_list_length@%_4_0 Int )
+(declare-var aws_array_list_length@_sm_0 Bool )
+(declare-var aws_array_list_length@_6_0 Bool )
+(declare-var aws_array_list_length@_10_0 Bool )
+(declare-var aws_array_list_length@_call3_0 Bool )
+(declare-var |tuple(aws_array_list_length@_6_0, aws_array_list_length@_call3_0)| Bool )
+(declare-var |tuple(aws_array_list_length@_sm_0, aws_array_list_length@_call3_0)| Bool )
+(declare-var aws_raise_error@_tail_0 Bool )
+(declare-var aws_raise_error@.split_0 Bool )
+(declare-var main@%sm4_0 (Array Int Int) )
+(declare-var main@%sm5_0 (Array Int Int) )
+(declare-var main@%sm7_0 (Array Int Int) )
+(declare-var main@%sm8_0 (Array Int Int) )
+(declare-var main@%sm9_0 (Array Int Int) )
+(declare-var main@%sm10_0 (Array Int Int) )
+(declare-var main@%sm12_0 (Array Int Int) )
+(declare-var main@%sm6_0 (Array Int Int) )
+(declare-var main@%sm_0 (Array Int Int) )
+(declare-var main@%sm11_0 (Array Int Int) )
+(declare-var main@%sm1_0 (Array Int Int) )
+(declare-var main@%_2_0 Int )
+(declare-var main@%_call_0 Int )
+(declare-var main@%sh_0 (Array Int Int) )
+(declare-var main@%sh2_0 (Array Int Int) )
+(declare-var main@%_5_0 Int )
+(declare-var main@%_call13_0 Int )
+(declare-var main@%sh3_0 (Array Int Int) )
+(declare-var main@%_8_0 Int )
+(declare-var main@%_call14_0 Int )
+(declare-var main@%_10_0 Int )
+(declare-var main@_sm4_0 Bool )
+(declare-var main@.split_0 Bool )
+(rule (verifier.error false false false))
+(rule (verifier.error false true true))
+(rule (verifier.error true false true))
+(rule (verifier.error true true true))
+(rule (__CPROVER_file_local_priority_queue_c_s_remove_node
+  true
+  true
+  true
+  __CPROVER_file_local_priority_queue_c_s_remove_node@%sm3_0
+  __CPROVER_file_local_priority_queue_c_s_remove_node@%sm4_0
+  __CPROVER_file_local_priority_queue_c_s_remove_node@%shadow.mem.0.1_0
+  __CPROVER_file_local_priority_queue_c_s_remove_node@%sm5_0
+  __CPROVER_file_local_priority_queue_c_s_remove_node@%shadow.mem.45.0_0
+  __CPROVER_file_local_priority_queue_c_s_remove_node@arg.0_0
+  __CPROVER_file_local_priority_queue_c_s_remove_node@arg.2_0
+  @.str.1_0
+  @.str.2_0))
+(rule (__CPROVER_file_local_priority_queue_c_s_remove_node
+  false
+  true
+  true
+  __CPROVER_file_local_priority_queue_c_s_remove_node@%sm3_0
+  __CPROVER_file_local_priority_queue_c_s_remove_node@%sm4_0
+  __CPROVER_file_local_priority_queue_c_s_remove_node@%shadow.mem.0.1_0
+  __CPROVER_file_local_priority_queue_c_s_remove_node@%sm5_0
+  __CPROVER_file_local_priority_queue_c_s_remove_node@%shadow.mem.45.0_0
+  __CPROVER_file_local_priority_queue_c_s_remove_node@arg.0_0
+  __CPROVER_file_local_priority_queue_c_s_remove_node@arg.2_0
+  @.str.1_0
+  @.str.2_0))
+(rule (__CPROVER_file_local_priority_queue_c_s_remove_node
+  false
+  false
+  false
+  __CPROVER_file_local_priority_queue_c_s_remove_node@%sm3_0
+  __CPROVER_file_local_priority_queue_c_s_remove_node@%sm4_0
+  __CPROVER_file_local_priority_queue_c_s_remove_node@%shadow.mem.0.1_0
+  __CPROVER_file_local_priority_queue_c_s_remove_node@%sm5_0
+  __CPROVER_file_local_priority_queue_c_s_remove_node@%shadow.mem.45.0_0
+  __CPROVER_file_local_priority_queue_c_s_remove_node@arg.0_0
+  __CPROVER_file_local_priority_queue_c_s_remove_node@arg.2_0
+  @.str.1_0
+  @.str.2_0))
+(rule (__CPROVER_file_local_priority_queue_c_s_remove_node@_sm3
+  __CPROVER_file_local_priority_queue_c_s_remove_node@%sm3_0
+  __CPROVER_file_local_priority_queue_c_s_remove_node@%sm4_0
+  __CPROVER_file_local_priority_queue_c_s_remove_node@%sm5_0
+  __CPROVER_file_local_priority_queue_c_s_remove_node@arg.0_0
+  __CPROVER_file_local_priority_queue_c_s_remove_node@arg.2_0
+  @.str.1_0
+  @.str.2_0))
+(rule (let ((a!1 (= __CPROVER_file_local_priority_queue_c_s_remove_node@%_call_0
+              (+ (+ __CPROVER_file_local_priority_queue_c_s_remove_node@arg.0_0
+                    (* 0 44)
+                    4)
+                 8)))
+      (a!2 (= __CPROVER_file_local_priority_queue_c_s_remove_node@%_call6_0
+              (+ (+ __CPROVER_file_local_priority_queue_c_s_remove_node@arg.0_0
+                    (* 0 44)
+                    4)
+                 16))))
+(let ((a!3 (and (__CPROVER_file_local_priority_queue_c_s_remove_node@_sm3
+                  __CPROVER_file_local_priority_queue_c_s_remove_node@%sm3_0
+                  __CPROVER_file_local_priority_queue_c_s_remove_node@%sm4_0
+                  __CPROVER_file_local_priority_queue_c_s_remove_node@%sm5_0
+                  __CPROVER_file_local_priority_queue_c_s_remove_node@arg.0_0
+                  __CPROVER_file_local_priority_queue_c_s_remove_node@arg.2_0
+                  @.str.1_0
+                  @.str.2_0)
+                true
+                a!1
+                (or (<= __CPROVER_file_local_priority_queue_c_s_remove_node@arg.0_0
+                        0)
+                    (> __CPROVER_file_local_priority_queue_c_s_remove_node@%_call_0
+                       0))
+                (> __CPROVER_file_local_priority_queue_c_s_remove_node@arg.0_0
+                   0)
+                (= __CPROVER_file_local_priority_queue_c_s_remove_node@%_7_0
+                   (select __CPROVER_file_local_priority_queue_c_s_remove_node@%sm4_0
+                           __CPROVER_file_local_priority_queue_c_s_remove_node@%_call_0))
+                (= __CPROVER_file_local_priority_queue_c_s_remove_node@%_br_0
+                   (= __CPROVER_file_local_priority_queue_c_s_remove_node@%_7_0
+                      0))
+                (=> __CPROVER_file_local_priority_queue_c_s_remove_node@_9_0
+                    (and __CPROVER_file_local_priority_queue_c_s_remove_node@_9_0
+                         __CPROVER_file_local_priority_queue_c_s_remove_node@_sm3_0))
+                (=> (and __CPROVER_file_local_priority_queue_c_s_remove_node@_9_0
+                         __CPROVER_file_local_priority_queue_c_s_remove_node@_sm3_0)
+                    (not __CPROVER_file_local_priority_queue_c_s_remove_node@%_br_0))
+                (=> __CPROVER_file_local_priority_queue_c_s_remove_node@_9_0
+                    a!2)
+                (=> __CPROVER_file_local_priority_queue_c_s_remove_node@_9_0
+                    (or (<= __CPROVER_file_local_priority_queue_c_s_remove_node@arg.0_0
+                            0)
+                        (> __CPROVER_file_local_priority_queue_c_s_remove_node@%_call6_0
+                           0)))
+                (=> __CPROVER_file_local_priority_queue_c_s_remove_node@_9_0
+                    (> __CPROVER_file_local_priority_queue_c_s_remove_node@arg.0_0
+                       0))
+                (=> __CPROVER_file_local_priority_queue_c_s_remove_node@_9_0
+                    (= __CPROVER_file_local_priority_queue_c_s_remove_node@%_11_0
+                       (select __CPROVER_file_local_priority_queue_c_s_remove_node@%sm4_0
+                               __CPROVER_file_local_priority_queue_c_s_remove_node@%_call6_0)))
+                (=> __CPROVER_file_local_priority_queue_c_s_remove_node@_9_0
+                    (= __CPROVER_file_local_priority_queue_c_s_remove_node@%_br7_0
+                       (= __CPROVER_file_local_priority_queue_c_s_remove_node@%_11_0
+                          0)))
+                (=> __CPROVER_file_local_priority_queue_c_s_remove_node@_13_0
+                    (and __CPROVER_file_local_priority_queue_c_s_remove_node@_13_0
+                         __CPROVER_file_local_priority_queue_c_s_remove_node@_9_0))
+                (=> (and __CPROVER_file_local_priority_queue_c_s_remove_node@_13_0
+                         __CPROVER_file_local_priority_queue_c_s_remove_node@_9_0)
+                    __CPROVER_file_local_priority_queue_c_s_remove_node@%_br7_0)
+                __CPROVER_file_local_priority_queue_c_s_remove_node@_13_0
+                (= __CPROVER_file_local_priority_queue_c_s_remove_node@%_14_0
+                   (+ @.str.1_0 (* 0 28) (* 0 1)))
+                (or (<= @.str.1_0 0)
+                    (> __CPROVER_file_local_priority_queue_c_s_remove_node@%_14_0
+                       0))
+                (= __CPROVER_file_local_priority_queue_c_s_remove_node@%_tail8_0
+                   (+ @.str.2_0 (* 0 52) (* 0 1)))
+                (or (<= @.str.2_0 0)
+                    (> __CPROVER_file_local_priority_queue_c_s_remove_node@%_tail8_0
+                       0)))))
+  (=> a!3
+      (__CPROVER_file_local_priority_queue_c_s_remove_node@_13
+        __CPROVER_file_local_priority_queue_c_s_remove_node@%sm3_0
+        __CPROVER_file_local_priority_queue_c_s_remove_node@%sm4_0
+        __CPROVER_file_local_priority_queue_c_s_remove_node@%sm5_0
+        __CPROVER_file_local_priority_queue_c_s_remove_node@arg.0_0
+        __CPROVER_file_local_priority_queue_c_s_remove_node@arg.2_0
+        @.str.1_0
+        @.str.2_0)))))
+(rule (let ((a!1 (+ (+ (+ __CPROVER_file_local_priority_queue_c_s_remove_node@arg.0_0
+                    (* 0 44))
+                 4)
+              8))
+      (a!2 (+ (+ (+ __CPROVER_file_local_priority_queue_c_s_remove_node@arg.0_0
+                    (* 0 44))
+                 4)
+              16))
+      (a!3 (= __CPROVER_file_local_priority_queue_c_s_remove_node@%_br9_0
+              (ite (>= __CPROVER_file_local_priority_queue_c_s_remove_node@arg.2_0
+                       0)
+                   (ite (>= __CPROVER_file_local_priority_queue_c_s_remove_node@%_7_0
+                            0)
+                        (< __CPROVER_file_local_priority_queue_c_s_remove_node@arg.2_0
+                           __CPROVER_file_local_priority_queue_c_s_remove_node@%_7_0)
+                        true)
+                   (ite (< __CPROVER_file_local_priority_queue_c_s_remove_node@%_7_0
+                           0)
+                        (< __CPROVER_file_local_priority_queue_c_s_remove_node@arg.2_0
+                           __CPROVER_file_local_priority_queue_c_s_remove_node@%_7_0)
+                        false))))
+      (a!4 (+ (+ (+ __CPROVER_file_local_priority_queue_c_s_remove_node@arg.0_0
+                    (* 0 44))
+                 4)
+              12))
+      (a!5 (=> __CPROVER_file_local_priority_queue_c_s_remove_node@_19_0
+               (= __CPROVER_file_local_priority_queue_c_s_remove_node@%_call14_0
+                  (+ __CPROVER_file_local_priority_queue_c_s_remove_node@%_21_0
+                     (* __CPROVER_file_local_priority_queue_c_s_remove_node@%_24_0
+                        1)))))
+      (a!6 (+ (+ (+ __CPROVER_file_local_priority_queue_c_s_remove_node@arg.0_0
+                    (* 0 44))
+                 24)
+              16))
+      (a!7 (+ (+ (+ __CPROVER_file_local_priority_queue_c_s_remove_node@arg.0_0
+                    (* 0 44))
+                 24)
+              8)))
+(let ((a!8 (and (__CPROVER_file_local_priority_queue_c_s_remove_node@_sm3
+                  __CPROVER_file_local_priority_queue_c_s_remove_node@%sm3_0
+                  __CPROVER_file_local_priority_queue_c_s_remove_node@%sm4_0
+                  __CPROVER_file_local_priority_queue_c_s_remove_node@%sm5_0
+                  __CPROVER_file_local_priority_queue_c_s_remove_node@arg.0_0
+                  __CPROVER_file_local_priority_queue_c_s_remove_node@arg.2_0
+                  @.str.1_0
+                  @.str.2_0)
+                true
+                (= __CPROVER_file_local_priority_queue_c_s_remove_node@%_call_0
+                   a!1)
+                (or (<= __CPROVER_file_local_priority_queue_c_s_remove_node@arg.0_0
+                        0)
+                    (> __CPROVER_file_local_priority_queue_c_s_remove_node@%_call_0
+                       0))
+                (> __CPROVER_file_local_priority_queue_c_s_remove_node@arg.0_0
+                   0)
+                (= __CPROVER_file_local_priority_queue_c_s_remove_node@%_7_0
+                   (select __CPROVER_file_local_priority_queue_c_s_remove_node@%sm4_0
+                           __CPROVER_file_local_priority_queue_c_s_remove_node@%_call_0))
+                (= __CPROVER_file_local_priority_queue_c_s_remove_node@%_br_0
+                   (= __CPROVER_file_local_priority_queue_c_s_remove_node@%_7_0
+                      0))
+                (=> __CPROVER_file_local_priority_queue_c_s_remove_node@_9_0
+                    (and __CPROVER_file_local_priority_queue_c_s_remove_node@_9_0
+                         __CPROVER_file_local_priority_queue_c_s_remove_node@_sm3_0))
+                (=> (and __CPROVER_file_local_priority_queue_c_s_remove_node@_9_0
+                         __CPROVER_file_local_priority_queue_c_s_remove_node@_sm3_0)
+                    (not __CPROVER_file_local_priority_queue_c_s_remove_node@%_br_0))
+                (=> __CPROVER_file_local_priority_queue_c_s_remove_node@_9_0
+                    (= __CPROVER_file_local_priority_queue_c_s_remove_node@%_call6_0
+                       a!2))
+                (=> __CPROVER_file_local_priority_queue_c_s_remove_node@_9_0
+                    (or (<= __CPROVER_file_local_priority_queue_c_s_remove_node@arg.0_0
+                            0)
+                        (> __CPROVER_file_local_priority_queue_c_s_remove_node@%_call6_0
+                           0)))
+                (=> __CPROVER_file_local_priority_queue_c_s_remove_node@_9_0
+                    (> __CPROVER_file_local_priority_queue_c_s_remove_node@arg.0_0
+                       0))
+                (=> __CPROVER_file_local_priority_queue_c_s_remove_node@_9_0
+                    (= __CPROVER_file_local_priority_queue_c_s_remove_node@%_11_0
+                       (select __CPROVER_file_local_priority_queue_c_s_remove_node@%sm4_0
+                               __CPROVER_file_local_priority_queue_c_s_remove_node@%_call6_0)))
+                (=> __CPROVER_file_local_priority_queue_c_s_remove_node@_9_0
+                    (= __CPROVER_file_local_priority_queue_c_s_remove_node@%_br7_0
+                       (= __CPROVER_file_local_priority_queue_c_s_remove_node@%_11_0
+                          0)))
+                (=> |tuple(__CPROVER_file_local_priority_queue_c_s_remove_node@_9_0, __CPROVER_file_local_priority_queue_c_s_remove_node@aws_array_list_length.exit.i_0)|
+                    __CPROVER_file_local_priority_queue_c_s_remove_node@_9_0)
+                (=> |tuple(__CPROVER_file_local_priority_queue_c_s_remove_node@_sm3_0, __CPROVER_file_local_priority_queue_c_s_remove_node@aws_array_list_length.exit.i_0)|
+                    __CPROVER_file_local_priority_queue_c_s_remove_node@_sm3_0)
+                (=> __CPROVER_file_local_priority_queue_c_s_remove_node@aws_array_list_length.exit.i_0
+                    (or |tuple(__CPROVER_file_local_priority_queue_c_s_remove_node@_9_0, __CPROVER_file_local_priority_queue_c_s_remove_node@aws_array_list_length.exit.i_0)|
+                        |tuple(__CPROVER_file_local_priority_queue_c_s_remove_node@_sm3_0, __CPROVER_file_local_priority_queue_c_s_remove_node@aws_array_list_length.exit.i_0)|))
+                (=> |tuple(__CPROVER_file_local_priority_queue_c_s_remove_node@_9_0, __CPROVER_file_local_priority_queue_c_s_remove_node@aws_array_list_length.exit.i_0)|
+                    (not __CPROVER_file_local_priority_queue_c_s_remove_node@%_br7_0))
+                (=> |tuple(__CPROVER_file_local_priority_queue_c_s_remove_node@_sm3_0, __CPROVER_file_local_priority_queue_c_s_remove_node@aws_array_list_length.exit.i_0)|
+                    __CPROVER_file_local_priority_queue_c_s_remove_node@%_br_0)
+                (=> __CPROVER_file_local_priority_queue_c_s_remove_node@aws_array_list_length.exit.i_0
+                    a!3)
+                (=> __CPROVER_file_local_priority_queue_c_s_remove_node@_tail10_0
+                    (and __CPROVER_file_local_priority_queue_c_s_remove_node@_tail10_0
+                         __CPROVER_file_local_priority_queue_c_s_remove_node@aws_array_list_length.exit.i_0))
+                (=> (and __CPROVER_file_local_priority_queue_c_s_remove_node@_tail10_0
+                         __CPROVER_file_local_priority_queue_c_s_remove_node@aws_array_list_length.exit.i_0)
+                    (not __CPROVER_file_local_priority_queue_c_s_remove_node@%_br9_0))
+                (=> __CPROVER_file_local_priority_queue_c_s_remove_node@_19_0
+                    (and __CPROVER_file_local_priority_queue_c_s_remove_node@_19_0
+                         __CPROVER_file_local_priority_queue_c_s_remove_node@aws_array_list_length.exit.i_0))
+                (=> (and __CPROVER_file_local_priority_queue_c_s_remove_node@_19_0
+                         __CPROVER_file_local_priority_queue_c_s_remove_node@aws_array_list_length.exit.i_0)
+                    __CPROVER_file_local_priority_queue_c_s_remove_node@%_br9_0)
+                (=> __CPROVER_file_local_priority_queue_c_s_remove_node@_19_0
+                    (= __CPROVER_file_local_priority_queue_c_s_remove_node@%_call12_0
+                       a!2))
+                (=> __CPROVER_file_local_priority_queue_c_s_remove_node@_19_0
+                    (or (<= __CPROVER_file_local_priority_queue_c_s_remove_node@arg.0_0
+                            0)
+                        (> __CPROVER_file_local_priority_queue_c_s_remove_node@%_call12_0
+                           0)))
+                (=> __CPROVER_file_local_priority_queue_c_s_remove_node@_19_0
+                    (> __CPROVER_file_local_priority_queue_c_s_remove_node@arg.0_0
+                       0))
+                (=> __CPROVER_file_local_priority_queue_c_s_remove_node@_19_0
+                    (= __CPROVER_file_local_priority_queue_c_s_remove_node@%_21_0
+                       (select __CPROVER_file_local_priority_queue_c_s_remove_node@%sm4_0
+                               __CPROVER_file_local_priority_queue_c_s_remove_node@%_call12_0)))
+                (=> __CPROVER_file_local_priority_queue_c_s_remove_node@_19_0
+                    (= __CPROVER_file_local_priority_queue_c_s_remove_node@%_call13_0
+                       a!4))
+                (=> __CPROVER_file_local_priority_queue_c_s_remove_node@_19_0
+                    (or (<= __CPROVER_file_local_priority_queue_c_s_remove_node@arg.0_0
+                            0)
+                        (> __CPROVER_file_local_priority_queue_c_s_remove_node@%_call13_0
+                           0)))
+                (=> __CPROVER_file_local_priority_queue_c_s_remove_node@_19_0
+                    (> __CPROVER_file_local_priority_queue_c_s_remove_node@arg.0_0
+                       0))
+                (=> __CPROVER_file_local_priority_queue_c_s_remove_node@_19_0
+                    (= __CPROVER_file_local_priority_queue_c_s_remove_node@%_23_0
+                       (select __CPROVER_file_local_priority_queue_c_s_remove_node@%sm4_0
+                               __CPROVER_file_local_priority_queue_c_s_remove_node@%_call13_0)))
+                a!5
+                (=> __CPROVER_file_local_priority_queue_c_s_remove_node@_19_0
+                    (or (<= __CPROVER_file_local_priority_queue_c_s_remove_node@%_21_0
+                            0)
+                        (> __CPROVER_file_local_priority_queue_c_s_remove_node@%_call14_0
+                           0)))
+                (=> __CPROVER_file_local_priority_queue_c_s_remove_node@_19_0
+                    (> __CPROVER_file_local_priority_queue_c_s_remove_node@arg.0_0
+                       0))
+                (=> __CPROVER_file_local_priority_queue_c_s_remove_node@_19_0
+                    (= __CPROVER_file_local_priority_queue_c_s_remove_node@%_26_0
+                       (select __CPROVER_file_local_priority_queue_c_s_remove_node@%sm4_0
+                               __CPROVER_file_local_priority_queue_c_s_remove_node@%_call_0)))
+                (=> __CPROVER_file_local_priority_queue_c_s_remove_node@_19_0
+                    (= __CPROVER_file_local_priority_queue_c_s_remove_node@%_sm1_0
+                       (+ __CPROVER_file_local_priority_queue_c_s_remove_node@%_26_0
+                          (- 1))))
+                (=> __CPROVER_file_local_priority_queue_c_s_remove_node@_19_0
+                    (> __CPROVER_file_local_priority_queue_c_s_remove_node@arg.0_0
+                       0))
+                (=> __CPROVER_file_local_priority_queue_c_s_remove_node@_19_0
+                    (= __CPROVER_file_local_priority_queue_c_s_remove_node@%sm1_0
+                       (store __CPROVER_file_local_priority_queue_c_s_remove_node@%sm4_0
+                              __CPROVER_file_local_priority_queue_c_s_remove_node@%_call_0
+                              __CPROVER_file_local_priority_queue_c_s_remove_node@%_sm1_0)))
+                (=> __CPROVER_file_local_priority_queue_c_s_remove_node@_19_0
+                    (= __CPROVER_file_local_priority_queue_c_s_remove_node@%_call15_0
+                       a!6))
+                (=> __CPROVER_file_local_priority_queue_c_s_remove_node@_19_0
+                    (or (<= __CPROVER_file_local_priority_queue_c_s_remove_node@arg.0_0
+                            0)
+                        (> __CPROVER_file_local_priority_queue_c_s_remove_node@%_call15_0
+                           0)))
+                (=> __CPROVER_file_local_priority_queue_c_s_remove_node@_19_0
+                    (> __CPROVER_file_local_priority_queue_c_s_remove_node@arg.0_0
+                       0))
+                (=> __CPROVER_file_local_priority_queue_c_s_remove_node@_19_0
+                    (= __CPROVER_file_local_priority_queue_c_s_remove_node@%_29_0
+                       (select __CPROVER_file_local_priority_queue_c_s_remove_node@%sm4_0
+                               __CPROVER_file_local_priority_queue_c_s_remove_node@%_call15_0)))
+                (=> __CPROVER_file_local_priority_queue_c_s_remove_node@_19_0
+                    (= __CPROVER_file_local_priority_queue_c_s_remove_node@%_br16_0
+                       (= __CPROVER_file_local_priority_queue_c_s_remove_node@%_29_0
+                          0)))
+                (=> __CPROVER_file_local_priority_queue_c_s_remove_node@_31_0
+                    (and __CPROVER_file_local_priority_queue_c_s_remove_node@_31_0
+                         __CPROVER_file_local_priority_queue_c_s_remove_node@_19_0))
+                (=> (and __CPROVER_file_local_priority_queue_c_s_remove_node@_31_0
+                         __CPROVER_file_local_priority_queue_c_s_remove_node@_19_0)
+                    (not __CPROVER_file_local_priority_queue_c_s_remove_node@%_br16_0))
+                (=> __CPROVER_file_local_priority_queue_c_s_remove_node@_31_0
+                    (= __CPROVER_file_local_priority_queue_c_s_remove_node@%_call17_0
+                       a!7))
+                (=> __CPROVER_file_local_priority_queue_c_s_remove_node@_31_0
+                    (or (<= __CPROVER_file_local_priority_queue_c_s_remove_node@arg.0_0
+                            0)
+                        (> __CPROVER_file_local_priority_queue_c_s_remove_node@%_call17_0
+                           0)))
+                (=> __CPROVER_file_local_priority_queue_c_s_remove_node@_31_0
+                    (> __CPROVER_file_local_priority_queue_c_s_remove_node@arg.0_0
+                       0))
+                (=> __CPROVER_file_local_priority_queue_c_s_remove_node@_31_0
+                    (= __CPROVER_file_local_priority_queue_c_s_remove_node@%_33_0
+                       (select __CPROVER_file_local_priority_queue_c_s_remove_node@%sm4_0
+                               __CPROVER_file_local_priority_queue_c_s_remove_node@%_call17_0)))
+                (=> __CPROVER_file_local_priority_queue_c_s_remove_node@_31_0
+                    (= __CPROVER_file_local_priority_queue_c_s_remove_node@%_sm2_0
+                       (+ __CPROVER_file_local_priority_queue_c_s_remove_node@%_33_0
+                          (- 1))))
+                (=> __CPROVER_file_local_priority_queue_c_s_remove_node@_31_0
+                    (> __CPROVER_file_local_priority_queue_c_s_remove_node@arg.0_0
+                       0))
+                (=> __CPROVER_file_local_priority_queue_c_s_remove_node@_31_0
+                    (= __CPROVER_file_local_priority_queue_c_s_remove_node@%sm2_0
+                       (store __CPROVER_file_local_priority_queue_c_s_remove_node@%sm1_0
+                              __CPROVER_file_local_priority_queue_c_s_remove_node@%_call17_0
+                              __CPROVER_file_local_priority_queue_c_s_remove_node@%_sm2_0)))
+                (=> |tuple(__CPROVER_file_local_priority_queue_c_s_remove_node@_19_0, __CPROVER_file_local_priority_queue_c_s_remove_node@_shadow.mem.0.0_0)|
+                    __CPROVER_file_local_priority_queue_c_s_remove_node@_19_0)
+                (=> __CPROVER_file_local_priority_queue_c_s_remove_node@_shadow.mem.0.0_0
+                    (or (and __CPROVER_file_local_priority_queue_c_s_remove_node@_shadow.mem.0.0_0
+                             __CPROVER_file_local_priority_queue_c_s_remove_node@_31_0)
+                        |tuple(__CPROVER_file_local_priority_queue_c_s_remove_node@_19_0, __CPROVER_file_local_priority_queue_c_s_remove_node@_shadow.mem.0.0_0)|))
+                (=> |tuple(__CPROVER_file_local_priority_queue_c_s_remove_node@_19_0, __CPROVER_file_local_priority_queue_c_s_remove_node@_shadow.mem.0.0_0)|
+                    __CPROVER_file_local_priority_queue_c_s_remove_node@%_br16_0)
+                (=> (and __CPROVER_file_local_priority_queue_c_s_remove_node@_shadow.mem.0.0_0
+                         __CPROVER_file_local_priority_queue_c_s_remove_node@_31_0)
+                    (= __CPROVER_file_local_priority_queue_c_s_remove_node@%shadow.mem.0.0_0
+                       __CPROVER_file_local_priority_queue_c_s_remove_node@%sm2_0))
+                (=> |tuple(__CPROVER_file_local_priority_queue_c_s_remove_node@_19_0, __CPROVER_file_local_priority_queue_c_s_remove_node@_shadow.mem.0.0_0)|
+                    (= __CPROVER_file_local_priority_queue_c_s_remove_node@%shadow.mem.0.0_1
+                       __CPROVER_file_local_priority_queue_c_s_remove_node@%sm1_0))
+                (=> (and __CPROVER_file_local_priority_queue_c_s_remove_node@_shadow.mem.0.0_0
+                         __CPROVER_file_local_priority_queue_c_s_remove_node@_31_0)
+                    (= __CPROVER_file_local_priority_queue_c_s_remove_node@%shadow.mem.0.0_2
+                       __CPROVER_file_local_priority_queue_c_s_remove_node@%shadow.mem.0.0_0))
+                (=> |tuple(__CPROVER_file_local_priority_queue_c_s_remove_node@_19_0, __CPROVER_file_local_priority_queue_c_s_remove_node@_shadow.mem.0.0_0)|
+                    (= __CPROVER_file_local_priority_queue_c_s_remove_node@%shadow.mem.0.0_2
+                       __CPROVER_file_local_priority_queue_c_s_remove_node@%shadow.mem.0.0_1))
+                (=> __CPROVER_file_local_priority_queue_c_s_remove_node@_shadow.mem.0.1_0
+                    (or (and __CPROVER_file_local_priority_queue_c_s_remove_node@_shadow.mem.0.1_0
+                             __CPROVER_file_local_priority_queue_c_s_remove_node@_shadow.mem.0.0_0)
+                        (and __CPROVER_file_local_priority_queue_c_s_remove_node@_shadow.mem.0.1_0
+                             __CPROVER_file_local_priority_queue_c_s_remove_node@_tail10_0)))
+                (=> (and __CPROVER_file_local_priority_queue_c_s_remove_node@_shadow.mem.0.1_0
+                         __CPROVER_file_local_priority_queue_c_s_remove_node@_shadow.mem.0.0_0)
+                    (= __CPROVER_file_local_priority_queue_c_s_remove_node@%shadow.mem.0.1_0
+                       __CPROVER_file_local_priority_queue_c_s_remove_node@%shadow.mem.0.0_2))
+                (=> (and __CPROVER_file_local_priority_queue_c_s_remove_node@_shadow.mem.0.1_0
+                         __CPROVER_file_local_priority_queue_c_s_remove_node@_shadow.mem.0.0_0)
+                    (= __CPROVER_file_local_priority_queue_c_s_remove_node@%shadow.mem.45.0_0
+                       __CPROVER_file_local_priority_queue_c_s_remove_node@%sm_0))
+                (=> (and __CPROVER_file_local_priority_queue_c_s_remove_node@_shadow.mem.0.1_0
+                         __CPROVER_file_local_priority_queue_c_s_remove_node@_tail10_0)
+                    (= __CPROVER_file_local_priority_queue_c_s_remove_node@%shadow.mem.0.1_1
+                       __CPROVER_file_local_priority_queue_c_s_remove_node@%sm4_0))
+                (=> (and __CPROVER_file_local_priority_queue_c_s_remove_node@_shadow.mem.0.1_0
+                         __CPROVER_file_local_priority_queue_c_s_remove_node@_tail10_0)
+                    (= __CPROVER_file_local_priority_queue_c_s_remove_node@%shadow.mem.45.0_1
+                       __CPROVER_file_local_priority_queue_c_s_remove_node@%sm5_0))
+                (=> (and __CPROVER_file_local_priority_queue_c_s_remove_node@_shadow.mem.0.1_0
+                         __CPROVER_file_local_priority_queue_c_s_remove_node@_shadow.mem.0.0_0)
+                    (= __CPROVER_file_local_priority_queue_c_s_remove_node@%shadow.mem.0.1_2
+                       __CPROVER_file_local_priority_queue_c_s_remove_node@%shadow.mem.0.1_0))
+                (=> (and __CPROVER_file_local_priority_queue_c_s_remove_node@_shadow.mem.0.1_0
+                         __CPROVER_file_local_priority_queue_c_s_remove_node@_shadow.mem.0.0_0)
+                    (= __CPROVER_file_local_priority_queue_c_s_remove_node@%shadow.mem.45.0_2
+                       __CPROVER_file_local_priority_queue_c_s_remove_node@%shadow.mem.45.0_0))
+                (=> (and __CPROVER_file_local_priority_queue_c_s_remove_node@_shadow.mem.0.1_0
+                         __CPROVER_file_local_priority_queue_c_s_remove_node@_tail10_0)
+                    (= __CPROVER_file_local_priority_queue_c_s_remove_node@%shadow.mem.0.1_2
+                       __CPROVER_file_local_priority_queue_c_s_remove_node@%shadow.mem.0.1_1))
+                (=> (and __CPROVER_file_local_priority_queue_c_s_remove_node@_shadow.mem.0.1_0
+                         __CPROVER_file_local_priority_queue_c_s_remove_node@_tail10_0)
+                    (= __CPROVER_file_local_priority_queue_c_s_remove_node@%shadow.mem.45.0_2
+                       __CPROVER_file_local_priority_queue_c_s_remove_node@%shadow.mem.45.0_1))
+                __CPROVER_file_local_priority_queue_c_s_remove_node@_shadow.mem.0.1_0)))
+  (=> a!8
+      (__CPROVER_file_local_priority_queue_c_s_remove_node@_shadow.mem.0.1
+        __CPROVER_file_local_priority_queue_c_s_remove_node@%sm3_0
+        __CPROVER_file_local_priority_queue_c_s_remove_node@%sm4_0
+        __CPROVER_file_local_priority_queue_c_s_remove_node@%shadow.mem.0.1_2
+        __CPROVER_file_local_priority_queue_c_s_remove_node@%sm5_0
+        __CPROVER_file_local_priority_queue_c_s_remove_node@%shadow.mem.45.0_2
+        __CPROVER_file_local_priority_queue_c_s_remove_node@arg.0_0
+        __CPROVER_file_local_priority_queue_c_s_remove_node@arg.2_0
+        @.str.1_0
+        @.str.2_0)))))
+(rule (=> (__CPROVER_file_local_priority_queue_c_s_remove_node@_shadow.mem.0.1
+      __CPROVER_file_local_priority_queue_c_s_remove_node@%sm3_0
+      __CPROVER_file_local_priority_queue_c_s_remove_node@%sm4_0
+      __CPROVER_file_local_priority_queue_c_s_remove_node@%shadow.mem.0.1_0
+      __CPROVER_file_local_priority_queue_c_s_remove_node@%sm5_0
+      __CPROVER_file_local_priority_queue_c_s_remove_node@%shadow.mem.45.0_0
+      __CPROVER_file_local_priority_queue_c_s_remove_node@arg.0_0
+      __CPROVER_file_local_priority_queue_c_s_remove_node@arg.2_0
+      @.str.1_0
+      @.str.2_0)
+    (__CPROVER_file_local_priority_queue_c_s_remove_node
+      true
+      false
+      false
+      __CPROVER_file_local_priority_queue_c_s_remove_node@%sm3_0
+      __CPROVER_file_local_priority_queue_c_s_remove_node@%sm4_0
+      __CPROVER_file_local_priority_queue_c_s_remove_node@%shadow.mem.0.1_0
+      __CPROVER_file_local_priority_queue_c_s_remove_node@%sm5_0
+      __CPROVER_file_local_priority_queue_c_s_remove_node@%shadow.mem.45.0_0
+      __CPROVER_file_local_priority_queue_c_s_remove_node@arg.0_0
+      __CPROVER_file_local_priority_queue_c_s_remove_node@arg.2_0
+      @.str.1_0
+      @.str.2_0)))
+(rule (aws_array_list_get_at
+  true
+  true
+  true
+  aws_array_list_get_at@%sm1_0
+  aws_array_list_get_at@%sm2_0
+  aws_array_list_get_at@%sm3_0
+  aws_array_list_get_at@%shadow.mem.67.0_0
+  aws_array_list_get_at@arg.0_0
+  aws_array_list_get_at@arg.2_0
+  @.str.1_0
+  @.str.2_0
+  aws_array_list_get_at@%.0_0))
+(rule (aws_array_list_get_at
+  false
+  true
+  true
+  aws_array_list_get_at@%sm1_0
+  aws_array_list_get_at@%sm2_0
+  aws_array_list_get_at@%sm3_0
+  aws_array_list_get_at@%shadow.mem.67.0_0
+  aws_array_list_get_at@arg.0_0
+  aws_array_list_get_at@arg.2_0
+  @.str.1_0
+  @.str.2_0
+  aws_array_list_get_at@%.0_0))
+(rule (aws_array_list_get_at
+  false
+  false
+  false
+  aws_array_list_get_at@%sm1_0
+  aws_array_list_get_at@%sm2_0
+  aws_array_list_get_at@%sm3_0
+  aws_array_list_get_at@%shadow.mem.67.0_0
+  aws_array_list_get_at@arg.0_0
+  aws_array_list_get_at@arg.2_0
+  @.str.1_0
+  @.str.2_0
+  aws_array_list_get_at@%.0_0))
+(rule (aws_array_list_get_at@_sm1
+  @.str.1_0
+  @.str.2_0
+  aws_array_list_get_at@%sm1_0
+  aws_array_list_get_at@%sm2_0
+  aws_array_list_get_at@%sm3_0
+  aws_array_list_get_at@arg.0_0
+  aws_array_list_get_at@arg.2_0))
+(rule (let ((a!1 (= aws_array_list_get_at@%_call_0
+              (+ (+ aws_array_list_get_at@arg.0_0 (* 0 20)) 8)))
+      (a!2 (= aws_array_list_get_at@%_call4_0
+              (+ (+ aws_array_list_get_at@arg.0_0 (* 0 20)) 16))))
+(let ((a!3 (and (aws_array_list_get_at@_sm1
+                  @.str.1_0
+                  @.str.2_0
+                  aws_array_list_get_at@%sm1_0
+                  aws_array_list_get_at@%sm2_0
+                  aws_array_list_get_at@%sm3_0
+                  aws_array_list_get_at@arg.0_0
+                  aws_array_list_get_at@arg.2_0)
+                true
+                a!1
+                (or (<= aws_array_list_get_at@arg.0_0 0)
+                    (> aws_array_list_get_at@%_call_0 0))
+                (> aws_array_list_get_at@arg.0_0 0)
+                (= aws_array_list_get_at@%_6_0
+                   (select aws_array_list_get_at@%sm2_0
+                           aws_array_list_get_at@%_call_0))
+                (= aws_array_list_get_at@%_br_0
+                   (= aws_array_list_get_at@%_6_0 0))
+                (=> aws_array_list_get_at@_8_0
+                    (and aws_array_list_get_at@_8_0
+                         aws_array_list_get_at@_sm1_0))
+                (=> (and aws_array_list_get_at@_8_0
+                         aws_array_list_get_at@_sm1_0)
+                    (not aws_array_list_get_at@%_br_0))
+                (=> aws_array_list_get_at@_8_0 a!2)
+                (=> aws_array_list_get_at@_8_0
+                    (or (<= aws_array_list_get_at@arg.0_0 0)
+                        (> aws_array_list_get_at@%_call4_0 0)))
+                (=> aws_array_list_get_at@_8_0
+                    (> aws_array_list_get_at@arg.0_0 0))
+                (=> aws_array_list_get_at@_8_0
+                    (= aws_array_list_get_at@%_10_0
+                       (select aws_array_list_get_at@%sm2_0
+                               aws_array_list_get_at@%_call4_0)))
+                (=> aws_array_list_get_at@_8_0
+                    (= aws_array_list_get_at@%_br5_0
+                       (= aws_array_list_get_at@%_10_0 0)))
+                (=> aws_array_list_get_at@_12_0
+                    (and aws_array_list_get_at@_12_0 aws_array_list_get_at@_8_0))
+                (=> (and aws_array_list_get_at@_12_0 aws_array_list_get_at@_8_0)
+                    aws_array_list_get_at@%_br5_0)
+                aws_array_list_get_at@_12_0
+                (= aws_array_list_get_at@%_13_0 (+ @.str.1_0 (* 0 28) (* 0 1)))
+                (or (<= @.str.1_0 0) (> aws_array_list_get_at@%_13_0 0))
+                (= aws_array_list_get_at@%_tail_0
+                   (+ @.str.2_0 (* 0 52) (* 0 1)))
+                (or (<= @.str.2_0 0) (> aws_array_list_get_at@%_tail_0 0)))))
+  (=> a!3
+      (aws_array_list_get_at@_12
+        @.str.1_0
+        @.str.2_0
+        aws_array_list_get_at@%sm1_0
+        aws_array_list_get_at@%sm2_0
+        aws_array_list_get_at@%sm3_0
+        aws_array_list_get_at@arg.0_0
+        aws_array_list_get_at@arg.2_0)))))
+(rule (let ((a!1 (= aws_array_list_get_at@%_call_0
+              (+ (+ aws_array_list_get_at@arg.0_0 (* 0 20)) 8)))
+      (a!2 (= aws_array_list_get_at@%_call4_0
+              (+ (+ aws_array_list_get_at@arg.0_0 (* 0 20)) 16)))
+      (a!3 (= aws_array_list_get_at@%_br6_0
+              (ite (>= aws_array_list_get_at@arg.2_0 0)
+                   (ite (>= aws_array_list_get_at@%_6_0 0)
+                        (< aws_array_list_get_at@arg.2_0
+                           aws_array_list_get_at@%_6_0)
+                        true)
+                   (ite (< aws_array_list_get_at@%_6_0 0)
+                        (< aws_array_list_get_at@arg.2_0
+                           aws_array_list_get_at@%_6_0)
+                        false))))
+      (a!4 (= aws_array_list_get_at@%_call7_0
+              (+ (+ aws_array_list_get_at@arg.0_0 (* 0 20)) 16)))
+      (a!5 (= aws_array_list_get_at@%_call8_0
+              (+ (+ aws_array_list_get_at@arg.0_0 (* 0 20)) 12)))
+      (a!6 (=> aws_array_list_get_at@_16_0
+               (= aws_array_list_get_at@%_call9_0
+                  (+ aws_array_list_get_at@%_18_0
+                     (* aws_array_list_get_at@%_21_0 1))))))
+(let ((a!7 (and (aws_array_list_get_at@_sm1
+                  @.str.1_0
+                  @.str.2_0
+                  aws_array_list_get_at@%sm1_0
+                  aws_array_list_get_at@%sm2_0
+                  aws_array_list_get_at@%sm3_0
+                  aws_array_list_get_at@arg.0_0
+                  aws_array_list_get_at@arg.2_0)
+                true
+                a!1
+                (or (<= aws_array_list_get_at@arg.0_0 0)
+                    (> aws_array_list_get_at@%_call_0 0))
+                (> aws_array_list_get_at@arg.0_0 0)
+                (= aws_array_list_get_at@%_6_0
+                   (select aws_array_list_get_at@%sm2_0
+                           aws_array_list_get_at@%_call_0))
+                (= aws_array_list_get_at@%_br_0
+                   (= aws_array_list_get_at@%_6_0 0))
+                (=> aws_array_list_get_at@_8_0
+                    (and aws_array_list_get_at@_8_0
+                         aws_array_list_get_at@_sm1_0))
+                (=> (and aws_array_list_get_at@_8_0
+                         aws_array_list_get_at@_sm1_0)
+                    (not aws_array_list_get_at@%_br_0))
+                (=> aws_array_list_get_at@_8_0 a!2)
+                (=> aws_array_list_get_at@_8_0
+                    (or (<= aws_array_list_get_at@arg.0_0 0)
+                        (> aws_array_list_get_at@%_call4_0 0)))
+                (=> aws_array_list_get_at@_8_0
+                    (> aws_array_list_get_at@arg.0_0 0))
+                (=> aws_array_list_get_at@_8_0
+                    (= aws_array_list_get_at@%_10_0
+                       (select aws_array_list_get_at@%sm2_0
+                               aws_array_list_get_at@%_call4_0)))
+                (=> aws_array_list_get_at@_8_0
+                    (= aws_array_list_get_at@%_br5_0
+                       (= aws_array_list_get_at@%_10_0 0)))
+                (=> |tuple(aws_array_list_get_at@_sm1_0, aws_array_list_get_at@aws_array_list_length.exit_0)|
+                    aws_array_list_get_at@_sm1_0)
+                (=> |tuple(aws_array_list_get_at@_8_0, aws_array_list_get_at@aws_array_list_length.exit_0)|
+                    aws_array_list_get_at@_8_0)
+                (=> aws_array_list_get_at@aws_array_list_length.exit_0
+                    (or |tuple(aws_array_list_get_at@_sm1_0, aws_array_list_get_at@aws_array_list_length.exit_0)|
+                        |tuple(aws_array_list_get_at@_8_0, aws_array_list_get_at@aws_array_list_length.exit_0)|))
+                (=> |tuple(aws_array_list_get_at@_sm1_0, aws_array_list_get_at@aws_array_list_length.exit_0)|
+                    aws_array_list_get_at@%_br_0)
+                (=> |tuple(aws_array_list_get_at@_8_0, aws_array_list_get_at@aws_array_list_length.exit_0)|
+                    (not aws_array_list_get_at@%_br5_0))
+                (=> aws_array_list_get_at@aws_array_list_length.exit_0 a!3)
+                (=> aws_array_list_get_at@_tail10_0
+                    (and aws_array_list_get_at@_tail10_0
+                         aws_array_list_get_at@aws_array_list_length.exit_0))
+                (=> (and aws_array_list_get_at@_tail10_0
+                         aws_array_list_get_at@aws_array_list_length.exit_0)
+                    (not aws_array_list_get_at@%_br6_0))
+                (=> aws_array_list_get_at@_16_0
+                    (and aws_array_list_get_at@_16_0
+                         aws_array_list_get_at@aws_array_list_length.exit_0))
+                (=> (and aws_array_list_get_at@_16_0
+                         aws_array_list_get_at@aws_array_list_length.exit_0)
+                    aws_array_list_get_at@%_br6_0)
+                (=> aws_array_list_get_at@_16_0 a!4)
+                (=> aws_array_list_get_at@_16_0
+                    (or (<= aws_array_list_get_at@arg.0_0 0)
+                        (> aws_array_list_get_at@%_call7_0 0)))
+                (=> aws_array_list_get_at@_16_0
+                    (> aws_array_list_get_at@arg.0_0 0))
+                (=> aws_array_list_get_at@_16_0
+                    (= aws_array_list_get_at@%_18_0
+                       (select aws_array_list_get_at@%sm2_0
+                               aws_array_list_get_at@%_call7_0)))
+                (=> aws_array_list_get_at@_16_0 a!5)
+                (=> aws_array_list_get_at@_16_0
+                    (or (<= aws_array_list_get_at@arg.0_0 0)
+                        (> aws_array_list_get_at@%_call8_0 0)))
+                (=> aws_array_list_get_at@_16_0
+                    (> aws_array_list_get_at@arg.0_0 0))
+                (=> aws_array_list_get_at@_16_0
+                    (= aws_array_list_get_at@%_20_0
+                       (select aws_array_list_get_at@%sm2_0
+                               aws_array_list_get_at@%_call8_0)))
+                a!6
+                (=> aws_array_list_get_at@_16_0
+                    (or (<= aws_array_list_get_at@%_18_0 0)
+                        (> aws_array_list_get_at@%_call9_0 0)))
+                (=> aws_array_list_get_at@_shadow.mem.67.0_0
+                    (or (and aws_array_list_get_at@_shadow.mem.67.0_0
+                             aws_array_list_get_at@_tail10_0)
+                        (and aws_array_list_get_at@_shadow.mem.67.0_0
+                             aws_array_list_get_at@_16_0)))
+                (=> (and aws_array_list_get_at@_shadow.mem.67.0_0
+                         aws_array_list_get_at@_tail10_0)
+                    (= aws_array_list_get_at@%shadow.mem.67.0_0
+                       aws_array_list_get_at@%sm3_0))
+                (=> (and aws_array_list_get_at@_shadow.mem.67.0_0
+                         aws_array_list_get_at@_tail10_0)
+                    (= aws_array_list_get_at@%.0_0 (- 1)))
+                (=> (and aws_array_list_get_at@_shadow.mem.67.0_0
+                         aws_array_list_get_at@_16_0)
+                    (= aws_array_list_get_at@%shadow.mem.67.0_1
+                       aws_array_list_get_at@%sm_0))
+                (=> (and aws_array_list_get_at@_shadow.mem.67.0_0
+                         aws_array_list_get_at@_16_0)
+                    (= aws_array_list_get_at@%.0_1 0))
+                (=> (and aws_array_list_get_at@_shadow.mem.67.0_0
+                         aws_array_list_get_at@_tail10_0)
+                    (= aws_array_list_get_at@%shadow.mem.67.0_2
+                       aws_array_list_get_at@%shadow.mem.67.0_0))
+                (=> (and aws_array_list_get_at@_shadow.mem.67.0_0
+                         aws_array_list_get_at@_tail10_0)
+                    (= aws_array_list_get_at@%.0_2 aws_array_list_get_at@%.0_0))
+                (=> (and aws_array_list_get_at@_shadow.mem.67.0_0
+                         aws_array_list_get_at@_16_0)
+                    (= aws_array_list_get_at@%shadow.mem.67.0_2
+                       aws_array_list_get_at@%shadow.mem.67.0_1))
+                (=> (and aws_array_list_get_at@_shadow.mem.67.0_0
+                         aws_array_list_get_at@_16_0)
+                    (= aws_array_list_get_at@%.0_2 aws_array_list_get_at@%.0_1))
+                (=> aws_array_list_get_at@.split_0
+                    (and aws_array_list_get_at@.split_0
+                         aws_array_list_get_at@_shadow.mem.67.0_0))
+                aws_array_list_get_at@.split_0)))
+  (=> a!7
+      (aws_array_list_get_at@.split
+        @.str.1_0
+        @.str.2_0
+        aws_array_list_get_at@%sm1_0
+        aws_array_list_get_at@%sm2_0
+        aws_array_list_get_at@%sm3_0
+        aws_array_list_get_at@%shadow.mem.67.0_2
+        aws_array_list_get_at@%.0_2
+        aws_array_list_get_at@arg.0_0
+        aws_array_list_get_at@arg.2_0)))))
+(rule (=> (aws_array_list_get_at@.split
+      @.str.1_0
+      @.str.2_0
+      aws_array_list_get_at@%sm1_0
+      aws_array_list_get_at@%sm2_0
+      aws_array_list_get_at@%sm3_0
+      aws_array_list_get_at@%shadow.mem.67.0_0
+      aws_array_list_get_at@%.0_0
+      aws_array_list_get_at@arg.0_0
+      aws_array_list_get_at@arg.2_0)
+    (aws_array_list_get_at
+      true
+      false
+      false
+      aws_array_list_get_at@%sm1_0
+      aws_array_list_get_at@%sm2_0
+      aws_array_list_get_at@%sm3_0
+      aws_array_list_get_at@%shadow.mem.67.0_0
+      aws_array_list_get_at@arg.0_0
+      aws_array_list_get_at@arg.2_0
+      @.str.1_0
+      @.str.2_0
+      aws_array_list_get_at@%.0_0)))
+(rule (aws_array_list_length
+  true
+  true
+  true
+  aws_array_list_length@%sm_0
+  aws_array_list_length@arg.0_0
+  @.str.1_0
+  @.str.2_0
+  aws_array_list_length@%_4_0))
+(rule (aws_array_list_length
+  false
+  true
+  true
+  aws_array_list_length@%sm_0
+  aws_array_list_length@arg.0_0
+  @.str.1_0
+  @.str.2_0
+  aws_array_list_length@%_4_0))
+(rule (aws_array_list_length
+  false
+  false
+  false
+  aws_array_list_length@%sm_0
+  aws_array_list_length@arg.0_0
+  @.str.1_0
+  @.str.2_0
+  aws_array_list_length@%_4_0))
+(rule (aws_array_list_length@_sm
+  @.str.1_0
+  @.str.2_0
+  aws_array_list_length@%sm_0
+  aws_array_list_length@arg.0_0))
+(rule (let ((a!1 (= aws_array_list_length@%_call_0
+              (+ (+ aws_array_list_length@arg.0_0 (* 0 20)) 8)))
+      (a!2 (= aws_array_list_length@%_call1_0
+              (+ (+ aws_array_list_length@arg.0_0 (* 0 20)) 16))))
+(let ((a!3 (and (aws_array_list_length@_sm
+                  @.str.1_0
+                  @.str.2_0
+                  aws_array_list_length@%sm_0
+                  aws_array_list_length@arg.0_0)
+                true
+                a!1
+                (or (<= aws_array_list_length@arg.0_0 0)
+                    (> aws_array_list_length@%_call_0 0))
+                (> aws_array_list_length@arg.0_0 0)
+                (= aws_array_list_length@%_4_0
+                   (select aws_array_list_length@%sm_0
+                           aws_array_list_length@%_call_0))
+                (= aws_array_list_length@%_br_0
+                   (= aws_array_list_length@%_4_0 0))
+                (=> aws_array_list_length@_6_0
+                    (and aws_array_list_length@_6_0 aws_array_list_length@_sm_0))
+                (=> (and aws_array_list_length@_6_0 aws_array_list_length@_sm_0)
+                    (not aws_array_list_length@%_br_0))
+                (=> aws_array_list_length@_6_0 a!2)
+                (=> aws_array_list_length@_6_0
+                    (or (<= aws_array_list_length@arg.0_0 0)
+                        (> aws_array_list_length@%_call1_0 0)))
+                (=> aws_array_list_length@_6_0
+                    (> aws_array_list_length@arg.0_0 0))
+                (=> aws_array_list_length@_6_0
+                    (= aws_array_list_length@%_8_0
+                       (select aws_array_list_length@%sm_0
+                               aws_array_list_length@%_call1_0)))
+                (=> aws_array_list_length@_6_0
+                    (= aws_array_list_length@%_br2_0
+                       (= aws_array_list_length@%_8_0 0)))
+                (=> aws_array_list_length@_10_0
+                    (and aws_array_list_length@_10_0 aws_array_list_length@_6_0))
+                (=> (and aws_array_list_length@_10_0 aws_array_list_length@_6_0)
+                    aws_array_list_length@%_br2_0)
+                aws_array_list_length@_10_0
+                (= aws_array_list_length@%_11_0 (+ @.str.1_0 (* 0 28) (* 0 1)))
+                (or (<= @.str.1_0 0) (> aws_array_list_length@%_11_0 0))
+                (= aws_array_list_length@%_tail_0
+                   (+ @.str.2_0 (* 0 52) (* 0 1)))
+                (or (<= @.str.2_0 0) (> aws_array_list_length@%_tail_0 0)))))
+  (=> a!3
+      (aws_array_list_length@_10
+        @.str.1_0
+        @.str.2_0
+        aws_array_list_length@%sm_0
+        aws_array_list_length@arg.0_0)))))
+(rule (let ((a!1 (= aws_array_list_length@%_call_0
+              (+ (+ aws_array_list_length@arg.0_0 (* 0 20)) 8)))
+      (a!2 (= aws_array_list_length@%_call1_0
+              (+ (+ aws_array_list_length@arg.0_0 (* 0 20)) 16))))
+(let ((a!3 (and (aws_array_list_length@_sm
+                  @.str.1_0
+                  @.str.2_0
+                  aws_array_list_length@%sm_0
+                  aws_array_list_length@arg.0_0)
+                true
+                a!1
+                (or (<= aws_array_list_length@arg.0_0 0)
+                    (> aws_array_list_length@%_call_0 0))
+                (> aws_array_list_length@arg.0_0 0)
+                (= aws_array_list_length@%_4_0
+                   (select aws_array_list_length@%sm_0
+                           aws_array_list_length@%_call_0))
+                (= aws_array_list_length@%_br_0
+                   (= aws_array_list_length@%_4_0 0))
+                (=> aws_array_list_length@_6_0
+                    (and aws_array_list_length@_6_0 aws_array_list_length@_sm_0))
+                (=> (and aws_array_list_length@_6_0 aws_array_list_length@_sm_0)
+                    (not aws_array_list_length@%_br_0))
+                (=> aws_array_list_length@_6_0 a!2)
+                (=> aws_array_list_length@_6_0
+                    (or (<= aws_array_list_length@arg.0_0 0)
+                        (> aws_array_list_length@%_call1_0 0)))
+                (=> aws_array_list_length@_6_0
+                    (> aws_array_list_length@arg.0_0 0))
+                (=> aws_array_list_length@_6_0
+                    (= aws_array_list_length@%_8_0
+                       (select aws_array_list_length@%sm_0
+                               aws_array_list_length@%_call1_0)))
+                (=> aws_array_list_length@_6_0
+                    (= aws_array_list_length@%_br2_0
+                       (= aws_array_list_length@%_8_0 0)))
+                (=> |tuple(aws_array_list_length@_6_0, aws_array_list_length@_call3_0)|
+                    aws_array_list_length@_6_0)
+                (=> |tuple(aws_array_list_length@_sm_0, aws_array_list_length@_call3_0)|
+                    aws_array_list_length@_sm_0)
+                (=> aws_array_list_length@_call3_0
+                    (or |tuple(aws_array_list_length@_6_0, aws_array_list_length@_call3_0)|
+                        |tuple(aws_array_list_length@_sm_0, aws_array_list_length@_call3_0)|))
+                (=> |tuple(aws_array_list_length@_6_0, aws_array_list_length@_call3_0)|
+                    (not aws_array_list_length@%_br2_0))
+                (=> |tuple(aws_array_list_length@_sm_0, aws_array_list_length@_call3_0)|
+                    aws_array_list_length@%_br_0)
+                aws_array_list_length@_call3_0)))
+  (=> a!3
+      (aws_array_list_length@_call3
+        @.str.1_0
+        @.str.2_0
+        aws_array_list_length@%sm_0
+        aws_array_list_length@%_4_0
+        aws_array_list_length@arg.0_0)))))
+(rule (=> (aws_array_list_length@_call3
+      @.str.1_0
+      @.str.2_0
+      aws_array_list_length@%sm_0
+      aws_array_list_length@%_4_0
+      aws_array_list_length@arg.0_0)
+    (aws_array_list_length
+      true
+      false
+      false
+      aws_array_list_length@%sm_0
+      aws_array_list_length@arg.0_0
+      @.str.1_0
+      @.str.2_0
+      aws_array_list_length@%_4_0)))
+(rule (aws_raise_error true true true))
+(rule (aws_raise_error false true true))
+(rule (aws_raise_error false false false))
+(rule aws_raise_error@_tail)
+(rule (=> (and aws_raise_error@_tail
+         true
+         (=> aws_raise_error@.split_0
+             (and aws_raise_error@.split_0 aws_raise_error@_tail_0))
+         aws_raise_error@.split_0)
+    aws_raise_error@.split))
+(rule (=> aws_raise_error@.split (aws_raise_error true false false)))
+(rule (main@_sm4 main@%sm6_0 main@%sm11_0))
+(rule (=> (and (main@_sm4 main@%sm6_0 main@%sm11_0)
+         true
+         (= main@%sm_0 main@%sm6_0)
+         (= main@%sm1_0 main@%sm11_0)
+         (__CPROVER_file_local_priority_queue_c_s_remove_node
+           true
+           false
+           false
+           main@%sm4_0
+           main@%sm10_0
+           main@%sh_0
+           main@%sm12_0
+           main@%sh2_0
+           main@%_2_0
+           main@%_call_0
+           @.str.1_0
+           @.str.2_0)
+         (aws_array_list_get_at
+           true
+           false
+           false
+           main@%sm5_0
+           main@%sm7_0
+           main@%sm8_0
+           main@%sh3_0
+           main@%_5_0
+           main@%_call13_0
+           @.str.1_0
+           @.str.2_0
+           main@%_8_0)
+         (aws_array_list_length
+           true
+           false
+           false
+           main@%sm9_0
+           main@%_call14_0
+           @.str.1_0
+           @.str.2_0
+           main@%_10_0)
+         (aws_raise_error true false false)
+         (=> main@.split_0 (and main@.split_0 main@_sm4_0))
+         main@.split_0)
+    main@.split))
+(query main@.split)
+
