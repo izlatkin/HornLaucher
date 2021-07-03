@@ -269,7 +269,7 @@ if __name__ == '__main__':
     #     print(f)
     #     print(get_dependencies_list(f))
     #ifiles = ["/tmp/aws-c-common/verification/cbmc/proofs/aws_string_new_from_array/aws_string_new_from_array_harness.c"]
-    run_sea_smt(files)
+    run_sea_smt(files[:2])
     out = pickle.load(open("save_aws.p", "rb"))
     stat = print_statistics(out)
     ReportBuilder.html_report.buildReport(OUTPUT_DIR, stat)
