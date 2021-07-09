@@ -11,6 +11,10 @@ Requirement
 
 * `Pyhton 3.7 or later`
 * `Z3`
+* `lcov ?? check version`
+* `gcc with coverage`
+* `seahorn https://github.com/seahorn/seahorn`
+* `find out the list of dependancies`
 
 Run
 ===
