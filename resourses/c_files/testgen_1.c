@@ -3,18 +3,26 @@
 //
 // Created by Ilya Zlatkin on 05.07.2021.
 //
-//[0,4,-4],[10,4,5]
+//[2,0,-1],[10,4,5],[2,0,-1]
 int main() {
-    int x = 10;
-    int y = 4;
-    int z = 5;
-    while (x < y) {
-        if (x > z)
-            x--;
+    int x = 2;
+    int y = 0;
+    int z = -1;
+    while (1) {
+        if (x + y >= 5)
+            y ++;
         else
-            y++;
-        if (x + y == -z)
-            break;
+            x ++;
+        if (y <= 5) {
+            z++;
+            y--;
+        }else
+        if (x > y)
+            y ++; // this is unreachable
+        else
+            x = 0;
+        if (z == 0)
+            break ;
         printf("%d\n",1);
     }
 }

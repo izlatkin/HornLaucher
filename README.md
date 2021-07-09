@@ -14,6 +14,7 @@ Requirement
 * `lcov ?? check version`
 * `gcc with coverage`
 * `seahorn https://github.com/seahorn/seahorn`
+* `genhtml`
 * `find out the list of dependancies`
 
 Run
