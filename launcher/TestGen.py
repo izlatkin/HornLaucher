@@ -12,6 +12,8 @@ OUTPUT_DIR = "../sandbox"
 Z3_PATH = "/Users/ilyazlatkin/CLionProjects/seahorn/build/run/bin/z3"
 Z3_TIMEOUT = 60
 SEA_TIMEOUT = 30
+GCC = "gcc"
+LCOV = "lcov"
 
 
 def get_cfiles_with_conditions():
@@ -163,11 +165,48 @@ def update_line(s):
             print(out)
         return out
 
+def update_line_with_testcase(s):
+    # case:  int x = 10;
+    # count # of '='
+    # if #= == 1
+    # find position of '=' and ';'
+    # else
+    print(s)
+    count = s.count("=")
+    print(count)
+    if (count == 1):
+        eq_index = s.index('=')
+        left = s.rindex(' ', 0, eq_index - 1)
+        var = s[left: eq_index].strip()
+        new_value = str(testcase.pop(0))
+        print(var + ' = ' + new_value)
+        #var_file.write(var + ' = ' + new_value + '\n')
+        out = s[:eq_index + 1] + " " + new_value + ';'
+        print(out)
+        return out
+    else:
+        # start = s.index('=')
+        tmp = 1
+        out = s
+        for i in range(1, count + 1):
+            print(i)
+            start = out.index('=', tmp - 1)
+            eq_index = out.index('=', start - 1)
+            left = get_left_splitter(out, eq_index)
+            var = out[left: eq_index].strip()
+            new_value = str(testcase.pop(0))
+            print(var + ' = ' + new_value)
+            #var_file.write(var + ' = ' + new_value + '\n')
+            splitter = get_right_splitter(out, start)
+            tmp = len(out[:eq_index + 1] + " " + new_value)
+            out = out[:eq_index + 1] + " " + new_value + out[splitter:]
+            print(out)
+        return out
 
 def update_c_file(f):
     vars = os.path.dirname(f) + '/vars.txt'
     global var_file
-    var_file = open(vars,"w")
+    var_file = open(vars, "w")
     var_file.writelines([f+'\n'])
     line_main = get_line(f, "int main(")
     line_cycle_begins = get_line(f, "while")
@@ -184,6 +223,21 @@ def update_c_file(f):
     var_file.close()
 
 
+def update_c_file_with_testdata(f):
+    line_main = get_line(f, "int main(")
+    line_cycle_begins = get_line(f, "while")
+    list_of_int_variables = get_int_variables_list(f, line_main, line_cycle_begins)
+
+    a_file = open(f, "r")
+    list_of_lines = a_file.readlines()
+    for i in list_of_int_variables:
+        list_of_lines[i] = update_line_with_testcase(list_of_lines[i]) + '\n' #"Test\n"
+
+    a_file = open(f, "w")
+    a_file.writelines(list_of_lines)
+    a_file.close()
+
+
 def update_c_files(files):
     print("========update_c_files===========")
     for f in files:
@@ -192,6 +246,7 @@ def update_c_files(files):
 
 
 def command_executer(command, timeout, content):
+    print("command: {}".format(str(command)))
     try:
         responce = subprocess.run(command,
                                  stdout=subprocess.PIPE,
@@ -228,6 +283,73 @@ def convert_c_to_smt(files):
         to_smt(f)
 
 
+def gather_coverage_old(new_file):
+    #compile //example: gcc -O0 --coverage main.c -o test-coverage
+    basename = os.path.basename(new_file)
+    exe_file = os.path.dirname(new_file) + "/" + os.path.splitext(basename)[0]
+    print(exe_file)
+    #'-fprofile-dir', os.path.dirname(new_file),
+    command = ['rm','-f', '*.gcno', '*.gcda']
+    content = []
+    command_executer(command, 60, content)
+    command = [GCC, '-O0', '--coverage',new_file, '-o', exe_file]
+    command_executer(command, 60, content)
+    command = ['./' + exe_file]
+    command_executer(command, 60, content)
+    command = ['./' + exe_file, '\"SecondParam for complete branch testing\"']
+    command_executer(command, 60, content)
+    # example: lcov --capture --rc lcov_branch_coverage=1 --directory .
+    # --config-file ./lcovrc --output coverage.info
+    command = [LCOV, '--capture', '--rc', 'lcov_branch_coverage=1', '--directory',
+               os.path.dirname(new_file), '--config-file', '../lcovrc',
+               '--output', os.path.dirname(new_file) + "/coverage.info"]
+    command_executer(command, 60, content)
+
+
+def gather_coverage(new_file):
+    #compile //example: gcc -O0 --coverage main.c -o test-coverage
+    basename = os.path.basename(new_file)
+    exe_file = os.path.dirname(new_file) + "/" + os.path.splitext(basename)[0]
+    shutil.copyfile("../Makefile", os.path.dirname(new_file) + "/Makefile")
+    save = os.getcwd()
+    os.chdir(os.path.dirname(new_file))
+    command = ['make']
+    content = []
+    command_executer(command, 60, content)
+    os.chdir(save)
+
+
+def stub_generate_testcases():
+    stub = open("testdata.txt", "r")
+    testdata = stub.readlines()
+    filename = "/tmp/test"
+    for i in testdata:
+        print(os.path.isfile(i.strip()))
+        if (os.path.isfile(i.strip())):
+            testcase_number = 1
+            filename = i.strip()
+            print("a file: {}".format(filename))
+        else:
+            print('a testcase_{}: {}'.format(testcase_number, i))
+            #create subdir
+            subdir = os.path.dirname(filename) + "/" + str(testcase_number)
+            if(os.path.exists(subdir)):
+                shutil.rmtree(subdir)
+            os.mkdir(subdir)
+            #copy file to testcase subdir
+            #new_file = subdir + "/" + os.path.basename(filename)
+            new_file = subdir + "/Main.c"
+            shutil.copyfile(filename, new_file)
+            #update c_file
+            global testcase
+            testcase = i.strip().split(",")
+            print(testcase)
+            update_c_file_with_testdata(new_file)
+            #generate coverage
+            gather_coverage(new_file)
+            testcase_number += 1
+
+
 if __name__ == '__main__':
     print('=== TestGen ===')
     # 1. Init Variable (+)
@@ -247,4 +369,6 @@ if __name__ == '__main__':
     # 6. Implemented by Wesley Harris, Grigory Fedyukovich - provides set of test values
     # 7. Generate .c file for each of this values
     # 8. Compile this .c and run it with coverage
-    # 9. Merge all coverage 
+    stub_generate_testcases()
+    # 9. Merge all coverage
+    # 10 Build Report like ReportBuilder.html_report

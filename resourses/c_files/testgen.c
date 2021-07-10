@@ -4,9 +4,9 @@
 //[1234,0,-5],[2,0,-1],[0,4,-4]
 #include <stdlib.h>
 int main() {
-    int x = 0;
-    int y = 4;
-    int z = -4;
+    int x = 10;
+    int y = 40;
+    int z = -40;
     while (1) {
         if (x >= 5)
             y ++;

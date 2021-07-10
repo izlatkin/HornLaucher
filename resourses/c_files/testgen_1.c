@@ -5,9 +5,9 @@
 //
 //[2,0,-1],[10,4,5],[2,0,-1]
 int main() {
-    int x = 2;
-    int y = 0;
-    int z = -1;
+    int x = 20;
+    int y = 10;
+    int z = -10;
     while (1) {
         if (x + y >= 5)
             y ++;
