@@ -1,0 +1,4 @@
+../sandbox/testgen/testgen.c
+x = 84601
+y = 61834
+z = 92790
