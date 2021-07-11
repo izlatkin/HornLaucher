@@ -2,10 +2,13 @@
 1234,0,-5
 2,0,-1
 0,4,-4
+break
 ../sandbox/testgen_1/testgen_1.c
 2,0,-1
 10,3,-2
 2,0,-1
+break
 ../sandbox/testgen_2/testgen_2.c
 0,2,1,2,4
 1,2,-1,2,2
+break

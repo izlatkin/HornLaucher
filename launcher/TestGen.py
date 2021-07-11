@@ -5,6 +5,8 @@ import shutil
 import subprocess
 from multiprocessing import process
 
+from launcher.CoverageUtil import CoverageUtil
+
 SOURCE_PATH = "../resourses/c_files"
 SEA_PATH = "/Users/ilyazlatkin/CLionProjects/seahorn/build/run/bin/sea"
 SEA_OPTIONS = []
@@ -329,6 +331,27 @@ def stub_generate_testcases():
             testcase_number = 1
             filename = i.strip()
             print("a file: {}".format(filename))
+        elif ("break" in i):
+            dir = os.path.dirname(filename)
+            print("build summery report: {}".format(dir))
+            covs = [dir + '/' + str(i) + '/coverage.info' for i in range(1, testcase_number)]
+            print(covs)
+            result = CoverageUtil.merge(covs)
+            #change dir to dir
+            save = os.getcwd()
+            os.chdir(dir)
+            #make new dir summary
+            os.mkdir('summary')
+            #write file to summary dir
+            summary_file = open('summary/summary_coverage.info', "w")
+            summary_file.writelines(result)
+            summary_file.close()
+            #write coverage command:
+            #genhtml --branch-coverage --output ./generated-coverage/ coverage.info
+            os.chdir('summary')
+            command = ['genhtml','--branch-coverage','--output','./generated-coverage/', 'summary_coverage.info']
+            command_executer(command, 30, [])
+            os.chdir(save)
         else:
             print('a testcase_{}: {}'.format(testcase_number, i))
             #create subdir
