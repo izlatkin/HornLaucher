@@ -1,6 +1,7 @@
 class CoverageUtil:
 
     def merge(files):
+        #ToDo: add line coverage support
         if (len(files) == 0):
             return 0
         covs = [open(f, "r").readlines() for f in files]

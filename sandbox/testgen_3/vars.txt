@@ -1,0 +1,3 @@
+../sandbox/testgen_3/testgen_3.c
+x = 32390
+y = 55031

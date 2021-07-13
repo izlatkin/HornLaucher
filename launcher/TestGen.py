@@ -56,7 +56,6 @@ def get_int_variables_list(f, line_main, line_cycle_begins):
     # ToDo int char variable;
     # ToDo int a=3, b=9, c, N
     int_vars = []
-    #pattern = "[ \t]+(int)[ \t]+"
     pattern ="^\s*(?!return |typedef )((\w+\s*\*?\s+)+)+(\w+)(\[\w*\])?(\s*=|;)"
     file = open(f, "r", encoding='ISO-8859-1')
     lines_to_check = file.readlines()[line_main:line_cycle_begins - 1]
@@ -68,7 +67,6 @@ def get_int_variables_list(f, line_main, line_cycle_begins):
             print("not match")
     print(int_vars)
     return int_vars
-
 
 
 def get_line(f, exp):
@@ -90,11 +88,9 @@ def move_to_sandbox(files):
         print('clear output directory {}'.format(OUTPUT_DIR))
         shutil.rmtree(OUTPUT_DIR)
         os.mkdir(OUTPUT_DIR)
-
     new_file_list = []
-
     for f in files:
-        # create subdir
+        # create subdir for each .c file
         print('filename: {}'.format(f))
         basename = os.path.basename(f)
         name_wo_ext = os.path.splitext(basename)[0]
@@ -102,11 +98,10 @@ def move_to_sandbox(files):
         subdir = OUTPUT_DIR + "/" + name_wo_ext
         print(subdir)
         os.mkdir(subdir)
-        #copy file to individual sandbox
+        # copy file to individual sandbox
         new_file = subdir + "/" + basename
         shutil.copyfile(f, new_file)
         new_file_list.append(new_file)
-
     return new_file_list
 
 
@@ -213,12 +208,10 @@ def update_c_file(f):
     line_main = get_line(f, "int main(")
     line_cycle_begins = get_line(f, "while")
     list_of_int_variables = get_int_variables_list(f, line_main, line_cycle_begins)
-
     a_file = open(f, "r")
     list_of_lines = a_file.readlines()
     for i in list_of_int_variables:
-        list_of_lines[i] = update_line(list_of_lines[i]) + '\n' #"Test\n"
-
+        list_of_lines[i] = update_line(list_of_lines[i]) + '\n'
     a_file = open(f, "w")
     a_file.writelines(list_of_lines)
     a_file.close()
@@ -229,12 +222,10 @@ def update_c_file_with_testdata(f):
     line_main = get_line(f, "int main(")
     line_cycle_begins = get_line(f, "while")
     list_of_int_variables = get_int_variables_list(f, line_main, line_cycle_begins)
-
     a_file = open(f, "r")
     list_of_lines = a_file.readlines()
     for i in list_of_int_variables:
-        list_of_lines[i] = update_line_with_testcase(list_of_lines[i]) + '\n' #"Test\n"
-
+        list_of_lines[i] = update_line_with_testcase(list_of_lines[i]) + '\n'
     a_file = open(f, "w")
     a_file.writelines(list_of_lines)
     a_file.close()
@@ -262,10 +253,17 @@ def command_executer(command, timeout, content):
         process.kill()
         output, unused_err = process.communicate()
         raise subprocess.TimeoutExpired(process.args, SEA_TIMEOUT, output=output)
-        print("skipped", f)
+        print("[skipped] command {} was executed with error: {}". format(list_to_string(command)), unused_err)
+
+
+def list_to_string(lst):
+    out = ''
+    for item in lst:
+        out += ' ' + str(item)
+    return out
 
 def to_smt(f):
-    print('to_smt filename: {}'.format(f))
+    print('converting .c file to smt, filename: {}'.format(f))
     basename = os.path.basename(f)
     name_wo_ext = os.path.splitext(basename)[0]
     bc_file = os.path.dirname(f) + '/' + name_wo_ext + '.bc'
@@ -281,7 +279,6 @@ def to_smt(f):
 def convert_c_to_smt(files):
     print("========convert_c_to_smt===========")
     for f in files:
-        print("SeaHorn converting: {}".format(f))
         to_smt(f)
 
 
@@ -291,10 +288,10 @@ def gather_coverage_old(new_file):
     exe_file = os.path.dirname(new_file) + "/" + os.path.splitext(basename)[0]
     print(exe_file)
     #'-fprofile-dir', os.path.dirname(new_file),
-    command = ['rm','-f', '*.gcno', '*.gcda']
+    command = ['rm', '-f', '*.gcno', '*.gcda']
     content = []
     command_executer(command, 60, content)
-    command = [GCC, '-O0', '--coverage',new_file, '-o', exe_file]
+    command = [GCC, '-O0', '--coverage', new_file, '-o', exe_file]
     command_executer(command, 60, content)
     command = ['./' + exe_file]
     command_executer(command, 60, content)

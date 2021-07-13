@@ -4,12 +4,12 @@
 //[0,2,1,2,4],[1,2,-1,2,2]
 #include <stdlib.h>
 int main() {
-    int x = 58275;
+    int x = 58526;
     int p ; // should be ignore
     //just comment line
-    int y = 10680;
-    int z = 69004;
-    int a= 98623, b= 96005, c, N; // should be a problem
+    int y = 4368;
+    int z = 211;
+    int a= 4946, b= 7724, c, N; // should be a problem
 
     while (1) {
         if (c + b == y + z){

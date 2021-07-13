@@ -81,9 +81,9 @@
          true
          (=> main@_.03_0 (and main@_.03_0 main@empty.loop_0))
          (=> (and main@_.03_0 main@empty.loop_0) (not main@%nd.loop.cond_0))
-         (=> (and main@_.03_0 main@empty.loop_0) (= main@%.03_0 66743))
-         (=> (and main@_.03_0 main@empty.loop_0) (= main@%.01_0 88947))
-         (=> (and main@_.03_0 main@empty.loop_0) (= main@%.0_0 1835))
+         (=> (and main@_.03_0 main@empty.loop_0) (= main@%.03_0 54745))
+         (=> (and main@_.03_0 main@empty.loop_0) (= main@%.01_0 51067))
+         (=> (and main@_.03_0 main@empty.loop_0) (= main@%.0_0 50115))
          (=> (and main@_.03_0 main@empty.loop_0) (= main@%.03_1 main@%.03_0))
          (=> (and main@_.03_0 main@empty.loop_0) (= main@%.01_1 main@%.01_0))
          (=> (and main@_.03_0 main@empty.loop_0) (= main@%.0_1 main@%.0_0))
