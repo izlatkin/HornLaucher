@@ -1,3 +1,0 @@
-../sandbox/testgen_4/testgen_4.c
-x = 16412
-y = 1856
