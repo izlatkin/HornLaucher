@@ -1,13 +1,13 @@
 int main( ) {
-    int x = 22580;
-    int y = 43495;
+    int x = 16412;
+    int y = 1856;
     while (1) {
         if (x >= 5){
             y ++;
+            break;
             }
         else{
             x ++;
-            break;
         }
     }
     return 0;

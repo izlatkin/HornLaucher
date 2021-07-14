@@ -4,10 +4,10 @@ int main( ) {
     while (1) {
         if (x >= 5){
             y ++;
+            break;
             }
         else{
             x ++;
-            break;
         }
     }
     return 0;

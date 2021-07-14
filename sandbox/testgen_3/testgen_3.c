@@ -1,6 +1,6 @@
 int main( ) {
-    int x = 7138;
-    int y = 56311;
+    int x = 95641;
+    int y = 77002;
     while (1) {
         if (x >= 5){
             y ++;
