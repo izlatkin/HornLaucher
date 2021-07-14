@@ -1,10 +1,11 @@
 int main( ) {
-    int x = 32390;
-    int y = 55031;
+    int x = 7138;
+    int y = 56311;
     while (1) {
-        if (x >= 5)
+        if (x >= 5){
             y ++;
             break;
+        }
     }
     return 0;
 }
