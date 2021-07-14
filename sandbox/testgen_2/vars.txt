@@ -1,0 +1,6 @@
+../sandbox/testgen_2/testgen_2.c
+x = 98844
+y = 79266
+z = 58672
+a = 9838
+b = 16319
