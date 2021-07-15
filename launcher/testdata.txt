@@ -12,3 +12,25 @@ break
 0,2,1,2,4
 1,2,-1,2,2
 break
+../sandbox/testgen_3/testgen_3.c
+0,10000
+5,9994
+10,9987
+-10,10000
+break
+../sandbox/testgen_4/testgen_4.c
+1,20
+break
+../sandbox/testgen_5/testgen_5.c
+5,20
+2,9997
+break
+../sandbox/testgen_6/testgen_6.c
+1,-5000
+9999,0
+break
+../sandbox/testgen_7/testgen_7.c
+3001,6998
+991, 9000
+1,9000
+break

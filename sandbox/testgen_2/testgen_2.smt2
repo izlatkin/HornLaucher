@@ -61,13 +61,13 @@
          true
          (= main@%_call_0 (= main@%loop.bound_0 0))
          main@%_call_0
-         (= main@%_4_0 (+ main@%_tail_0 16319))
-         (= main@%_br_0 (= main@%_4_0 137938))
+         (= main@%_4_0 (+ main@%_tail_0 41287))
+         (= main@%_br_0 (= main@%_4_0 87549))
          (=> main@.lr.ph_0 (and main@.lr.ph_0 main@_loop.bound_0))
          (=> (and main@.lr.ph_0 main@_loop.bound_0) (not main@%_br_0))
-         (=> (and main@.lr.ph_0 main@_loop.bound_0) (= main@%.04_0 58672))
-         (=> (and main@.lr.ph_0 main@_loop.bound_0) (= main@%.012_0 98844))
-         (=> (and main@.lr.ph_0 main@_loop.bound_0) (= main@%.031_0 79266))
+         (=> (and main@.lr.ph_0 main@_loop.bound_0) (= main@%.04_0 79664))
+         (=> (and main@.lr.ph_0 main@_loop.bound_0) (= main@%.012_0 48038))
+         (=> (and main@.lr.ph_0 main@_loop.bound_0) (= main@%.031_0 7885))
          (=> (and main@.lr.ph_0 main@_loop.bound_0) (= main@%.04_1 main@%.04_0))
          (=> (and main@.lr.ph_0 main@_loop.bound_0)
              (= main@%.012_1 main@%.012_0))
@@ -83,8 +83,8 @@
          true
          (= main@%_call_0 (= main@%loop.bound_0 0))
          main@%_call_0
-         (= main@%_4_0 (+ main@%_tail_0 16319))
-         (= main@%_br_0 (= main@%_4_0 137938))
+         (= main@%_4_0 (+ main@%_tail_0 41287))
+         (= main@%_br_0 (= main@%_4_0 87549))
          (=> main@._crit_edge_0 (and main@._crit_edge_0 main@_loop.bound_0))
          (=> (and main@._crit_edge_0 main@_loop.bound_0) main@%_br_0)
          main@._crit_edge_0)
