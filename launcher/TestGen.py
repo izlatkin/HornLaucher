@@ -5,7 +5,7 @@ import shutil
 import subprocess
 from multiprocessing import process
 
-from launcher.CoverageUtil import CoverageUtil
+from CoverageUtil import CoverageUtil
 
 SOURCE_PATH = "../resourses/c_files"
 SEA_PATH = "/Users/ilyazlatkin/CLionProjects/seahorn/build/run/bin/sea"
