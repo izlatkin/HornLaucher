@@ -19,11 +19,10 @@ Requirement
 
 Run
 ===
-* Edit `IncludeAdder.py` and modify `SOURCE_PATH=/path/to/repo` variable.
-* Run `python3 IncludeAdder.py` 
-* Check that `include/seahorn/seahorn.h` is created inside repository
-* Edit `SeaHornLauncher.py` and modify `SOURCE_PATH, SEA_PATH, Z3_PATH, OUTPUT_DIR` and other options if needed
-* Run `python3 SeaHornLauncher.py` => report should be created in `OUTPUT_DIR/1_html_report.html`
-
-
-
+* Download Docker Image `docker pull seahorn/seahorn-llvm10:nightly`
+* Creatre work directory `mkdir sandbox` 
+* Run docker with mount option `docker run --rm -it --mount type=bind,source=${PATH_TO_SB}/sandbox,target=/app \
+seahorn/seahorn-llvm10:nightly` 
+* Upload dependencies `pip install -r requirements.txt` (TBD)
+* Edit `TestGen.py` and modify `SOURCE_PATH, SEA_PATH, Z3_PATH, OUTPUT_DIR` and other options if needed
+* Run `python3 TestGen.py` => report should be created in `OUTPUT_DIR/1/summary`

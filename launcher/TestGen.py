@@ -256,6 +256,19 @@ def command_executer(command, timeout, content):
         print("[skipped] command {} was executed with error: {}". format(list_to_string(command)), unused_err)
 
 
+def docker_command_executer(command):
+    #print("command: {}".format(list_to_string(command)))
+    try:
+        process = subprocess.Popen(command, stdout=subprocess.PIPE)
+        output, error = process.communicate()
+    except subprocess.TimeoutExpired:
+        process.kill()
+        output, unused_err = process.communicate()
+        raise subprocess.TimeoutExpired(process.args, SEA_TIMEOUT, output=output)
+        print("[skipped] command {} was executed with error: {}". format(list_to_string(command)), unused_err)
+
+
+
 def list_to_string(lst):
     out = ''
     for item in lst:
@@ -276,10 +289,39 @@ def to_smt(f):
     command_executer(command, SEA_TIMEOUT, content)
 
 
+def to_smt_docker(f):
+    print('converting .c file to smt, filename: {}'.format(f))
+    # docker exec \
+    # `docker ps --format "table {{.Names}}" -f ancestor=seahorn/seahorn-llvm10:nightly | tail -1` \
+    # bash -c "cd /app; sea fe testgen.c -o test.bc; sea --horn-no-verif horn test.bc -o test.smt2"
+    basename = os.path.basename(f)
+    name_wo_ext = os.path.splitext(basename)[0]
+    ff = '/app/' + name_wo_ext + '/' + name_wo_ext + '.c'
+    bc_file = '/app/' + name_wo_ext + '/' + name_wo_ext + '.bc'
+    smt_file = '/app/' + name_wo_ext + '/' + name_wo_ext + '.smt2'
+    #docker_command = 'docker exec `docker ps --format "table {{.Names}}" -f ancestor=seahorn/seahorn-llvm10:nightly | tail -1` bash -c "cd /app;'
+    docker_image_name = str(subprocess.check_output(
+        'docker ps --format "table {{.Names}}" -f ancestor=seahorn/seahorn-llvm10:nightly | tail -1',
+        shell=True).strip())[2:-1]
+    docker_sea_command = ['cd /app;','sea', 'fe', ff, '-o', bc_file, ';', 'sea', '--horn-no-verif', 'horn', bc_file, '-o', smt_file]
+    docker_command = ['docker', 'exec', docker_image_name, 'bash', '-c', list_to_string(docker_sea_command)]
+    #command = docker_command + [list_to_string(docker_sea_command)]
+    print(docker_command)
+    #print(list_to_string(command))
+    content = []
+    # ToDo: add content to log.txt file
+    #command_executer(command, SEA_TIMEOUT, content)
+    #docker_command_executer(command)
+    subprocess.check_output(docker_command)
+
+
+
 def convert_c_to_smt(files):
     print("========convert_c_to_smt===========")
     for f in files:
-        to_smt(f)
+        to_smt_docker(f)
+        #to_smt(f)
+
 
 
 def gather_coverage_old(new_file):

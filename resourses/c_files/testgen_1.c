@@ -1,4 +1,4 @@
-#include <printf.h>
+//#include <printf.h>
 
 //
 // Created by Ilya Zlatkin on 05.07.2021.
@@ -23,6 +23,6 @@ int main() {
             x = 0;
         if (z == 0)
             break ;
-        printf("%d\n",1);
+        //printf("%d\n",1);
     }
 }
