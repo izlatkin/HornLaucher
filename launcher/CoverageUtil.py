@@ -14,6 +14,7 @@ class CoverageUtil:
                 tmp = line.split(':')
                 tag = tmp[0]
                 data = tmp[1]
+
                 if (tag == 'BRDA'):
                     print('merge')
                     c = data.split(',')[-1]
@@ -34,12 +35,27 @@ class CoverageUtil:
                 elif (tag == 'BRH'):
                     print('summery')
                     result.append(tag + ":" + str(branch_number)+'\n')
+                elif (tag == 'DA'):
+                    sum_coverage = 0
+                    lc = data.split(',')
+                    if (is_int(lc[-1])):
+                        sum_coverage += int(lc[-1])
+                    for j in covs[1:]:
+                        if is_int(j[i].split(',')[-1]):
+                            sum_coverage += int(j[i].split(',')[-1])
+                    nl = 'DA:{},{}\n'.format(lc[0], sum_coverage)
+                    result.append(nl)
                 else:
                     print("add line")
                     result.append(line)
         return result
 
-
+def is_int(val):
+    try:
+        num = int(val)
+    except ValueError:
+        return False
+    return True
 
 
 
