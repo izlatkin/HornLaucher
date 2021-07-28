@@ -309,8 +309,8 @@ def command_executer(command, timeout, content):
     except subprocess.TimeoutExpired:
         process.kill()
         output, unused_err = process.communicate()
+        print("[skipped] command {} was executed with error: {}".format(list_to_string(command), unused_err))
         raise subprocess.TimeoutExpired(process.args, SEA_TIMEOUT, output=output)
-        print("[skipped] command {} was executed with error: {}". format(list_to_string(command)), unused_err)
 
 
 def docker_command_executer(command):
@@ -321,8 +321,8 @@ def docker_command_executer(command):
     except subprocess.TimeoutExpired:
         process.kill()
         output, unused_err = process.communicate()
+        print("[skipped] command {} was executed with error: {}".format(list_to_string(command), unused_err))
         raise subprocess.TimeoutExpired(process.args, SEA_TIMEOUT, output=output)
-        print("[skipped] command {} was executed with error: {}". format(list_to_string(command)), unused_err)
 
 
 
@@ -379,30 +379,6 @@ def convert_c_to_smt(files):
         #to_smt(f)
 
 
-
-def gather_coverage_old(new_file):
-    #compile //example: gcc -O0 --coverage main.c -o test-coverage
-    basename = os.path.basename(new_file)
-    exe_file = os.path.dirname(new_file) + "/" + os.path.splitext(basename)[0]
-    print(exe_file)
-    #'-fprofile-dir', os.path.dirname(new_file),
-    command = ['rm', '-f', '*.gcno', '*.gcda']
-    content = []
-    command_executer(command, 60, content)
-    command = [GCC, '-O0', '--coverage', new_file, '-o', exe_file]
-    command_executer(command, 60, content)
-    command = ['./' + exe_file]
-    command_executer(command, 60, content)
-    command = ['./' + exe_file, '\"SecondParam for complete branch testing\"']
-    command_executer(command, 60, content)
-    # example: lcov --capture --rc lcov_branch_coverage=1 --directory .
-    # --config-file ./lcovrc --output coverage.info
-    command = [LCOV, '--capture', '--rc', 'lcov_branch_coverage=1', '--directory',
-               os.path.dirname(new_file), '--config-file', '../lcovrc',
-               '--output', os.path.dirname(new_file) + "/coverage.info"]
-    command_executer(command, 60, content)
-
-
 def gather_coverage(new_file):
     #compile //example: gcc -O0 --coverage main.c -o test-coverage
     basename = os.path.basename(new_file)
@@ -417,55 +393,48 @@ def gather_coverage(new_file):
 
 
 def stub_generate_testcases():
-    stub = open("testdata.txt", "r")
-    testdata = stub.readlines()
-    filename = "/tmp/test"
-    for i in testdata:
-        print(os.path.isfile(i.strip()))
-        if (os.path.isfile(i.strip())):
-            testcase_number = 1
-            filename = i.strip()
-            print("a file: {}".format(filename))
-        elif ("break" in i):
-            dir = os.path.dirname(filename)
-            print("build summery report: {}".format(dir))
-            covs = [dir + '/' + str(i) + '/coverage.info' for i in range(1, testcase_number)]
-            print(covs)
-            result = CoverageUtil.merge(covs)
-            #change dir to dir
-            save = os.getcwd()
-            os.chdir(dir)
-            #make new dir summary
-            os.mkdir('summary')
-            #write file to summary dir
-            summary_file = open('summary/summary_coverage.info', "w")
-            summary_file.writelines(result)
-            summary_file.close()
-            #write coverage command:
-            #genhtml --branch-coverage --output ./generated-coverage/ coverage.info
-            os.chdir('summary')
-            command = ['genhtml','--branch-coverage','--output','./generated-coverage/', 'summary_coverage.info']
-            command_executer(command, 30, [])
-            os.chdir(save)
-        else:
-            print('a testcase_{}: {}'.format(testcase_number, i))
+    stub_path = "../stub"
+    lod = os.listdir(stub_path)
+    for sf in lod:
+        print("Test Run for: {}".format(sf))
+        test_header_list = [os.path.join(dp, f) for dp, dn, filenames in os.walk(stub_path + '/' + sf)
+                  for f in filenames if os.path.splitext(f)[1] == '.h']
+        print(test_header_list)
+        for i, test in enumerate(test_header_list):
+            print('testcase_{}: {}'.format(i, sf))
             #create subdir
-            subdir = os.path.dirname(filename) + "/" + str(testcase_number)
+            subdir = OUTPUT_DIR + "/" + sf + "/" + str(i + 1)
             if(os.path.exists(subdir)):
                 shutil.rmtree(subdir)
             os.mkdir(subdir)
-            #copy file to testcase subdir
-            #new_file = subdir + "/" + os.path.basename(filename)
-            new_file = subdir + "/Main.c"
-            shutil.copyfile(filename, new_file)
-            #update c_file
-            global testcase
-            testcase = i.strip().split(",")
-            print(testcase)
-            update_c_file_with_testdata(new_file)
-            #generate coverage
-            gather_coverage(new_file)
-            testcase_number += 1
+            #copy c file
+            new_c_file = subdir + "/Main.c"
+            shutil.copyfile(OUTPUT_DIR + "/" + sf + "/" + sf + '.c', new_c_file)
+            #copy h file
+            new_h_file = subdir + "/testgen.h"
+            shutil.copyfile(test, new_h_file)
+            gather_coverage(new_c_file)
+        # merge coverage for all runs in test_header_list
+        dir = OUTPUT_DIR + '/' + sf
+        print("build summery report: {}".format(dir))
+        covs = [OUTPUT_DIR +'/' + sf + '/' + str(i) + '/coverage.info' for i in range(1, 1 + len(test_header_list))]
+        print(covs)
+        result = CoverageUtil.merge(covs)
+        # change dir to dir
+        save = os.getcwd()
+        os.chdir(dir)
+        # make new dir summary
+        os.mkdir('summary')
+        # write file to summary dir
+        summary_file = open('summary/summary_coverage.info', "w")
+        summary_file.writelines(result)
+        summary_file.close()
+        # write coverage command:
+        # genhtml --branch-coverage --output ./generated-coverage/ coverage.info
+        os.chdir('summary')
+        command = ['genhtml', '--branch-coverage', '--output', './generated-coverage/', 'summary_coverage.info']
+        command_executer(command, 30, [])
+        os.chdir(save)
 
 
 if __name__ == '__main__':
@@ -487,6 +456,6 @@ if __name__ == '__main__':
     # 6. Implemented by Wesley Harris, Grigory Fedyukovich - provides set of test values
     # 7. Generate .c file for each of this values
     # 8. Compile this .c and run it with coverage
-    #stub_generate_testcases()
+    stub_generate_testcases()
     # 9. Merge all coverage
     # 10 Build Report like ReportBuilder.html_report
