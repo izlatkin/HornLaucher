@@ -237,6 +237,7 @@ def update_c_file(f):
     a_file = open(f, "w")
     a_file.writelines(list_of_lines)
     a_file.close()
+    var_file.writelines(','.join(str(e) for e in nondet_numbers))
     var_file.close()
     # generate testgen-template.h and testgen.h
     generate_testgen_header(f, nondet_numbers)
