@@ -1,5 +1,5 @@
 import os
-import random
+import hashlib
 import re
 import shutil
 import subprocess
@@ -11,11 +11,10 @@ SOURCE_PATH = "../resourses/c_files"
 SEA_PATH = "/Users/ilyazlatkin/CLionProjects/seahorn/build/run/bin/sea"
 SEA_OPTIONS = []
 OUTPUT_DIR = "../sandbox"
-Z3_PATH = "/Users/ilyazlatkin/CLionProjects/seahorn/build/run/bin/z3"
-Z3_TIMEOUT = 60
 SEA_TIMEOUT = 30
 GCC = "gcc"
 LCOV = "lcov"
+PYTHONHASHSEED = 0
 
 
 def get_cfiles_with_conditions():
@@ -43,6 +42,10 @@ def check_conditions(f):
         return False
     # ToDo develop method to find the end of while cycle
     # ToDo add "for" cycle support
+    verifier_nondet_int = get_line(f, "__VERIFIER_nondet_int", "extern int __VERIFIER_nondet_int()")
+    if (verifier_nondet_int == 0):
+        print("file: {} doesn't have input values (__VERIFIER_nondet_int) ".format(f))
+        return False
     list_of_int_variables = get_int_variables_list(f, line_main, line_cycle_begins)
     if (len(list_of_int_variables) == 0):
         return False
@@ -69,13 +72,19 @@ def get_int_variables_list(f, line_main, line_cycle_begins):
     return int_vars
 
 
-def get_line(f, exp):
+def get_line(f, exp, exclude_exp=None):
+    print("exclude exp: {} for file {} ".format(exclude_exp, f))
     index = -1
     file = open(f, "r", encoding='ISO-8859-1')
     for i, line in enumerate(file):
-        if exp in line:
-            index = i
-            break
+        if exclude_exp is None:
+            if exp in line:
+                index = i
+                break
+        else:
+            if exp in line and exclude_exp not in line:
+                index = i
+                break
     file.close()
     return index + 1
 
@@ -124,7 +133,18 @@ def get_right_splitter(s, start):
     semicolon_index = s.index(';', start - 1)
     return min(semicolon_index, comma_index)
 
-def update_line(s):
+
+def get_five_digit_hash(s):
+    #ToDo: replace to random when testgen will be ready.
+    # Now it is needed for stub, the value should be constant
+    #return abs(hash(s)) % (10 ** 8)
+    sum = 0
+    for i, c in enumerate(s):
+        sum += i * ord(c)
+    return sum % (10 ** 8)
+
+
+def update_line(s, line_number):
     # case:  int x = 10;
     # count # of '='
     # if #= == 1
@@ -137,7 +157,9 @@ def update_line(s):
         eq_index = s.index('=')
         left = s.rindex(' ', 0, eq_index - 1)
         var = s[left: eq_index].strip()
-        new_value = str(random.randrange(100000))
+        nondet_num = get_five_digit_hash(s[:eq_index] + str(line_number))
+        nondet_numbers.append(nondet_num)
+        new_value = "nondet_{}()".format(nondet_num)
         print(var + ' = ' + new_value)
         var_file.write(var + ' = ' + new_value + '\n')
         out = s[:eq_index + 1] + " " + new_value + ';'
@@ -153,7 +175,9 @@ def update_line(s):
             eq_index = out.index('=', start - 1)
             left = get_left_splitter(out, eq_index)
             var = out[left: eq_index].strip()
-            new_value = str(random.randrange(100000))
+            nondet_num = get_five_digit_hash(s[:eq_index] + str(line_number))
+            nondet_numbers.append(nondet_num)
+            new_value = "nondet_{}()".format(nondet_num)
             print(var + ' = ' + new_value)
             var_file.write(var + ' = ' + new_value + '\n')
             splitter = get_right_splitter(out, start)
@@ -200,9 +224,39 @@ def update_line_with_testcase(s):
             print(out)
         return out
 
+def generate_testgen_header(f, num):
+    fn = os.path.dirname(f) + '/testgen.h'
+    file = open(fn, "w")
+    #lines_to_write = ['int nondet(){return 42;}\n']
+    lines_to_write = ['extern int nondet(void);\n'] #ToDo check with is option as well
+    for i in num:
+        lines_to_write.append('int nondet_{}(){{\n return {} + nondet();\n}} \n'.format(i, i))
+    lines_to_write.append('\n')
+    file.writelines(lines_to_write)
+    file.close()
+
+
+def generate_testgen_template_header(f, num):
+    fn = os.path.dirname(f) + '/testgen-template.h'
+    file = open(fn, "w")
+    lines_to_write = []
+    for i in num:
+        lines_to_write.append("int cnt_{} = 0;\n".format(i))
+    lines_to_write.append('\n')
+    for i in num:
+        lines_to_write.append("static const int inp_{}[] = {{  }};\n".format(i))
+    lines_to_write.append('\n')
+    for i in num:
+        lines_to_write.append('const int nondet_{}(){{\n return inp_{}[cnt_{}++];\n}} \n'.format(i, i, i))
+    lines_to_write.append('\n')
+    file.writelines(lines_to_write)
+    file.close()
+
+
 def update_c_file(f):
     vars = os.path.dirname(f) + '/vars.txt'
-    global var_file
+    global var_file, nondet_numbers
+    nondet_numbers = []
     var_file = open(vars, "w")
     var_file.writelines([f+'\n'])
     line_main = get_line(f, "int main(")
@@ -211,11 +265,14 @@ def update_c_file(f):
     a_file = open(f, "r")
     list_of_lines = a_file.readlines()
     for i in list_of_int_variables:
-        list_of_lines[i] = update_line(list_of_lines[i]) + '\n'
+        list_of_lines[i] = update_line(list_of_lines[i], i) + '\n'
     a_file = open(f, "w")
     a_file.writelines(list_of_lines)
     a_file.close()
     var_file.close()
+    # generate testgen-template.h and testgen.h
+    generate_testgen_header(f, nondet_numbers)
+    generate_testgen_template_header(f, nondet_numbers)
 
 
 def update_c_file_with_testdata(f):
@@ -291,21 +348,16 @@ def to_smt(f):
 
 def to_smt_docker(f):
     print('converting .c file to smt, filename: {}'.format(f))
-    # docker exec \
-    # `docker ps --format "table {{.Names}}" -f ancestor=seahorn/seahorn-llvm10:nightly | tail -1` \
-    # bash -c "cd /app; sea fe testgen.c -o test.bc; sea --horn-no-verif horn test.bc -o test.smt2"
     basename = os.path.basename(f)
     name_wo_ext = os.path.splitext(basename)[0]
     ff = '/app/' + name_wo_ext + '/' + name_wo_ext + '.c'
-    bc_file = '/app/' + name_wo_ext + '/' + name_wo_ext + '.bc'
     smt_file = '/app/' + name_wo_ext + '/' + name_wo_ext + '.smt2'
     #docker_command = 'docker exec `docker ps --format "table {{.Names}}" -f ancestor=seahorn/seahorn-llvm10:nightly | tail -1` bash -c "cd /app;'
     docker_image_name = str(subprocess.check_output(
         'docker ps --format "table {{.Names}}" -f ancestor=seahorn/seahorn-llvm10:nightly | tail -1',
         shell=True).strip())[2:-1]
-    docker_sea_command = ['cd /app;','sea', 'fe', ff, '-o', bc_file, ';', 'sea', '--horn-no-verif', 'horn', bc_file, '-o', smt_file]
+    docker_sea_command = ['cd /app/{};'.format(name_wo_ext),'../smt_run.sh', ff, smt_file]
     docker_command = ['docker', 'exec', docker_image_name, 'bash', '-c', list_to_string(docker_sea_command)]
-    #command = docker_command + [list_to_string(docker_sea_command)]
     print(docker_command)
     #print(list_to_string(command))
     content = []
@@ -317,6 +369,10 @@ def to_smt_docker(f):
 
 
 def convert_c_to_smt(files):
+    #copy script
+    script_file = OUTPUT_DIR + '/smt_run.sh'
+    shutil.copyfile('../bash_scripts/smt_run.sh', script_file)
+    os.chmod(script_file, 0o777)
     print("========convert_c_to_smt===========")
     for f in files:
         to_smt_docker(f)
@@ -418,7 +474,7 @@ if __name__ == '__main__':
     # 2. Find all .c files for test gen (creatia:
     #       1. Has main method (+)
     #       2. Has while/for cycle (+/-)
-    #       3. Has int bofore it and inside(-?)
+    #       3. Has __VERIFIER_nondet_uint()
     files = get_cfiles_with_conditions()
     print(files)
     # 3. Move .c file to the specail sandbox
@@ -431,6 +487,6 @@ if __name__ == '__main__':
     # 6. Implemented by Wesley Harris, Grigory Fedyukovich - provides set of test values
     # 7. Generate .c file for each of this values
     # 8. Compile this .c and run it with coverage
-    stub_generate_testcases()
+    #stub_generate_testcases()
     # 9. Merge all coverage
     # 10 Build Report like ReportBuilder.html_report

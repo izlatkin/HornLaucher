@@ -4,14 +4,15 @@ int main( ) {
     int x = __VERIFIER_nondet_int();
     int y = __VERIFIER_nondet_int();
     while (1) {
-        if (x >= 5 || y == 0 && (x + y) % 2 == 1){
+        if (x > 1 || y > 2){
             y ++;
+        }else{
+            x++;
         }
-        if (x + y == 100000 || x + y == - 5000){
+        if (x > 10 || y > 20) {
             break;
         }
-         x++;
-
+        x++;
     }
     return 0;
 }

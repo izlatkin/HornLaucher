@@ -34,3 +34,9 @@ break
 991, 9000
 1,9000
 break
+../sandbox/testgen_8/testgen_8.c
+2,0
+0, 10
+-1,20
+0,0
+break

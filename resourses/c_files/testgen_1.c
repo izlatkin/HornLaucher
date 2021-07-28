@@ -1,3 +1,5 @@
+extern int __VERIFIER_nondet_int();
+#include "testgen.h"
 //#include <printf.h>
 
 //
@@ -5,9 +7,9 @@
 //
 //[2,0,-1],[10,4,5],[2,0,-1]
 int main() {
-    int x = 20;
-    int y = 10;
-    int z = -10;
+    int x = __VERIFIER_nondet_int();
+    int y = __VERIFIER_nondet_int();
+    int z = __VERIFIER_nondet_int();
     while (1) {
         if (x + y >= 5)
             y ++;

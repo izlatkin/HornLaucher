@@ -1,12 +1,13 @@
+extern int __VERIFIER_nondet_int();
+#include "testgen.h"
 //
 // Created by Ilya Zlatkin on 30.06.2021.
 //
 //[1234,0,-5],[2,0,-1],[0,4,-4]
-#include <stdlib.h>
 int main() {
-    int x = 10;
-    int y = 40;
-    int z = -40;
+    int x = __VERIFIER_nondet_int();
+    int y = __VERIFIER_nondet_int();
+    int z = __VERIFIER_nondet_int();
     while (1) {
         if (x >= 5)
             y ++;
