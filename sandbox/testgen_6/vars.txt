@@ -1,3 +1,0 @@
-../sandbox/testgen_6/testgen_6.c
-x = 90367
-y = 61802

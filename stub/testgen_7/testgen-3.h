@@ -1,13 +1,13 @@
-int cnt_3840 = 0;
-int cnt_3858 = 0;
+int cnt_4904 = 0;
+int cnt_4924 = 0;
 
-static const int inp_3840[] = { 1 };
-static const int inp_3858[] = { 9000 };
+static const int inp_4904[] = { 1 };
+static const int inp_4924[] = { 9000 };
 
-const int nondet_3840(){
- return inp_3840[cnt_3840++];
-} 
-const int nondet_3858(){
- return inp_3858[cnt_3858++];
+const int nondet_4904(){
+ return inp_4904[cnt_4904++];
+}
+const int nondet_4924(){
+ return inp_4924[cnt_4924++];
 } 
 

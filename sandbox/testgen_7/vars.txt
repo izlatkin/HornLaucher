@@ -1,3 +1,0 @@
-../sandbox/testgen_7/testgen_7.c
-x = 38629
-y = 51985

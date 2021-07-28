@@ -1,18 +1,17 @@
-int cnt_3880 = 0;
-int cnt_3898 = 0;
-int cnt_3916 = 0;
+int cnt_4952 = 0;
+int cnt_4972 = 0;
+int cnt_4992 = 0;
 
-static const int inp_3880[] = { 1234 };
-static const int inp_3898[] = { 0 };
-static const int inp_3916[] = { -5 };
+static const int inp_4952[] = { 1234 };
+static const int inp_4972[] = { 0 };
+static const int inp_4992[] = { -5 };
 
-const int nondet_3880(){
- return inp_3880[cnt_3880++];
-} 
-const int nondet_3898(){
- return inp_3898[cnt_3898++];
-} 
-const int nondet_3916(){
- return inp_3916[cnt_3916++];
-} 
-
+const int nondet_4952(){
+ return inp_4952[cnt_4952++];
+}
+const int nondet_4972(){
+ return inp_4972[cnt_4972++];
+}
+const int nondet_4992(){
+ return inp_4992[cnt_4992++];
+}

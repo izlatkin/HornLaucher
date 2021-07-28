@@ -1,28 +1,28 @@
-int cnt_3890 = 0;
-int cnt_4367 = 0;
-int cnt_4386 = 0;
-int cnt_3809 = 0;
-int cnt_36566 = 0;
+int cnt_4964 = 0;
+int cnt_5525 = 0;
+int cnt_8014 = 0;
+int cnt_4878 = 0;
+int cnt_31139 = 0;
 
-static const int inp_3890[] = { 0 };
-static const int inp_4367[] = { 2 };
-static const int inp_4386[] = { 1 };
-static const int inp_3809[] = { 2 };
-static const int inp_36566[] = { 4 };
+static const int inp_4964[] = { 0 };
+static const int inp_5525[] = { 2 };
+static const int inp_8014[] = { 1 };
+static const int inp_4878[] = { 2 };
+static const int inp_31139[] = { 4 };
 
-const int nondet_3890(){
- return inp_3890[cnt_3890++];
-} 
-const int nondet_4367(){
- return inp_4367[cnt_4367++];
-} 
-const int nondet_4386(){
- return inp_4386[cnt_4386++];
-} 
-const int nondet_3809(){
- return inp_3809[cnt_3809++];
-} 
-const int nondet_36566(){
- return inp_36566[cnt_36566++];
+const int nondet_4964(){
+ return inp_4964[cnt_4964++];
+}
+const int nondet_5525(){
+ return inp_5525[cnt_5525++];
+}
+const int nondet_8014(){
+ return inp_8014[cnt_8014++];
+}
+const int nondet_4878(){
+ return inp_4878[cnt_4878++];
+}
+const int nondet_31139(){
+ return inp_31139[cnt_31139++];
 } 
 

@@ -1,3 +1,0 @@
-../sandbox/testgen_5/testgen_5.c
-x = 10865
-y = 2390

@@ -46,22 +46,17 @@ def check_conditions(f):
     if (verifier_nondet_int == 0):
         print("file: {} doesn't have input values (__VERIFIER_nondet_int) ".format(f))
         return False
-    list_of_int_variables = get_int_variables_list(f, line_main, line_cycle_begins)
+    list_of_int_variables = get_nondet_lines(f, line_main)
     if (len(list_of_int_variables) == 0):
         return False
     return True
 
 
-def get_int_variables_list(f, line_main, line_cycle_begins):
-    # Done: int name = value;
-    # ToDo int i=0, j=0;
-    # ToDo int (*functionPtr)(int,int);
-    # ToDo int char variable;
-    # ToDo int a=3, b=9, c, N
+def get_nondet_lines(f, line_main):
     int_vars = []
-    pattern ="^\s*(?!return |typedef )((\w+\s*\*?\s+)+)+(\w+)(\[\w*\])?(\s*=|;)"
     file = open(f, "r", encoding='ISO-8859-1')
-    lines_to_check = file.readlines()[line_main:line_cycle_begins - 1]
+    lines_to_check = file.readlines()[line_main:]
+    pattern = "__VERIFIER_nondet_int"
     for i, line in enumerate(lines_to_check):
         if(re.search(pattern, line)):
             print("match, index = {}".format(i + line_main))
@@ -70,6 +65,7 @@ def get_int_variables_list(f, line_main, line_cycle_begins):
             print("not match")
     print(int_vars)
     return int_vars
+
 
 
 def get_line(f, exp, exclude_exp=None):
@@ -150,79 +146,52 @@ def update_line(s, line_number):
     # if #= == 1
     # find position of '=' and ';'
     # else
-    print(s)
-    count = s.count("=")
-    print(count)
-    if (count == 1):
-        eq_index = s.index('=')
-        left = s.rindex(' ', 0, eq_index - 1)
-        var = s[left: eq_index].strip()
-        nondet_num = get_five_digit_hash(s[:eq_index] + str(line_number))
+    tmp_line = s
+    verifier_nondet_int = '__VERIFIER_nondet_int()'
+    while (verifier_nondet_int in tmp_line):
+        eq_index = tmp_line.index(verifier_nondet_int)
+        nondet_num = get_five_digit_hash(tmp_line[:eq_index] + str(line_number))
         nondet_numbers.append(nondet_num)
         new_value = "nondet_{}()".format(nondet_num)
-        print(var + ' = ' + new_value)
-        var_file.write(var + ' = ' + new_value + '\n')
-        out = s[:eq_index + 1] + " " + new_value + ';'
-        print(out)
-        return out
-    else:
-        # start = s.index('=')
-        tmp = 1
-        out = s
-        for i in range(1, count + 1):
-            print(i)
-            start = out.index('=', tmp - 1)
-            eq_index = out.index('=', start - 1)
-            left = get_left_splitter(out, eq_index)
-            var = out[left: eq_index].strip()
-            nondet_num = get_five_digit_hash(s[:eq_index] + str(line_number))
-            nondet_numbers.append(nondet_num)
-            new_value = "nondet_{}()".format(nondet_num)
-            print(var + ' = ' + new_value)
-            var_file.write(var + ' = ' + new_value + '\n')
-            splitter = get_right_splitter(out, start)
-            tmp = len(out[:eq_index + 1] + " " + new_value)
-            out = out[:eq_index + 1] + " " + new_value + out[splitter:]
-            print(out)
-        return out
+        tmp_line = tmp_line.replace(verifier_nondet_int, new_value, 1)
+    return tmp_line
 
-def update_line_with_testcase(s):
-    # case:  int x = 10;
-    # count # of '='
-    # if #= == 1
-    # find position of '=' and ';'
-    # else
-    print(s)
-    count = s.count("=")
-    print(count)
-    if (count == 1):
-        eq_index = s.index('=')
-        left = s.rindex(' ', 0, eq_index - 1)
-        var = s[left: eq_index].strip()
-        new_value = str(testcase.pop(0))
-        print(var + ' = ' + new_value)
-        #var_file.write(var + ' = ' + new_value + '\n')
-        out = s[:eq_index + 1] + " " + new_value + ';'
-        print(out)
-        return out
-    else:
-        # start = s.index('=')
-        tmp = 1
-        out = s
-        for i in range(1, count + 1):
-            print(i)
-            start = out.index('=', tmp - 1)
-            eq_index = out.index('=', start - 1)
-            left = get_left_splitter(out, eq_index)
-            var = out[left: eq_index].strip()
-            new_value = str(testcase.pop(0))
-            print(var + ' = ' + new_value)
-            #var_file.write(var + ' = ' + new_value + '\n')
-            splitter = get_right_splitter(out, start)
-            tmp = len(out[:eq_index + 1] + " " + new_value)
-            out = out[:eq_index + 1] + " " + new_value + out[splitter:]
-            print(out)
-        return out
+    # print(s)
+    # count = s.count("=")
+    # print(count)
+    # if (count == 1):
+    #     eq_index = s.index('=')
+    #     left = s.rindex(' ', 0, eq_index - 1)
+    #     var = s[left: eq_index].strip()
+    #     nondet_num = get_five_digit_hash(s[:eq_index] + str(line_number))
+    #     nondet_numbers.append(nondet_num)
+    #     new_value = "nondet_{}()".format(nondet_num)
+    #     print(var + ' = ' + new_value)
+    #     var_file.write(var + ' = ' + new_value + '\n')
+    #     out = s[:eq_index + 1] + " " + new_value + ';'
+    #     print(out)
+    #     return out
+    # else:
+    #     # start = s.index('=')
+    #     tmp = 1
+    #     out = s
+    #     for i in range(1, count + 1):
+    #         print(i)
+    #         start = out.index('=', tmp - 1)
+    #         eq_index = out.index('=', start - 1)
+    #         left = get_left_splitter(out, eq_index)
+    #         var = out[left: eq_index].strip()
+    #         nondet_num = get_five_digit_hash(s[:eq_index] + str(line_number))
+    #         nondet_numbers.append(nondet_num)
+    #         new_value = "nondet_{}()".format(nondet_num)
+    #         print(var + ' = ' + new_value)
+    #         var_file.write(var + ' = ' + new_value + '\n')
+    #         splitter = get_right_splitter(out, start)
+    #         tmp = len(out[:eq_index + 1] + " " + new_value)
+    #         out = out[:eq_index + 1] + " " + new_value + out[splitter:]
+    #         print(out)
+    #     return out
+
 
 def generate_testgen_header(f, num):
     fn = os.path.dirname(f) + '/testgen.h'
@@ -260,12 +229,11 @@ def update_c_file(f):
     var_file = open(vars, "w")
     var_file.writelines([f+'\n'])
     line_main = get_line(f, "int main(")
-    line_cycle_begins = get_line(f, "while")
-    list_of_int_variables = get_int_variables_list(f, line_main, line_cycle_begins)
+    list_of_int_variables = get_nondet_lines(f, line_main)
     a_file = open(f, "r")
     list_of_lines = a_file.readlines()
     for i in list_of_int_variables:
-        list_of_lines[i] = update_line(list_of_lines[i], i) + '\n'
+        list_of_lines[i] = update_line(list_of_lines[i], i)
     a_file = open(f, "w")
     a_file.writelines(list_of_lines)
     a_file.close()
@@ -274,18 +242,6 @@ def update_c_file(f):
     generate_testgen_header(f, nondet_numbers)
     generate_testgen_template_header(f, nondet_numbers)
 
-
-def update_c_file_with_testdata(f):
-    line_main = get_line(f, "int main(")
-    line_cycle_begins = get_line(f, "while")
-    list_of_int_variables = get_int_variables_list(f, line_main, line_cycle_begins)
-    a_file = open(f, "r")
-    list_of_lines = a_file.readlines()
-    for i in list_of_int_variables:
-        list_of_lines[i] = update_line_with_testcase(list_of_lines[i]) + '\n'
-    a_file = open(f, "w")
-    a_file.writelines(list_of_lines)
-    a_file.close()
 
 
 def update_c_files(files):
