@@ -1,2 +1,0 @@
-../sandbox/testgen_2/testgen_2.c
-4964,5525,8014,4878,31139

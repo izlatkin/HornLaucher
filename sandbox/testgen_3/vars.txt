@@ -1,2 +1,0 @@
-../sandbox/testgen_3/testgen_3.c
-4904,4924
