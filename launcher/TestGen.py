@@ -1,25 +1,25 @@
 import os
-import hashlib
 import re
 import shutil
 import subprocess
 from multiprocessing import process
-
 from CoverageUtil import CoverageUtil
 
 SOURCE_PATH = "../resourses/c_files"
 SEA_PATH = "/Users/ilyazlatkin/CLionProjects/seahorn/build/run/bin/sea"
-SEA_OPTIONS = []
-OUTPUT_DIR = "../sandbox"
+SANDBOX_DIR = "../sandbox"
 SEA_TIMEOUT = 30
 GCC = "gcc"
 LCOV = "lcov"
 PYTHONHASHSEED = 0
 
+""" Return list of files, which satisfy the condition (see def check_conditions)
+"""
+
 
 def get_cfiles_with_conditions():
     cfiles = [os.path.join(dp, f) for dp, dn, filenames in os.walk(SOURCE_PATH)
-                       for f in filenames if os.path.splitext(f)[1] == '.c']
+              for f in filenames if os.path.splitext(f)[1] == '.c']
     print('number of .c files {} in "{}"'.format(len(cfiles), SOURCE_PATH))
     cfiles_with_conditions = []
     for f in cfiles:
@@ -29,27 +29,36 @@ def get_cfiles_with_conditions():
     return cfiles_with_conditions
 
 
+""" Return False/True if file satisfies the condition 
+- has main method
+- has input values __VERIFIER_nondet_int
+- has while cycle
+"""
+
+
 def check_conditions(f):
     print('check file: {}'.format(f))
-    line_cycle_ends = 0
     line_main = get_line(f, "int main(")
-    print(line_main)
-    if (line_main <= 0):
+    if line_main <= 0:
         return False
     line_cycle_begins = get_line(f, "while")
-    print(line_cycle_begins)
-    if (line_cycle_begins <= 0 or line_cycle_begins < line_main):
+    if line_cycle_begins <= 0 or line_cycle_begins < line_main:
         return False
-    # ToDo develop method to find the end of while cycle
     # ToDo add "for" cycle support
     verifier_nondet_int = get_line(f, "__VERIFIER_nondet_int", "extern int __VERIFIER_nondet_int()")
-    if (verifier_nondet_int == 0):
+    if verifier_nondet_int == 0:
         print("file: {} doesn't have input values (__VERIFIER_nondet_int) ".format(f))
         return False
     list_of_int_variables = get_nondet_lines(f, line_main)
-    if (len(list_of_int_variables) == 0):
+    if len(list_of_int_variables) == 0:
         return False
     return True
+
+
+""" Return list of line numbers, which contain __VERIFIER_nondet_int
+
+line number start from 1
+"""
 
 
 def get_nondet_lines(f, line_main):
@@ -58,18 +67,19 @@ def get_nondet_lines(f, line_main):
     lines_to_check = file.readlines()[line_main:]
     pattern = "__VERIFIER_nondet_int"
     for i, line in enumerate(lines_to_check):
-        if(re.search(pattern, line)):
-            print("match, index = {}".format(i + line_main))
+        if re.search(pattern, line):
             int_vars.append(i + line_main)
-        else:
-            print("not match")
-    print(int_vars)
     return int_vars
 
 
+""" Return list of line numbers, which contain __VERIFIER_nondet_int 
+and do NOT contain exclude_exp
+
+line number start from 1
+"""
+
 
 def get_line(f, exp, exclude_exp=None):
-    print("exclude exp: {} for file {} ".format(exclude_exp, f))
     index = -1
     file = open(f, "r", encoding='ISO-8859-1')
     for i, line in enumerate(file):
@@ -85,23 +95,24 @@ def get_line(f, exp, exclude_exp=None):
     return index + 1
 
 
+""" Copy files to the separate sandbox (OUTPUT_DIR) location
+"""
+
+
 def move_to_sandbox(files):
     print("========move_to_sandbox===========")
-    if not os.path.exists(OUTPUT_DIR):
-        os.mkdir(OUTPUT_DIR)
+    if not os.path.exists(SANDBOX_DIR):
+        os.mkdir(SANDBOX_DIR)
     else:
-        print('clear output directory {}'.format(OUTPUT_DIR))
-        shutil.rmtree(OUTPUT_DIR)
-        os.mkdir(OUTPUT_DIR)
+        print('clear output directory {}'.format(SANDBOX_DIR))
+        shutil.rmtree(SANDBOX_DIR)
+        os.mkdir(SANDBOX_DIR)
     new_file_list = []
     for f in files:
         # create subdir for each .c file
-        print('filename: {}'.format(f))
         basename = os.path.basename(f)
         name_wo_ext = os.path.splitext(basename)[0]
-        print(name_wo_ext)
-        subdir = OUTPUT_DIR + "/" + name_wo_ext
-        print(subdir)
+        subdir = SANDBOX_DIR + "/" + name_wo_ext
         os.mkdir(subdir)
         # copy file to individual sandbox
         new_file = subdir + "/" + basename
@@ -110,99 +121,55 @@ def move_to_sandbox(files):
     return new_file_list
 
 
-def get_left_splitter(s, eq_index):
-    comma_index = 0
-    try:
-        comma_index = s.rindex(',', 0, eq_index - 1)
-    except ValueError:
-        pass
-    space_index = s.rindex(' ', 0, eq_index - 1)
-    return max(space_index, comma_index)
+""" Return 8 digit of hash of input value
+"""
 
 
-def get_right_splitter(s, start):
-    comma_index = len(s)
-    try:
-        comma_index = s.index(',', start - 1)
-    except ValueError:
-        pass
-    semicolon_index = s.index(';', start - 1)
-    return min(semicolon_index, comma_index)
-
-
-def get_five_digit_hash(s):
-    #ToDo: replace to random when testgen will be ready.
+def get_digit_hash(s):
+    # ToDo: replace to random when testgen will be ready.
     # Now it is needed for stub, the value should be constant
-    #return abs(hash(s)) % (10 ** 8)
+    # return abs(hash(s)) % (10 ** 8)
     sum = 0
     for i, c in enumerate(s):
         sum += i * ord(c)
     return sum % (10 ** 8)
 
 
+""" Updates input line:
+replace all __VERIFIER_nondet_int() to nondet_XXXX()
+"""
+
+
 def update_line(s, line_number):
-    # case:  int x = 10;
-    # count # of '='
-    # if #= == 1
-    # find position of '=' and ';'
-    # else
     tmp_line = s
     verifier_nondet_int = '__VERIFIER_nondet_int()'
     while (verifier_nondet_int in tmp_line):
         eq_index = tmp_line.index(verifier_nondet_int)
-        nondet_num = get_five_digit_hash(tmp_line[:eq_index] + str(line_number))
+        nondet_num = get_digit_hash(tmp_line[:eq_index] + str(line_number))
         nondet_numbers.append(nondet_num)
         new_value = "nondet_{}()".format(nondet_num)
         tmp_line = tmp_line.replace(verifier_nondet_int, new_value, 1)
     return tmp_line
 
-    # print(s)
-    # count = s.count("=")
-    # print(count)
-    # if (count == 1):
-    #     eq_index = s.index('=')
-    #     left = s.rindex(' ', 0, eq_index - 1)
-    #     var = s[left: eq_index].strip()
-    #     nondet_num = get_five_digit_hash(s[:eq_index] + str(line_number))
-    #     nondet_numbers.append(nondet_num)
-    #     new_value = "nondet_{}()".format(nondet_num)
-    #     print(var + ' = ' + new_value)
-    #     var_file.write(var + ' = ' + new_value + '\n')
-    #     out = s[:eq_index + 1] + " " + new_value + ';'
-    #     print(out)
-    #     return out
-    # else:
-    #     # start = s.index('=')
-    #     tmp = 1
-    #     out = s
-    #     for i in range(1, count + 1):
-    #         print(i)
-    #         start = out.index('=', tmp - 1)
-    #         eq_index = out.index('=', start - 1)
-    #         left = get_left_splitter(out, eq_index)
-    #         var = out[left: eq_index].strip()
-    #         nondet_num = get_five_digit_hash(s[:eq_index] + str(line_number))
-    #         nondet_numbers.append(nondet_num)
-    #         new_value = "nondet_{}()".format(nondet_num)
-    #         print(var + ' = ' + new_value)
-    #         var_file.write(var + ' = ' + new_value + '\n')
-    #         splitter = get_right_splitter(out, start)
-    #         tmp = len(out[:eq_index + 1] + " " + new_value)
-    #         out = out[:eq_index + 1] + " " + new_value + out[splitter:]
-    #         print(out)
-    #     return out
+
+""" creates {PATH_OF_C_FILE}/testgen.h file
+"""
 
 
 def generate_testgen_header(f, num):
     fn = os.path.dirname(f) + '/testgen.h'
     file = open(fn, "w")
-    #lines_to_write = ['int nondet(){return 42;}\n']
-    lines_to_write = ['extern int nondet(void);\n'] #ToDo check with is option as well
+    # lines_to_write = ['int nondet(){return 42;}\n']
+    lines_to_write = ['extern int nondet(void);\n']
     for i in num:
         lines_to_write.append('int nondet_{}(){{\n return {} + nondet();\n}} \n'.format(i, i))
     lines_to_write.append('\n')
     file.writelines(lines_to_write)
     file.close()
+
+
+""" creates {PATH_OF_C_FILE}/testgen-template.h file () template for testing
+"""
 
 
 def generate_testgen_template_header(f, num):
@@ -222,12 +189,20 @@ def generate_testgen_template_header(f, num):
     file.close()
 
 
+""" updates C_FILE (input) and
+ creates testgen.h - is needed for encoding to smt2
+ creates vars.txt, which contains input values for further test generation
+ creates testgen-template.h - is needed for testing
+ 
+"""
+
+
 def update_c_file(f):
     vars = os.path.dirname(f) + '/vars.txt'
     global var_file, nondet_numbers
     nondet_numbers = []
     var_file = open(vars, "w")
-    var_file.writelines([f+'\n'])
+    var_file.writelines([f + '\n'])
     line_main = get_line(f, "int main(")
     list_of_int_variables = get_nondet_lines(f, line_main)
     a_file = open(f, "r")
@@ -244,6 +219,9 @@ def update_c_file(f):
     generate_testgen_template_header(f, nondet_numbers)
 
 
+""" updates all list of file
+"""
+
 
 def update_c_files(files):
     print("========update_c_files===========")
@@ -252,13 +230,18 @@ def update_c_files(files):
         update_c_file(f)
 
 
+""" Executes command line command, terminates command after timeout
+
+"""
+
+
 def command_executer(command, timeout, content):
     print("command: {}".format(str(command)))
     try:
         responce = subprocess.run(command,
-                                 stdout=subprocess.PIPE,
-                                 stderr=subprocess.PIPE,
-                                 timeout=timeout)
+                                  stdout=subprocess.PIPE,
+                                  stderr=subprocess.PIPE,
+                                  timeout=timeout)
         content.append(str(command))
         content.append(responce.returncode)
         content.append(responce.stdout.decode())
@@ -270,24 +253,17 @@ def command_executer(command, timeout, content):
         raise subprocess.TimeoutExpired(process.args, SEA_TIMEOUT, output=output)
 
 
-def docker_command_executer(command):
-    #print("command: {}".format(list_to_string(command)))
-    try:
-        process = subprocess.Popen(command, stdout=subprocess.PIPE)
-        output, error = process.communicate()
-    except subprocess.TimeoutExpired:
-        process.kill()
-        output, unused_err = process.communicate()
-        print("[skipped] command {} was executed with error: {}".format(list_to_string(command), unused_err))
-        raise subprocess.TimeoutExpired(process.args, SEA_TIMEOUT, output=output)
-
+""" converts list ot string with spaces"""
 
 
 def list_to_string(lst):
-    out = ''
-    for item in lst:
-        out += ' ' + str(item)
-    return out
+    return ' '.join([str(e) for e in lst])
+
+
+""" Runs SeaHorn command on local installed SeaHorn
+
+"""
+
 
 def to_smt(f):
     print('converting .c file to smt, filename: {}'.format(f))
@@ -299,8 +275,13 @@ def to_smt(f):
     # ToDo: add content to log.txt file
     command_executer(command, SEA_TIMEOUT, content)
     smt_file = os.path.dirname(f) + '/' + name_wo_ext + '.smt2'
-    command = [SEA_PATH, '--horn-no-verif','horn', bc_file, '-o', smt_file]
+    command = [SEA_PATH, '--horn-no-verif', 'horn', bc_file, '-o', smt_file]
     command_executer(command, SEA_TIMEOUT, content)
+
+
+""" Runs docker commands for file, use script smt_run.sh
+
+"""
 
 
 def to_smt_docker(f):
@@ -309,37 +290,38 @@ def to_smt_docker(f):
     name_wo_ext = os.path.splitext(basename)[0]
     ff = '/app/' + name_wo_ext + '/' + name_wo_ext + '.c'
     smt_file = '/app/' + name_wo_ext + '/' + name_wo_ext + '.smt2'
-    #docker_command = 'docker exec `docker ps --format "table {{.Names}}" -f ancestor=seahorn/seahorn-llvm10:nightly | tail -1` bash -c "cd /app;'
     docker_image_name = str(subprocess.check_output(
         'docker ps --format "table {{.Names}}" -f ancestor=seahorn/seahorn-llvm10:nightly | tail -1',
         shell=True).strip())[2:-1]
-    docker_sea_command = ['cd /app/{};'.format(name_wo_ext),'../smt_run.sh', ff, smt_file]
+    docker_sea_command = ['cd /app/{};'.format(name_wo_ext), '../smt_run.sh', ff, smt_file]
     docker_command = ['docker', 'exec', docker_image_name, 'bash', '-c', list_to_string(docker_sea_command)]
     print(docker_command)
-    #print(list_to_string(command))
-    content = []
     # ToDo: add content to log.txt file
-    #command_executer(command, SEA_TIMEOUT, content)
-    #docker_command_executer(command)
     subprocess.check_output(docker_command)
 
 
+""" Runs docker commands for each file, which is located in SANDBOX
+
+"""
+
 
 def convert_c_to_smt(files):
-    #copy script
-    script_file = OUTPUT_DIR + '/smt_run.sh'
+    # copy script
+    script_file = SANDBOX_DIR + '/smt_run.sh'
     shutil.copyfile('../bash_scripts/smt_run.sh', script_file)
     os.chmod(script_file, 0o777)
     print("========convert_c_to_smt===========")
     for f in files:
         to_smt_docker(f)
-        #to_smt(f)
+        # to_smt(f)
+
+
+""" runs script (Makefile) to Compile, Execute, gather coverage and generate coverage reports
+
+"""
 
 
 def gather_coverage(new_file):
-    #compile //example: gcc -O0 --coverage main.c -o test-coverage
-    basename = os.path.basename(new_file)
-    exe_file = os.path.dirname(new_file) + "/" + os.path.splitext(basename)[0]
     shutil.copyfile("../Makefile", os.path.dirname(new_file) + "/Makefile")
     save = os.getcwd()
     os.chdir(os.path.dirname(new_file))
@@ -349,34 +331,40 @@ def gather_coverage(new_file):
     os.chdir(save)
 
 
+""" stub method
+- Read prepared tests cases
+- Compile, Execute and generate coverage reports
+
+"""
+
+
 def stub_generate_testcases():
     stub_path = "../stub"
     lod = os.listdir(stub_path)
     for sf in lod:
         print("Test Run for: {}".format(sf))
         test_header_list = [os.path.join(dp, f) for dp, dn, filenames in os.walk(stub_path + '/' + sf)
-                  for f in filenames if os.path.splitext(f)[1] == '.h']
+                            for f in filenames if os.path.splitext(f)[1] == '.h']
         print(test_header_list)
         for i, test in enumerate(test_header_list):
             print('testcase_{}: {}'.format(i, sf))
-            #create subdir
-            subdir = OUTPUT_DIR + "/" + sf + "/" + str(i + 1)
-            if(os.path.exists(subdir)):
+            # create subdir
+            subdir = SANDBOX_DIR + "/" + sf + "/" + str(i + 1)
+            if (os.path.exists(subdir)):
                 shutil.rmtree(subdir)
             os.mkdir(subdir)
-            #copy c file
+            # copy c file
             new_c_file = subdir + "/Main.c"
-            shutil.copyfile(OUTPUT_DIR + "/" + sf + "/" + sf + '.c', new_c_file)
-            #copy h file
+            shutil.copyfile(SANDBOX_DIR + "/" + sf + "/" + sf + '.c', new_c_file)
+            # copy h file
             new_h_file = subdir + "/testgen.h"
             shutil.copyfile(test, new_h_file)
             gather_coverage(new_c_file)
         # merge coverage for all runs in test_header_list
-        dir = OUTPUT_DIR + '/' + sf
+        dir = SANDBOX_DIR + '/' + sf
         print("build summery report: {}".format(dir))
-        covs = [OUTPUT_DIR +'/' + sf + '/' + str(i) + '/coverage.info' for i in range(1, 1 + len(test_header_list))]
-        print(covs)
-        result = CoverageUtil.merge(covs)
+        covs = [SANDBOX_DIR + '/' + sf + '/' + str(i) + '/coverage.info' for i in range(1, 1 + len(test_header_list))]
+        result = CoverageUtil.merge_coverage_for_test_runs(covs)
         # change dir to dir
         save = os.getcwd()
         os.chdir(dir)
@@ -394,6 +382,26 @@ def stub_generate_testcases():
         os.chdir(save)
 
 
+""" generates final report for all .c file based on summary report of each .c file
+"""
+
+
+def summary_coverage_report():
+    files = [os.path.join(dp, f) for dp, dn, filenames in os.walk(SANDBOX_DIR)
+              for f in filenames if os.path.splitext(f)[0] == 'summary_coverage']
+    summary_dir = SANDBOX_DIR + '/final_coverage_report'
+    os.mkdir(summary_dir)
+    final_coverage_file_name = "final_coverage.info"
+    summary_file = open(summary_dir + '/' + final_coverage_file_name, "w")
+    summary_file.writelines(CoverageUtil.merge_summary_reports(files))
+    summary_file.close()
+    save = os.getcwd()
+    os.chdir(summary_dir)
+    command = ['genhtml', '--branch-coverage', '--output', '.', final_coverage_file_name]
+    command_executer(command, 30, [])
+    os.chdir(save)
+
+
 if __name__ == '__main__':
     print('=== TestGen ===')
     # 1. Init Variable (+)
@@ -402,7 +410,7 @@ if __name__ == '__main__':
     #       2. Has while/for cycle (+/-)
     #       3. Has __VERIFIER_nondet_uint()
     files = get_cfiles_with_conditions()
-    print(files)
+    [print(files[i]) for i in range(0, min(len(files), 10))]
     # 3. Move .c file to the specail sandbox
     files = move_to_sandbox(files)
     print(files)
@@ -415,4 +423,5 @@ if __name__ == '__main__':
     # 8. Compile this .c and run it with coverage
     stub_generate_testcases()
     # 9. Merge all coverage
+    summary_coverage_report()
     # 10 Build Report like ReportBuilder.html_report
