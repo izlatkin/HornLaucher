@@ -2,6 +2,7 @@ import os
 import re
 import shutil
 import subprocess
+import types
 from multiprocessing import process
 from CoverageUtil import CoverageUtil
 
@@ -235,21 +236,24 @@ def update_c_files(files):
 """
 
 
-def command_executer(command, timeout, content):
+def command_executer(command, timeout, file):
     print("command: {}".format(str(command)))
     try:
         responce = subprocess.run(command,
                                   stdout=subprocess.PIPE,
                                   stderr=subprocess.PIPE,
                                   timeout=timeout)
-        content.append(str(command))
-        content.append(responce.returncode)
-        content.append(responce.stdout.decode())
-        content.append(responce.stderr.decode())
+        logger(file, command)
+        logger(file, responce.returncode)
+        logger(file, responce.stdout.decode())
+        logger(file, responce.stderr.decode())
     except subprocess.TimeoutExpired:
         process.kill()
         output, unused_err = process.communicate()
         print("[skipped] command {} was executed with error: {}".format(list_to_string(command), unused_err))
+        logger(file, command)
+        logger(file, output )
+        logger(file, unused_err)
         raise subprocess.TimeoutExpired(process.args, SEA_TIMEOUT, output=output)
 
 
@@ -258,6 +262,17 @@ def command_executer(command, timeout, content):
 
 def list_to_string(lst):
     return ' '.join([str(e) for e in lst])
+
+
+""" write content to the file"""
+
+
+def logger(file, content):
+    f = open(file, 'a')
+    if type(content) is list:
+        f.writelines(content)
+    if type(content) is str:
+        f.write(content)
 
 
 """ Runs SeaHorn command on local installed SeaHorn
@@ -270,13 +285,14 @@ def to_smt(f):
     basename = os.path.basename(f)
     name_wo_ext = os.path.splitext(basename)[0]
     bc_file = os.path.dirname(f) + '/' + name_wo_ext + '.bc'
+    logfile = os.path.dirname(f) + '/log.txt'
     command = [SEA_PATH, 'fe', f, '-o', bc_file]
     content = []
     # ToDo: add content to log.txt file
-    command_executer(command, SEA_TIMEOUT, content)
+    command_executer(command, SEA_TIMEOUT, logfile)
     smt_file = os.path.dirname(f) + '/' + name_wo_ext + '.smt2'
     command = [SEA_PATH, '--horn-no-verif', 'horn', bc_file, '-o', smt_file]
-    command_executer(command, SEA_TIMEOUT, content)
+    command_executer(command, SEA_TIMEOUT, logfile)
 
 
 """ Runs docker commands for file, use script smt_run.sh
@@ -290,6 +306,7 @@ def to_smt_docker(f):
     name_wo_ext = os.path.splitext(basename)[0]
     ff = '/app/' + name_wo_ext + '/' + name_wo_ext + '.c'
     smt_file = '/app/' + name_wo_ext + '/' + name_wo_ext + '.smt2'
+    log_file = SANDBOX_DIR + '/' + name_wo_ext + '/log.txt'
     docker_image_name = str(subprocess.check_output(
         'docker ps --format "table {{.Names}}" -f ancestor=seahorn/seahorn-llvm10:nightly | tail -1',
         shell=True).strip())[2:-1]
@@ -297,7 +314,12 @@ def to_smt_docker(f):
     docker_command = ['docker', 'exec', docker_image_name, 'bash', '-c', list_to_string(docker_sea_command)]
     print(docker_command)
     # ToDo: add content to log.txt file
-    subprocess.check_output(docker_command)
+    try:
+        #output = subprocess.check_output(docker_command)
+        command_executer(docker_command, SEA_TIMEOUT, os.path.dirname(f) + '/log.txt')
+        #logger(os.path.dirname(f) + '/log.txt', [list_to_string(docker_command), str(output)])
+    except subprocess.CalledProcessError as e:
+        logger(os.path.dirname(f) + '/log.txt', [list_to_string(docker_command), "FAIL"])
 
 
 """ Runs docker commands for each file, which is located in SANDBOX
@@ -313,7 +335,7 @@ def convert_c_to_smt(files):
     print("========convert_c_to_smt===========")
     for f in files:
         to_smt_docker(f)
-        # to_smt(f)
+        #to_smt(f)
 
 
 """ runs script (Makefile) to Compile, Execute, gather coverage and generate coverage reports
@@ -326,8 +348,7 @@ def gather_coverage(new_file):
     save = os.getcwd()
     os.chdir(os.path.dirname(new_file))
     command = ['make']
-    content = []
-    command_executer(command, 60, content)
+    command_executer(command, 60, '../log.txt')
     os.chdir(save)
 
 
@@ -363,23 +384,26 @@ def stub_generate_testcases():
         # merge coverage for all runs in test_header_list
         dir = SANDBOX_DIR + '/' + sf
         print("build summery report: {}".format(dir))
-        covs = [SANDBOX_DIR + '/' + sf + '/' + str(i) + '/coverage.info' for i in range(1, 1 + len(test_header_list))]
-        result = CoverageUtil.merge_coverage_for_test_runs(covs)
-        # change dir to dir
-        save = os.getcwd()
-        os.chdir(dir)
-        # make new dir summary
-        os.mkdir('summary')
-        # write file to summary dir
-        summary_file = open('summary/summary_coverage.info', "w")
-        summary_file.writelines(result)
-        summary_file.close()
-        # write coverage command:
-        # genhtml --branch-coverage --output ./generated-coverage/ coverage.info
-        os.chdir('summary')
-        command = ['genhtml', '--branch-coverage', '--output', './generated-coverage/', 'summary_coverage.info']
-        command_executer(command, 30, [])
-        os.chdir(save)
+        # covs = [SANDBOX_DIR + '/' + sf + '/' + str(i) + '/coverage.info' for i in range(1, 1 + len(test_header_list))]
+        covs = [os.path.join(dp, f) for dp, dn, filenames in os.walk(SANDBOX_DIR + '/' + sf + '/')
+                for f in filenames if os.path.splitext(f)[1] == '.info']
+        if covs:
+            result = CoverageUtil.merge_coverage_for_test_runs(covs)
+            # change dir to dir
+            save = os.getcwd()
+            os.chdir(dir)
+            # make new dir summary
+            os.mkdir('summary')
+            # write file to summary dir
+            summary_file = open('summary/summary_coverage.info', "w")
+            summary_file.writelines(result)
+            summary_file.close()
+            # write coverage command:
+            # genhtml --branch-coverage --output ./generated-coverage/ coverage.info
+            os.chdir('summary')
+            command = ['genhtml', '--branch-coverage', 'summary_coverage.info']
+            command_executer(command, 30, 'log.txt')
+            os.chdir(save)
 
 
 """ generates final report for all .c file based on summary report of each .c file
@@ -388,7 +412,7 @@ def stub_generate_testcases():
 
 def summary_coverage_report():
     files = [os.path.join(dp, f) for dp, dn, filenames in os.walk(SANDBOX_DIR)
-              for f in filenames if os.path.splitext(f)[0] == 'summary_coverage']
+             for f in filenames if os.path.splitext(f)[0] == 'summary_coverage']
     summary_dir = SANDBOX_DIR + '/final_coverage_report'
     os.mkdir(summary_dir)
     final_coverage_file_name = "final_coverage.info"
@@ -398,7 +422,7 @@ def summary_coverage_report():
     save = os.getcwd()
     os.chdir(summary_dir)
     command = ['genhtml', '--branch-coverage', '--output', '.', final_coverage_file_name]
-    command_executer(command, 30, [])
+    command_executer(command, 30, 'log.txt')
     os.chdir(save)
 
 
