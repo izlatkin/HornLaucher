@@ -2,7 +2,8 @@ import os
 import re
 import shutil
 import subprocess
-import types
+import time
+from datetime import datetime
 from multiprocessing import process
 from CoverageUtil import CoverageUtil
 
@@ -269,10 +270,13 @@ def list_to_string(lst):
 
 def logger(file, content):
     f = open(file, 'a')
+    now = datetime.now()
+    time = now.strftime("%H:%M:%S:%f")
+    t = str('[{}]'.format(time))
     if type(content) is list:
-        f.writelines(content)
+        f.writelines([t] + content + ['\n'])
     if type(content) is str:
-        f.write(content)
+        f.write(t + '\n' + content + '\n')
 
 
 """ Runs SeaHorn command on local installed SeaHorn
