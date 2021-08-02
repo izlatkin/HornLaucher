@@ -13,6 +13,9 @@ SANDBOX_DIR = "../sandbox"
 SEA_TIMEOUT = 30
 GCC = "gcc"
 LCOV = "lcov"
+TG_TOOL_PATH = "/Users/ilyazlatkin/PycharmProjects/aeval/build/tools/tg/tg"
+TG_TIMEOUT = 300
+COVERAGE_TIMEOUT = 10
 PYTHONHASHSEED = 0
 
 """ Return list of files, which satisfy the condition (see def check_conditions)
@@ -219,6 +222,7 @@ def update_c_file(f):
     # generate testgen-template.h and testgen.h
     generate_testgen_header(f, nondet_numbers)
     generate_testgen_template_header(f, nondet_numbers)
+    return nondet_numbers
 
 
 """ updates all list of file
@@ -239,6 +243,7 @@ def update_c_files(files):
 
 def command_executer(command, timeout, file):
     print("command: {}".format(str(command)))
+    responce = None
     try:
         responce = subprocess.run(command,
                                   stdout=subprocess.PIPE,
@@ -248,14 +253,15 @@ def command_executer(command, timeout, file):
         logger(file, responce.returncode)
         logger(file, responce.stdout.decode())
         logger(file, responce.stderr.decode())
-    except subprocess.TimeoutExpired:
-        process.kill()
-        output, unused_err = process.communicate()
-        print("[skipped] command {} was executed with error: {}".format(list_to_string(command), unused_err))
+    except subprocess.TimeoutExpired as e:
+        # os.kill(responce.pid, 0)
+        # responce.terminate()
+        # output, unused_err = responce.communicate()
+        print("[skipped] command {} was executed with error: {}".format(list_to_string(command), str(e)))
         logger(file, command)
-        logger(file, output )
-        logger(file, unused_err)
-        raise subprocess.TimeoutExpired(process.args, SEA_TIMEOUT, output=output)
+        # logger(file, output )
+        # logger(file, unused_err)
+        # raise subprocess.TimeoutExpired(process.args, SEA_TIMEOUT, output=output)
 
 
 """ converts list ot string with spaces"""
@@ -319,9 +325,9 @@ def to_smt_docker(f):
     print(docker_command)
     # ToDo: add content to log.txt file
     try:
-        #output = subprocess.check_output(docker_command)
+        # output = subprocess.check_output(docker_command)
         command_executer(docker_command, SEA_TIMEOUT, os.path.dirname(f) + '/log.txt')
-        #logger(os.path.dirname(f) + '/log.txt', [list_to_string(docker_command), str(output)])
+        # logger(os.path.dirname(f) + '/log.txt', [list_to_string(docker_command), str(output)])
     except subprocess.CalledProcessError as e:
         logger(os.path.dirname(f) + '/log.txt', [list_to_string(docker_command), "FAIL"])
 
@@ -339,7 +345,7 @@ def convert_c_to_smt(files):
     print("========convert_c_to_smt===========")
     for f in files:
         to_smt_docker(f)
-        #to_smt(f)
+        # to_smt(f)
 
 
 """ runs script (Makefile) to Compile, Execute, gather coverage and generate coverage reports
@@ -348,11 +354,11 @@ def convert_c_to_smt(files):
 
 
 def gather_coverage(new_file):
-    shutil.copyfile("../Makefile", os.path.dirname(new_file) + "/Makefile")
+    shutil.copyfile("../../Makefile", os.path.dirname(new_file) + "/Makefile")
     save = os.getcwd()
     os.chdir(os.path.dirname(new_file))
     command = ['make']
-    command_executer(command, 60, '../log.txt')
+    command_executer(command, COVERAGE_TIMEOUT, '../log.txt')
     os.chdir(save)
 
 
@@ -410,6 +416,56 @@ def stub_generate_testcases():
             os.chdir(save)
 
 
+
+def run_generated_testcases(f):
+    print("Test Runs for: {}".format(f))
+    build_path = os.path.dirname(f)
+    basename = os.path.basename(f)
+    sf = os.path.splitext(basename)[0]
+    test_header_list = [os.path.join(dp, f) for dp, dn, filenames in os.walk('.')
+                        for f in filenames if (os.path.splitext(f)[1] == '.h'
+                                               and os.path.splitext(f)[0] not in ['testgen', 'testgen-template'])]
+    print(test_header_list)
+    for i, test in enumerate(sorted(test_header_list)):
+        print('testcase_{}: {}'.format(i, sf))
+        # create subdir
+        subdir = str(i + 1)
+        if (os.path.exists(subdir)):
+            shutil.rmtree(subdir)
+        os.mkdir(subdir)
+        # copy c file
+        new_c_file = subdir + "/Main.c"
+        shutil.copyfile(sf + '.c', new_c_file)
+        # copy h file
+        new_h_file = subdir + "/testgen.h"
+        shutil.move(test, new_h_file)
+        gather_coverage(new_c_file)
+        # merge coverage for all runs in test_header_list
+    # dir = SANDBOX_DIR + '/' + sf
+    dir = '.'
+    print("build summery report: {}".format(dir))
+    covs = [os.path.join(dp, f) for dp, dn, filenames in os.walk(dir)
+            for f in filenames if os.path.splitext(f)[1] == '.info']
+    print("build summery report: {}".format(covs))
+    if covs:
+        result = CoverageUtil.merge_coverage_for_test_runs(covs)
+        # change dir to dir
+        save = os.getcwd()
+        os.chdir(dir)
+        # make new dir summary
+        os.mkdir('summary')
+        # write file to summary dir
+        summary_file = open('summary/summary_coverage.info', "w")
+        summary_file.writelines(result)
+        summary_file.close()
+        # write coverage command:
+        # genhtml --branch-coverage --output ./generated-coverage/ coverage.info
+        os.chdir('summary')
+        command = ['genhtml', '--branch-coverage', 'summary_coverage.info']
+        command_executer(command, 30, 'log.txt')
+        os.chdir(save)
+
+
 """ generates final report for all .c file based on summary report of each .c file
 """
 
@@ -430,6 +486,46 @@ def summary_coverage_report():
     os.chdir(save)
 
 
+def header_testgen(f, keys):
+    print('=========Test Gen Step =============')
+    print("generating headers for file: {}".format(f))
+    #check if smt exist, if not skip
+    basename = os.path.basename(f)
+    name_wo_ext = os.path.splitext(basename)[0]
+    dir = os.path.dirname(f)
+    smt_file = dir + '/' + name_wo_ext + '.smt2'
+    if (os.path.isfile(smt_file)):
+        print('smt file {} exist, perform testgen step'.format(smt_file))
+        save = os.getcwd()
+        os.chdir(dir)
+        command = [TG_TOOL_PATH, '--keys', ','.join([str(k) for k in keys]), name_wo_ext + '.smt2']
+        print(list_to_string(command))
+        try:
+            command_executer(command, TG_TIMEOUT, 'log.txt')
+            run_generated_testcases(basename)
+        except subprocess.CalledProcessError as e:
+            logger('log.txt', [list_to_string(command), "FAIL"])
+        os.chdir(save)
+    else:
+        print('smt file doesn\'t {} exist, skip testgen step'.format(smt_file))
+
+
+def main_pipline(files):
+    # preperation steps
+    script_file = SANDBOX_DIR + '/smt_run.sh'
+    shutil.copyfile('../bash_scripts/smt_run.sh', script_file)
+    os.chmod(script_file, 0o777)
+    for f in sorted(files):
+        # update step
+        print("updating file: {}".format(f))
+        keys = update_c_file(f)
+        # smt convert step
+        to_smt_docker(f)
+        # testgen step
+        header_testgen(f, keys)
+
+
+
 if __name__ == '__main__':
     print('=== TestGen ===')
     # 1. Init Variable (+)
@@ -443,13 +539,14 @@ if __name__ == '__main__':
     files = move_to_sandbox(files)
     print(files)
     # 4. Update int variable to unice value (develop special class/method for this)
-    update_c_files(files)
+    # update_c_files(files)
     # 5. Create smt file for updated .c file and store metadate to the specail log
-    convert_c_to_smt(files)
+    # convert_c_to_smt(files)
     # 6. Implemented by Wesley Harris, Grigory Fedyukovich - provides set of test values
     # 7. Generate .c file for each of this values
     # 8. Compile this .c and run it with coverage
-    stub_generate_testcases()
+    #stub_generate_testcases()
+    main_pipline(files)
     # 9. Merge all coverage
     summary_coverage_report()
     # 10 Build Report like ReportBuilder.html_report
