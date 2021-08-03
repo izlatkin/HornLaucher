@@ -15,7 +15,7 @@ GCC = "gcc"
 LCOV = "lcov"
 TG_TOOL_PATH = "/Users/ilyazlatkin/PycharmProjects/aeval/build/tools/tg/tg"
 TG_TIMEOUT = 300
-COVERAGE_TIMEOUT = 10
+COVERAGE_TIMEOUT = 20
 PYTHONHASHSEED = 0
 
 """ Return list of files, which satisfy the condition (see def check_conditions)
@@ -225,17 +225,6 @@ def update_c_file(f):
     return nondet_numbers
 
 
-""" updates all list of file
-"""
-
-
-def update_c_files(files):
-    print("========update_c_files===========")
-    for f in files:
-        print("updating file: {}".format(f))
-        update_c_file(f)
-
-
 """ Executes command line command, terminates command after timeout
 
 """
@@ -243,25 +232,33 @@ def update_c_files(files):
 
 def command_executer(command, timeout, file):
     print("command: {}".format(str(command)))
-    responce = None
-    try:
-        responce = subprocess.run(command,
-                                  stdout=subprocess.PIPE,
-                                  stderr=subprocess.PIPE,
-                                  timeout=timeout)
-        logger(file, command)
-        logger(file, responce.returncode)
-        logger(file, responce.stdout.decode())
-        logger(file, responce.stderr.decode())
-    except subprocess.TimeoutExpired as e:
-        # os.kill(responce.pid, 0)
-        # responce.terminate()
-        # output, unused_err = responce.communicate()
-        print("[skipped] command {} was executed with error: {}".format(list_to_string(command), str(e)))
-        logger(file, command)
-        # logger(file, output )
-        # logger(file, unused_err)
-        # raise subprocess.TimeoutExpired(process.args, SEA_TIMEOUT, output=output)
+    logger(file, list_to_string(command))
+    with subprocess.Popen(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE) as process:
+        try:
+            stdout, stderr = process.communicate(input, timeout=timeout)
+        except subprocess.TimeoutExpired:
+            process.kill()
+            mesage = 'command: {} has been killed after timeout {}'.format(list_to_string(command), timeout)
+            print(mesage)
+            stdout, stderr = process.communicate()
+            logger(file, str(stdout))
+            logger(file, str(stderr))
+            # raise subprocess.TimeoutExpired(
+            #     process.args, timeout, output=stdout, stderr=stderr,
+            # )
+        except Exception:
+            process.kill()
+            process.wait()
+            mesage = 'command: {} has been killed after timeout {}'.format(list_to_string(command), timeout)
+            print(mesage)
+            logger(file, mesage)
+            raise
+        retcode = process.poll()
+        logger(file, str(subprocess.CompletedProcess(process.args, retcode, stdout, stderr)))
+        if retcode:
+            return False
+        else:
+            return True
 
 
 """ converts list ot string with spaces"""
@@ -332,34 +329,44 @@ def to_smt_docker(f):
         logger(os.path.dirname(f) + '/log.txt', [list_to_string(docker_command), "FAIL"])
 
 
-""" Runs docker commands for each file, which is located in SANDBOX
-
-"""
-
-
-def convert_c_to_smt(files):
-    # copy script
-    script_file = SANDBOX_DIR + '/smt_run.sh'
-    shutil.copyfile('../bash_scripts/smt_run.sh', script_file)
-    os.chmod(script_file, 0o777)
-    print("========convert_c_to_smt===========")
-    for f in files:
-        to_smt_docker(f)
-        # to_smt(f)
-
-
 """ runs script (Makefile) to Compile, Execute, gather coverage and generate coverage reports
 
 """
 
 
-def gather_coverage(new_file):
+def gather_coverage_backup(new_file):
     shutil.copyfile("../../Makefile", os.path.dirname(new_file) + "/Makefile")
     save = os.getcwd()
     os.chdir(os.path.dirname(new_file))
     command = ['make']
     command_executer(command, COVERAGE_TIMEOUT, '../log.txt')
     os.chdir(save)
+
+
+def gather_coverage(new_file):
+    save = os.getcwd()
+    os.chdir(os.path.dirname(new_file))
+    flag = True
+    command = ['rm', '-rf', 'main.gc*', 'main.o', 'coverage.info', 'test-coverage', 'generated-coverage']
+    if flag and not command_executer(command, COVERAGE_TIMEOUT, '../log.txt'):
+        flag = False
+    command = ['gcc', '-O0', '--coverage', 'main.c', '-o', 'test-coverage']
+    if flag and not command_executer(command, COVERAGE_TIMEOUT, '../log.txt'):
+        flag = False
+    command = ['./test-coverage']
+    if flag and not command_executer(command, COVERAGE_TIMEOUT, '../log.txt'):
+        flag = False
+    command = ['lcov', '--capture', '--rc', 'lcov_branch_coverage=1', '--directory', '.', '--config-file', '../../../lcovrc', '--output', 'coverage.info']
+    if flag and not command_executer(command, COVERAGE_TIMEOUT, '../log.txt'):
+        flag = False
+    command = ['rm', '-rf', '/tmp/coverage/'] # ToDo not sure that this step is needed, recheck
+    if flag and not command_executer(command, COVERAGE_TIMEOUT, '../log.txt'):
+        flag = False
+    command = ['genhtml', '--branch-coverage', '--output', './generated-coverage/', 'coverage.info']
+    if flag and not command_executer(command, COVERAGE_TIMEOUT, '../log.txt'):
+        flag = False
+    os.chdir(save)
+    return flag
 
 
 """ stub method
@@ -415,6 +422,14 @@ def stub_generate_testcases():
             command_executer(command, 30, 'log.txt')
             os.chdir(save)
 
+
+""" run all testcases generated by tg tool
+- move filename.c to <testcase_#>/main.c
+- copy filename_x.h to <testcase_#>/testgen.h
+- run coverage for each
+- build summary report for all testcases
+
+"""
 
 
 def run_generated_testcases(f):
@@ -515,6 +530,7 @@ def main_pipline(files):
     script_file = SANDBOX_DIR + '/smt_run.sh'
     shutil.copyfile('../bash_scripts/smt_run.sh', script_file)
     os.chmod(script_file, 0o777)
+    #files = [f for f in files if 'testgen_2' in f]
     for f in sorted(files):
         # update step
         print("updating file: {}".format(f))

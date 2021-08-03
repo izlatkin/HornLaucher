@@ -9,6 +9,7 @@ class CoverageUtil:
         if len(files) == 0:
             return []
         covers = [open(f, "r").readlines() for f in files]
+        covers = [f for f in covers if len(f) > 1]
         result_list_of_lines = []
         branch_number = 0
         for index, line in enumerate(covers[0]):
