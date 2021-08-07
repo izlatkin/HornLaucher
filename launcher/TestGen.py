@@ -499,6 +499,16 @@ def summary_coverage_report():
     command = ['genhtml', '--branch-coverage', '--output', '.', final_coverage_file_name]
     command_executer(command, 30, 'log.txt')
     os.chdir(save)
+    summary_dir_wc_headers = SANDBOX_DIR + '/final_coverage_report_wc_header'
+    os.mkdir(summary_dir_wc_headers)
+    final_coverage_wo_headers_files_name = "final_coverage_wo_headers.info"
+    summary_file = open(summary_dir_wc_headers + '/' + final_coverage_wo_headers_files_name, "w")
+    summary_file.writelines(CoverageUtil.remove_headers_coverage(summary_dir + '/' + final_coverage_file_name))
+    summary_file.close()
+    os.chdir(summary_dir_wc_headers)
+    command = ['genhtml', '--branch-coverage', '--output', '.', final_coverage_wo_headers_files_name]
+    command_executer(command, 30, 'log.txt')
+    os.chdir(save)
 
 
 def header_testgen(f, keys):
