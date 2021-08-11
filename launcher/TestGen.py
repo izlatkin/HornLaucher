@@ -125,13 +125,19 @@ def add_header(new_file):
     with open(new_file, 'r+') as f:
         content = f.readlines()
         flag = False
+        out = []
         for l in content:
             if line in l:
                 flag = True
-                break
+            tmp = l
+            if 'reach_error()' in tmp and 'void' not in tmp:
+                tmp = tmp.replace('reach_error()','/*reach_error()*/')
+            if 'abort()' in tmp:
+                tmp = tmp.replace('abort()', 'exit(0)')
+            out.append(tmp)
         if not flag:
             f.seek(0, 0)
-            f.writelines([line.rstrip('\r\n') + '\n'] + content)
+            f.writelines([line.rstrip('\r\n') + '\n'] + out)
         f.close()
 
 
