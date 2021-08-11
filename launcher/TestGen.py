@@ -7,16 +7,25 @@ from datetime import datetime
 from multiprocessing import process
 from CoverageUtil import CoverageUtil
 
-SOURCE_PATH = "../resourses/c_files"
+#SOURCE_PATH = "../resourses/c_files"
+#SOURCE_PATH = "../resourses/benchmarks"
+SOURCE_PATH = "/Users/ilyazlatkin/PycharmProjects/benckmarks/loops"
+#SOURCE_PATH = "/Users/ilyazlatkin/PycharmProjects/benckmarks/test"
 SEA_PATH = "/Users/ilyazlatkin/CLionProjects/seahorn/build/run/bin/sea"
 SANDBOX_DIR = "../sandbox"
 SEA_TIMEOUT = 30
 GCC = "gcc"
 LCOV = "lcov"
 TG_TOOL_PATH = "/Users/ilyazlatkin/PycharmProjects/aeval/build/tools/tg/tg"
-TG_TIMEOUT = 300
+TG_TIMEOUT = 100
 COVERAGE_TIMEOUT = 20
 PYTHONHASHSEED = 0
+FILES_LIMIT = 10
+PATTERN = ["__VERIFIER_nondet_int()",
+           '__VERIFIER_nondet_uint()',
+           "__VERIFIER_nondet_char()",
+           "__VERIFIER_nondet_uchar()",
+           "__VERIFIER_nondet_bool()"]
 
 """ Return list of files, which satisfy the condition (see def check_conditions)
 """
@@ -50,8 +59,16 @@ def check_conditions(f):
     if line_cycle_begins <= 0 or line_cycle_begins < line_main:
         return False
     # ToDo add "for" cycle support
-    verifier_nondet_int = get_line(f, "__VERIFIER_nondet_int", "extern int __VERIFIER_nondet_int()")
-    if verifier_nondet_int == 0:
+    verifier_nondet_int = get_line(f, "__VERIFIER_nondet_uint", "extern int __VERIFIER_nondet_int()")
+    verifier_nondet_uint = get_line(f, "__VERIFIER_nondet_int", "extern unsigned int __VERIFIER_nondet_int()")
+    verifier_nondet_uchar = get_line(f, "__VERIFIER_nondet_uchar", "extern unsigned char __VERIFIER_nondet_uchar()")
+    verifier_nondet_char = get_line(f, "__VERIFIER_nondet_uchar", "extern char __VERIFIER_nondet_uchar()")
+    verifier_nondet_bool = get_line(f, "__VERIFIER_nondet_bool()", "extern bool __VERIFIER_nondet_uchar()")
+    if verifier_nondet_int == 0 \
+            and verifier_nondet_uint == 0 \
+            and verifier_nondet_uchar == 0 \
+            and verifier_nondet_char == 0 \
+            and verifier_nondet_bool == 0:
         print("file: {} doesn't have input values (__VERIFIER_nondet_int) ".format(f))
         return False
     list_of_int_variables = get_nondet_lines(f, line_main)
@@ -70,10 +87,12 @@ def get_nondet_lines(f, line_main):
     int_vars = []
     file = open(f, "r", encoding='ISO-8859-1')
     lines_to_check = file.readlines()[line_main:]
-    pattern = "__VERIFIER_nondet_int"
+    # pattern = "__VERIFIER_nondet_int"
+    patterns = PATTERN
     for i, line in enumerate(lines_to_check):
-        if re.search(pattern, line):
-            int_vars.append(i + line_main)
+        for pattern in patterns:
+            if re.search(pattern, line):
+                int_vars.append(i + line_main)
     return int_vars
 
 
@@ -100,6 +119,22 @@ def get_line(f, exp, exclude_exp=None):
     return index + 1
 
 
+
+def add_header(new_file):
+    line = '#include "testgen.h"'
+    with open(new_file, 'r+') as f:
+        content = f.readlines()
+        flag = False
+        for l in content:
+            if line in l:
+                flag = True
+                break
+        if not flag:
+            f.seek(0, 0)
+            f.writelines([line.rstrip('\r\n') + '\n'] + content)
+        f.close()
+
+
 """ Copy files to the separate sandbox (OUTPUT_DIR) location
 """
 
@@ -122,6 +157,8 @@ def move_to_sandbox(files):
         # copy file to individual sandbox
         new_file = subdir + "/" + basename
         shutil.copyfile(f, new_file)
+        # add #include "testgen.h" if needed
+        add_header(new_file)
         new_file_list.append(new_file)
     return new_file_list
 
@@ -147,13 +184,15 @@ replace all __VERIFIER_nondet_int() to nondet_XXXX()
 
 def update_line(s, line_number):
     tmp_line = s
-    verifier_nondet_int = '__VERIFIER_nondet_int()'
-    while (verifier_nondet_int in tmp_line):
-        eq_index = tmp_line.index(verifier_nondet_int)
-        nondet_num = get_digit_hash(tmp_line[:eq_index] + str(line_number))
-        nondet_numbers.append(nondet_num)
-        new_value = "nondet_{}()".format(nondet_num)
-        tmp_line = tmp_line.replace(verifier_nondet_int, new_value, 1)
+    for p in PATTERN:
+        #verifier_nondet_int = '__VERIFIER_nondet_int()'
+        verifier_nondet_int = p
+        while (verifier_nondet_int in tmp_line):
+            eq_index = tmp_line.index(verifier_nondet_int)
+            nondet_num = get_digit_hash(tmp_line[:eq_index] + str(line_number))
+            nondet_numbers.append(nondet_num)
+            new_value = "nondet_{}()".format(nondet_num)
+            tmp_line = tmp_line.replace(verifier_nondet_int, new_value, 1)
     return tmp_line
 
 
@@ -255,7 +294,7 @@ def command_executer(command, timeout, file):
             raise
         retcode = process.poll()
         logger(file, str(subprocess.CompletedProcess(process.args, retcode, stdout, stderr)))
-        if retcode:
+        if retcode and retcode != 254:
             return False
         else:
             return True
@@ -344,6 +383,7 @@ def gather_coverage_backup(new_file):
 
 
 def gather_coverage(new_file):
+    shutil.copyfile("../../Makefile", os.path.dirname(new_file) + "/Makefile")
     save = os.getcwd()
     os.chdir(os.path.dirname(new_file))
     flag = True
@@ -352,9 +392,11 @@ def gather_coverage(new_file):
         flag = False
     command = ['gcc', '-O0', '--coverage', 'main.c', '-o', 'test-coverage']
     if flag and not command_executer(command, COVERAGE_TIMEOUT, '../log.txt'):
-        flag = False
+        os.chdir(save)
+        return False
     command = ['./test-coverage']
-    if flag and not command_executer(command, COVERAGE_TIMEOUT, '../log.txt'):
+    command_executer(command, COVERAGE_TIMEOUT, '../log.txt') # test app can return any code
+    if not os.path.isfile('main.gcda'):
         flag = False
     command = ['lcov', '--capture', '--rc', 'lcov_branch_coverage=1', '--directory', '.', '--config-file', '../../../lcovrc', '--output', 'coverage.info']
     if flag and not command_executer(command, COVERAGE_TIMEOUT, '../log.txt'):
@@ -423,6 +465,20 @@ def stub_generate_testcases():
             os.chdir(save)
 
 
+""" add function definition for coverage gathering
+"""
+
+
+def update_header_file(filename):
+    lines = ['void __assert_fail(const char *, const char *, unsigned int, const char *) {};']
+    for line in lines:
+        with open(filename, 'r+') as f:
+            content = f.read()
+            f.seek(0, 0)
+            f.write(line.rstrip('\r\n') + '\n' + content)
+            f.close()
+
+
 """ run all testcases generated by tg tool
 - move filename.c to <testcase_#>/main.c
 - copy filename_x.h to <testcase_#>/testgen.h
@@ -454,6 +510,8 @@ def run_generated_testcases(f):
         # copy h file
         new_h_file = subdir + "/testgen.h"
         shutil.move(test, new_h_file)
+        # add extra lines, like assert_fail
+        update_header_file(new_h_file)
         gather_coverage(new_c_file)
         # merge coverage for all runs in test_header_list
     # dir = SANDBOX_DIR + '/' + sf
@@ -541,14 +599,19 @@ def main_pipline(files):
     shutil.copyfile('../bash_scripts/smt_run.sh', script_file)
     os.chmod(script_file, 0o777)
     #files = [f for f in files if 'testgen_2' in f]
-    for f in sorted(files):
+    for i, f in enumerate(sorted(files)):
         # update step
+        start_time = time.time()
         print("updating file: {}".format(f))
         keys = update_c_file(f)
         # smt convert step
         to_smt_docker(f)
         # testgen step
+        print("{:.2f}".format(100 * i / len(files)), "%", " ".join([f, list_to_string(keys)]))
         header_testgen(f, keys)
+        to_print_var = 'total time: {} seconds'.format(time.time() - start_time)
+        logger(os.path.dirname(f) + '/log.txt', to_print_var)
+        print(to_print_var)
 
 
 
@@ -562,7 +625,7 @@ if __name__ == '__main__':
     files = get_cfiles_with_conditions()
     [print(files[i]) for i in range(0, min(len(files), 10))]
     # 3. Move .c file to the specail sandbox
-    files = move_to_sandbox(files)
+    files = move_to_sandbox(sorted(files)[:FILES_LIMIT])
     print(files)
     # 4. Update int variable to unice value (develop special class/method for this)
     # update_c_files(files)
