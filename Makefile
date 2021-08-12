@@ -8,7 +8,7 @@ lcov: build
 	rm -f *.gcda coverage.info
 	./test-coverage
 	#./test-coverage "SecondParam for complete branch testing"
-	lcov --capture --rc lcov_branch_coverage=1 --directory . --config-file ../../../lcovrc --output coverage.info
+	lcov --capture --rc lcov_branch_coverage=1 --directory . --config-file ../../lcovrc --output coverage.info
 
 genhtml: lcov
 	rm -rf /tmp/coverage/

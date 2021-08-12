@@ -1,31 +1,30 @@
+import argparse
 import os
 import re
 import shutil
 import subprocess
 import time
 from datetime import datetime
-from multiprocessing import process
 from CoverageUtil import CoverageUtil
 
-#SOURCE_PATH = "../resourses/c_files"
-#SOURCE_PATH = "../resourses/benchmarks"
-SOURCE_PATH = "/Users/ilyazlatkin/PycharmProjects/benckmarks/loops"
-#SOURCE_PATH = "/Users/ilyazlatkin/PycharmProjects/benckmarks/test"
-SEA_PATH = "/Users/ilyazlatkin/CLionProjects/seahorn/build/run/bin/sea"
-SANDBOX_DIR = "../sandbox"
-SEA_TIMEOUT = 30
-GCC = "gcc"
-LCOV = "lcov"
-TG_TOOL_PATH = "/Users/ilyazlatkin/PycharmProjects/aeval/build/tools/tg/tg"
-TG_TIMEOUT = 100
-COVERAGE_TIMEOUT = 20
-PYTHONHASHSEED = 0
-FILES_LIMIT = 10
-PATTERN = ["__VERIFIER_nondet_int()",
-           '__VERIFIER_nondet_uint()',
-           "__VERIFIER_nondet_char()",
-           "__VERIFIER_nondet_uchar()",
-           "__VERIFIER_nondet_bool()"]
+
+def init():
+    global SOURCE_PATH, SEA_PATH, SANDBOX_DIR, SEA_TIMEOUT, TG_TOOL_PATH, TG_TIMEOUT, COVERAGE_TIMEOUT, PATTERN, COVERAGE
+    SOURCE_PATH = "/Users/ilyazlatkin/PycharmProjects/benckmarks/loops"
+    SEA_PATH = "/Users/ilyazlatkin/CLionProjects/seahorn/build/run/bin/sea"
+    SANDBOX_DIR = "../sandbox"
+    SEA_TIMEOUT = 30
+    TG_TOOL_PATH = "/Users/ilyazlatkin/PycharmProjects/aeval/build/tools/tg/tg"
+    TG_TIMEOUT = 100
+    COVERAGE_TIMEOUT = 20
+    PYTHONHASHSEED = 0
+    COVERAGE = True
+    PATTERN = ["__VERIFIER_nondet_int()",
+               '__VERIFIER_nondet_uint()',
+               "__VERIFIER_nondet_char()",
+               "__VERIFIER_nondet_uchar()",
+               "__VERIFIER_nondet_bool()"]
+
 
 """ Return list of files, which satisfy the condition (see def check_conditions)
 """
@@ -119,7 +118,6 @@ def get_line(f, exp, exclude_exp=None):
     return index + 1
 
 
-
 def add_header(new_file):
     line = '#include "testgen.h"'
     with open(new_file, 'r+') as f:
@@ -131,7 +129,7 @@ def add_header(new_file):
                 flag = True
             tmp = l
             if 'reach_error()' in tmp and 'void' not in tmp:
-                tmp = tmp.replace('reach_error()','/*reach_error()*/')
+                tmp = tmp.replace('reach_error()', '/*reach_error()*/')
             if 'abort()' in tmp:
                 tmp = tmp.replace('abort()', 'exit(0)')
             out.append(tmp)
@@ -154,6 +152,8 @@ def move_to_sandbox(files):
         shutil.rmtree(SANDBOX_DIR)
         os.mkdir(SANDBOX_DIR)
     new_file_list = []
+    shutil.copyfile("../Makefile", SANDBOX_DIR + "/Makefile")
+    shutil.copyfile("../lcovrc", SANDBOX_DIR + "/lcovrc")
     for f in files:
         # create subdir for each .c file
         basename = os.path.basename(f)
@@ -191,7 +191,7 @@ replace all __VERIFIER_nondet_int() to nondet_XXXX()
 def update_line(s, line_number):
     tmp_line = s
     for p in PATTERN:
-        #verifier_nondet_int = '__VERIFIER_nondet_int()'
+        # verifier_nondet_int = '__VERIFIER_nondet_int()'
         verifier_nondet_int = p
         while (verifier_nondet_int in tmp_line):
             eq_index = tmp_line.index(verifier_nondet_int)
@@ -389,7 +389,7 @@ def gather_coverage_backup(new_file):
 
 
 def gather_coverage(new_file):
-    shutil.copyfile("../../Makefile", os.path.dirname(new_file) + "/Makefile")
+    shutil.copyfile("../Makefile", os.path.dirname(new_file) + "/Makefile")
     save = os.getcwd()
     os.chdir(os.path.dirname(new_file))
     flag = True
@@ -401,13 +401,14 @@ def gather_coverage(new_file):
         os.chdir(save)
         return False
     command = ['./test-coverage']
-    command_executer(command, COVERAGE_TIMEOUT, '../log.txt') # test app can return any code
+    command_executer(command, COVERAGE_TIMEOUT, '../log.txt')  # test app can return any code
     if not os.path.isfile('main.gcda'):
         flag = False
-    command = ['lcov', '--capture', '--rc', 'lcov_branch_coverage=1', '--directory', '.', '--config-file', '../../../lcovrc', '--output', 'coverage.info']
+    command = ['lcov', '--capture', '--rc', 'lcov_branch_coverage=1', '--directory', '.', '--config-file',
+               '../../../lcovrc', '--output', 'coverage.info']
     if flag and not command_executer(command, COVERAGE_TIMEOUT, '../log.txt'):
         flag = False
-    command = ['rm', '-rf', '/tmp/coverage/'] # ToDo not sure that this step is needed, recheck
+    command = ['rm', '-rf', '/tmp/coverage/']  # ToDo not sure that this step is needed, recheck
     if flag and not command_executer(command, COVERAGE_TIMEOUT, '../log.txt'):
         flag = False
     command = ['genhtml', '--branch-coverage', '--output', './generated-coverage/', 'coverage.info']
@@ -415,60 +416,6 @@ def gather_coverage(new_file):
         flag = False
     os.chdir(save)
     return flag
-
-
-""" stub method
-- Read prepared tests cases
-- Compile, Execute and generate coverage reports
-
-"""
-
-
-def stub_generate_testcases():
-    stub_path = "../stub"
-    lod = os.listdir(stub_path)
-    for sf in lod:
-        print("Test Run for: {}".format(sf))
-        test_header_list = [os.path.join(dp, f) for dp, dn, filenames in os.walk(stub_path + '/' + sf)
-                            for f in filenames if os.path.splitext(f)[1] == '.h']
-        print(test_header_list)
-        for i, test in enumerate(test_header_list):
-            print('testcase_{}: {}'.format(i, sf))
-            # create subdir
-            subdir = SANDBOX_DIR + "/" + sf + "/" + str(i + 1)
-            if (os.path.exists(subdir)):
-                shutil.rmtree(subdir)
-            os.mkdir(subdir)
-            # copy c file
-            new_c_file = subdir + "/Main.c"
-            shutil.copyfile(SANDBOX_DIR + "/" + sf + "/" + sf + '.c', new_c_file)
-            # copy h file
-            new_h_file = subdir + "/testgen.h"
-            shutil.copyfile(test, new_h_file)
-            gather_coverage(new_c_file)
-        # merge coverage for all runs in test_header_list
-        dir = SANDBOX_DIR + '/' + sf
-        print("build summery report: {}".format(dir))
-        # covs = [SANDBOX_DIR + '/' + sf + '/' + str(i) + '/coverage.info' for i in range(1, 1 + len(test_header_list))]
-        covs = [os.path.join(dp, f) for dp, dn, filenames in os.walk(SANDBOX_DIR + '/' + sf + '/')
-                for f in filenames if os.path.splitext(f)[1] == '.info']
-        if covs:
-            result = CoverageUtil.merge_coverage_for_test_runs(covs)
-            # change dir to dir
-            save = os.getcwd()
-            os.chdir(dir)
-            # make new dir summary
-            os.mkdir('summary')
-            # write file to summary dir
-            summary_file = open('summary/summary_coverage.info', "w")
-            summary_file.writelines(result)
-            summary_file.close()
-            # write coverage command:
-            # genhtml --branch-coverage --output ./generated-coverage/ coverage.info
-            os.chdir('summary')
-            command = ['genhtml', '--branch-coverage', 'summary_coverage.info']
-            command_executer(command, 30, 'log.txt')
-            os.chdir(save)
 
 
 """ add function definition for coverage gathering
@@ -576,9 +523,10 @@ def summary_coverage_report():
 
 
 def header_testgen(f, keys):
+    global COVERAGE
     print('=========Test Gen Step =============')
     print("generating headers for file: {}".format(f))
-    #check if smt exist, if not skip
+    # check if smt exist, if not skip
     basename = os.path.basename(f)
     name_wo_ext = os.path.splitext(basename)[0]
     dir = os.path.dirname(f)
@@ -591,7 +539,8 @@ def header_testgen(f, keys):
         print(list_to_string(command))
         try:
             command_executer(command, TG_TIMEOUT, 'log.txt')
-            run_generated_testcases(basename)
+            if COVERAGE:
+                run_generated_testcases(basename)
         except subprocess.CalledProcessError as e:
             logger('log.txt', [list_to_string(command), "FAIL"])
         os.chdir(save)
@@ -604,7 +553,7 @@ def main_pipline(files):
     script_file = SANDBOX_DIR + '/smt_run.sh'
     shutil.copyfile('../bash_scripts/smt_run.sh', script_file)
     os.chmod(script_file, 0o777)
-    #files = [f for f in files if 'testgen_2' in f]
+    # files = [f for f in files if 'testgen_2' in f]
     for i, f in enumerate(sorted(files)):
         # update step
         start_time = time.time()
@@ -620,28 +569,97 @@ def main_pipline(files):
         print(to_print_var)
 
 
+def main():
+    init()
+    global SOURCE_PATH, SEA_PATH, SANDBOX_DIR, SEA_TIMEOUT, TG_TOOL_PATH, TG_TIMEOUT, COVERAGE_TIMEOUT, PATTERN, COVERAGE
+    parser = argparse.ArgumentParser(description='python script for Test Generation')
+    insourse = ['-i', '--input_source']
+    kwsourse = {'type': str, 'help': 'Input .c-file. or directory'}
 
-if __name__ == '__main__':
-    print('=== TestGen ===')
-    # 1. Init Variable (+)
-    # 2. Find all .c files for test gen (creatia:
-    #       1. Has main method (+)
-    #       2. Has while/for cycle (+/-)
-    #       3. Has __VERIFIER_nondet_uint()
-    files = get_cfiles_with_conditions()
+    outdir = ['-o', '--output_dir']
+    kwoutdir = {'type': str, 'help': 'Output direcory name. Default: SANDBOX_DIR.'}
+
+    tg = ['-tg', '--tg_tool_path']
+    kwtg = {'type': argparse.FileType('r'), 'help': 'Path to TG tool. Default: TG_TOOL_PATH.'}
+
+    sea = ['-sea', '--seahorn_tool_path']
+    kwsea = {'type': argparse.FileType('r'), 'help': 'Path to SEAHORN tool. Default: SEA_PATH.'}
+    kwdocker = {'type': str, 'help': 'true - SeaHorn runs in Docker/false - SeaHorn is local. Default: true.'}
+    kwcov = {'type': str, 'help': 'true - run with coverage/false - run without coverage. Default: true.'}
+
+    parser.add_argument(*insourse, **kwsourse)
+    parser.add_argument(*outdir, **kwoutdir)
+    parser.add_argument(*tg, **kwtg)
+    group_sea = parser.add_mutually_exclusive_group()
+    group_sea.add_argument(*sea, **kwsea)
+    group_sea.add_argument('--docker_sea', **kwdocker)
+    parser.add_argument('--coverage', **kwcov)
+
+    args = parser.parse_args()
+    print(args)
+    files = []
+    if args.input_source is not None:
+        if os.path.isfile(args.input_source):
+            file = args.input_source
+            print('input file was set to {}'.format(file))
+            if check_conditions(file):
+                files = [file]
+        elif os.path.isdir(args.input_source):
+            print('input directory was set to {}'.format(args.input_source))
+            SOURCE_PATH = args.input_source
+            files = get_cfiles_with_conditions()
+        else:
+            print('invalid input_source: {}'.format(args.input_source))
+            exit(1)
+
+    if args.output_dir is not None:
+        print('sanbox set to {}'.format(args.output_dir))
+        SANDBOX_DIR = args.output_dir
+
+    if args.tg_tool_path is not None:
+        if not os.path.isfile(args.tg_tool_path.name):
+            print("tg tool path:{} is invalid".format(args.tg_tool_path))
+            exit(1)
+    else:
+        if not os.path.isfile(TG_TOOL_PATH):
+            print("tg tool path:{} is invalid, use \"--tg_tool_path\" or "
+                  "set TG_TOOL_PATH in the script".format(args.tg_tool_path))
+            exit(1)
+
+    if args.seahorn_tool_path is not None:
+        if not os.path.isfile(args.seahorn_tool_path.name):
+            print("tg tool path:{} is invalid".format(args.seahorn_tool_path))
+            exit(1)
+    else:
+        if not os.path.isfile(SEA_PATH):
+            print("SeaHorn tool path:{} is invalid, use \"--seahorn_tool_path\" or "
+                  "set SEA_PATH in the script".format(args.seahorn_tool_path))
+            exit(1)
+
+    if args.docker_sea is not None:
+        docker_image_name = str(subprocess.check_output(
+            'docker ps --format "table {{.Names}}" -f ancestor=seahorn/seahorn-llvm10:nightly | tail -1',
+            shell=True).strip())[2:-1]
+        if 'NAMES' in docker_image_name:
+            print("SeaHorn Docker is not running")
+            print("run following docker command:")
+            print(
+                "\tdocker run --rm -it --mount type=bind,source=<SANDBOX_PATH>,target=/app seahorn/seahorn-llvm10:nightly")
+            exit(1)
+
+    if args.coverage is not None:
+        if args.coverage == 'false':
+            COVERAGE = False
+
     [print(files[i]) for i in range(0, min(len(files), 10))]
-    # 3. Move .c file to the specail sandbox
-    files = move_to_sandbox(sorted(files)[:FILES_LIMIT])
-    print(files)
-    # 4. Update int variable to unice value (develop special class/method for this)
-    # update_c_files(files)
-    # 5. Create smt file for updated .c file and store metadate to the specail log
-    # convert_c_to_smt(files)
-    # 6. Implemented by Wesley Harris, Grigory Fedyukovich - provides set of test values
-    # 7. Generate .c file for each of this values
-    # 8. Compile this .c and run it with coverage
-    #stub_generate_testcases()
+    # Move .c file to the specail sandbox
+    files = move_to_sandbox(sorted(files))
     main_pipline(files)
-    # 9. Merge all coverage
-    summary_coverage_report()
-    # 10 Build Report like ReportBuilder.html_report
+    # Merge all coverage
+    if len(files) > 1:
+        summary_coverage_report()
+    # Build Report like ReportBuilder.html_report
+
+
+if __name__ == "__main__":
+    main()
