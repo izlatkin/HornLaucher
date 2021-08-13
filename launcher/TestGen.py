@@ -6,6 +6,7 @@ import subprocess
 import time
 from datetime import datetime
 from CoverageUtil import CoverageUtil
+from launcher import ReportBuilder
 
 
 def init():
@@ -688,6 +689,7 @@ def main():
     # Merge all coverage
     if len(files) > 1:
         summary_coverage_report()
+        ReportBuilder.html_report.buildReport_3(SANDBOX_DIR)
     # Build Report like ReportBuilder.html_report
 
 
