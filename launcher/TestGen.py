@@ -308,7 +308,8 @@ def command_executer(command, timeout, file):
             logger(file, mesage)
             raise
         retcode = process.poll()
-        logger(file, str(subprocess.CompletedProcess(process.args, retcode, stdout, stderr)))
+        #logger(file, str(subprocess.CompletedProcess(process.args, retcode, stdout, stderr)))
+        logger(file, [process.args, retcode, stdout, stderr])
         if retcode and retcode != 254:
             return False
         else:
@@ -331,9 +332,19 @@ def logger(file, content):
     time = now.strftime("%H:%M:%S:%f")
     t = str('[{}]'.format(time))
     if type(content) is list:
-        f.writelines([t] + content + ['\n'])
-    if type(content) is str:
+        f.writelines([t] + ['\n'])
+        for c in content:
+            if type(c) is list:
+                f.writelines([' '.join(c)] + ['\n'])
+            elif type(c) is bytes:
+                cs = str(c)
+                list_to_print = [f + '\n' for f in cs.split('\\n')]
+                f.writelines(list_to_print + ['\n'])
+            else:
+                f.writelines([str(c)] + ['\n'])
+    elif type(content) is str:
         f.write(t + '\n' + content + '\n')
+    f.close()
 
 
 """ Runs SeaHorn command on local installed SeaHorn
@@ -374,7 +385,6 @@ def to_smt_docker(f):
     docker_sea_command = ['cd /app/{};'.format(name_wo_ext), '../smt_run.sh', ff, smt_file]
     docker_command = ['docker', 'exec', docker_image_name, 'bash', '-c', list_to_string(docker_sea_command)]
     print(docker_command)
-    # ToDo: add content to log.txt file
     try:
         # output = subprocess.check_output(docker_command)
         command_executer(docker_command, SEA_TIMEOUT, os.path.dirname(f) + '/log.txt')
@@ -689,7 +699,7 @@ def main():
     # Merge all coverage
     if len(files) > 1:
         summary_coverage_report()
-        ReportBuilder.html_report.buildReport_3(SANDBOX_DIR)
+    ReportBuilder.html_report.buildReport_3(SANDBOX_DIR)
     # Build Report like ReportBuilder.html_report
 
 

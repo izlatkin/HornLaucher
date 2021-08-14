@@ -2,6 +2,8 @@ import os
 import pickle
 import re
 
+import xlsxwriter as xlsxwriter
+
 
 class html_report:
 
@@ -260,13 +262,76 @@ class html_report:
                 last_line = f.readline().decode()
                 time_con = last_line.split()
                 if len(time_con)> 3:
-                    return "%8.2f" % (float(time_con[2]))
+                    return "%8.2f" % (float(time_con[2].replace(',','.')))
                 else:
                     "<font color=\"red\">{}</font>\n".format('no available')
         else:
             return "<font color=\"red\">{}</font>\n".format('no available')
 
 
+    def buildReport_Excel(dir):
+        # Create a workbook and add a worksheet.
+        workbook = xlsxwriter.Workbook(dir + '/1_report.xlsx')
+        worksheet = workbook.add_worksheet()
+
+        exclude = ['final_coverage_report_wc_header', 'final_coverage_report']
+        expenses = [['filename', 'coverage', 'time']]
+        source_files = [f.path for f in os.scandir(dir) if f.is_dir() and os.path.basename(f) not in exclude]
+        for line in sorted(source_files):
+            file_name = os.path.basename(line) + '.c'
+            coverage = html_report.get_coverage_data_plane_text(line)
+            time = html_report.get_time_consumed(line)
+            expenses.append([file_name, coverage, time])
+
+
+        row = 0
+        col = 0
+
+        for cfile, coverage, time in expenses:
+            worksheet.write(row, col, cfile)
+            worksheet.write(row, col + 1, coverage)
+            worksheet.write(row, col + 2, time)
+            row += 1
+
+        workbook.close()
+
+
+    @classmethod
+    def get_coverage_data_plane_text(cls, dir):
+        sub_dirs = [f.path for f in os.scandir(dir) if f.is_dir() and os.path.basename(f) in 'summary']
+        if len(sub_dirs) != 1:
+            return 'no data'
+        else:
+            report_dir = [f.path for f in os.scandir(sub_dirs[0]) if f.is_dir()]
+            if len(report_dir) != 1:
+                return 'no report'
+            else:
+                file_name = report_dir[0] + '/main.c.gcov.html'
+                out = html_report.read_lcov_html_report_plane_text(file_name)
+                return out
+
+
+    @classmethod
+    def read_lcov_html_report_plane_text(cls, file_name):
+        file = open(file_name, "r")
+        lines = file.readlines()
+        brench_lines = []
+        flag = False
+        i = 0
+        for line in lines:
+            if flag:
+                brench_lines.append(re.sub('<[^<]+?>', '', line))
+                i += 1
+            if 'Branches:' in line:
+                brench_lines.append(re.sub('<[^<]+?>', '', line))
+                flag = True
+            if i == 3:
+                break
+        return brench_lines[3]
+
+
+
 if __name__ == '__main__':
     #html_report.buildReport_3("../sandbox")
-    html_report.buildReport_3("../sandbox")
+    #html_report.buildReport_3("../sandbox")
+    html_report.buildReport_Excel("../sandbox")
