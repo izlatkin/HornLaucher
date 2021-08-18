@@ -6,7 +6,7 @@ import subprocess
 import time
 from datetime import datetime
 from CoverageUtil import CoverageUtil
-from launcher import ReportBuilder
+import ReportBuilder
 
 
 def init():
@@ -56,8 +56,8 @@ def check_conditions(f):
     if line_main <= 0:
         return False
     line_cycle_begins = get_line(f, "while")
-    if line_cycle_begins <= 0 or line_cycle_begins < line_main:
-        return False
+    # if line_cycle_begins <= 0 or line_cycle_begins < line_main:
+    #     return False
     # ToDo add "for" cycle support
     verifier_nondet_int = get_line(f, "__VERIFIER_nondet_uint", "extern int __VERIFIER_nondet_int()")
     verifier_nondet_uint = get_line(f, "__VERIFIER_nondet_int", "extern unsigned int __VERIFIER_nondet_int()")
@@ -700,6 +700,7 @@ def main():
     if len(files) > 1:
         summary_coverage_report()
     ReportBuilder.html_report.buildReport_3(SANDBOX_DIR)
+    ReportBuilder.html_report.buildReport_Excel(SANDBOX_DIR)
     # Build Report like ReportBuilder.html_report
 
 
