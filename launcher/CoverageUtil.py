@@ -26,7 +26,8 @@ class CoverageUtil:
                     else:
                         return 'merge error'
                 sf = 'SF:{}/{}\n'.format(path, key)
-                out += [sf] + CoverageUtil.merge_coverage_lists(tmp_list)
+                if not key.endswith('.h'): # ToDo removed when fixed https://github.com/izlatkin/HornLauncher/issues/12
+                    out += [sf] + CoverageUtil.merge_coverage_lists(tmp_list)
         return ['TN:\n'] + out
 
 
