@@ -16,7 +16,7 @@ def init():
     SANDBOX_DIR = "../sandbox"
     SEA_TIMEOUT = 30
     TG_TOOL_PATH = "/Users/ilyazlatkin/PycharmProjects/aeval/build/tools/tg/tg"
-    TG_TIMEOUT = 100
+    TG_TIMEOUT = 600
     COVERAGE_TIMEOUT = 20
     PYTHONHASHSEED = 0
     COVERAGE = True
@@ -146,11 +146,11 @@ def add_header(new_file):
 
 def add_header_with_pthread(file):
     #'#include "testgen.h"', '#include <stdlib.h>'
-    pre = ['#include <pthread.h>', '#include <unistd.h>', '#include <time.h>']
+    pre = ['#include <pthread.h>', '#include <unistd.h>', '#include <time.h>','#include <printf.h>']
     post_lines = ['\n ','int main(){\n','    pthread_t tid; pthread_create(&tid, 0, main_oririnal, 0);\n',
                   '    time_t start = time(0); time_t seconds = 10; time_t endwait = start + seconds;',
                   '    while ((start < endwait) & (pthread_kill(tid, 0) == 0)){ sleep(1); start = time(0); }\n',
-                  '    pthread_cancel(tid); return 0; }']
+                  '    pthread_cancel(tid); printf("timeout termination "); return 0; }']
     with open(file, 'r+') as f:
         content = f.readlines()
         out = []
@@ -158,8 +158,8 @@ def add_header_with_pthread(file):
         pre_lines = [p.rstrip('\r\n') + '\n' for p in pre if p not in stripted_content]
         for l in content:
             tmp = l
-            if 'int main()' in tmp:
-                tmp = tmp.replace('int main()', 'int main_oririnal()')
+            if 'int main(' in tmp:
+                tmp = tmp.replace('int main(', 'int main_oririnal(')
             out.append(tmp)
         f.seek(0, 0)
         f.writelines(pre_lines + out + post_lines)
@@ -553,7 +553,8 @@ def run_generated_testcases(f, keys):
         new_h_file = subdir + "/testgen.h"
         shutil.move(test, new_h_file)
         # add missings methods to new_h_file
-        check_and_update_h_file(new_h_file, keys)
+        # ToDo: https://github.com/izlatkin/HornLauncher/issues/12
+        # check_and_update_h_file(new_h_file, keys)
         # add extra lines, like assert_fail
         update_header_file(new_h_file)
         gather_coverage(new_c_file)
@@ -626,7 +627,7 @@ def header_testgen(f, keys):
         print('smt file {} exist, perform testgen step'.format(smt_file))
         save = os.getcwd()
         os.chdir(dir)
-        command = [TG_TOOL_PATH, '--keys', ','.join([str(k) for k in keys]), name_wo_ext + '.smt2']
+        command = [TG_TOOL_PATH, '--no-term','--keys', ','.join([str(k) for k in keys]), name_wo_ext + '.smt2']
         print(list_to_string(command))
         try:
             command_executer(command, TG_TIMEOUT, 'log.txt')
