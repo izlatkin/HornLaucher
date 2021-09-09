@@ -23,6 +23,8 @@ Run
 * Creatre work directory `mkdir sandbox` 
 * Run docker with mount option `docker run --rm -it --mount type=bind,source=${PATH_TO_REPO}/sandbox,target=/app 
 seahorn/seahorn-llvm10:nightly` 
+* Ubuntu example `docker container run -it -p 5000:5000 -v /home/fmfsu/HornLauncher/sandbox/:/app seahorn/seahorn-llvm10:nightly /bin/bash
+`
 * Upload dependencies `pip install -r requirements.txt` (TBD)
 * `cd launcher`   
 * Edit `TestGen.py` and modify `SOURCE_PATH, OUTPUT_DIR` and other options if needed

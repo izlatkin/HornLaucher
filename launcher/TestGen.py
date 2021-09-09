@@ -1,4 +1,5 @@
 import argparse
+import glob
 import os
 import re
 import shutil
@@ -16,6 +17,7 @@ def init():
     SANDBOX_DIR = "../sandbox"
     SEA_TIMEOUT = 30
     TG_TOOL_PATH = "/Users/ilyazlatkin/PycharmProjects/aeval/build/tools/tg/tg"
+    TG_TOOL_PATH = "/home/fmfsu/aeval/build/tools/tg/tg"
     TG_TIMEOUT = 600
     COVERAGE_TIMEOUT = 20
     PYTHONHASHSEED = 0
@@ -24,7 +26,8 @@ def init():
                '__VERIFIER_nondet_uint()':"unsigned int",
                "__VERIFIER_nondet_char()":"char",
                "__VERIFIER_nondet_uchar()":"unsigned char",
-               "__VERIFIER_nondet_bool()":"bool"}
+               "__VERIFIER_nondet_bool()":"bool",
+               "__VERIFIER_nondet_float()":"float"}
 
 
 """ Return list of files, which satisfy the condition (see def check_conditions)
@@ -170,14 +173,24 @@ def add_header_with_pthread(file):
 """
 
 
+def clean_dir(dir):
+    for root, dirs, files in os.walk(dir):
+        for f in files:
+            os.unlink(os.path.join(root, f))
+        for d in dirs:
+            shutil.rmtree(os.path.join(root, d))
+
+
 def move_to_sandbox(files):
     print("========move_to_sandbox===========")
     if not os.path.exists(SANDBOX_DIR):
         os.mkdir(SANDBOX_DIR)
     else:
         print('clear output directory {}'.format(SANDBOX_DIR))
-        shutil.rmtree(SANDBOX_DIR)
-        os.mkdir(SANDBOX_DIR)
+        #shutil.rmtree(SANDBOX_DIR)
+        #remove dir
+        clean_dir(SANDBOX_DIR)
+        #os.mkdir(SANDBOX_DIR)
     new_file_list = []
     shutil.copyfile("../Makefile", SANDBOX_DIR + "/Makefile")
     shutil.copyfile("../lcovrc", SANDBOX_DIR + "/lcovrc")
@@ -445,7 +458,7 @@ def gather_coverage(new_file):
     command = ['rm', '-rf', 'main.gc*', 'main.o', 'coverage.info', 'test-coverage', 'generated-coverage']
     if flag and not command_executer(command, COVERAGE_TIMEOUT, '../log.txt'):
         flag = False
-    command = ['gcc', '-O0', '--coverage', 'main.c', '-o', 'test-coverage']
+    command = ['gcc','-pthread', '-O0', '--coverage', 'main.c', '-o', 'test-coverage']
     if flag and not command_executer(command, COVERAGE_TIMEOUT, '../log.txt'):
         os.chdir(save)
         return False
@@ -474,7 +487,7 @@ def gather_coverage(new_file):
 def update_header_file(filename):
     global function_dictionary, PATTERN
     lines = ['#include <stdbool.h>\n',
-             'void __assert_fail(const char *, const char *, unsigned int, const char *) {};\n']
+             'void __assert_fail(const char * a, const char * b, unsigned int c, const char * d) {};\n']
 
     fr = open(filename, 'r+')
     content = fr.readlines()
@@ -545,7 +558,7 @@ def run_generated_testcases(f, keys):
             shutil.rmtree(subdir)
         os.mkdir(subdir)
         # copy c file
-        new_c_file = subdir + "/Main.c"
+        new_c_file = subdir + "/main.c"
         # replace original .c-file to c-file with pthread and timeouts
         shutil.copyfile(sf + '_with_pthread.c', new_c_file)
         #shutil.copyfile(sf + '.c', new_c_file)
@@ -627,7 +640,7 @@ def header_testgen(f, keys):
         print('smt file {} exist, perform testgen step'.format(smt_file))
         save = os.getcwd()
         os.chdir(dir)
-        command = [TG_TOOL_PATH, '--no-term','--keys', ','.join([str(k) for k in keys]), name_wo_ext + '.smt2']
+        command = [TG_TOOL_PATH, '--inv-mode','0', '--no-term', '--keys', ','.join([str(k) for k in keys]), name_wo_ext + '.smt2']
         print(list_to_string(command))
         try:
             command_executer(command, TG_TIMEOUT, 'log.txt')
@@ -712,6 +725,7 @@ def main():
         SANDBOX_DIR = args.output_dir
 
     if args.tg_tool_path is not None:
+        TG_TOOL_PATH = args.tg_tool_path
         if not os.path.isfile(args.tg_tool_path.name):
             print("tg tool path:{} is invalid".format(args.tg_tool_path))
             exit(1)
@@ -726,10 +740,11 @@ def main():
             print("tg tool path:{} is invalid".format(args.seahorn_tool_path))
             exit(1)
     else:
+        # ToDo bug
         if not os.path.isfile(SEA_PATH):
             print("SeaHorn tool path:{} is invalid, use \"--seahorn_tool_path\" or "
                   "set SEA_PATH in the script".format(args.seahorn_tool_path))
-            exit(1)
+            #exit(1)
 
     if args.docker_sea is not None:
         docker_image_name = str(subprocess.check_output(

@@ -8,8 +8,6 @@
 #include "testgen.h"
 int calculate_output(int);
 extern void abort(void);
-extern void __assert_fail(const char *, const char *, unsigned int, const char *) __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__noreturn__));
-void reach_error() { __assert_fail("0", "Problem01_label00.c", 4, "reach_error"); }
 extern int __VERIFIER_nondet_int(void);
 extern void exit(int);
 
@@ -507,7 +505,7 @@ extern void exit(int);
 	    	error_49: exit(0);
 	    }
 	    if((((((((a17==1)&&(a7==1))&&(a20==1))&&(a8==13))&&(a12==8))&&(a16==5))&&(a21==1))){
-	    	error_0: {reach_error();abort();}
+	    	error_0: {abort();}
 	    }
 	    if((((((((a17==1)&&(a7==1))&&(a20==1))&&(a8==14))&&(a12==8))&&(a16==4))&&(a21==1))){
 	    	error_11: exit(0);

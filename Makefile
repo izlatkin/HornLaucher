@@ -2,7 +2,7 @@ all: coverage
 
 build:
 	rm -f *.gcno
-	gcc -O0 --coverage main.c -o test-coverage
+	gcc -pthread -O0 --coverage main.c -o test-coverage
 
 lcov: build
 	rm -f *.gcda coverage.info
