@@ -137,7 +137,7 @@ class html_report:
         i = 1
         exclude = ['final_coverage_report_wc_header', 'final_coverage_report']
         source_files = [f.path for f in os.scandir(dir) if f.is_dir() and os.path.basename(f) not in exclude]
-        for line in source_files:
+        for line in sorted(source_files):
             print(line)
             table += "  <tr>\n"
             table += "    <td>{0}</td>\n".format(i)
@@ -333,5 +333,5 @@ class html_report:
 
 if __name__ == '__main__':
     #html_report.buildReport_3("../sandbox")
-    #html_report.buildReport_3("../sandbox")
+    html_report.buildReport_3("../sandbox")
     html_report.buildReport_Excel("../sandbox")

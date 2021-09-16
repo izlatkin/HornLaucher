@@ -15,10 +15,10 @@ def init():
     SOURCE_PATH = "/Users/ilyazlatkin/PycharmProjects/benckmarks/loops"
     SEA_PATH = "/Users/ilyazlatkin/CLionProjects/seahorn/build/run/bin/sea"
     SANDBOX_DIR = "../sandbox"
-    SEA_TIMEOUT = 30
+    SEA_TIMEOUT = 60
     TG_TOOL_PATH = "/Users/ilyazlatkin/PycharmProjects/aeval/build/tools/tg/tg"
-    TG_TOOL_PATH = "/home/fmfsu/aeval/build/tools/tg/tg"
-    TG_TIMEOUT = 600
+    #TG_TOOL_PATH = "/home/fmfsu/aeval/build/tools/tg/tg"
+    TG_TIMEOUT = 3600
     COVERAGE_TIMEOUT = 20
     PYTHONHASHSEED = 0
     COVERAGE = True
@@ -187,10 +187,13 @@ def move_to_sandbox(files):
         os.mkdir(SANDBOX_DIR)
     else:
         print('clear output directory {}'.format(SANDBOX_DIR))
-        #shutil.rmtree(SANDBOX_DIR)
         #remove dir
-        clean_dir(SANDBOX_DIR)
-        #os.mkdir(SANDBOX_DIR)
+        os_info = os.uname()
+        if (os_info.sysname != 'Darwin'):
+            clean_dir(SANDBOX_DIR)
+        else:
+            shutil.rmtree(SANDBOX_DIR)
+            os.mkdir(SANDBOX_DIR)
     new_file_list = []
     shutil.copyfile("../Makefile", SANDBOX_DIR + "/Makefile")
     shutil.copyfile("../lcovrc", SANDBOX_DIR + "/lcovrc")
@@ -764,6 +767,7 @@ def main():
 
     [print(files[i]) for i in range(0, min(len(files), 10))]
     # Move .c file to the specail sandbox
+    #files = files[:10]
     files = move_to_sandbox(sorted(files))
     main_pipline(files)
     # Merge all coverage
