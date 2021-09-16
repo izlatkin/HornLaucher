@@ -153,6 +153,8 @@ class html_report:
 
         table += "</table>"
 
+        table = table.replace("../{}".format(dir), ".")
+
         fileout.writelines(table)
         fileout.close()
 
