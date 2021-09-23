@@ -22,12 +22,13 @@ def init():
     COVERAGE_TIMEOUT = 20
     PYTHONHASHSEED = 0
     COVERAGE = True
-    PATTERN = {"__VERIFIER_nondet_int()":"int",
-               '__VERIFIER_nondet_uint()':"unsigned int",
-               "__VERIFIER_nondet_char()":"char",
-               "__VERIFIER_nondet_uchar()":"unsigned char",
-               "__VERIFIER_nondet_bool()":"bool",
-               "__VERIFIER_nondet_float()":"float"}
+    PATTERN = {"__VERIFIER_nondet_int()": "int",
+               '__VERIFIER_nondet_uint()': "unsigned int",
+               "__VERIFIER_nondet_char()": "char",
+               "__VERIFIER_nondet_uchar()": "unsigned char",
+               "__VERIFIER_nondet_bool()": "bool",
+               "__VERIFIER_nondet_float()": "float",
+               "__VERIFIER_nondet_long()": "long int"}
 
 
 """ Return list of files, which satisfy the condition (see def check_conditions)
@@ -769,7 +770,7 @@ def main():
 
     [print(files[i]) for i in range(0, min(len(files), 10))]
     # Move .c file to the specail sandbox
-    #files = files[:100]
+    #files = files[:10]
     files = move_to_sandbox(sorted(files))
     main_pipline(files)
     # Merge all coverage
