@@ -18,7 +18,7 @@ def init():
     SEA_TIMEOUT = 60
     TG_TOOL_PATH = "/Users/ilyazlatkin/PycharmProjects/aeval/build/tools/tg/tg"
     #TG_TOOL_PATH = "/home/fmfsu/aeval/build/tools/tg/tg"
-    TG_TIMEOUT = 3600
+    TG_TIMEOUT = 360
     COVERAGE_TIMEOUT = 20
     PYTHONHASHSEED = 0
     COVERAGE = True
@@ -56,6 +56,8 @@ def get_cfiles_with_conditions():
 def check_conditions(f):
     print('check file: {}'.format(f))
     line_main = get_line(f, "int main(")
+    if line_main == 0:
+        line_main = get_line(f, "void main(")
     if line_main <= 0:
         return False
     line_cycle_begins = get_line(f, "while")
@@ -767,7 +769,7 @@ def main():
 
     [print(files[i]) for i in range(0, min(len(files), 10))]
     # Move .c file to the specail sandbox
-    #files = files[:10]
+    #files = files[:100]
     files = move_to_sandbox(sorted(files))
     main_pipline(files)
     # Merge all coverage

@@ -335,5 +335,5 @@ class html_report:
 
 if __name__ == '__main__':
     #html_report.buildReport_3("../sandbox")
-    html_report.buildReport_3("../sandbox")
-    html_report.buildReport_Excel("../sandbox")
+    html_report.buildReport_3("/Users/ilyazlatkin/PycharmProjects/results/sandbox_eca_10_files/")
+    html_report.buildReport_Excel("/Users/ilyazlatkin/PycharmProjects/results/sandbox_eca_10_files/")
