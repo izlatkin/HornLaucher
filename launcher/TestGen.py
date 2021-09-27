@@ -15,10 +15,10 @@ def init():
     SOURCE_PATH = "/Users/ilyazlatkin/PycharmProjects/benckmarks/loops"
     SEA_PATH = "/Users/ilyazlatkin/CLionProjects/seahorn/build/run/bin/sea"
     SANDBOX_DIR = "../sandbox"
-    SEA_TIMEOUT = 60
+    SEA_TIMEOUT = 3600
     TG_TOOL_PATH = "/Users/ilyazlatkin/PycharmProjects/aeval/build/tools/tg/tg"
     #TG_TOOL_PATH = "/home/fmfsu/aeval/build/tools/tg/tg"
-    TG_TIMEOUT = 360
+    TG_TIMEOUT = 60
     COVERAGE_TIMEOUT = 20
     PYTHONHASHSEED = 0
     COVERAGE = True
@@ -28,7 +28,8 @@ def init():
                "__VERIFIER_nondet_uchar()": "unsigned char",
                "__VERIFIER_nondet_bool()": "bool",
                "__VERIFIER_nondet_float()": "float",
-               "__VERIFIER_nondet_long()": "long int"}
+               "__VERIFIER_nondet_long()": "long int",
+               "__VERIFIER_nondet_ulong()": "unsigned long int"}
 
 
 """ Return list of files, which satisfy the condition (see def check_conditions)
@@ -70,14 +71,19 @@ def check_conditions(f):
     verifier_nondet_uchar = get_line(f, "__VERIFIER_nondet_uchar", "extern unsigned char __VERIFIER_nondet_uchar()")
     verifier_nondet_char = get_line(f, "__VERIFIER_nondet_uchar", "extern char __VERIFIER_nondet_uchar()")
     verifier_nondet_bool = get_line(f, "__VERIFIER_nondet_bool()", "extern bool __VERIFIER_nondet_uchar()")
+    verifier_nondet_long = get_line(f, "__VERIFIER_nondet_long()", "extern long __VERIFIER_nondet_long(")
+    verifier_nondet_ulong = get_line(f, "__VERIFIER_nondet_long()", "extern unsigned long __VERIFIER_nondet_ulong(")
     if verifier_nondet_int == 0 \
             and verifier_nondet_uint == 0 \
             and verifier_nondet_uchar == 0 \
             and verifier_nondet_char == 0 \
-            and verifier_nondet_bool == 0:
+            and verifier_nondet_bool == 0 \
+            and verifier_nondet_long == 0 \
+            and verifier_nondet_ulong == 0:
         print("file: {} doesn't have input values (__VERIFIER_nondet_int) ".format(f))
         return False
-    list_of_int_variables = get_nondet_lines(f, line_main)
+    #list_of_int_variables = get_nondet_lines(f, line_main)
+    list_of_int_variables = get_nondet_lines(f, 0)
     if len(list_of_int_variables) == 0:
         return False
     return True
@@ -97,7 +103,7 @@ def get_nondet_lines(f, line_main):
     patterns = PATTERN.keys()
     for i, line in enumerate(lines_to_check):
         for pattern in patterns:
-            if re.search(pattern, line):
+            if pattern in line and 'extern' not in line and 'void' not in line: # re.search(pattern, line):
                 int_vars.append(i + line_main)
     return int_vars
 
@@ -243,10 +249,9 @@ def update_line(s, line_number):
         while (verifier_nondet in tmp_line):
             eq_index = tmp_line.index(verifier_nondet)
             nondet_num = get_digit_hash(tmp_line[:eq_index] + str(line_number))
-            if nondet_num in function_dictionary:
-                print('Function is already in Dictinary, need to generate new number')
-            else:
-                function_dictionary[nondet_num] = verifier_nondet
+            while (nondet_num in function_dictionary):
+                nondet_num += 11; # plus any number
+            function_dictionary[nondet_num] = verifier_nondet
             nondet_numbers.append(nondet_num)
             new_value = "nondet_{}()".format(nondet_num)
             tmp_line = tmp_line.replace(verifier_nondet, new_value, 1)
@@ -305,7 +310,7 @@ def update_c_file(f):
     var_file = open(vars, "w")
     var_file.writelines([f + '\n'])
     line_main = get_line(f, "int main(")
-    list_of_int_variables = get_nondet_lines(f, line_main)
+    list_of_int_variables = get_nondet_lines(f, 0) #get_nondet_lines(f, line_main)
     a_file = open(f, "r")
     list_of_lines = a_file.readlines()
     for i in list_of_int_variables:
