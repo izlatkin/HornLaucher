@@ -15,7 +15,7 @@ def init():
     SOURCE_PATH = "/Users/ilyazlatkin/PycharmProjects/benckmarks/loops"
     SEA_PATH = "/Users/ilyazlatkin/CLionProjects/seahorn/build/run/bin/sea"
     SANDBOX_DIR = "../sandbox"
-    SEA_TIMEOUT = 3600
+    SEA_TIMEOUT = 60
     TG_TOOL_PATH = "/Users/ilyazlatkin/PycharmProjects/aeval/build/tools/tg/tg"
     #TG_TOOL_PATH = "/home/fmfsu/aeval/build/tools/tg/tg"
     TG_TIMEOUT = 60
@@ -103,7 +103,8 @@ def get_nondet_lines(f, line_main):
     patterns = PATTERN.keys()
     for i, line in enumerate(lines_to_check):
         for pattern in patterns:
-            if pattern in line and 'extern' not in line and 'void' not in line: # re.search(pattern, line):
+            if pattern in line and 'extern' not in line and 'void' not in line \
+                    and (PATTERN[pattern] + " " + pattern) not in line: # re.search(pattern, line):
                 int_vars.append(i + line_main)
     return int_vars
 
@@ -775,7 +776,7 @@ def main():
 
     [print(files[i]) for i in range(0, min(len(files), 10))]
     # Move .c file to the specail sandbox
-    #files = files[:10]
+    #files = files[:100]
     files = move_to_sandbox(sorted(files))
     main_pipline(files)
     # Merge all coverage

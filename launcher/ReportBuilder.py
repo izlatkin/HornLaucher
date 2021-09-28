@@ -61,6 +61,23 @@ class html_report:
         else:
             return "-"
 
+    @classmethod
+    def get_extra_info_from_log(cls, dir):
+        log = [f.path for f in os.scandir(dir) if f.is_file() and os.path.basename(f) == 'log.txt']
+        out = ''
+        if len(log) >= 1:
+            what_to_check = ["Nonlinear CHCs are currently unsupported",
+                             "Error: key \d+ not found"]
+            filein = open(log[0], "r", encoding='ISO-8859-1')
+            lines = filein.readlines()
+            for w in what_to_check:
+                for line in lines:
+                    if re.search(w, line):
+                        out += "<br/>" + "<font color=8B008B>{}</font>\n".format(w)
+                        break
+        return out
+
+
     def buildReport(dir, stat):
         # filein = open("forReport", "r", encoding='ISO-8859-1')
         filein = pickle.load(open("save_aws.p", "rb"))
@@ -142,9 +159,10 @@ class html_report:
             table += "  <tr>\n"
             table += "    <td>{0}</td>\n".format(i)
             table += "    <td>{0}<br/>\n".format(html_report.create_hyperlinnk_to_file(line + '/' + os.path.basename(line) + '.c'))
-            table += "    <td>{0}<br/>{1}<br/>{2}</td>\n".format(html_report.get_smt2_file(line),
+            table += "    <td>{0}<br/>{1}<br/>{2}{3}</td>\n".format(html_report.get_smt2_file(line),
                                                                          html_report.get_log_file(line),
-                                                                         html_report.get_report(line))
+                                                                         html_report.get_report(line),
+                                                                         html_report.get_extra_info_from_log(line))
             table += "    <td>{0}</td>\n".format(html_report.get_tests_info(line))
             table += "    <td>{0}</td>\n".format(html_report.get_coverage_data(line))
             table += "    <td>{0}</td>\n".format(html_report.get_time_consumed(line) + ' seconds')
@@ -335,5 +353,6 @@ class html_report:
 
 if __name__ == '__main__':
     #html_report.buildReport_3("../sandbox")
-    html_report.buildReport_3("/Users/ilyazlatkin/PycharmProjects/results/sandbox_eca_10_files/")
-    html_report.buildReport_Excel("/Users/ilyazlatkin/PycharmProjects/results/sandbox_eca_10_files/")
+    dir = "/Users/ilyazlatkin/PycharmProjects/results/sanbox_11_sep/"
+    html_report.buildReport_3(dir)
+    html_report.buildReport_Excel(dir)
