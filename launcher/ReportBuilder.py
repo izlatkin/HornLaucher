@@ -67,7 +67,8 @@ class html_report:
         out = ''
         if len(log) >= 1:
             what_to_check = ["Nonlinear CHCs are currently unsupported",
-                             "Error: key \d+ not found"]
+                             "Error: key \d+ not found",
+                             "Bitcode was not properly read"]
             filein = open(log[0], "r", encoding='ISO-8859-1')
             lines = filein.readlines()
             for w in what_to_check:
@@ -168,11 +169,9 @@ class html_report:
             table += "    <td>{0}</td>\n".format(html_report.get_time_consumed(line) + ' seconds')
             table += "  </tr>\n"
             i += 1
-
         table += "</table>"
-
-        table = table.replace("../{}".format(dir), ".")
-
+        #table = table.replace("../{}".format(dir), ".")
+        table = table.replace(dir, ".")
         fileout.writelines(table)
         fileout.close()
 
@@ -353,6 +352,6 @@ class html_report:
 
 if __name__ == '__main__':
     #html_report.buildReport_3("../sandbox")
-    dir = "/Users/ilyazlatkin/PycharmProjects/results/sanbox_11_sep/"
+    dir = "/Users/ilyazlatkin/PycharmProjects/sandbox_openssl"
     html_report.buildReport_3(dir)
-    html_report.buildReport_Excel(dir)
+    #html_report.buildReport_Excel(dir)
