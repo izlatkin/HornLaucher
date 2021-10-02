@@ -214,6 +214,35 @@ class html_report:
         fileout.close()
 
 
+    def buildReport_fusebmc(dir):
+        fileout = open("{}/1_html_report.html".format(dir), "w")
+
+        table = "<table border=\"1\" cellspacing=\"0\" cellpadding=\"4\">\n"
+        table = html_report.create_header_klee(table)
+
+        # Create the table's row data
+        i = 1
+        exclude = ['final_coverage_report_wc_header', 'final_coverage_report']
+        source_files = [f.path for f in os.scandir(dir) if f.is_dir() and os.path.basename(f) not in exclude]
+        for line in sorted(source_files):
+            print(line)
+            table += "  <tr>\n"
+            table += "    <td>{0}</td>\n".format(i)
+            table += "    <td>{0}<br/>\n".format(html_report.create_hyperlinnk_to_file(line + '/' + os.path.basename(line) + '.c'))
+            table += "    <td>{0}</td>\n".format(html_report.get_log_file(line))
+            table += "    <td>{0}<br/>{1}</td>\n".format(html_report.get_tests_info_klee(line),
+                                                 html_report.get_report_klee(line))
+            #table += "    <td>{0}</td>\n".format(html_report.get_coverage_data(line))
+            table += "    <td>{0}</td>\n".format(html_report.get_time_consumed(line) + ' seconds')
+            table += "  </tr>\n"
+            i += 1
+        table += "</table>"
+        #table = table.replace("../{}".format(dir), ".")
+        table = table.replace(dir, "./")
+        fileout.writelines(table)
+        fileout.close()
+
+
     @classmethod
     def get_smt2_file(cls, dir):
         smt2files = [f.path for f in os.scandir(dir) if f.is_file() and os.path.splitext(f)[1] == '.smt2']
