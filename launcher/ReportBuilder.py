@@ -204,7 +204,7 @@ class html_report:
             table += "    <td>{0}<br/>{1}</td>\n".format(html_report.get_tests_info_klee(line),
                                                  html_report.get_report_klee(line))
             #table += "    <td>{0}</td>\n".format(html_report.get_coverage_data(line))
-            table += "    <td>{0}</td>\n".format(html_report.get_time_consumed(line) + ' seconds')
+            table += "    <td>{0}</td>\n".format(str(html_report.get_time_consumed(line)) + ' seconds')
             table += "  </tr>\n"
             i += 1
         table += "</table>"
@@ -380,7 +380,7 @@ class html_report:
                     f.seek(-2, os.SEEK_CUR)
                 last_line = f.readline().decode()
                 time_con = last_line.split()
-                if len(time_con)> 3:
+                if len(time_con)> 3 and ("total time" in time_con):
                     return "%8.2f" % (float(time_con[2].replace(',','.')))
                 else:
                     "<font color=\"red\">{}</font>\n".format('no available')
@@ -499,7 +499,7 @@ if __name__ == '__main__':
     #html_report.buildReport_3("../sandbox")
     #dir = "/Users/ilyazlatkin/PycharmProjects/results/sandbox_openssl_simplified_new/sandbox"
     dir = "/Users/ilyazlatkin/Downloads/klee_sandbox"
-    #html_report.buildReport_klee(dir)
+    html_report.buildReport_klee(dir)
     html_report.buildReport_Excel_klee(dir)
     # d ='/Users/ilyazlatkin/PycharmProjects/results'
     # subdir = [os.path.join(d, o) for o in os.listdir(d)

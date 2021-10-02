@@ -16,9 +16,9 @@ def init():
     SEA_PATH = "/Users/ilyazlatkin/CLionProjects/seahorn/build/run/bin/sea"
     SANDBOX_DIR = "../sandbox"
     SEA_TIMEOUT = 60
-    TG_TOOL_PATH = "/Users/ilyazlatkin/PycharmProjects/aeval/build/tools/tg/tg"
-    #TG_TOOL_PATH = "/home/fmfsu/aeval/build/tools/tg/tg"
-    TG_TIMEOUT = 120
+    #TG_TOOL_PATH = "/Users/ilyazlatkin/PycharmProjects/aeval/build/tools/tg/tg"
+    TG_TOOL_PATH = "/home/fmfsu/aeval/build/tools/tg/tg"
+    TG_TIMEOUT = 60
     COVERAGE_TIMEOUT = 20
     PYTHONHASHSEED = 0
     COVERAGE = True

@@ -11,13 +11,13 @@ from ReportBuilder import html_report
 def init():
     global SOURCE_PATH, SANDBOX_DIR, FUSEBMC_PATH, FUSEBMC_TIMEOUT, TESTCOV, FSUEBMV_WD
     SANDBOX_DIR = "/home/fmfsu/PyCharm/fusebmc_sandbox/"
-    SOURCE_PATH = "/home/fmfsu/Benchs/sv-benchmarks/c/loop-invariants"
+    #SOURCE_PATH = "/home/fmfsu/Benchs/sv-benchmarks/c/loop-invariants"
     #SOURCE_PATH = "/home/fmfsu/Benchs/sv-benchmarks/c/loop-invariants/eq1.c"
     #SOURCE_PATH = "/home/fmfsu/Benchs/loop_benckmarks/loop-acceleration/"
-    #SOURCE_PATH = "/home/fmfsu/Benchs/loop_benckmarks"
+    SOURCE_PATH = "/home/fmfsu/Benchs/loop_benckmarks"
     FUSEBMC_PATH = "/home/fmfsu/Dev/fusebmc/fusebmc.py"
     FSUEBMV_WD = "/home/fmfsu/Dev/fusebmc"
-    FUSEBMC_TIMEOUT = 60
+    FUSEBMC_TIMEOUT = 900
     TESTCOV = "/home/fmfsu/Dev/TestCov/test-suite-validator/bin/testcov"
 
 
