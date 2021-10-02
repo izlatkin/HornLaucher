@@ -1,3 +1,4 @@
+import time
 from datetime import datetime
 import os
 import shutil
@@ -6,12 +7,14 @@ import subprocess
 """ Tools location
 """
 def init():
-    global SOURCE_PATH, SANDBOX_DIR, KLEE_PATH, KLEE_TIMEOUT
+    global SOURCE_PATH, SANDBOX_DIR, KLEE_PATH, KLEE_TIMEOUT, TESTCOV
     SANDBOX_DIR = "../klee_sandbox"
     #SOURCE_PATH = "/home/fmfsu/Benchs/sv-benchmarks/c/loop-invariants"
-    SOURCE_PATH = "/home/fmfsu/Benchs/sv-benchmarks/c/loop-invariants/eq1.c"
+    #SOURCE_PATH = "/home/fmfsu/Benchs/sv-benchmarks/c/loop-invariants/eq1.c"
+    SOURCE_PATH = "/home/fmfsu/Benchs/loop_benckmarks"
     KLEE_PATH = "/home/fmfsu/Dev/klee/bin/klee"
-    KLEE_TIMEOUT = 60
+    KLEE_TIMEOUT = 600
+    TESTCOV = "/home/fmfsu/Dev/TestCov/test-suite-validator/bin/testcov"
 
 
 def clean_dir(dir):
@@ -148,13 +151,26 @@ def run_klee(file):
 
 def run_testcov(file):
     print("run testcov for {}".format(file))
+    save = os.getcwd()
+    os.chdir(os.path.dirname(file))
+    testcov_command = [TESTCOV, '--use-gcov', '--test-suite', 'tests.zip',
+                    os.path.basename(file)]
+    try:
+        command_executer(testcov_command, 30, 'log.txt')
+    except subprocess.CalledProcessError as e:
+        logger('log.txt', [" ".join(testcov_command), "FAIL"])
+    os.chdir(save)
 
 
 def main_pipeline(files):
+    print("number of files: {}".format(len(files)))
     for i, f in enumerate(sorted(files)):
+        start_time = time.time()
         print("{:.2f}".format(100 * i / len(files)), "%", files)
         if run_klee(f) == "pass":
             run_testcov(f)
+        to_print_var = 'total time: {} seconds'.format(time.time() - start_time)
+        logger(os.path.dirname(f) + '/log.txt', to_print_var)
 
 
 def main():
