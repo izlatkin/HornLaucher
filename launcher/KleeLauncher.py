@@ -4,6 +4,8 @@ import os
 import shutil
 import subprocess
 
+from launcher.ReportBuilder import html_report
+
 """ Tools location
 """
 def init():
@@ -11,9 +13,10 @@ def init():
     SANDBOX_DIR = "../klee_sandbox"
     #SOURCE_PATH = "/home/fmfsu/Benchs/sv-benchmarks/c/loop-invariants"
     #SOURCE_PATH = "/home/fmfsu/Benchs/sv-benchmarks/c/loop-invariants/eq1.c"
+    SOURCE_PATH = "/home/fmfsu/Benchs/loop_benckmarks/loop-acceleration/"
     SOURCE_PATH = "/home/fmfsu/Benchs/loop_benckmarks"
     KLEE_PATH = "/home/fmfsu/Dev/klee/bin/klee"
-    KLEE_TIMEOUT = 600
+    KLEE_TIMEOUT = 60
     TESTCOV = "/home/fmfsu/Dev/TestCov/test-suite-validator/bin/testcov"
 
 
@@ -139,7 +142,8 @@ def run_klee(file):
     # zip test-suite
     if (os.path.isdir("test-suite")):
         zip_results()
-        shutil.move("test-suite/tests.zip", "tests.zip")
+        if (os.path.isfile("test-suite/tests.zip")):
+            shutil.move("test-suite/tests.zip", "tests.zip")
     if os.path.isfile("tests.zip"):
         result = "pass"
     else:
@@ -157,6 +161,11 @@ def run_testcov(file):
                     os.path.basename(file)]
     try:
         command_executer(testcov_command, 30, 'log.txt')
+        command = ['lcov', '--capture', '--rc', 'lcov_branch_coverage=1', '--directory', '.',
+                   '--output', 'coverage.info']
+        command_executer(command, 20, 'log.txt')
+        command = ['genhtml', '--branch-coverage', '--output', './generated-coverage/', 'coverage.info']
+        command_executer(command, 20, '../log.txt')
     except subprocess.CalledProcessError as e:
         logger('log.txt', [" ".join(testcov_command), "FAIL"])
     os.chdir(save)
@@ -179,6 +188,8 @@ def main():
     files = get_cfiles_with_conditions()
     files = move_to_sandbox(sorted(files))
     main_pipeline(files)
+    html_report.buildReport_klee(SANDBOX_DIR)
+    html_report.buildReport_Excel_klee(SANDBOX_DIR)
 
 
 

@@ -25,6 +25,15 @@ class html_report:
         table += "  </tr>\n"
         return table
 
+    def create_header_klee(table):
+        header_line = "No., Sourse code, Links (logs reports) , Tests / Coverage, Time"
+        header = header_line.split(",")
+        table += "  <tr>\n"
+        for column in header:
+            table += "    <th>{0}</th>\n".format(column.strip())
+        table += "  </tr>\n"
+        return table
+
     def create_hyperlinnk_to_file(text):
         if not text:
             return "NaN"
@@ -175,6 +184,36 @@ class html_report:
         fileout.writelines(table)
         fileout.close()
 
+
+    def buildReport_klee(dir):
+        fileout = open("{}/1_html_report.html".format(dir), "w")
+
+        table = "<table border=\"1\" cellspacing=\"0\" cellpadding=\"4\">\n"
+        table = html_report.create_header_klee(table)
+
+        # Create the table's row data
+        i = 1
+        exclude = ['final_coverage_report_wc_header', 'final_coverage_report']
+        source_files = [f.path for f in os.scandir(dir) if f.is_dir() and os.path.basename(f) not in exclude]
+        for line in sorted(source_files):
+            print(line)
+            table += "  <tr>\n"
+            table += "    <td>{0}</td>\n".format(i)
+            table += "    <td>{0}<br/>\n".format(html_report.create_hyperlinnk_to_file(line + '/' + os.path.basename(line) + '.c'))
+            table += "    <td>{0}</td>\n".format(html_report.get_log_file(line))
+            table += "    <td>{0}<br/>{1}</td>\n".format(html_report.get_tests_info_klee(line),
+                                                 html_report.get_report_klee(line))
+            #table += "    <td>{0}</td>\n".format(html_report.get_coverage_data(line))
+            table += "    <td>{0}</td>\n".format(html_report.get_time_consumed(line) + ' seconds')
+            table += "  </tr>\n"
+            i += 1
+        table += "</table>"
+        #table = table.replace("../{}".format(dir), ".")
+        table = table.replace(dir, ".")
+        fileout.writelines(table)
+        fileout.close()
+
+
     @classmethod
     def get_smt2_file(cls, dir):
         smt2files = [f.path for f in os.scandir(dir) if f.is_file() and os.path.splitext(f)[1] == '.smt2']
@@ -194,6 +233,19 @@ class html_report:
     @classmethod
     def get_report(cls, dir):
         sub_dirs = [f.path for f in os.scandir(dir) if f.is_dir() and os.path.basename(f) in 'summary']
+        if len(sub_dirs) != 1:
+            return "<font color=\"red\">{}</font>\n".format('no report')
+        else:
+            report_dir = [f.path for f in os.scandir(sub_dirs[0]) if f.is_dir()]
+            if len(report_dir) != 1:
+                return "<font color=\"red\">{}</font>\n".format('no report')
+            else:
+                return "<a href=\"{0}\">{1} </a>\n".format(report_dir[0] + '/index.html', "coverage_report")
+
+
+    @classmethod
+    def get_report_klee(cls, dir):
+        sub_dirs = [f.path for f in os.scandir(dir) if f.is_dir() and os.path.basename(f) in 'generated-coverage']
         if len(sub_dirs) != 1:
             return "<font color=\"red\">{}</font>\n".format('no report')
         else:
@@ -229,6 +281,25 @@ class html_report:
             else:
                 tests_links += 'tests: {} [ <font color=\"green\">passed: {}</font>, <font color=\"red\">failed: {}</font> ]'.format(len(sub_dirs), tests_passed, tests_failed)
             return tests_links
+
+
+    @classmethod
+    def get_tests_info_klee(cls, dir):
+        log = [f.path for f in os.scandir(dir) if f.is_file() and os.path.basename(f) == 'log.txt']
+        if len(log) >= 1:
+            file = open(log[0], "r")
+            lines = file.readlines()
+            for i, line in enumerate(lines):
+                if "---Results---" in line:
+                    out = ''
+                    for j in range(1,5):
+                        out += "{}<br/>".format(lines[i + j])
+                    file.close()
+                    return out
+            file.close()
+            return "<font color=\"red\">{}</font>\n".format('no tests')
+        else:
+            return "<font color=\"red\">{}</font>\n".format('no tests')
 
     @classmethod
     def get_test_result(cls, t):
@@ -315,8 +386,53 @@ class html_report:
         workbook.close()
 
 
+    def buildReport_Excel_klee(dir):
+        # Create a workbook and add a worksheet.
+        workbook = xlsxwriter.Workbook(dir + '/1_report.xlsx')
+        worksheet = workbook.add_worksheet()
+        expenses = [['filename', 'coverage', 'time']]
+        source_files = [f.path for f in os.scandir(dir) if f.is_dir() and os.path.basename(f)]
+        for line in sorted(source_files):
+            file_name = os.path.basename(line) + '.c'
+            coverage = html_report.get_tests_info_klee(line)
+            if "no report" in coverage:
+                coverage = '-'
+            else:
+                coverage = coverage[coverage.index("Coverage:") + len("Coverage: "): coverage.index("%")]
+
+            print(coverage)
+            time = html_report.get_time_consumed(line)
+            expenses.append([file_name, coverage, time])
+
+        row = 0
+        col = 0
+
+        for cfile, coverage, time in expenses:
+            worksheet.write(row, col, cfile)
+            worksheet.write(row, col + 1, coverage)
+            worksheet.write(row, col + 2, time)
+            row += 1
+
+        workbook.close()
+
+
     @classmethod
     def get_coverage_data_plane_text(cls, dir):
+        sub_dirs = [f.path for f in os.scandir(dir) if f.is_dir() and os.path.basename(f) in 'summary']
+        if len(sub_dirs) != 1:
+            return 'no data'
+        else:
+            report_dir = [f.path for f in os.scandir(sub_dirs[0]) if f.is_dir()]
+            if len(report_dir) != 1:
+                return 'no report'
+            else:
+                file_name = report_dir[0] + '/main.c.gcov.html'
+                out = html_report.read_lcov_html_report_plane_text(file_name)
+                return out
+
+
+    @classmethod
+    def get_coverage_data_plane_text_klee(cls, dir):
         sub_dirs = [f.path for f in os.scandir(dir) if f.is_dir() and os.path.basename(f) in 'summary']
         if len(sub_dirs) != 1:
             return 'no data'
@@ -352,6 +468,13 @@ class html_report:
 
 if __name__ == '__main__':
     #html_report.buildReport_3("../sandbox")
-    dir = "/Users/ilyazlatkin/PycharmProjects/sandbox_openssl"
-    html_report.buildReport_3(dir)
-    #html_report.buildReport_Excel(dir)
+    #dir = "/Users/ilyazlatkin/PycharmProjects/results/sandbox_openssl_simplified_new/sandbox"
+    dir = "/Users/ilyazlatkin/Downloads/klee_sandbox"
+    #html_report.buildReport_klee(dir)
+    html_report.buildReport_Excel_klee(dir)
+    # d ='/Users/ilyazlatkin/PycharmProjects/results'
+    # subdir = [os.path.join(d, o) for o in os.listdir(d)
+    #  if os.path.isdir(os.path.join(d, o))]
+    # print(subdir)
+    # for s in subdir:
+    #     html_report.buildReport_3(s)
