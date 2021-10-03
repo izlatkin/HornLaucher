@@ -8,16 +8,19 @@ from ReportBuilder import html_report
 
 """ Tools location
 """
+
+
 def init():
-    global SOURCE_PATH, SANDBOX_DIR, KLEE_PATH, KLEE_TIMEOUT, TESTCOV
+    global SOURCE_PATH, SANDBOX_DIR, KLEE_PATH, KLEE_TIMEOUT, TESTCOV, START_WITH
     SANDBOX_DIR = "../klee_sandbox"
     SOURCE_PATH = "/home/fmfsu/Benchs/sv-benchmarks/c/loop-invariants"
-    #SOURCE_PATH = "/home/fmfsu/Benchs/sv-benchmarks/c/loop-invariants/eq1.c"
-    #SOURCE_PATH = "/home/fmfsu/Benchs/loop_benckmarks/loop-acceleration/"
+    # SOURCE_PATH = "/home/fmfsu/Benchs/sv-benchmarks/c/loop-invariants/eq1.c"
+    # SOURCE_PATH = "/home/fmfsu/Benchs/loop_benckmarks/loop-acceleration/"
     SOURCE_PATH = "/home/fmfsu/Benchs/loop_benckmarks"
     KLEE_PATH = "/home/fmfsu/Dev/klee/bin/klee"
     KLEE_TIMEOUT = 900
     TESTCOV = "/home/fmfsu/Dev/TestCov/test-suite-validator/bin/testcov"
+    START_WITH = 45
 
 
 def clean_dir(dir):
@@ -34,7 +37,7 @@ def move_to_sandbox(files):
         os.mkdir(SANDBOX_DIR)
     else:
         print('clear output directory {}'.format(SANDBOX_DIR))
-        #remove dir
+        # remove dir
         os_info = os.uname()
         if (os_info.sysname != 'Darwin'):
             clean_dir(SANDBOX_DIR)
@@ -56,7 +59,7 @@ def move_to_sandbox(files):
 
 
 def get_cfiles_with_conditions():
-    #case when single file
+    # case when single file
     if os.path.isfile(SOURCE_PATH):
         return [SOURCE_PATH]
     # whole directory run
@@ -117,14 +120,13 @@ def command_executer(command, timeout, file):
 def zip_results():
     os.chdir("test-suite")
     xml_files = [os.path.join(dp, f) for dp, dn, filenames in os.walk('.')
-              for f in filenames if os.path.splitext(f)[1] == '.xml']
+                 for f in filenames if os.path.splitext(f)[1] == '.xml']
     zip_command = ['zip', 'tests.zip'] + xml_files
     try:
-        command_executer(zip_command, 2*KLEE_TIMEOUT, 'log.txt')
+        command_executer(zip_command, 2 * KLEE_TIMEOUT, 'log.txt')
     except subprocess.CalledProcessError as e:
         logger('log.txt', [" ".join(zip_command), "FAIL"])
     os.chdir("../")
-
 
 
 def run_klee(file):
@@ -136,7 +138,7 @@ def run_klee(file):
                     '--max-time', str(KLEE_TIMEOUT),
                     os.path.basename(file)]
     try:
-        command_executer(klee_command, 2*KLEE_TIMEOUT, 'log.txt')
+        command_executer(klee_command, 2 * KLEE_TIMEOUT, 'log.txt')
     except subprocess.CalledProcessError as e:
         logger('log.txt', [" ".join(klee_command), "FAIL"])
     # zip test-suite
@@ -152,13 +154,12 @@ def run_klee(file):
     return result
 
 
-
 def run_testcov(file):
     print("run testcov for {}".format(file))
     save = os.getcwd()
     os.chdir(os.path.dirname(file))
     testcov_command = [TESTCOV, '--use-gcov', '--test-suite', 'tests.zip',
-                    os.path.basename(file)]
+                       os.path.basename(file)]
     try:
         command_executer(testcov_command, 30, 'log.txt')
         command = ['lcov', '--capture', '--rc', 'lcov_branch_coverage=1', '--directory', '.',
@@ -174,23 +175,26 @@ def run_testcov(file):
 def main_pipeline(files):
     print("number of files: {}".format(len(files)))
     for i, f in enumerate(sorted(files)):
-        start_time = time.time()
-        print("{:.2f}".format(100 * i / len(files)), "%", f)
-        if run_klee(f) == "pass":
-            run_testcov(f)
-        to_print_var = 'total time: {} seconds'.format(time.time() - start_time)
-        logger(os.path.dirname(f) + '/log.txt', to_print_var)
+        if not os.path.isfile(os.path.dirname(f)+"/log.txt"):
+            start_time = time.time()
+            print("{:.2f}".format(100 * i / len(files)), "%", f)
+            if run_klee(f) == "pass":
+                run_testcov(f)
+            to_print_var = 'total time: {} seconds'.format(time.time() - start_time)
+            logger(os.path.dirname(f) + '/log.txt', to_print_var)
 
 
 def main():
     init()
-    #parse and prepare sourse file
-    files = get_cfiles_with_conditions()
-    files = move_to_sandbox(sorted(files))
+    # parse and prepare sourse file
+    # files = get_cfiles_with_conditions()
+    # files = move_to_sandbox(sorted(files))
+    files = sorted([os.path.join(dp, f) for dp, dn, filenames in os.walk(SANDBOX_DIR)
+                    for f in filenames if os.path.splitext(f)[1] == '.c'
+                    and os.path.splitext(f)[0] != "harness"])
     main_pipeline(files)
     html_report.buildReport_klee(SANDBOX_DIR)
     html_report.buildReport_Excel_klee(SANDBOX_DIR)
-
 
 
 if __name__ == "__main__":

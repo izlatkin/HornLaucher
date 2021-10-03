@@ -380,8 +380,8 @@ class html_report:
                     f.seek(-2, os.SEEK_CUR)
                 last_line = f.readline().decode()
                 time_con = last_line.split()
-                if len(time_con)> 3 and ("total time" in time_con):
-                    return "%8.2f" % (float(time_con[2].replace(',','.')))
+                if len(time_con) > 3 and ("total time" in last_line):
+                    return "%8.2f" % (float(time_con[2]))
                 else:
                     "<font color=\"red\">{}</font>\n".format('no available')
         else:
@@ -498,7 +498,7 @@ class html_report:
 if __name__ == '__main__':
     #html_report.buildReport_3("../sandbox")
     #dir = "/Users/ilyazlatkin/PycharmProjects/results/sandbox_openssl_simplified_new/sandbox"
-    dir = "/Users/ilyazlatkin/Downloads/klee_sandbox"
+    dir = "/tmp/fusebmc_sandbox"
     html_report.buildReport_klee(dir)
     html_report.buildReport_Excel_klee(dir)
     # d ='/Users/ilyazlatkin/PycharmProjects/results'

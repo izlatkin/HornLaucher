@@ -9,17 +9,16 @@ from ReportBuilder import html_report
 """ Tools location
 """
 def init():
-    global SOURCE_PATH, SANDBOX_DIR, FUSEBMC_PATH, FUSEBMC_TIMEOUT, TESTCOV, FSUEBMV_WD, START_WITH
-    SANDBOX_DIR = "/home/fmfsu/PyCharm/fusebmc_sandbox/"
+    global SOURCE_PATH, SANDBOX_DIR, VERIFUZZ_PATH, FUSEBMC_TIMEOUT, TESTCOV, VERIFUZZ_WD
+    SANDBOX_DIR = "/home/fmfsu/PyCharm/verifuzz_sandbox/"
     #SOURCE_PATH = "/home/fmfsu/Benchs/sv-benchmarks/c/loop-invariants"
     #SOURCE_PATH = "/home/fmfsu/Benchs/sv-benchmarks/c/loop-invariants/eq1.c"
-    #SOURCE_PATH = "/home/fmfsu/Benchs/loop_benckmarks/loop-acceleration/"
-    SOURCE_PATH = "/home/fmfsu/Benchs/loop_benckmarks"
-    FUSEBMC_PATH = "/home/fmfsu/Dev/fusebmc/fusebmc.py"
-    FSUEBMV_WD = "/home/fmfsu/Dev/fusebmc"
-    FUSEBMC_TIMEOUT = 900
+    SOURCE_PATH = "/home/fmfsu/Benchs/loop_benckmarks/loop-acceleration/"
+    #SOURCE_PATH = "/home/fmfsu/Benchs/loop_benckmarks"
+    VERIFUZZ_PATH = "/home/fmfsu/Dev/verifuzz/scripts/verifuzz.py"
+    VERIFUZZ_WD = "/home/fmfsu/Dev/verifuzz"
+    FUSEBMC_TIMEOUT = 60
     TESTCOV = "/home/fmfsu/Dev/TestCov/test-suite-validator/bin/testcov"
-    START_WITH = 21
 
 
 def clean_dir(dir):
@@ -122,38 +121,31 @@ def zip_results():
               for f in filenames if os.path.splitext(f)[1] == '.xml']
     zip_command = ['zip', 'tests.zip'] + xml_files
     try:
-        command_executer(zip_command, 2 * FUSEBMC_TIMEOUT, 'log.txt')
+        command_executer(zip_command, 2 * FUSEBMC_TIMEOUT, '../log.txt')
     except subprocess.CalledProcessError as e:
-        logger('log.txt', [" ".join(zip_command), "FAIL"])
+        logger('../log.txt', [" ".join(zip_command), "FAIL"])
     os.chdir("../")
 
 
 
-def run_fusebmc(file):
-    print("run FuseBMC for {}".format(file))
+def run_verifuzz(file):
+    print("run verifuzz for {}".format(file))
     save = os.getcwd()
     #os.chdir(os.path.dirname(file))
-    os.chdir(FSUEBMV_WD)
-    clean_dir("fusebmc_output") # clean fusebmc output dir
-    klee_command = ['python3.9', FUSEBMC_PATH, '--propertyfile',
+    os.chdir(VERIFUZZ_WD)
+    clean_dir("test-suite")
+    klee_command = ['python2.7', VERIFUZZ_PATH, '--testcomp', '--propertyFile',
                     '/home/fmfsu/Benchs/sv-benchmarks/c/properties/coverage-branches.prp',
-                    '--timeout', str(FUSEBMC_TIMEOUT),
-                    file]
+                    file] # '--timeout', str(FUSEBMC_TIMEOUT),
+    clean_dir("fusebmc_output") # clean fusebmc output dir
     try:
-        command_executer(klee_command, 2 * FUSEBMC_TIMEOUT, os.path.dirname(file) + '/log.txt')
+        command_executer(klee_command, FUSEBMC_TIMEOUT + 10, os.path.dirname(file) + '/log.txt')
     except subprocess.CalledProcessError as e:
         logger(os.path.dirname(file) + '/log.txt', [" ".join(klee_command), "FAIL"])
-    dirs = [f.path for f in os.scandir("fusebmc_output") if f.is_dir()]
-    #[x[0] for x in os.walk("fusebmc_output")]
-    print(dirs)
-    file_basename = os.path.basename(file)
-    for d in dirs:
-        if file_basename in d:
-            print(d)
-            test_sute = d + "/test-suite.zip"
-            if os.path.isfile(test_sute):
-                shutil.move(test_sute, os.path.dirname(file) + "/test-suite.zip")
-                break
+    if (os.path.isdir("test-suite")):
+        zip_results()
+        if (os.path.isfile("test-suite/tests.zip")):
+            shutil.move("test-suite/tests.zip", os.path.dirname(file) + "/tests.zip")
     os.chdir(save)
 
 
@@ -162,10 +154,10 @@ def run_testcov(file):
     print("run testcov for {}".format(file))
     save = os.getcwd()
     os.chdir(os.path.dirname(file))
-    if not os.path.isfile("test-suite.zip"):
+    if not os.path.isfile("tests.zip"):
         logger('log.txt', ["NO TEST SUITE", "FAIL"])
         return
-    testcov_command = [TESTCOV, '--use-gcov', '--test-suite', 'test-suite.zip',
+    testcov_command = [TESTCOV, '--use-gcov', '--test-suite', 'tests.zip',
                     os.path.basename(file)]
     try:
         command_executer(testcov_command, 30, 'log.txt')
@@ -173,7 +165,7 @@ def run_testcov(file):
                    '--output', 'coverage.info']
         command_executer(command, 20, 'log.txt')
         command = ['genhtml', '--branch-coverage', '--output', './generated-coverage/', 'coverage.info']
-        command_executer(command, 20, '../log.txt')
+        command_executer(command, 20, 'log.txt')
     except subprocess.CalledProcessError as e:
         logger('log.txt', [" ".join(testcov_command), "FAIL"])
     os.chdir(save)
@@ -182,23 +174,19 @@ def run_testcov(file):
 def main_pipeline(files):
     print("number of files: {}".format(len(files)))
     for i, f in enumerate(sorted(files)):
-        if not os.path.isfile(os.path.dirname(f)+"/log.txt"):
-            start_time = time.time()
-            print("{:.2f}".format(100 * i / len(files)), "%", f)
-            run_fusebmc(f)
-            run_testcov(f)
-            to_print_var = 'total time: {} seconds'.format(time.time() - start_time)
-            logger(os.path.dirname(f) + '/log.txt', to_print_var)
+        start_time = time.time()
+        print("{:.2f}".format(100 * i / len(files)), "%", f)
+        run_verifuzz(f)
+        run_testcov(f)
+        to_print_var = 'total time: {} seconds'.format(time.time() - start_time)
+        logger(os.path.dirname(f) + '/log.txt', to_print_var)
 
 
 def main():
     init()
     #parse and prepare sourse file
-    # files = get_cfiles_with_conditions()
-    # files = move_to_sandbox(sorted(files))
-    files = sorted([os.path.join(dp, f) for dp, dn, filenames in os.walk(SANDBOX_DIR)
-                    for f in filenames if os.path.splitext(f)[1] == '.c'
-                    and os.path.splitext(f)[0] != "harness"])
+    files = get_cfiles_with_conditions()
+    files = move_to_sandbox(sorted(files))
     main_pipeline(files)
     html_report.buildReport_fusebmc(SANDBOX_DIR)
     html_report.buildReport_Excel_klee(SANDBOX_DIR)
