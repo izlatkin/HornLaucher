@@ -16,7 +16,8 @@ def init():
     SOURCE_PATH = "/home/fmfsu/Benchs/sv-benchmarks/c/loop-invariants"
     # SOURCE_PATH = "/home/fmfsu/Benchs/sv-benchmarks/c/loop-invariants/eq1.c"
     # SOURCE_PATH = "/home/fmfsu/Benchs/loop_benckmarks/loop-acceleration/"
-    SOURCE_PATH = "/home/fmfsu/Benchs/loop_benckmarks"
+    #SOURCE_PATH = "/home/fmfsu/Benchs/loop_benckmarks"
+    SOURCE_PATH = "/home/fmfsu/Benchs/sv-benchmarks/c/openssl-simplified"
     KLEE_PATH = "/home/fmfsu/Dev/klee/bin/klee"
     KLEE_TIMEOUT = 900
     TESTCOV = "/home/fmfsu/Dev/TestCov/test-suite-validator/bin/testcov"
@@ -187,11 +188,11 @@ def main_pipeline(files):
 def main():
     init()
     # parse and prepare sourse file
-    # files = get_cfiles_with_conditions()
-    # files = move_to_sandbox(sorted(files))
-    files = sorted([os.path.join(dp, f) for dp, dn, filenames in os.walk(SANDBOX_DIR)
-                    for f in filenames if os.path.splitext(f)[1] == '.c'
-                    and os.path.splitext(f)[0] != "harness"])
+    files = get_cfiles_with_conditions()
+    files = move_to_sandbox(sorted(files))
+    # files = sorted([os.path.join(dp, f) for dp, dn, filenames in os.walk(SANDBOX_DIR)
+    #                 for f in filenames if os.path.splitext(f)[1] == '.c'
+    #                 and os.path.splitext(f)[0] != "harness"])
     main_pipeline(files)
     html_report.buildReport_klee(SANDBOX_DIR)
     html_report.buildReport_Excel_klee(SANDBOX_DIR)

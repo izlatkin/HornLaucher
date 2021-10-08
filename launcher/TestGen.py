@@ -16,7 +16,7 @@ def init():
     SEA_PATH = "/Users/ilyazlatkin/CLionProjects/seahorn/build/run/bin/sea"
     SANDBOX_DIR = "../sandbox"
     SEA_TIMEOUT = 60
-    #TG_TOOL_PATH = "/Users/ilyazlatkin/PycharmProjects/aeval/build/tools/tg/tg"
+    # TG_TOOL_PATH = "/Users/ilyazlatkin/PycharmProjects/aeval/build/tools/tg/tg"
     TG_TOOL_PATH = "/home/fmfsu/aeval/build/tools/tg/tg"
     TG_TIMEOUT = 60
     COVERAGE_TIMEOUT = 20
@@ -29,7 +29,8 @@ def init():
                "__VERIFIER_nondet_bool()": "bool",
                "__VERIFIER_nondet_float()": "float",
                "__VERIFIER_nondet_long()": "long int",
-               "__VERIFIER_nondet_ulong()": "unsigned long int"}
+               "__VERIFIER_nondet_ulong()": "unsigned long int",
+               "__VERIFIER_nondet_ushort()": "unsigned short"}
 
 
 """ Return list of files, which satisfy the condition (see def check_conditions)
@@ -41,11 +42,18 @@ def get_cfiles_with_conditions():
               for f in filenames if os.path.splitext(f)[1] == '.c']
     print('number of .c files {} in "{}"'.format(len(cfiles), SOURCE_PATH))
     cfiles_with_conditions = []
+    cfiles_wo_nondet = []
     for f in cfiles:
         if check_conditions(f):
             cfiles_with_conditions.append(f)
+        else:
+            cfiles_wo_nondet.append(f)
     print('number of .c files {} in "{} which sat conditions"'.format(len(cfiles_with_conditions), SOURCE_PATH))
-    return cfiles_with_conditions
+    print('number of .c files {} in "{} which DON\'T sat conditions"'.format(len(cfiles_wo_nondet), SOURCE_PATH))
+    for f in cfiles_wo_nondet:
+        print(f)
+    # return cfiles_with_conditions
+    return (cfiles_with_conditions, cfiles_wo_nondet)
 
 
 """ Return False/True if file satisfies the condition 
@@ -60,6 +68,10 @@ def check_conditions(f):
     line_main = get_line(f, "int main(")
     if line_main == 0:
         line_main = get_line(f, "void main(")
+    if line_main == 0:
+        line_main = get_line(f, "int  main(")
+    if line_main == 0:
+        line_main = get_line(f, "int main (")
     if line_main <= 0:
         return False
     line_cycle_begins = get_line(f, "while")
@@ -69,20 +81,22 @@ def check_conditions(f):
     verifier_nondet_int = get_line(f, "__VERIFIER_nondet_uint", "extern int __VERIFIER_nondet_int()")
     verifier_nondet_uint = get_line(f, "__VERIFIER_nondet_int", "extern unsigned int __VERIFIER_nondet_int()")
     verifier_nondet_uchar = get_line(f, "__VERIFIER_nondet_uchar", "extern unsigned char __VERIFIER_nondet_uchar()")
-    verifier_nondet_char = get_line(f, "__VERIFIER_nondet_uchar", "extern char __VERIFIER_nondet_uchar()")
+    verifier_nondet_char = get_line(f, "__VERIFIER_nondet_char", "extern char __VERIFIER_nondet_char()")
     verifier_nondet_bool = get_line(f, "__VERIFIER_nondet_bool()", "extern bool __VERIFIER_nondet_uchar()")
     verifier_nondet_long = get_line(f, "__VERIFIER_nondet_long()", "extern long __VERIFIER_nondet_long(")
     verifier_nondet_ulong = get_line(f, "__VERIFIER_nondet_long()", "extern unsigned long __VERIFIER_nondet_ulong(")
+    verifier_nondet_ushort = get_line(f, "__VERIFIER_nondet_ushort()", "extern short __VERIFIER_nondet_ushort(")
     if verifier_nondet_int == 0 \
             and verifier_nondet_uint == 0 \
             and verifier_nondet_uchar == 0 \
             and verifier_nondet_char == 0 \
             and verifier_nondet_bool == 0 \
             and verifier_nondet_long == 0 \
-            and verifier_nondet_ulong == 0:
+            and verifier_nondet_ulong == 0 \
+            and verifier_nondet_ushort == 0:
         print("file: {} doesn't have input values (__VERIFIER_nondet_int) ".format(f))
         return False
-    #list_of_int_variables = get_nondet_lines(f, line_main)
+    # list_of_int_variables = get_nondet_lines(f, line_main)
     list_of_int_variables = get_nondet_lines(f, 0)
     if len(list_of_int_variables) == 0:
         return False
@@ -104,7 +118,7 @@ def get_nondet_lines(f, line_main):
     for i, line in enumerate(lines_to_check):
         for pattern in patterns:
             if pattern in line and 'extern' not in line and 'void' not in line \
-                    and (PATTERN[pattern] + " " + pattern) not in line: # re.search(pattern, line):
+                    and (PATTERN[pattern] + " " + pattern) not in line:  # re.search(pattern, line):
                 int_vars.append(i + line_main)
     return int_vars
 
@@ -132,7 +146,6 @@ def get_line(f, exp, exclude_exp=None):
     return index + 1
 
 
-
 def add_header(new_file):
     line_1 = '#include "testgen.h"'
     line_2 = '#include <stdlib.h>'
@@ -157,10 +170,26 @@ def add_header(new_file):
         f.close()
 
 
+def replace_reach_error(new_file):
+    with open(new_file, 'r+') as f:
+        content = f.readlines()
+        out = []
+        for l in content:
+            tmp = l
+            if 'reach_error()' in tmp and 'void' not in tmp:
+                tmp = tmp.replace('reach_error()', '/*reach_error()*/')
+            if 'abort()' in tmp:
+                tmp = tmp.replace('abort()', 'return')
+            out.append(tmp)
+            f.seek(0, 0)
+        f.writelines(out)
+        f.close()
+
+
 def add_header_with_pthread(file):
-    #'#include "testgen.h"', '#include <stdlib.h>'
-    pre = ['#include <pthread.h>', '#include <unistd.h>', '#include <time.h>','#include <printf.h>']
-    post_lines = ['\n ','int main(){\n','    pthread_t tid; pthread_create(&tid, 0, main_oririnal, 0);\n',
+    # '#include "testgen.h"', '#include <stdlib.h>'
+    pre = ['#include <pthread.h>', '#include <unistd.h>', '#include <time.h>', '#include <printf.h>']
+    post_lines = ['\n ', 'int main(){\n', '    pthread_t tid; pthread_create(&tid, 0, main_oririnal, 0);\n',
                   '    time_t start = time(0); time_t seconds = 10; time_t endwait = start + seconds;',
                   '    while ((start < endwait) & (pthread_kill(tid, 0) == 0)){ sleep(1); start = time(0); }\n',
                   '    pthread_cancel(tid); printf("timeout termination "); return 0; }']
@@ -173,6 +202,10 @@ def add_header_with_pthread(file):
             tmp = l
             if 'int main(' in tmp:
                 tmp = tmp.replace('int main(', 'int main_oririnal(')
+            if 'int  main(' in tmp:
+                tmp = tmp.replace('int  main(', 'int main_oririnal(')
+            if 'int main (' in tmp:
+                tmp = tmp.replace('int main (', 'int main_oririnal(')
             out.append(tmp)
         f.seek(0, 0)
         f.writelines(pre_lines + out + post_lines)
@@ -191,22 +224,22 @@ def clean_dir(dir):
             shutil.rmtree(os.path.join(root, d))
 
 
-def move_to_sandbox(files):
+def move_to_sandbox(files, add_h):
     print("========move_to_sandbox===========")
     if not os.path.exists(SANDBOX_DIR):
         os.mkdir(SANDBOX_DIR)
     else:
         print('clear output directory {}'.format(SANDBOX_DIR))
-        #remove dir
+        # remove dir
         os_info = os.uname()
         if (os_info.sysname != 'Darwin'):
             clean_dir(SANDBOX_DIR)
         else:
             shutil.rmtree(SANDBOX_DIR)
             os.mkdir(SANDBOX_DIR)
-    new_file_list = []
     shutil.copyfile("../Makefile", SANDBOX_DIR + "/Makefile")
     shutil.copyfile("../lcovrc", SANDBOX_DIR + "/lcovrc")
+    new_file_list = []
     for f in files:
         # create subdir for each .c file
         basename = os.path.basename(f)
@@ -216,9 +249,27 @@ def move_to_sandbox(files):
         # copy file to individual sandbox
         new_file = subdir + "/" + basename
         shutil.copyfile(f, new_file)
-        # add #include "testgen.h" if needed
+        # include "testgen.h" if needed
+        if add_h:
+            add_header(new_file)
+        if not os.path.isfile(subdir + "/log.txt"):
+            new_file_list.append(new_file)
+    return new_file_list
+
+
+def move_to_sandbox_and_rerun(files):
+    print("========move_to_sandbox===========")
+    new_file_list = []
+    for f in files:
+        # create subdir for each .c file
+        basename = os.path.basename(f)
+        name_wo_ext = os.path.splitext(basename)[0]
+        subdir = SANDBOX_DIR + "/" + name_wo_ext
+        # copy file to individual sandbox
+        new_file = subdir + "/" + basename
         add_header(new_file)
-        new_file_list.append(new_file)
+        if not os.path.isfile(subdir + "/log.txt"):
+            new_file_list.append(new_file)
     return new_file_list
 
 
@@ -251,7 +302,7 @@ def update_line(s, line_number):
             eq_index = tmp_line.index(verifier_nondet)
             nondet_num = get_digit_hash(tmp_line[:eq_index] + str(line_number))
             while (nondet_num in function_dictionary):
-                nondet_num += 11; # plus any number
+                nondet_num += 11;  # plus any number
             function_dictionary[nondet_num] = verifier_nondet
             nondet_numbers.append(nondet_num)
             new_value = "nondet_{}()".format(nondet_num)
@@ -311,7 +362,7 @@ def update_c_file(f):
     var_file = open(vars, "w")
     var_file.writelines([f + '\n'])
     line_main = get_line(f, "int main(")
-    list_of_int_variables = get_nondet_lines(f, 0) #get_nondet_lines(f, line_main)
+    list_of_int_variables = get_nondet_lines(f, 0)  # get_nondet_lines(f, line_main)
     a_file = open(f, "r")
     list_of_lines = a_file.readlines()
     for i in list_of_int_variables:
@@ -363,7 +414,7 @@ def command_executer(command, timeout, file):
             logger(file, mesage)
             raise
         retcode = process.poll()
-        #logger(file, str(subprocess.CompletedProcess(process.args, retcode, stdout, stderr)))
+        # logger(file, str(subprocess.CompletedProcess(process.args, retcode, stdout, stderr)))
         logger(file, [process.args, retcode, stdout, stderr])
         if retcode and retcode != 254:
             return False
@@ -470,7 +521,7 @@ def gather_coverage(new_file):
     command = ['rm', '-rf', 'main.gc*', 'main.o', 'coverage.info', 'test-coverage', 'generated-coverage']
     if flag and not command_executer(command, COVERAGE_TIMEOUT, '../log.txt'):
         flag = False
-    command = ['gcc','-pthread', '-O0', '--coverage', 'main.c', '-o', 'test-coverage']
+    command = ['gcc-7', '-pthread', '-O0', '--coverage', 'main.c', '-o', 'test-coverage']
     if flag and not command_executer(command, COVERAGE_TIMEOUT, '../log.txt'):
         os.chdir(save)
         return False
@@ -523,12 +574,11 @@ def update_header_file(filename):
     fw.close()
 
 
-
 def check_and_update_h_file(new_h_file, keys):
     file = open(new_h_file, "r")
     lines = file.readlines()
     extra_lines = []
-    for k in keys: # ToDo update method to make it faster
+    for k in keys:  # ToDo update method to make it faster
         flag = False
         for l in lines:
             if str(k) in l:
@@ -540,8 +590,6 @@ def check_and_update_h_file(new_h_file, keys):
         file = open(new_h_file, "w")
         file.writelines(lines + extra_lines)
         file.close()
-
-
 
 
 """ run all testcases generated by tg tool
@@ -573,7 +621,7 @@ def run_generated_testcases(f, keys):
         new_c_file = subdir + "/main.c"
         # replace original .c-file to c-file with pthread and timeouts
         shutil.copyfile(sf + '_with_pthread.c', new_c_file)
-        #shutil.copyfile(sf + '.c', new_c_file)
+        # shutil.copyfile(sf + '.c', new_c_file)
         # copy h file
         new_h_file = subdir + "/testgen.h"
         shutil.move(test, new_h_file)
@@ -652,7 +700,8 @@ def header_testgen(f, keys):
         print('smt file {} exist, perform testgen step'.format(smt_file))
         save = os.getcwd()
         os.chdir(dir)
-        command = [TG_TOOL_PATH, '--inv-mode','0', '--no-term', '--keys', ','.join([str(k) for k in keys]), name_wo_ext + '.smt2']
+        command = [TG_TOOL_PATH, '--inv-mode', '0', '--no-term', '--keys', ','.join([str(k) for k in keys]),
+                   name_wo_ext + '.smt2']
         print(list_to_string(command))
         try:
             command_executer(command, TG_TIMEOUT, 'log.txt')
@@ -663,6 +712,44 @@ def header_testgen(f, keys):
         os.chdir(save)
     else:
         print('smt file doesn\'t {} exist, skip testgen step'.format(smt_file))
+
+
+def simple_run(file_wo_nondet):
+    # cfiles = [os.path.join(dp, f) for dp, dn, filenames in os.walk(SOURCE_PATH)
+    #           for f in filenames if os.path.splitext(f)[1] == '.c']
+    for f in file_wo_nondet:
+        print("gathering coverage for {}".format(f))
+        replace_reach_error(f)
+        dir_name = os.path.dirname(f)
+        file_name = os.path.basename(f)
+        save = os.getcwd()
+        os.chdir(dir_name)
+        shutil.copy(file_name, "main.c")
+        add_header_with_pthread("main.c")
+        command = ['touch', 'testgen.h']
+        command_executer(command, COVERAGE_TIMEOUT, 'log.txt')
+        command = ['gcc-7', '-pthread', '-O0', '--coverage', 'main.c', '-o', 'test-coverage']
+        if command_executer(command, COVERAGE_TIMEOUT, 'log.txt'):
+            command = ['./test-coverage']
+            command_executer(command, COVERAGE_TIMEOUT, 'log.txt')
+            command = ['lcov', '--capture', '--rc', 'lcov_branch_coverage=1', '--directory', '.', '--config-file',
+                       '../lcovrc', '--output', 'coverage.info']
+            command_executer(command, COVERAGE_TIMEOUT, 'log.txt')
+            command = ['genhtml', '--branch-coverage', '--output', './summary', 'coverage.info']
+            command_executer(command, COVERAGE_TIMEOUT, 'log.txt')
+        # extra attempt
+        if not os.path.isfile("./summary/index.html"):
+            shutil.copy(file_name, "main.c")
+            command = ['gcc-7', '-pthread', '-O0', '--coverage', 'main.c', '-o', 'test-coverage']
+            if command_executer(command, COVERAGE_TIMEOUT, 'log.txt'):
+                command = ['./test-coverage']
+                command_executer(command, COVERAGE_TIMEOUT, 'log.txt')
+                command = ['lcov', '--capture', '--rc', 'lcov_branch_coverage=1', '--directory', '.', '--config-file',
+                           '../lcovrc', '--output', 'coverage.info']
+                command_executer(command, COVERAGE_TIMEOUT, 'log.txt')
+                command = ['genhtml', '--branch-coverage', '--output', './summary', 'coverage.info']
+                command_executer(command, COVERAGE_TIMEOUT, 'log.txt')
+        os.chdir(save)
 
 
 def main_pipline(files):
@@ -718,16 +805,19 @@ def main():
     args = parser.parse_args()
     print(args)
     files = []
+    file_wo_nondet = []
     if args.input_source is not None:
         if os.path.isfile(args.input_source):
             file = args.input_source
             print('input file was set to {}'.format(file))
             if check_conditions(file):
                 files = [file]
+            else:
+                file_wo_nondet = [file]
         elif os.path.isdir(args.input_source):
             print('input directory was set to {}'.format(args.input_source))
             SOURCE_PATH = args.input_source
-            files = get_cfiles_with_conditions()
+            files, file_wo_nondet = get_cfiles_with_conditions()
         else:
             print('invalid input_source: {}'.format(args.input_source))
             exit(1)
@@ -756,7 +846,7 @@ def main():
         if not os.path.isfile(SEA_PATH):
             print("SeaHorn tool path:{} is invalid, use \"--seahorn_tool_path\" or "
                   "set SEA_PATH in the script".format(args.seahorn_tool_path))
-            #exit(1)
+            # exit(1)
 
     if args.docker_sea is not None:
         docker_image_name = str(subprocess.check_output(
@@ -776,9 +866,15 @@ def main():
 
     [print(files[i]) for i in range(0, min(len(files), 10))]
     # Move .c file to the specail sandbox
-    #files = files[:100]
-    files = move_to_sandbox(sorted(files))
-    main_pipline(files)
+    # files = files[:100]
+    if len(files) > 0:
+        files = move_to_sandbox(sorted(files), True)
+        main_pipline(files)
+    if len(file_wo_nondet) > 0:
+        file_wo_nondet = move_to_sandbox(sorted(file_wo_nondet), False)
+        simple_run(file_wo_nondet)
+    # files = move_to_sandbox_and_rerun(sorted(files))
+
     # Merge all coverage
     if len(files) > 1:
         summary_coverage_report()

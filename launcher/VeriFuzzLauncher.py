@@ -9,15 +9,16 @@ from ReportBuilder import html_report
 """ Tools location
 """
 def init():
-    global SOURCE_PATH, SANDBOX_DIR, VERIFUZZ_PATH, FUSEBMC_TIMEOUT, TESTCOV, VERIFUZZ_WD
-    SANDBOX_DIR = "/home/fmfsu/PyCharm/verifuzz_sandbox/"
+    global SOURCE_PATH, SANDBOX_DIR, VERIFUZZ_PATH, VERIFUZZ_TIMEOUT, TESTCOV, VERIFUZZ_WD
+    SANDBOX_DIR = "/home/fmfsu/PyCharm/verifuzz_sandbox"
     #SOURCE_PATH = "/home/fmfsu/Benchs/sv-benchmarks/c/loop-invariants"
     #SOURCE_PATH = "/home/fmfsu/Benchs/sv-benchmarks/c/loop-invariants/eq1.c"
-    SOURCE_PATH = "/home/fmfsu/Benchs/loop_benckmarks/loop-acceleration/"
+    #SOURCE_PATH = "/home/fmfsu/Benchs/loop_benckmarks/loop-acceleration/"
     #SOURCE_PATH = "/home/fmfsu/Benchs/loop_benckmarks"
+    SOURCE_PATH = "/home/fmfsu/Benchs/sv-benchmarks/c/openssl-simplified"
     VERIFUZZ_PATH = "/home/fmfsu/Dev/verifuzz/scripts/verifuzz.py"
     VERIFUZZ_WD = "/home/fmfsu/Dev/verifuzz"
-    FUSEBMC_TIMEOUT = 60
+    VERIFUZZ_TIMEOUT = 900
     TESTCOV = "/home/fmfsu/Dev/TestCov/test-suite-validator/bin/testcov"
 
 
@@ -90,7 +91,12 @@ def logger(file, content):
 def command_executer(command, timeout, file):
     print("command: {}".format(str(command)))
     logger(file, " ".join(command))
-    with subprocess.Popen(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE) as process:
+    # env = {'LD_LIBRARY_PATH': '/home/fmfsu/Dev/glibc-2.29/build/math/'}
+    env = {
+        **os.environ,
+        "LD_LIBRARY_PATH": "/home/fmfsu/Dev/glibc-2.29/build/math/",
+    }
+    with subprocess.Popen(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE, env=env) as process:
         try:
             stdout, stderr = process.communicate(input, timeout=timeout)
         except subprocess.TimeoutExpired:
@@ -121,7 +127,7 @@ def zip_results():
               for f in filenames if os.path.splitext(f)[1] == '.xml']
     zip_command = ['zip', 'tests.zip'] + xml_files
     try:
-        command_executer(zip_command, 2 * FUSEBMC_TIMEOUT, '../log.txt')
+        command_executer(zip_command, 2 * VERIFUZZ_TIMEOUT, '../log.txt')
     except subprocess.CalledProcessError as e:
         logger('../log.txt', [" ".join(zip_command), "FAIL"])
     os.chdir("../")
@@ -139,7 +145,7 @@ def run_verifuzz(file):
                     file] # '--timeout', str(FUSEBMC_TIMEOUT),
     clean_dir("fusebmc_output") # clean fusebmc output dir
     try:
-        command_executer(klee_command, FUSEBMC_TIMEOUT + 10, os.path.dirname(file) + '/log.txt')
+        command_executer(klee_command, VERIFUZZ_TIMEOUT + 10, os.path.dirname(file) + '/log.txt')
     except subprocess.CalledProcessError as e:
         logger(os.path.dirname(file) + '/log.txt', [" ".join(klee_command), "FAIL"])
     if (os.path.isdir("test-suite")):
@@ -174,12 +180,13 @@ def run_testcov(file):
 def main_pipeline(files):
     print("number of files: {}".format(len(files)))
     for i, f in enumerate(sorted(files)):
-        start_time = time.time()
-        print("{:.2f}".format(100 * i / len(files)), "%", f)
-        run_verifuzz(f)
-        run_testcov(f)
-        to_print_var = 'total time: {} seconds'.format(time.time() - start_time)
-        logger(os.path.dirname(f) + '/log.txt', to_print_var)
+        if not os.path.isfile(os.path.dirname(f) + "/log.txt"):
+            start_time = time.time()
+            print("{:.2f}".format(100 * i / len(files)), "%", f)
+            run_verifuzz(f)
+            run_testcov(f)
+            to_print_var = 'total time: {} seconds'.format(time.time() - start_time)
+            logger(os.path.dirname(f) + '/log.txt', to_print_var)
 
 
 def main():
@@ -187,6 +194,9 @@ def main():
     #parse and prepare sourse file
     files = get_cfiles_with_conditions()
     files = move_to_sandbox(sorted(files))
+    # files = sorted([os.path.join(dp, f) for dp, dn, filenames in os.walk(SANDBOX_DIR)
+    #                 for f in filenames if os.path.splitext(f)[1] == '.c'
+    #                 and os.path.splitext(f)[0] != "harness"])
     main_pipeline(files)
     html_report.buildReport_fusebmc(SANDBOX_DIR)
     html_report.buildReport_Excel_klee(SANDBOX_DIR)

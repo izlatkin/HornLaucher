@@ -14,7 +14,8 @@ def init():
     #SOURCE_PATH = "/home/fmfsu/Benchs/sv-benchmarks/c/loop-invariants"
     #SOURCE_PATH = "/home/fmfsu/Benchs/sv-benchmarks/c/loop-invariants/eq1.c"
     #SOURCE_PATH = "/home/fmfsu/Benchs/loop_benckmarks/loop-acceleration/"
-    SOURCE_PATH = "/home/fmfsu/Benchs/loop_benckmarks"
+    # SOURCE_PATH = "/home/fmfsu/Benchs/loop_benckmarks"
+    SOURCE_PATH = "/home/fmfsu/Benchs/sv-benchmarks/c/openssl-simplified"
     FUSEBMC_PATH = "/home/fmfsu/Dev/fusebmc/fusebmc.py"
     FSUEBMV_WD = "/home/fmfsu/Dev/fusebmc"
     FUSEBMC_TIMEOUT = 900
@@ -87,6 +88,37 @@ def logger(file, content):
         f.write(t + '\n' + content + '\n')
     f.close()
 
+
+def command_executer_testcov(command, timeout, file):
+    print("command: {}".format(str(command)))
+    logger(file, " ".join(command))
+    env = {
+        **os.environ,
+        "gcc": "/usr/bin/gcc-8",
+    }
+    with subprocess.Popen(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE, env=env) as process:
+        try:
+            stdout, stderr = process.communicate(input, timeout=timeout)
+        except subprocess.TimeoutExpired:
+            process.kill()
+            mesage = 'command: {} has been killed after timeout {}'.format(" ".join(command), timeout)
+            print(mesage)
+            stdout, stderr = process.communicate()
+            logger(file, str(stdout))
+            logger(file, str(stderr))
+        except Exception:
+            process.kill()
+            process.wait()
+            mesage = 'command: {} has been killed after timeout {}'.format(" ".join(command), timeout)
+            print(mesage)
+            logger(file, mesage)
+            raise
+        retcode = process.poll()
+        logger(file, [process.args, retcode, stdout, stderr])
+        if retcode and retcode != 254:
+            return False
+        else:
+            return True
 
 def command_executer(command, timeout, file):
     print("command: {}".format(str(command)))
@@ -168,7 +200,7 @@ def run_testcov(file):
     testcov_command = [TESTCOV, '--use-gcov', '--test-suite', 'test-suite.zip',
                     os.path.basename(file)]
     try:
-        command_executer(testcov_command, 30, 'log.txt')
+        command_executer_testcov(testcov_command, 30, 'log.txt')
         command = ['lcov', '--capture', '--rc', 'lcov_branch_coverage=1', '--directory', '.',
                    '--output', 'coverage.info']
         command_executer(command, 20, 'log.txt')
@@ -194,11 +226,12 @@ def main_pipeline(files):
 def main():
     init()
     #parse and prepare sourse file
-    # files = get_cfiles_with_conditions()
-    # files = move_to_sandbox(sorted(files))
-    files = sorted([os.path.join(dp, f) for dp, dn, filenames in os.walk(SANDBOX_DIR)
-                    for f in filenames if os.path.splitext(f)[1] == '.c'
-                    and os.path.splitext(f)[0] != "harness"])
+    files = get_cfiles_with_conditions()
+    files = move_to_sandbox(sorted(files))
+    # files = sorted([os.path.join(dp, f) for dp, dn, filenames in os.walk(SANDBOX_DIR)
+    #                 for f in filenames if os.path.splitext(f)[1] == '.c'
+    #                 and os.path.splitext(f)[0] != "harness"])
+
     main_pipeline(files)
     html_report.buildReport_fusebmc(SANDBOX_DIR)
     html_report.buildReport_Excel_klee(SANDBOX_DIR)

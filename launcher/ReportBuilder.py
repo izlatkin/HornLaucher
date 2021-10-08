@@ -175,7 +175,8 @@ class html_report:
                                                                          html_report.get_extra_info_from_log(line))
             table += "    <td>{0}</td>\n".format(html_report.get_tests_info(line))
             table += "    <td>{0}</td>\n".format(html_report.get_coverage_data(line))
-            table += "    <td>{0}</td>\n".format(html_report.get_time_consumed(line) + ' seconds')
+            #table += "    <td>{0}</td>\n".format(html_report.get_time_consumed(line) + ' seconds')
+            table += "    <td>{0}</td>\n".format(str(html_report.get_time_consumed(line)) + ' seconds')
             table += "  </tr>\n"
             i += 1
         table += "</table>"
@@ -394,22 +395,40 @@ class html_report:
         worksheet = workbook.add_worksheet()
 
         exclude = ['final_coverage_report_wc_header', 'final_coverage_report']
-        expenses = [['filename', 'coverage', 'time']]
+        expenses = [['filename', 'coverage', 'time', 'hit', 'total']]
         source_files = [f.path for f in os.scandir(dir) if f.is_dir() and os.path.basename(f) not in exclude]
         for line in sorted(source_files):
             file_name = os.path.basename(line) + '.c'
-            coverage = html_report.get_coverage_data_plane_text(line)
+            raw_data = html_report.get_coverage_data_plane_text(line)
+            if raw_data != "no data" and raw_data != 'no report':
+                raw_data = [r.strip("\n") for r in raw_data]
+                #coverage = raw_data[3].strip("%")
+                hit = raw_data[1]
+                total = raw_data[2]
+                if float(hit) <= 2:
+                    coverage = 100 * (float(hit)) / (float(total))
+                else:
+                    coverage = 100 * (float(hit) - 2) / (float(total) - 2)
+                # workaround, since we add main_orig => main,
+                # there are two extra branches which have to be excluded
+            else:
+                coverage = 0
+                hit = ''
+                total = ''
+
             time = html_report.get_time_consumed(line)
-            expenses.append([file_name, coverage, time])
+            expenses.append([file_name, coverage, time, hit, total])
 
 
         row = 0
         col = 0
 
-        for cfile, coverage, time in expenses:
+        for cfile, coverage, time, hit, total in expenses:
             worksheet.write(row, col, cfile)
             worksheet.write(row, col + 1, coverage)
             worksheet.write(row, col + 2, time)
+            worksheet.write(row, col + 3, hit)
+            worksheet.write(row, col + 4, total)
             row += 1
 
         workbook.close()
@@ -419,27 +438,32 @@ class html_report:
         # Create a workbook and add a worksheet.
         workbook = xlsxwriter.Workbook(dir + '/1_report.xlsx')
         worksheet = workbook.add_worksheet()
-        expenses = [['filename', 'coverage', 'time']]
+        expenses = [['filename', 'coverage', 'time', 'goals']]
         source_files = [f.path for f in os.scandir(dir) if f.is_dir() and os.path.basename(f)]
         for line in sorted(source_files):
             file_name = os.path.basename(line) + '.c'
-            coverage = html_report.get_tests_info_klee(line)
-            if "no report" in coverage:
-                coverage = '-'
+            raw_data = html_report.get_tests_info_klee(line)
+            if "no tests" in raw_data or "No coverage" in raw_data:
+                coverage = ''
+                goals = ''
             else:
-                coverage = coverage[coverage.index("Coverage:") + len("Coverage: "): coverage.index("%")]
+                i = raw_data.index("Number of goals: ") + + len("Number of goals:")
+                j = raw_data[i:].index("\n", 2)
+                goals = raw_data[i:i + j]
+                coverage = raw_data[raw_data.index("Coverage:") + len("Coverage: "): raw_data.index("%")]
 
-            print(coverage)
+            #print(coverage)
             time = html_report.get_time_consumed(line)
-            expenses.append([file_name, coverage, time])
+            expenses.append([file_name, coverage, time, goals])
 
         row = 0
         col = 0
 
-        for cfile, coverage, time in expenses:
+        for cfile, coverage, time, goals in expenses:
             worksheet.write(row, col, cfile)
             worksheet.write(row, col + 1, coverage)
             worksheet.write(row, col + 2, time)
+            worksheet.write(row, col + 3, goals)
             row += 1
 
         workbook.close()
@@ -491,17 +515,23 @@ class html_report:
                 flag = True
             if i == 3:
                 break
-        return brench_lines[3]
+        return brench_lines
 
 
 
 if __name__ == '__main__':
     #html_report.buildReport_3("../sandbox")
     #dir = "/Users/ilyazlatkin/PycharmProjects/results/sandbox_openssl_simplified_new/sandbox"
-    dir = "/tmp/fusebmc_sandbox"
-    html_report.buildReport_klee(dir)
-    html_report.buildReport_Excel_klee(dir)
-    # d ='/Users/ilyazlatkin/PycharmProjects/results'
+    dir = "/Users/ilyazlatkin/PycharmProjects/results/openssl_all_tools/verifuzz_sandbox"
+    #dir = "/tmp/klee_sandbox"
+    #dir = "/tmp/fusebmc_sandbox"
+    # html_report.buildReport_klee(dir)
+    # html_report.buildReport_Excel_klee(dir)
+
+    dir = "/Users/ilyazlatkin/PycharmProjects/results/inv-mode_0/sandbox"
+    html_report.buildReport_Excel(dir)
+    # html_report.buildReport_3(dir)
+    # # d ='/Users/ilyazlatkin/PycharmProjects/results'
     # subdir = [os.path.join(d, o) for o in os.listdir(d)
     #  if os.path.isdir(os.path.join(d, o))]
     # print(subdir)
