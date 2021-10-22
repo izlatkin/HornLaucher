@@ -18,7 +18,7 @@ def init():
     SEA_TIMEOUT = 60
     # TG_TOOL_PATH = "/Users/ilyazlatkin/PycharmProjects/aeval/build/tools/tg/tg"
     TG_TOOL_PATH = "/home/fmfsu/aeval/build/tools/tg/tg"
-    TG_TIMEOUT = 60
+    TG_TIMEOUT = 900
     COVERAGE_TIMEOUT = 20
     PYTHONHASHSEED = 0
     COVERAGE = True
@@ -224,19 +224,24 @@ def clean_dir(dir):
             shutil.rmtree(os.path.join(root, d))
 
 
-def move_to_sandbox(files, add_h):
-    print("========move_to_sandbox===========")
-    if not os.path.exists(SANDBOX_DIR):
-        os.mkdir(SANDBOX_DIR)
+def prepare_dir(dir):
+    if not os.path.exists(dir):
+        os.mkdir(dir)
     else:
-        print('clear output directory {}'.format(SANDBOX_DIR))
+        print('clear output directory {}'.format(dir))
         # remove dir
         os_info = os.uname()
         if (os_info.sysname != 'Darwin'):
-            clean_dir(SANDBOX_DIR)
+            clean_dir(dir)
         else:
-            shutil.rmtree(SANDBOX_DIR)
-            os.mkdir(SANDBOX_DIR)
+            shutil.rmtree(dir)
+            os.mkdir(dir)
+
+
+def move_to_sandbox(files, add_h, was_cleaned):
+    print("========move_to_sandbox===========")
+    if not was_cleaned:
+        prepare_dir(SANDBOX_DIR)
     shutil.copyfile("../Makefile", SANDBOX_DIR + "/Makefile")
     shutil.copyfile("../lcovrc", SANDBOX_DIR + "/lcovrc")
     new_file_list = []
@@ -318,8 +323,10 @@ def generate_testgen_header(f, num):
     fn = os.path.dirname(f) + '/testgen.h'
     file = open(fn, "w")
     # lines_to_write = ['int nondet(){return 42;}\n']
-    lines_to_write = ['extern int nondet(void);\n']
+    lines_to_write = ['#include <stdbool.h>\n', 'extern int nondet(void);\n']
     for i in num:
+        #method_type = PATTERN[function_dictionary[i]]
+        #lines_to_write.append('{} nondet_{}(){{\n return {} + nondet();\n}} \n'.format(method_type, i, i))
         lines_to_write.append('int nondet_{}(){{\n return {} + nondet();\n}} \n'.format(i, i))
     lines_to_write.append('\n')
     file.writelines(lines_to_write)
@@ -485,9 +492,10 @@ def to_smt_docker(f):
     ff = '/app/' + name_wo_ext + '/' + name_wo_ext + '.c'
     smt_file = '/app/' + name_wo_ext + '/' + name_wo_ext + '.smt2'
     log_file = SANDBOX_DIR + '/' + name_wo_ext + '/log.txt'
-    docker_image_name = str(subprocess.check_output(
-        'docker ps --format "table {{.Names}}" -f ancestor=seahorn/seahorn-llvm10:nightly | tail -1',
-        shell=True).strip())[2:-1]
+    # docker_image_name = str(subprocess.check_output(
+    #     'docker ps --format "table {{.Names}}" -f ancestor=seahorn/seahorn-llvm10:nightly | tail -1',
+    #     shell=True).strip())[2:-1]
+    docker_image_name = "unruffled_lederberg"
     docker_sea_command = ['cd /app/{};'.format(name_wo_ext), '../smt_run.sh', ff, smt_file]
     docker_command = ['docker', 'exec', docker_image_name, 'bash', '-c', list_to_string(docker_sea_command)]
     print(docker_command)
@@ -700,8 +708,9 @@ def header_testgen(f, keys):
         print('smt file {} exist, perform testgen step'.format(smt_file))
         save = os.getcwd()
         os.chdir(dir)
-        command = [TG_TOOL_PATH, '--inv-mode', '0', '--no-term', '--keys', ','.join([str(k) for k in keys]),
-                   name_wo_ext + '.smt2']
+        command = [TG_TOOL_PATH, '--lookahead', '3', '--no-term', '--inv-mode', '2', '--keys',
+                   ','.join([str(k) for k in keys]), name_wo_ext + '.smt2']
+        #command = [TG_TOOL_PATH, '--inv-mode', '0', '--no-term', '--keys', ','.join([str(k) for k in keys]),
         print(list_to_string(command))
         try:
             command_executer(command, TG_TIMEOUT, 'log.txt')
@@ -719,6 +728,7 @@ def simple_run(file_wo_nondet):
     #           for f in filenames if os.path.splitext(f)[1] == '.c']
     for f in file_wo_nondet:
         print("gathering coverage for {}".format(f))
+        start_time = time.time()
         replace_reach_error(f)
         dir_name = os.path.dirname(f)
         file_name = os.path.basename(f)
@@ -749,6 +759,8 @@ def simple_run(file_wo_nondet):
                 command_executer(command, COVERAGE_TIMEOUT, 'log.txt')
                 command = ['genhtml', '--branch-coverage', '--output', './summary', 'coverage.info']
                 command_executer(command, COVERAGE_TIMEOUT, 'log.txt')
+        to_print_var = 'total time: {} seconds'.format(time.time() - start_time)
+        logger('log.txt', to_print_var)
         os.chdir(save)
 
 
@@ -867,12 +879,17 @@ def main():
     [print(files[i]) for i in range(0, min(len(files), 10))]
     # Move .c file to the specail sandbox
     # files = files[:100]
+    was_cleand = False
     if len(files) > 0:
-        files = move_to_sandbox(sorted(files), True)
+        files = move_to_sandbox(sorted(files), True, was_cleand)
+        files = sorted(files)[209:]
+        print("final files: {}".format(files))
         main_pipline(files)
-    if len(file_wo_nondet) > 0:
-        file_wo_nondet = move_to_sandbox(sorted(file_wo_nondet), False)
-        simple_run(file_wo_nondet)
+        was_cleand = True
+    # if len(file_wo_nondet) > 0:
+    #     file_wo_nondet = move_to_sandbox(sorted(file_wo_nondet), False, was_cleand)
+    #     simple_run(file_wo_nondet)
+        was_cleand = True
     # files = move_to_sandbox_and_rerun(sorted(files))
 
     # Merge all coverage

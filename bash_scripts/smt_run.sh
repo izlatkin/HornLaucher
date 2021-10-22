@@ -1,4 +1,4 @@
-/usr/bin/clang-10 -c -emit-llvm -D__SEAHORN__ -fdeclspec -O1 -Xclang \
+/usr/bin/clang-10 -fbracket-depth=1024 -c -emit-llvm -D__SEAHORN__ -fdeclspec -O1 -Xclang \
 -disable-llvm-optzns -fgnu89-inline -m32 \
 -I/home/usea/seahorn/include -o testgen.tmp1.bc ${1}
 /home/usea/seahorn/bin/seapp -o testgen.tmp2.bc \

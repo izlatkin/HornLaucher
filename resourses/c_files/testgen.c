@@ -5,7 +5,7 @@ extern int __VERIFIER_nondet_int();
 //
 //[1234,0,-5],[2,0,-1],[0,4,-4]
 int main() {
-    int x = __VERIFIER_nondet_int();
+    int x = 0;
     int y = __VERIFIER_nondet_int();
     int z = __VERIFIER_nondet_int();
     while (1) {

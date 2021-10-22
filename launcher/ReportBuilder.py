@@ -345,6 +345,8 @@ class html_report:
             return "<font color=\"red\">{}</font>\n".format('no data')
         else:
             report_dir = [f.path for f in os.scandir(sub_dirs[0]) if f.is_dir()]
+            exclude = ['usr']
+            report_dir = [d for d in report_dir if os.path.basename(d) not in exclude]
             if len(report_dir) != 1:
                 return "<font color=\"red\">{}</font>\n".format('no report')
             else:
@@ -387,6 +389,26 @@ class html_report:
                     "<font color=\"red\">{}</font>\n".format('no available')
         else:
             return "<font color=\"red\">{}</font>\n".format('no available')
+
+
+    def build_Excel_files(cc):
+        # Create a workbook and add a worksheet.
+        workbook = xlsxwriter.Workbook('tmp.xlsx')
+        worksheet = workbook.add_worksheet()
+
+        expenses = [['filename', 'is_tg']]
+        for k in sorted(cc):
+            expenses.append([k, cc[k]])
+        row = 0
+        col = 0
+
+        for cfile, is_tg in expenses:
+            worksheet.write(row, col, cfile)
+            worksheet.write(row, col + 1, is_tg)
+            row += 1
+
+        workbook.close()
+
 
 
     def buildReport_Excel(dir):
@@ -476,6 +498,8 @@ class html_report:
             return 'no data'
         else:
             report_dir = [f.path for f in os.scandir(sub_dirs[0]) if f.is_dir()]
+            exclude = ['usr']
+            report_dir = [d for d in report_dir if os.path.basename(d) not in exclude]
             if len(report_dir) != 1:
                 return 'no report'
             else:
@@ -522,15 +546,18 @@ class html_report:
 if __name__ == '__main__':
     #html_report.buildReport_3("../sandbox")
     #dir = "/Users/ilyazlatkin/PycharmProjects/results/sandbox_openssl_simplified_new/sandbox"
-    dir = "/Users/ilyazlatkin/PycharmProjects/results/openssl_all_tools/verifuzz_sandbox"
     #dir = "/tmp/klee_sandbox"
     #dir = "/tmp/fusebmc_sandbox"
+    # dir = "/Users/ilyazlatkin/PycharmProjects/results/other_tools/verifuzz_sandbox"
     # html_report.buildReport_klee(dir)
     # html_report.buildReport_Excel_klee(dir)
 
-    dir = "/Users/ilyazlatkin/PycharmProjects/results/inv-mode_0/sandbox"
+    dir = "/Users/ilyazlatkin/PycharmProjects/results/inv-mode_0/summary"
+    dir = "/Users/ilyazlatkin/PycharmProjects/results/inv_mode_1"
+    dir = '/Users/ilyazlatkin/PycharmProjects/results/TG_final_runs/inv_final/inv-mode_2_lookahead'
+    #dir = "/tmp/tmp"
     html_report.buildReport_Excel(dir)
-    # html_report.buildReport_3(dir)
+    html_report.buildReport_3(dir)
     # # d ='/Users/ilyazlatkin/PycharmProjects/results'
     # subdir = [os.path.join(d, o) for o in os.listdir(d)
     #  if os.path.isdir(os.path.join(d, o))]
