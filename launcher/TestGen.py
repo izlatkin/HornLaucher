@@ -1,13 +1,16 @@
 import argparse
+import concurrent
 import glob
 import os
 import re
 import shutil
 import subprocess
 import time
+from concurrent.futures import ThreadPoolExecutor
 from datetime import datetime
 from CoverageUtil import CoverageUtil
 import ReportBuilder
+from multiprocessing.pool import ThreadPool
 
 
 def init():
@@ -16,9 +19,9 @@ def init():
     SEA_PATH = "/Users/ilyazlatkin/CLionProjects/seahorn/build/run/bin/sea"
     SANDBOX_DIR = "../sandbox"
     SEA_TIMEOUT = 60
-    # TG_TOOL_PATH = "/Users/ilyazlatkin/PycharmProjects/aeval/build/tools/tg/tg"
-    TG_TOOL_PATH = "/home/fmfsu/aeval/build/tools/tg/tg"
-    TG_TIMEOUT = 900
+    #TG_TOOL_PATH = "/Users/ilyazlatkin/PycharmProjects/aeval/build/tools/tg/tg"
+    TG_TOOL_PATH = "/home/fmfsu/Dev/aeval/build/tools/tg/tg"
+    TG_TIMEOUT = 400
     COVERAGE_TIMEOUT = 20
     PYTHONHASHSEED = 0
     COVERAGE = True
@@ -166,7 +169,7 @@ def add_header(new_file):
         if not flag:
             f.writelines([line_1.rstrip('\r\n') + '\n', line_2.rstrip('\r\n') + '\n'] + out)
         else:
-            f.writelines(out)
+            f.writelines([line_1.rstrip('\r\n') + '\n'] + out)
         f.close()
 
 
@@ -492,10 +495,10 @@ def to_smt_docker(f):
     ff = '/app/' + name_wo_ext + '/' + name_wo_ext + '.c'
     smt_file = '/app/' + name_wo_ext + '/' + name_wo_ext + '.smt2'
     log_file = SANDBOX_DIR + '/' + name_wo_ext + '/log.txt'
-    # docker_image_name = str(subprocess.check_output(
-    #     'docker ps --format "table {{.Names}}" -f ancestor=seahorn/seahorn-llvm10:nightly | tail -1',
-    #     shell=True).strip())[2:-1]
-    docker_image_name = "unruffled_lederberg"
+    docker_image_name = str(subprocess.check_output(
+        'docker ps --format "table {{.Names}}" -f ancestor=seahorn/seahorn-llvm10:nightly | tail -1',
+        shell=True).strip())[2:-1]
+    # docker_image_name = "unruffled_lederberg"
     docker_sea_command = ['cd /app/{};'.format(name_wo_ext), '../smt_run.sh', ff, smt_file]
     docker_command = ['docker', 'exec', docker_image_name, 'bash', '-c', list_to_string(docker_sea_command)]
     print(docker_command)
@@ -529,7 +532,7 @@ def gather_coverage(new_file):
     command = ['rm', '-rf', 'main.gc*', 'main.o', 'coverage.info', 'test-coverage', 'generated-coverage']
     if flag and not command_executer(command, COVERAGE_TIMEOUT, '../log.txt'):
         flag = False
-    command = ['gcc-7', '-pthread', '-O0', '--coverage', 'main.c', '-o', 'test-coverage']
+    command = ['gcc', '-pthread', '-O0', '--coverage', 'main.c', '-o', 'test-coverage']
     if flag and not command_executer(command, COVERAGE_TIMEOUT, '../log.txt'):
         os.chdir(save)
         return False
@@ -557,7 +560,7 @@ def gather_coverage(new_file):
 
 def update_header_file(filename):
     global function_dictionary, PATTERN
-    lines = ['#include <stdbool.h>\n',
+    lines = ['#include <stdio.h>\n', '#include <stdbool.h>\n',
              'void __assert_fail(const char * a, const char * b, unsigned int c, const char * d) {};\n']
 
     fr = open(filename, 'r+')
@@ -708,7 +711,7 @@ def header_testgen(f, keys):
         print('smt file {} exist, perform testgen step'.format(smt_file))
         save = os.getcwd()
         os.chdir(dir)
-        command = [TG_TOOL_PATH, '--lookahead', '3', '--no-term', '--inv-mode', '2', '--keys',
+        command = [TG_TOOL_PATH,'--inv-mode', '0', '--no-term', '--keys',
                    ','.join([str(k) for k in keys]), name_wo_ext + '.smt2']
         #command = [TG_TOOL_PATH, '--inv-mode', '0', '--no-term', '--keys', ','.join([str(k) for k in keys]),
         print(list_to_string(command))
@@ -738,7 +741,7 @@ def simple_run(file_wo_nondet):
         add_header_with_pthread("main.c")
         command = ['touch', 'testgen.h']
         command_executer(command, COVERAGE_TIMEOUT, 'log.txt')
-        command = ['gcc-7', '-pthread', '-O0', '--coverage', 'main.c', '-o', 'test-coverage']
+        command = ['gcc', '-pthread', '-O0', '--coverage', 'main.c', '-o', 'test-coverage']
         if command_executer(command, COVERAGE_TIMEOUT, 'log.txt'):
             command = ['./test-coverage']
             command_executer(command, COVERAGE_TIMEOUT, 'log.txt')
@@ -750,7 +753,7 @@ def simple_run(file_wo_nondet):
         # extra attempt
         if not os.path.isfile("./summary/index.html"):
             shutil.copy(file_name, "main.c")
-            command = ['gcc-7', '-pthread', '-O0', '--coverage', 'main.c', '-o', 'test-coverage']
+            command = ['gcc', '-pthread', '-O0', '--coverage', 'main.c', '-o', 'test-coverage']
             if command_executer(command, COVERAGE_TIMEOUT, 'log.txt'):
                 command = ['./test-coverage']
                 command_executer(command, COVERAGE_TIMEOUT, 'log.txt')
@@ -764,6 +767,20 @@ def simple_run(file_wo_nondet):
         os.chdir(save)
 
 
+def main_pipline_atomic(i, f , NN):
+    start_time = time.time()
+    print("updating file: {}".format(f))
+    keys = update_c_file(f)
+    # smt convert step
+    to_smt_docker(f)
+    # testgen step
+    print("{:.2f}".format(100 * i / NN), "%", " ".join([f, list_to_string(keys)]))
+    header_testgen(f, keys)
+    to_print_var = 'total time: {} seconds'.format(time.time() - start_time)
+    logger(os.path.dirname(f) + '/log.txt', to_print_var)
+    print(to_print_var)
+
+
 def main_pipline(files):
     # preparation steps
     global function_dictionary
@@ -771,7 +788,7 @@ def main_pipline(files):
     script_file = SANDBOX_DIR + '/smt_run.sh'
     shutil.copyfile('../bash_scripts/smt_run.sh', script_file)
     os.chmod(script_file, 0o777)
-    # files = [f for f in files if 'testgen_2' in f]
+    #files = [f for f in files if 'testgen_2' in f]
     for i, f in enumerate(sorted(files)):
         # update step
         start_time = time.time()
@@ -785,10 +802,26 @@ def main_pipline(files):
         to_print_var = 'total time: {} seconds'.format(time.time() - start_time)
         logger(os.path.dirname(f) + '/log.txt', to_print_var)
         print(to_print_var)
+    # e = ThreadPoolExecutor(max_workers=2)
+    # futures = {e.submit(main_pipline_atomic, i, f, len(files)): f for i, f in enumerate(sorted(files))}
+    # for f in concurrent.futures.as_completed(futures):
+    #     url = futures[f]
+    #     try:
+    #         data = f.result()
+    #     except Exception as exc:
+    #         print('%r generated an exception: %s' % (url, exc))
+    #     else:
+    #         print('%r page is %d bytes' % (url, len(data)))
+    # for i, f in enumerate(sorted(files)):
+    #     futures.append(e.submit(main_pipline_atomic, i, f, len(files)))
+    # for future in concurrent.futures.as_completed(futures):
+    #     print(future.result())
+    # e.shutdown(wait=True)
     print('function_dictionary: {}'.format(function_dictionary))
 
 
 def main():
+    start_time = time.time()
     init()
     global SOURCE_PATH, SEA_PATH, SANDBOX_DIR, SEA_TIMEOUT, TG_TOOL_PATH, TG_TIMEOUT, COVERAGE_TIMEOUT, PATTERN, COVERAGE
     parser = argparse.ArgumentParser(description='python script for Test Generation')
@@ -840,7 +873,7 @@ def main():
 
     if args.tg_tool_path is not None:
         TG_TOOL_PATH = args.tg_tool_path
-        if not os.path.isfile(args.tg_tool_path.name):
+        if not os.path.isfile(args.tg_tool_path.name) and args.docker_sea is None:
             print("tg tool path:{} is invalid".format(args.tg_tool_path))
             exit(1)
     else:
@@ -850,7 +883,7 @@ def main():
             exit(1)
 
     if args.seahorn_tool_path is not None:
-        if not os.path.isfile(args.seahorn_tool_path.name):
+        if not os.path.isfile(args.seahorn_tool_path.name) and args.docker_sea is None:
             print("tg tool path:{} is invalid".format(args.seahorn_tool_path))
             exit(1)
     else:
@@ -882,13 +915,13 @@ def main():
     was_cleand = False
     if len(files) > 0:
         files = move_to_sandbox(sorted(files), True, was_cleand)
-        files = sorted(files)[209:]
+        files = sorted(files)
         print("final files: {}".format(files))
         main_pipline(files)
         was_cleand = True
-    # if len(file_wo_nondet) > 0:
-    #     file_wo_nondet = move_to_sandbox(sorted(file_wo_nondet), False, was_cleand)
-    #     simple_run(file_wo_nondet)
+    if len(file_wo_nondet) > 0:
+        file_wo_nondet = move_to_sandbox(sorted(file_wo_nondet), False, was_cleand)
+        simple_run(file_wo_nondet)
         was_cleand = True
     # files = move_to_sandbox_and_rerun(sorted(files))
 
@@ -897,6 +930,8 @@ def main():
         summary_coverage_report()
     ReportBuilder.html_report.buildReport_3(SANDBOX_DIR)
     ReportBuilder.html_report.buildReport_Excel(SANDBOX_DIR)
+    tt = time.time() - start_time
+    print('TG total time: {} seconds or {} hours'.format(tt, tt / 3600))
     # Build Report like ReportBuilder.html_report
 
 

@@ -8,14 +8,15 @@ from ReportBuilder import html_report
 
 """ Tools location
 """
+
+
 def init():
     global SOURCE_PATH, SANDBOX_DIR, VERIFUZZ_PATH, VERIFUZZ_TIMEOUT, TESTCOV, VERIFUZZ_WD
     SANDBOX_DIR = "/home/fmfsu/PyCharm/verifuzz_sandbox"
-    #SOURCE_PATH = "/home/fmfsu/Benchs/sv-benchmarks/c/loop-invariants"
-    #SOURCE_PATH = "/home/fmfsu/Benchs/sv-benchmarks/c/loop-invariants/eq1.c"
-    #SOURCE_PATH = "/home/fmfsu/Benchs/loop_benckmarks/loop-acceleration/"
-    SOURCE_PATH = "/home/fmfsu/Benchs/loop_benckmarks"
-    #SOURCE_PATH = "/home/fmfsu/Benchs/sv-benchmarks/c/openssl-simplified"
+    # SOURCE_PATH = "/home/fmfsu/Benchs/sv-benchmarks/c/loop-invariants"
+    # SOURCE_PATH = "/home/fmfsu/Benchs/sv-benchmarks/c/loop-invariants/eq1.c"
+    # SOURCE_PATH = "/home/fmfsu/Benchs/loop_benckmarks/loop-acceleration/"
+    SOURCE_PATH = "/home/fmfsu/Benchs/GF_banch"
     VERIFUZZ_PATH = "/home/fmfsu/Dev/verifuzz/scripts/verifuzz.py"
     VERIFUZZ_WD = "/home/fmfsu/Dev/verifuzz"
     VERIFUZZ_TIMEOUT = 900
@@ -36,7 +37,7 @@ def move_to_sandbox(files):
         os.mkdir(SANDBOX_DIR)
     else:
         print('clear output directory {}'.format(SANDBOX_DIR))
-        #remove dir
+        # remove dir
         os_info = os.uname()
         if (os_info.sysname != 'Darwin'):
             clean_dir(SANDBOX_DIR)
@@ -58,7 +59,7 @@ def move_to_sandbox(files):
 
 
 def get_cfiles_with_conditions():
-    #case when single file
+    # case when single file
     if os.path.isfile(SOURCE_PATH):
         return [SOURCE_PATH]
     # whole directory run
@@ -124,7 +125,7 @@ def command_executer(command, timeout, file):
 def zip_results():
     os.chdir("test-suite")
     xml_files = [os.path.join(dp, f) for dp, dn, filenames in os.walk('.')
-              for f in filenames if os.path.splitext(f)[1] == '.xml']
+                 for f in filenames if os.path.splitext(f)[1] == '.xml']
     zip_command = ['zip', 'tests.zip'] + xml_files
     try:
         command_executer(zip_command, 2 * VERIFUZZ_TIMEOUT, '../log.txt')
@@ -133,17 +134,16 @@ def zip_results():
     os.chdir("../")
 
 
-
 def run_verifuzz(file):
     print("run verifuzz for {}".format(file))
     save = os.getcwd()
-    #os.chdir(os.path.dirname(file))
+    # os.chdir(os.path.dirname(file))
     os.chdir(VERIFUZZ_WD)
     clean_dir("test-suite")
     klee_command = ['python2.7', VERIFUZZ_PATH, '--testcomp', '--propertyFile',
                     '/home/fmfsu/Benchs/sv-benchmarks/c/properties/coverage-branches.prp',
-                    file] # '--timeout', str(FUSEBMC_TIMEOUT),
-    clean_dir("fusebmc_output") # clean fusebmc output dir
+                    file]  # '--timeout', str(FUSEBMC_TIMEOUT),
+    clean_dir("fusebmc_output")  # clean fusebmc output dir
     try:
         command_executer(klee_command, VERIFUZZ_TIMEOUT + 10, os.path.dirname(file) + '/log.txt')
     except subprocess.CalledProcessError as e:
@@ -155,7 +155,6 @@ def run_verifuzz(file):
     os.chdir(save)
 
 
-
 def run_testcov(file):
     print("run testcov for {}".format(file))
     save = os.getcwd()
@@ -164,7 +163,7 @@ def run_testcov(file):
         logger('log.txt', ["NO TEST SUITE", "FAIL"])
         return
     testcov_command = [TESTCOV, '--use-gcov', '--test-suite', 'tests.zip',
-                    os.path.basename(file)]
+                       os.path.basename(file)]
     try:
         command_executer(testcov_command, 30, 'log.txt')
         command = ['lcov', '--capture', '--rc', 'lcov_branch_coverage=1', '--directory', '.',
@@ -180,27 +179,26 @@ def run_testcov(file):
 def main_pipeline(files):
     print("number of files: {}".format(len(files)))
     for i, f in enumerate(sorted(files)):
-        if not os.path.isfile(os.path.dirname(f) + "/log.txt"):
-            start_time = time.time()
-            print("{:.2f}".format(100 * i / len(files)), "%", f)
-            run_verifuzz(f)
-            run_testcov(f)
-            to_print_var = 'total time: {} seconds'.format(time.time() - start_time)
-            logger(os.path.dirname(f) + '/log.txt', to_print_var)
+        # if not os.path.isfile(os.path.dirname(f) + "/log.txt"):
+        start_time = time.time()
+        print("{:.2f}".format(100 * i / len(files)), "%", f)
+        run_verifuzz(f)
+        run_testcov(f)
+        to_print_var = 'total time: {} seconds'.format(time.time() - start_time)
+        logger(os.path.dirname(f) + '/log.txt', to_print_var)
 
 
 def main():
     init()
-    #parse and prepare sourse file
-    # files = get_cfiles_with_conditions()
-    # files = move_to_sandbox(sorted(files))
-    files = sorted([os.path.join(dp, f) for dp, dn, filenames in os.walk(SANDBOX_DIR)
-                    for f in filenames if os.path.splitext(f)[1] == '.c'
-                    and os.path.splitext(f)[0] != "harness"])
+    # parse and prepare sourse file
+    files = get_cfiles_with_conditions()
+    files = move_to_sandbox(sorted(files))
+    # files = sorted([os.path.join(dp, f) for dp, dn, filenames in os.walk(SANDBOX_DIR)
+    #                 for f in filenames if os.path.splitext(f)[1] == '.c'
+    #                 and os.path.splitext(f)[0] != "harness"])
     main_pipeline(files)
     html_report.buildReport_fusebmc(SANDBOX_DIR)
     html_report.buildReport_Excel_klee(SANDBOX_DIR)
-
 
 
 if __name__ == "__main__":

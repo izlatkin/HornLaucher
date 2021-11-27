@@ -15,7 +15,7 @@ def init():
     #SOURCE_PATH = "/home/fmfsu/Benchs/sv-benchmarks/c/loop-invariants/eq1.c"
     #SOURCE_PATH = "/home/fmfsu/Benchs/loop_benckmarks/loop-acceleration/"
     # SOURCE_PATH = "/home/fmfsu/Benchs/loop_benckmarks"
-    SOURCE_PATH = "/home/fmfsu/Benchs/sv-benchmarks/c/openssl-simplified"
+    SOURCE_PATH = "/home/fmfsu/Benchs/GF_banch"
     FUSEBMC_PATH = "/home/fmfsu/Dev/fusebmc/fusebmc.py"
     FSUEBMV_WD = "/home/fmfsu/Dev/fusebmc"
     FUSEBMC_TIMEOUT = 900

@@ -1,6 +1,7 @@
 import os
 import pickle
 import re
+import shutil
 
 import xlsxwriter as xlsxwriter
 
@@ -87,7 +88,6 @@ class html_report:
                         break
         return out
 
-
     def buildReport(dir, stat):
         # filein = open("forReport", "r", encoding='ISO-8859-1')
         filein = pickle.load(open("save_aws.p", "rb"))
@@ -151,11 +151,11 @@ class html_report:
         fileout.writelines(table)
         fileout.close()
 
-
-    def buildReport_3(dir):
+    @classmethod
+    def buildReport_3(self, dir):
         fileout = open("{}/1_html_report.html".format(dir), "w")
         # stat = stat.replace("\n", "<br />\n")
-        #fileout.writelines(stat)
+        # fileout.writelines(stat)
 
         table = "<table border=\"1\" cellspacing=\"0\" cellpadding=\"4\">\n"
         table = html_report.create_header_2(table)
@@ -168,23 +168,23 @@ class html_report:
             print(line)
             table += "  <tr>\n"
             table += "    <td>{0}</td>\n".format(i)
-            table += "    <td>{0}<br/>\n".format(html_report.create_hyperlinnk_to_file(line + '/' + os.path.basename(line) + '.c'))
+            table += "    <td>{0}<br/>\n".format(
+                html_report.create_hyperlinnk_to_file(line + '/' + os.path.basename(line) + '.c'))
             table += "    <td>{0}<br/>{1}<br/>{2}{3}</td>\n".format(html_report.get_smt2_file(line),
-                                                                         html_report.get_log_file(line),
-                                                                         html_report.get_report(line),
-                                                                         html_report.get_extra_info_from_log(line))
+                                                                    html_report.get_log_file(line),
+                                                                    html_report.get_report(line),
+                                                                    html_report.get_extra_info_from_log(line))
             table += "    <td>{0}</td>\n".format(html_report.get_tests_info(line))
             table += "    <td>{0}</td>\n".format(html_report.get_coverage_data(line))
-            #table += "    <td>{0}</td>\n".format(html_report.get_time_consumed(line) + ' seconds')
+            # table += "    <td>{0}</td>\n".format(html_report.get_time_consumed(line) + ' seconds')
             table += "    <td>{0}</td>\n".format(str(html_report.get_time_consumed(line)) + ' seconds')
             table += "  </tr>\n"
             i += 1
         table += "</table>"
-        #table = table.replace("../{}".format(dir), ".")
+        # table = table.replace("../{}".format(dir), ".")
         table = table.replace(dir, ".")
         fileout.writelines(table)
         fileout.close()
-
 
     def buildReport_klee(dir):
         fileout = open("{}/1_html_report.html".format(dir), "w")
@@ -200,20 +200,20 @@ class html_report:
             print(line)
             table += "  <tr>\n"
             table += "    <td>{0}</td>\n".format(i)
-            table += "    <td>{0}<br/>\n".format(html_report.create_hyperlinnk_to_file(line + '/' + os.path.basename(line) + '.c'))
+            table += "    <td>{0}<br/>\n".format(
+                html_report.create_hyperlinnk_to_file(line + '/' + os.path.basename(line) + '.c'))
             table += "    <td>{0}</td>\n".format(html_report.get_log_file(line))
             table += "    <td>{0}<br/>{1}</td>\n".format(html_report.get_tests_info_klee(line),
-                                                 html_report.get_report_klee(line))
-            #table += "    <td>{0}</td>\n".format(html_report.get_coverage_data(line))
+                                                         html_report.get_report_klee(line))
+            # table += "    <td>{0}</td>\n".format(html_report.get_coverage_data(line))
             table += "    <td>{0}</td>\n".format(str(html_report.get_time_consumed(line)) + ' seconds')
             table += "  </tr>\n"
             i += 1
         table += "</table>"
-        #table = table.replace("../{}".format(dir), ".")
+        # table = table.replace("../{}".format(dir), ".")
         table = table.replace(dir, ".")
         fileout.writelines(table)
         fileout.close()
-
 
     def buildReport_fusebmc(dir):
         fileout = open("{}/1_html_report.html".format(dir), "w")
@@ -229,20 +229,20 @@ class html_report:
             print(line)
             table += "  <tr>\n"
             table += "    <td>{0}</td>\n".format(i)
-            table += "    <td>{0}<br/>\n".format(html_report.create_hyperlinnk_to_file(line + '/' + os.path.basename(line) + '.c'))
+            table += "    <td>{0}<br/>\n".format(
+                html_report.create_hyperlinnk_to_file(line + '/' + os.path.basename(line) + '.c'))
             table += "    <td>{0}</td>\n".format(html_report.get_log_file(line))
             table += "    <td>{0}<br/>{1}</td>\n".format(html_report.get_tests_info_klee(line),
-                                                 html_report.get_report_klee(line))
-            #table += "    <td>{0}</td>\n".format(html_report.get_coverage_data(line))
+                                                         html_report.get_report_klee(line))
+            # table += "    <td>{0}</td>\n".format(html_report.get_coverage_data(line))
             table += "    <td>{0}</td>\n".format(html_report.get_time_consumed(line) + ' seconds')
             table += "  </tr>\n"
             i += 1
         table += "</table>"
-        #table = table.replace("../{}".format(dir), ".")
+        # table = table.replace("../{}".format(dir), ".")
         table = table.replace(dir, "./")
         fileout.writelines(table)
         fileout.close()
-
 
     @classmethod
     def get_smt2_file(cls, dir):
@@ -271,7 +271,6 @@ class html_report:
                 return "<font color=\"red\">{}</font>\n".format('no report')
             else:
                 return "<a href=\"{0}\">{1} </a>\n".format(report_dir[0] + '/index.html', "coverage_report")
-
 
     @classmethod
     def get_report_klee(cls, dir):
@@ -302,16 +301,18 @@ class html_report:
                 else:
                     tests_failed += 1
                     color = 'red'
-                tests_links += '{}<font color=\"{}\">{}</font><br/>\n'.format(html_report.create_hyperlinnk_to_file(t),color, result)
+                tests_links += '{}<font color=\"{}\">{}</font><br/>\n'.format(html_report.create_hyperlinnk_to_file(t),
+                                                                              color, result)
             if len(sub_dirs) == tests_passed:
                 tests_links += 'tests: {} [ <font color=\"green\">passed: {}</font> ]'.format(
                     len(sub_dirs), tests_passed)
             elif len(sub_dirs) == tests_failed:
-                tests_links += 'tests: {} [ <font color=\"green\"><font color=\"red\">failed: {}</font> ]'.format(len(sub_dirs), tests_failed)
+                tests_links += 'tests: {} [ <font color=\"green\"><font color=\"red\">failed: {}</font> ]'.format(
+                    len(sub_dirs), tests_failed)
             else:
-                tests_links += 'tests: {} [ <font color=\"green\">passed: {}</font>, <font color=\"red\">failed: {}</font> ]'.format(len(sub_dirs), tests_passed, tests_failed)
+                tests_links += 'tests: {} [ <font color=\"green\">passed: {}</font>, <font color=\"red\">failed: {}</font> ]'.format(
+                    len(sub_dirs), tests_passed, tests_failed)
             return tests_links
-
 
     @classmethod
     def get_tests_info_klee(cls, dir):
@@ -322,7 +323,7 @@ class html_report:
             for i, line in enumerate(lines):
                 if "---Results---" in line:
                     out = ''
-                    for j in range(1,5):
+                    for j in range(1, 5):
                         out += "{}<br/>".format(lines[i + j])
                     file.close()
                     return out
@@ -371,7 +372,8 @@ class html_report:
                 flag = True
             if i == 3:
                 break
-        return '{}<br/>\nHit: {}<br/>\nTotal: {}<br/>\nCoverage: {}\n'.format(brench_lines[0], brench_lines[1], brench_lines[2], brench_lines[3])
+        return '{}<br/>\nHit: {}<br/>\nTotal: {}<br/>\nCoverage: {}\n'.format(brench_lines[0], brench_lines[1],
+                                                                              brench_lines[2], brench_lines[3])
 
     @classmethod
     def get_time_consumed(cls, dir):
@@ -389,7 +391,6 @@ class html_report:
                     "<font color=\"red\">{}</font>\n".format('no available')
         else:
             return "<font color=\"red\">{}</font>\n".format('no available')
-
 
     def build_Excel_files(cc):
         # Create a workbook and add a worksheet.
@@ -409,9 +410,8 @@ class html_report:
 
         workbook.close()
 
-
-
-    def buildReport_Excel(dir):
+    @classmethod
+    def buildReport_Excel(self, dir):
         # Create a workbook and add a worksheet.
         workbook = xlsxwriter.Workbook(dir + '/1_report.xlsx')
         worksheet = workbook.add_worksheet()
@@ -424,7 +424,7 @@ class html_report:
             raw_data = html_report.get_coverage_data_plane_text(line)
             if raw_data != "no data" and raw_data != 'no report':
                 raw_data = [r.strip("\n") for r in raw_data]
-                #coverage = raw_data[3].strip("%")
+                # coverage = raw_data[3].strip("%")
                 hit = raw_data[1]
                 total = raw_data[2]
                 if float(hit) <= 2:
@@ -441,7 +441,6 @@ class html_report:
             time = html_report.get_time_consumed(line)
             expenses.append([file_name, coverage, time, hit, total])
 
-
         row = 0
         col = 0
 
@@ -454,7 +453,6 @@ class html_report:
             row += 1
 
         workbook.close()
-
 
     def buildReport_Excel_klee(dir):
         # Create a workbook and add a worksheet.
@@ -474,7 +472,7 @@ class html_report:
                 goals = raw_data[i:i + j]
                 coverage = raw_data[raw_data.index("Coverage:") + len("Coverage: "): raw_data.index("%")]
 
-            #print(coverage)
+            # print(coverage)
             time = html_report.get_time_consumed(line)
             expenses.append([file_name, coverage, time, goals])
 
@@ -489,7 +487,6 @@ class html_report:
             row += 1
 
         workbook.close()
-
 
     @classmethod
     def get_coverage_data_plane_text(cls, dir):
@@ -507,7 +504,6 @@ class html_report:
                 out = html_report.read_lcov_html_report_plane_text(file_name)
                 return out
 
-
     @classmethod
     def get_coverage_data_plane_text_klee(cls, dir):
         sub_dirs = [f.path for f in os.scandir(dir) if f.is_dir() and os.path.basename(f) in 'summary']
@@ -521,7 +517,6 @@ class html_report:
                 file_name = report_dir[0] + '/main.c.gcov.html'
                 out = html_report.read_lcov_html_report_plane_text(file_name)
                 return out
-
 
     @classmethod
     def read_lcov_html_report_plane_text(cls, file_name):
@@ -541,23 +536,61 @@ class html_report:
                 break
         return brench_lines
 
+    def reports_clean_up(dir):
+        subdir = [os.path.join(dir, o) for o in os.listdir(dir)]
+        subdir = [i for i in subdir if not os.path.isfile(i)]
+        print(subdir)
+        #subdir = subdir[:1]
+        rm_list = ["coverage.info", "main.gcda", "main.gcno", "Makefile", "test-coverage","main.c"]
+        rm_dr = "generated-coverage"
+        for sd in subdir:
+            sdd = [os.path.join(sd, o) for o in os.listdir(sd)]
+            sdd = [i for i in sdd if not os.path.isfile(i)]
+            print(sdd)
+            for td in sdd:
+                if os.path.basename(td) == "summary":
+                    print("yes")
+                    # remove summary
+                    shutil.rmtree(td)
+                else:
+                    # list of all files in td
+                    onlyfiles = [os.path.join(td, f) for f in os.listdir(td) if
+                                 os.path.isfile(os.path.join(td, f))]
+                    print(onlyfiles)
+                    for pd in rm_list:
+                        for f in onlyfiles:
+                            if pd in f:
+                                print("yess")
+                                os.remove(f)
+
+                    lastdir = [os.path.join(td, o) for o in os.listdir(td)]
+                    lastdir = [i for i in lastdir if not os.path.isfile(i)]
+                    print(lastdir)
+                    for j in lastdir:
+                        if rm_dr in j:
+                            print("yesss")
+                            shutil.rmtree(j)
+
 
 
 if __name__ == '__main__':
-    #html_report.buildReport_3("../sandbox")
-    #dir = "/Users/ilyazlatkin/PycharmProjects/results/sandbox_openssl_simplified_new/sandbox"
-    #dir = "/tmp/klee_sandbox"
-    #dir = "/tmp/fusebmc_sandbox"
+    dir = "/Users/ilyazlatkin/PycharmProjects/results/to_pack/inv_mode_2_lookahead"
+    html_report.reports_clean_up(dir)
+
+    # html_report.buildReport_3("../sandbox")
+    # dir = "/Users/ilyazlatkin/PycharmProjects/results/sandbox_openssl_simplified_new/sandbox"
+    # dir = "/tmp/klee_sandbox"
+    # dir = "/tmp/fusebmc_sandbox"
     # dir = "/Users/ilyazlatkin/PycharmProjects/results/other_tools/verifuzz_sandbox"
     # html_report.buildReport_klee(dir)
     # html_report.buildReport_Excel_klee(dir)
 
-    dir = "/Users/ilyazlatkin/PycharmProjects/results/inv-mode_0/summary"
-    dir = "/Users/ilyazlatkin/PycharmProjects/results/inv_mode_1"
-    dir = '/Users/ilyazlatkin/PycharmProjects/results/TG_final_runs/inv_final/inv-mode_2_lookahead'
-    #dir = "/tmp/tmp"
-    html_report.buildReport_Excel(dir)
-    html_report.buildReport_3(dir)
+    # dir = "/Users/ilyazlatkin/PycharmProjects/results/inv-mode_0/summary"
+    # dir = "/Users/ilyazlatkin/PycharmProjects/results/inv_mode_1"
+    # dir = '/Users/ilyazlatkin/PycharmProjects/results/TG_final_runs/inv_final/inv-mode_2_lookahead'
+    # #dir = "/tmp/tmp"
+    # html_report.buildReport_Excel(dir)
+    # html_report.buildReport_3(dir)
     # # d ='/Users/ilyazlatkin/PycharmProjects/results'
     # subdir = [os.path.join(d, o) for o in os.listdir(d)
     #  if os.path.isdir(os.path.join(d, o))]
