@@ -26,6 +26,15 @@ class html_report:
         table += "  </tr>\n"
         return table
 
+    def create_header_4(table):
+        header_line = "No., Sourse code, Links (smt2 logs reports) , Tests, Coverage_old, Coverage TestCov, Time"
+        header = header_line.split(",")
+        table += "  <tr>\n"
+        for column in header:
+            table += "    <th>{0}</th>\n".format(column.strip())
+        table += "  </tr>\n"
+        return table
+
     def create_header_klee(table):
         header_line = "No., Sourse code, Links (logs reports) , Tests / Coverage, Time"
         header = header_line.split(",")
@@ -186,6 +195,45 @@ class html_report:
         fileout.writelines(table)
         fileout.close()
 
+
+    @classmethod
+    def buildReport_4(self, dir):
+        fileout = open("{}/1_html_report.html".format(dir), "w")
+        # stat = stat.replace("\n", "<br />\n")
+        # fileout.writelines(stat)
+
+        table = "<table border=\"1\" cellspacing=\"0\" cellpadding=\"4\">\n"
+        table = html_report.create_header_4(table)
+
+        # Create the table's row data
+        i = 1
+        exclude = ['final_coverage_report_wc_header', 'final_coverage_report', '4TestCov']
+        source_files = [f.path for f in os.scandir(dir) if f.is_dir() and os.path.basename(f) not in exclude]
+        for line in sorted(source_files):
+            print(line)
+            table += "  <tr>\n"
+            table += "    <td>{0}</td>\n".format(i)
+            table += "    <td>{0}<br/>\n".format(
+                html_report.create_hyperlinnk_to_file(line + '/' + os.path.basename(line) + '.c'))
+            table += "    <td>{0}<br/>{1}<br/>{2}{3}</td>\n".format(html_report.get_smt2_file(line),
+                                                                    html_report.get_log_file(line),
+                                                                    html_report.get_report(line),
+                                                                    html_report.get_extra_info_from_log(line))
+            table += "    <td>{0}</td>\n".format(html_report.get_tests_info(line))
+            table += "    <td>{0}</td>\n".format(html_report.get_coverage_data(line))
+            table += "    <td>{0}</td>\n".format(html_report.get_coverage_data_testcov(line))
+            # table += "    <td>{0}</td>\n".format(html_report.get_time_consumed(line) + ' seconds')
+            table += "    <td>{0}</td>\n".format(str(html_report.get_time_consumed(line)) + ' seconds')
+            table += "  </tr>\n"
+            i += 1
+        table += "</table>"
+        # table = table.replace("../{}".format(dir), ".")
+        table = table.replace(dir, ".")
+        fileout.writelines(table)
+        fileout.close()
+
+
+
     def buildReport_klee(dir):
         fileout = open("{}/1_html_report.html".format(dir), "w")
 
@@ -286,7 +334,7 @@ class html_report:
 
     @classmethod
     def get_tests_info(cls, dir):
-        sub_dirs = [f.path for f in os.scandir(dir) if f.is_dir() and os.path.basename(f) not in 'summary']
+        sub_dirs = [f.path for f in os.scandir(dir) if f.is_dir() and os.path.basename(f) not in ['summary','4TestCov']]
         if len(sub_dirs) == 0:
             return "<font color=\"red\">{}</font>\n".format('no tests were run')
         else:
@@ -356,6 +404,28 @@ class html_report:
                 out += html_report.read_lcov_html_report(file_name) + '<br/>'
                 return out
 
+
+    @classmethod
+    def get_coverage_data_testcov(cls, dir):
+        sub_dirs = [f.path for f in os.scandir(dir) if f.is_dir() and os.path.basename(f) in '4TestCov'
+                    and len(os.path.basename(f)) > 2]
+        if len(sub_dirs) != 1:
+            return "<font color=\"red\">{}</font>\n".format('no data')
+        else:
+            report_dir = [f.path for f in os.scandir(sub_dirs[0] + "/generated-coverage") if f.is_dir() and f.path]
+            #file_name = report_dir[0] + '/main.c.gcov.html'
+            files = [os.path.basename(f) for f in os.listdir(report_dir[0]) if f.endswith('.c.gcov.html')]
+            out = ""
+            if len(files) != 1:
+                out += "<font color=\"red\">{}</font><br/>".format('no gcov report')
+            else:
+                file_name = report_dir[0] + "/" + files[0]
+                out = "<a href=\"{0}\">{1} </a>\n".format(file_name, "coverage_c_file") + '<br/>\n'
+                out += html_report.read_lcov_html_report(file_name) + '<br/>'
+            out += html_report.read_testciv_log(sub_dirs[0]+"/log.txt") + '<br/>'
+            return out
+
+
     @classmethod
     def read_lcov_html_report(cls, file_name):
         file = open(file_name, "r")
@@ -373,6 +443,25 @@ class html_report:
             if i == 3:
                 break
         return '{}<br/>\nHit: {}<br/>\nTotal: {}<br/>\nCoverage: {}\n'.format(brench_lines[0], brench_lines[1],
+                                                                              brench_lines[2], brench_lines[3])
+
+
+    @classmethod
+    def read_testciv_log(cls, file_name):
+        file = open(file_name, "r")
+        lines = file.readlines()
+        brench_lines = []
+        flag = False
+        i = 0
+        for line in lines:
+            if flag:
+                brench_lines.append(line)
+                i += 1
+            if '---Results---' in line:
+                flag = True
+            if i == 4:
+                break
+        return '{}<br/>\n{}<br/>\n{}<br/>\n{}\n'.format(brench_lines[0], brench_lines[1],
                                                                               brench_lines[2], brench_lines[3])
 
     @classmethod
@@ -574,8 +663,9 @@ class html_report:
 
 
 if __name__ == '__main__':
-    dir = "/Users/ilyazlatkin/PycharmProjects/results/to_pack/inv_mode_2_lookahead"
-    html_report.reports_clean_up(dir)
+    dir = "/Users/ilyazlatkin/Downloads/sandbox"
+    html_report.buildReport_4(dir)
+    html_report.buildReport_Excel(dir)
 
     # html_report.buildReport_3("../sandbox")
     # dir = "/Users/ilyazlatkin/PycharmProjects/results/sandbox_openssl_simplified_new/sandbox"

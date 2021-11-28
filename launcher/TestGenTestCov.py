@@ -1,27 +1,25 @@
 import argparse
-import concurrent
-import glob
 import os
-import re
 import shutil
+import glob
 import subprocess
 import time
-from concurrent.futures import ThreadPoolExecutor
 from datetime import datetime
 from CoverageUtil import CoverageUtil
 import ReportBuilder
-from multiprocessing.pool import ThreadPool
+import hashlib
 
 
 def init():
-    global SOURCE_PATH, SEA_PATH, SANDBOX_DIR, SEA_TIMEOUT, TG_TOOL_PATH, TG_TIMEOUT, COVERAGE_TIMEOUT, PATTERN, COVERAGE
+    global SOURCE_PATH, SEA_PATH, SANDBOX_DIR, SEA_TIMEOUT, TG_TOOL_PATH, TG_TIMEOUT, COVERAGE_TIMEOUT, PATTERN, COVERAGE, TESTCOV
     SOURCE_PATH = "/Users/ilyazlatkin/PycharmProjects/benckmarks/loops"
     SEA_PATH = "/Users/ilyazlatkin/CLionProjects/seahorn/build/run/bin/sea"
     SANDBOX_DIR = "../sandbox"
     SEA_TIMEOUT = 60
     #TG_TOOL_PATH = "/Users/ilyazlatkin/PycharmProjects/aeval/build/tools/tg/tg"
     TG_TOOL_PATH = "/home/fmfsu/Dev/aeval/build/tools/tg/tg"
-    TG_TIMEOUT = 60
+    TESTCOV = "/home/fmfsu/Dev/TestCov/test-suite-validator/bin/testcov"
+    TG_TIMEOUT = 180
     COVERAGE_TIMEOUT = 20
     PYTHONHASHSEED = 0
     COVERAGE = True
@@ -80,7 +78,6 @@ def check_conditions(f):
     line_cycle_begins = get_line(f, "while")
     # if line_cycle_begins <= 0 or line_cycle_begins < line_main:
     #     return False
-    # ToDo add "for" cycle support
     verifier_nondet_int = get_line(f, "__VERIFIER_nondet_uint", "extern int __VERIFIER_nondet_int()")
     verifier_nondet_uint = get_line(f, "__VERIFIER_nondet_int", "extern unsigned int __VERIFIER_nondet_int()")
     verifier_nondet_uchar = get_line(f, "__VERIFIER_nondet_uchar", "extern unsigned char __VERIFIER_nondet_uchar()")
@@ -257,6 +254,7 @@ def move_to_sandbox(files, add_h, was_cleaned):
         # copy file to individual sandbox
         new_file = subdir + "/" + basename
         shutil.copyfile(f, new_file)
+        shutil.copyfile(new_file,  subdir + "/orig_" + basename) # add copy for TestCov
         # include "testgen.h" if needed
         if add_h:
             add_header(new_file)
@@ -666,6 +664,77 @@ def run_generated_testcases(f, keys):
         command = ['genhtml', '--branch-coverage', 'summary_coverage.info']
         command_executer(command, 30, 'log.txt')
         os.chdir(save)
+
+    forTestCov = [os.path.join(dp, f) for dp, dn, filenames in os.walk(dir)
+            for f in filenames if os.path.splitext(f)[0] == 'number']
+    print("build zip for TestCov: {}".format(forTestCov))
+    if forTestCov:
+        save = os.getcwd()
+        os.chdir(dir)
+        # make new dir summary
+        os.mkdir('4TestCov')
+        creat_metadata_file(f)
+        for i, df in enumerate(forTestCov):
+            result = updateNumberTxt(df)
+            summary_file = open('4TestCov/{}.xml'.format(i), "w")
+            summary_file.writelines(result)
+            summary_file.close()
+        # zip all files in 4TestCov
+        os.chdir('4TestCov')
+        xml_files = [os.path.basename(f) for f in os.listdir('.') if f.endswith('.xml')]
+        zip_command = ['zip', 'tests.zip'] + xml_files
+        try:
+            command_executer(zip_command, 2 , '../log.txt')
+        except subprocess.CalledProcessError as e:
+            logger('../log.txt', [" ".join(zip_command), "FAIL"])
+        # run testCov
+        run_testcov("../orig_"+f)
+        os.chdir(save)
+
+
+def run_testcov(file):
+    print("run testcov for {}".format(file))
+    testcov_command = [TESTCOV, '--use-gcov', '--test-suite', 'tests.zip', file]
+    try:
+        command_executer(testcov_command, 30, 'log.txt')
+        command = ['lcov', '--capture', '--rc', 'lcov_branch_coverage=1', '--directory', '.',
+                   '--output', 'coverage.info']
+        command_executer(command, 20, 'log.txt')
+        command = ['genhtml', '--branch-coverage', '--output', './generated-coverage/', 'coverage.info']
+        command_executer(command, 20, '../log.txt')
+    except subprocess.CalledProcessError as e:
+        logger('../log.txt', [" ".join(testcov_command), "FAIL"])
+
+
+def updateNumberTxt(f):
+    input = []
+    with open(f) as file:
+        lines = file.readlines()  ##Assume the sample file has 3 lines
+        for line in lines:
+            input = input + line.split()
+    out = ["<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?>\n",
+           "<!DOCTYPE testcase PUBLIC \"+//IDN sosy-lab.org//DTD test-format testcase 1.0//EN\" \"https://sosy-lab.org/test-format/testcase-1.0.dtd\">\n",
+           "<testcase>\n"]
+    for i in input:
+        out.append("    <input>{}</input>\n".format(i))
+    out.append("</testcase>\n")
+    return out
+
+
+def creat_metadata_file(filename):
+    out = ["<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?><!DOCTYPE test-"
+           "metadata PUBLIC \"+//IDN sosy-lab.org//DTD test-format test-metadata 1.0//EN\" "
+           "\"https://sosy-lab.org/test-format/test-metadata-1.0.dtd\">"
+           "<test-metadata><entryfunction>main</entryfunction>"
+           "<specification>COVER( init(main()), FQL(COVER EDGES(@DECISIONEDGE)) )</specification>"
+           "<sourcecodelang>C</sourcecodelang><architecture>32bit</architecture>"
+           "<creationtime>2021-11-23T21:33:26.565496</creationtime>"
+           "<programhash>6138372cb1b5b1f73fea88167d279f9d42964baf</programhash>"
+           "<producer>FuSeBMC</producer><programfile>{}</programfile></test-metadata>".format(os.getcwd() + "/" + filename)]
+    summary_file = open('4TestCov/metadata.xml', "w")
+    summary_file.writelines(out)
+    summary_file.close()
+
 
 
 """ generates final report for all .c file based on summary report of each .c file
