@@ -414,14 +414,15 @@ class html_report:
         else:
             report_dir = [f.path for f in os.scandir(sub_dirs[0] + "/generated-coverage") if f.is_dir() and f.path]
             #file_name = report_dir[0] + '/main.c.gcov.html'
-            files = [os.path.basename(f) for f in os.listdir(report_dir[0]) if f.endswith('.c.gcov.html')]
             out = ""
-            if len(files) != 1:
-                out += "<font color=\"red\">{}</font><br/>".format('no gcov report')
-            else:
-                file_name = report_dir[0] + "/" + files[0]
-                out = "<a href=\"{0}\">{1} </a>\n".format(file_name, "coverage_c_file") + '<br/>\n'
-                out += html_report.read_lcov_html_report(file_name) + '<br/>'
+            if len(report_dir) > 0:
+                files = [os.path.basename(f) for f in os.listdir(report_dir[0]) if f.endswith('.c.gcov.html')]
+                if len(files) != 1:
+                    out += "<font color=\"red\">{}</font><br/>".format('no gcov report')
+                else:
+                    file_name = report_dir[0] + "/" + files[0]
+                    out = "<a href=\"{0}\">{1} </a>\n".format(file_name, "coverage_c_file") + '<br/>\n'
+                    out += html_report.read_lcov_html_report(file_name) + '<br/>'
             out += html_report.read_testciv_log(sub_dirs[0]+"/log.txt") + '<br/>'
             return out
 
@@ -461,6 +462,8 @@ class html_report:
                 flag = True
             if i == 4:
                 break
+        if len(brench_lines) <= 3:
+            return '{}<br/>'.format('no results')
         return '{}<br/>\n{}<br/>\n{}<br/>\n{}\n'.format(brench_lines[0], brench_lines[1],
                                                                               brench_lines[2], brench_lines[3])
 
@@ -506,11 +509,12 @@ class html_report:
         worksheet = workbook.add_worksheet()
 
         exclude = ['final_coverage_report_wc_header', 'final_coverage_report']
-        expenses = [['filename', 'coverage', 'time', 'hit', 'total']]
+        expenses = [['filename', 'coverage', 'time', 'hit', 'total', '#fun_hit', '#fun_total']]
         source_files = [f.path for f in os.scandir(dir) if f.is_dir() and os.path.basename(f) not in exclude]
         for line in sorted(source_files):
             file_name = os.path.basename(line) + '.c'
             raw_data = html_report.get_coverage_data_plane_text(line)
+            was_instrumented, fun_number = html_report.get_function_number_plane_text(line)
             if raw_data != "no data" and raw_data != 'no report':
                 raw_data = [r.strip("\n") for r in raw_data]
                 # coverage = raw_data[3].strip("%")
@@ -527,18 +531,35 @@ class html_report:
                 hit = ''
                 total = ''
 
+            if fun_number != "no data" and raw_data != 'no report':
+                fun_number = [r.strip("\n") for r in fun_number]
+                # coverage = raw_data[3].strip("%")
+                test1 = fun_number[1]
+                test2 = fun_number[2]
+                if was_instrumented:
+                    test2 = int(test2) - 1
+                    test1 = int(test1) - 1
+                # workaround, since we add main_orig => main,
+                # there are two extra branches which have to be excluded
+            else:
+                coverage = 0
+                test1 = ''
+                test2 = ''
+
             time = html_report.get_time_consumed(line)
-            expenses.append([file_name, coverage, time, hit, total])
+            expenses.append([file_name, coverage, time, hit, total, test1, test2])
 
         row = 0
         col = 0
 
-        for cfile, coverage, time, hit, total in expenses:
+        for cfile, coverage, time, hit, total,fun_number_hit, fun_number_total in expenses:
             worksheet.write(row, col, cfile)
             worksheet.write(row, col + 1, coverage)
             worksheet.write(row, col + 2, time)
             worksheet.write(row, col + 3, hit)
             worksheet.write(row, col + 4, total)
+            worksheet.write(row, col + 5, fun_number_hit)
+            worksheet.write(row, col + 6, fun_number_total)
             row += 1
 
         workbook.close()
@@ -593,6 +614,23 @@ class html_report:
                 out = html_report.read_lcov_html_report_plane_text(file_name)
                 return out
 
+
+    @classmethod
+    def get_function_number_plane_text(cls, dir):
+        sub_dirs = [f.path for f in os.scandir(dir) if f.is_dir() and os.path.basename(f) in 'summary']
+        if len(sub_dirs) != 1:
+            return (False, 'no data')
+        else:
+            report_dir = [f.path for f in os.scandir(sub_dirs[0]) if f.is_dir()]
+            exclude = ['usr']
+            report_dir = [d for d in report_dir if os.path.basename(d) not in exclude]
+            if len(report_dir) != 1:
+                return (False, 'no report')
+            else:
+                file_name = report_dir[0] + '/main.c.gcov.html'
+                was_inst, out = html_report.read_lcov_html_report_plane_text_function_number(file_name)
+                return (was_inst, out)
+
     @classmethod
     def get_coverage_data_plane_text_klee(cls, dir):
         sub_dirs = [f.path for f in os.scandir(dir) if f.is_dir() and os.path.basename(f) in 'summary']
@@ -624,6 +662,30 @@ class html_report:
             if i == 3:
                 break
         return brench_lines
+
+
+    @classmethod
+    def read_lcov_html_report_plane_text_function_number(cls, file_name):
+        file = open(file_name, "r")
+        lines = file.readlines()
+        brench_lines = []
+        flag = False
+        i = 0
+        was_instrumented = False
+        for line in lines:
+            if "main_oririnal" in line:
+                was_instrumented = True
+
+        for line in lines:
+            if flag:
+                brench_lines.append(re.sub('<[^<]+?>', '', line))
+                i += 1
+            if 'Functions:' in line:
+                brench_lines.append(re.sub('<[^<]+?>', '', line))
+                flag = True
+            if i == 3:
+                break
+        return (was_instrumented, brench_lines)
 
     def reports_clean_up(dir):
         subdir = [os.path.join(dir, o) for o in os.listdir(dir)]
@@ -663,8 +725,8 @@ class html_report:
 
 
 if __name__ == '__main__':
-    dir = "/Users/ilyazlatkin/Downloads/sandbox"
-    html_report.buildReport_4(dir)
+    dir = "/Users/ilyazlatkin/PycharmProjects/results/inv-mode_0"
+    #html_report.buildReport_4(dir)
     html_report.buildReport_Excel(dir)
 
     # html_report.buildReport_3("../sandbox")

@@ -7,7 +7,7 @@ import time
 from datetime import datetime
 from CoverageUtil import CoverageUtil
 import ReportBuilder
-import hashlib
+import random
 
 
 def init():
@@ -728,9 +728,9 @@ def creat_metadata_file(filename):
            "<test-metadata><entryfunction>main</entryfunction>"
            "<specification>COVER( init(main()), FQL(COVER EDGES(@DECISIONEDGE)) )</specification>"
            "<sourcecodelang>C</sourcecodelang><architecture>32bit</architecture>"
-           "<creationtime>2021-11-23T21:33:26.565496</creationtime>"
-           "<programhash>6138372cb1b5b1f73fea88167d279f9d42964baf</programhash>"
-           "<producer>FuSeBMC</producer><programfile>{}</programfile></test-metadata>".format(os.getcwd() + "/" + filename)]
+           "<creationtime>{}</creationtime>"
+           "<programhash>{}</programhash>"
+           "<producer>Horntinuum</producer><programfile>{}</programfile></test-metadata>".format(datetime.now(), random.getrandbits(128), os.getcwd() + "/" + filename)]
     summary_file = open('4TestCov/metadata.xml', "w")
     summary_file.writelines(out)
     summary_file.close()
@@ -997,7 +997,7 @@ def main():
     # Merge all coverage
     if len(files) > 1:
         summary_coverage_report()
-    ReportBuilder.html_report.buildReport_3(SANDBOX_DIR)
+    ReportBuilder.html_report.buildReport_4(SANDBOX_DIR)
     ReportBuilder.html_report.buildReport_Excel(SANDBOX_DIR)
     tt = time.time() - start_time
     print('TG total time: {} seconds or {} hours'.format(tt, tt / 3600))

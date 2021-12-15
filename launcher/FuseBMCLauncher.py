@@ -16,9 +16,9 @@ def init():
     #SOURCE_PATH = "/home/fmfsu/Benchs/loop_benckmarks/loop-acceleration/"
     # SOURCE_PATH = "/home/fmfsu/Benchs/loop_benckmarks"
     SOURCE_PATH = "/home/fmfsu/Benchs/GF_banch"
-    FUSEBMC_PATH = "/home/fmfsu/Dev/fusebmc/fusebmc.py"
-    FSUEBMV_WD = "/home/fmfsu/Dev/fusebmc"
-    FUSEBMC_TIMEOUT = 900
+    FUSEBMC_PATH = "/home/fmfsu/Dev/FuSeBMC/fusebmc.py"
+    FSUEBMV_WD = "/home/fmfsu/Dev/FuSeBMC"
+    FUSEBMC_TIMEOUT = 100
     TESTCOV = "/home/fmfsu/Dev/TestCov/test-suite-validator/bin/testcov"
     START_WITH = 21
 
