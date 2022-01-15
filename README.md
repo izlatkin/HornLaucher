@@ -35,3 +35,15 @@ seahorn/seahorn-llvm10:nightly`
 * `cd launcher`   
 * Edit `TestGen.py` and modify `SOURCE_PATH, OUTPUT_DIR` and other options if needed
 * Run `python3 TestGen.py` => report should be created in `OUTPUT_DIR/1/summary`
+
+Report 
+======
+
+HTML Report (generated in sandbox directory)
+
+<img src="./resourses/images/html_report.jpg" title='html test report' width=250><br>
+
+HTML Report (generated in sandbox directory)
+
+
+<img src="./resourses/images/excel_report.jpg" title='excel test report' width=250><br>
