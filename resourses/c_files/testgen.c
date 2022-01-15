@@ -1,9 +1,4 @@
 extern int __VERIFIER_nondet_int();
-#include "testgen.h"
-//
-// Created by Ilya Zlatkin on 30.06.2021.
-//
-//[1234,0,-5],[2,0,-1],[0,4,-4]
 int main() {
     int x = 0;
     int y = __VERIFIER_nondet_int();

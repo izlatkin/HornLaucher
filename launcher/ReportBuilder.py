@@ -283,7 +283,7 @@ class html_report:
             table += "    <td>{0}<br/>{1}</td>\n".format(html_report.get_tests_info_klee(line),
                                                          html_report.get_report_klee(line))
             # table += "    <td>{0}</td>\n".format(html_report.get_coverage_data(line))
-            table += "    <td>{0}</td>\n".format(html_report.get_time_consumed(line) + ' seconds')
+            table += "    <td>{0}</td>\n".format(str(html_report.get_time_consumed(line)) + ' seconds')
             table += "  </tr>\n"
             i += 1
         table += "</table>"
@@ -423,7 +423,7 @@ class html_report:
                     file_name = report_dir[0] + "/" + files[0]
                     out = "<a href=\"{0}\">{1} </a>\n".format(file_name, "coverage_c_file") + '<br/>\n'
                     out += html_report.read_lcov_html_report(file_name) + '<br/>'
-            out += html_report.read_testciv_log(sub_dirs[0]+"/log.txt") + '<br/>'
+            out += html_report.read_testciv_log(sub_dirs[0]+"/../log.txt") + '<br/>'
             return out
 
 
@@ -725,8 +725,16 @@ class html_report:
 
 
 if __name__ == '__main__':
-    dir = "/Users/ilyazlatkin/PycharmProjects/results/inv-mode_0"
+    dir = "/Users/ilyazlatkin/PycharmProjects/results/rerun/fusebmc_sandbox"
+    dir = "/Users/ilyazlatkin/PycharmProjects/results/rerun/verifuzz_sandbox"
+    dir = "/Users/ilyazlatkin/PycharmProjects/results/rerun/inv_mode_2_no_term"
     #html_report.buildReport_4(dir)
+    #html_report.buildReport_Excel(dir)
+    # html_report.buildReport_fusebmc(dir)
+    # html_report.buildReport_Excel_klee(dir)
+    # html_report.buildReport_fusebmc(dir)
+    # html_report.buildReport_Excel_klee(dir)
+    html_report.buildReport_4(dir)
     html_report.buildReport_Excel(dir)
 
     # html_report.buildReport_3("../sandbox")

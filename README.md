@@ -15,7 +15,13 @@ Requirement
 * `gcc with coverage`
 * `seahorn https://github.com/seahorn/seahorn`
 * `genhtml`
-* `find out the list of dependancies`
+* `TestCov` https://gitlab.com/sosy-lab/software/test-suite-validator
+  * `clang-tidy`
+  * `lxml >= 4.0`
+  * `numpy >= 1.15` 
+  * `BenchExec >= 1.20` 
+  * `pycparser >= 2.19`
+  * `matplotlib` (optional)
 
 Run
 ===

@@ -19,7 +19,7 @@ def init():
     #TG_TOOL_PATH = "/Users/ilyazlatkin/PycharmProjects/aeval/build/tools/tg/tg"
     TG_TOOL_PATH = "/home/fmfsu/Dev/aeval/build/tools/tg/tg"
     TESTCOV = "/home/fmfsu/Dev/TestCov/test-suite-validator/bin/testcov"
-    TG_TIMEOUT = 180
+    TG_TIMEOUT = 900
     COVERAGE_TIMEOUT = 20
     PYTHONHASHSEED = 0
     COVERAGE = True
@@ -30,7 +30,7 @@ def init():
                "__VERIFIER_nondet_bool()": "bool",
                "__VERIFIER_nondet_float()": "float",
                "__VERIFIER_nondet_long()": "long int",
-               "__VERIFIER_nondet_ulong()": "unsigned long int",
+               "__VERIFIER_nondet_ulong()": "unsigned long",
                "__VERIFIER_nondet_ushort()": "unsigned short"}
 
 
@@ -117,7 +117,7 @@ def get_nondet_lines(f, line_main):
     patterns = PATTERN.keys()
     for i, line in enumerate(lines_to_check):
         for pattern in patterns:
-            if pattern in line and 'extern' not in line and 'void' not in line \
+            if pattern in line and 'extern' not in line and 'void ' not in line \
                     and (PATTERN[pattern] + " " + pattern) not in line:  # re.search(pattern, line):
                 int_vars.append(i + line_main)
     return int_vars
@@ -326,9 +326,9 @@ def generate_testgen_header(f, num):
     # lines_to_write = ['int nondet(){return 42;}\n']
     lines_to_write = ['#include <stdbool.h>\n', 'extern int nondet(void);\n']
     for i in num:
-        #method_type = PATTERN[function_dictionary[i]]
-        #lines_to_write.append('{} nondet_{}(){{\n return {} + nondet();\n}} \n'.format(method_type, i, i))
-        lines_to_write.append('int nondet_{}(){{\n return {} + nondet();\n}} \n'.format(i, i))
+        method_type = PATTERN[function_dictionary[i]]
+        lines_to_write.append('{} nondet_{}(){{\n return {} + nondet();\n}} \n'.format(method_type, i, i))
+        #lines_to_write.append('int nondet_{}(){{\n return {} + nondet();\n}} \n'.format(i, i))
     lines_to_write.append('\n')
     file.writelines(lines_to_write)
     file.close()
@@ -496,7 +496,7 @@ def to_smt_docker(f):
     docker_image_name = str(subprocess.check_output(
         'docker ps --format "table {{.Names}}" -f ancestor=seahorn/seahorn-llvm10:nightly | tail -1',
         shell=True).strip())[2:-1]
-    # docker_image_name = "unruffled_lederberg"
+    #docker_image_name = "jolly_moser"
     docker_sea_command = ['cd /app/{};'.format(name_wo_ext), '../smt_run.sh', ff, smt_file]
     docker_command = ['docker', 'exec', docker_image_name, 'bash', '-c', list_to_string(docker_sea_command)]
     print(docker_command)
@@ -634,10 +634,6 @@ def run_generated_testcases(f, keys):
         # copy h file
         new_h_file = subdir + "/testgen.h"
         shutil.move(test, new_h_file)
-        # add missings methods to new_h_file
-        # ToDo: https://github.com/izlatkin/HornLauncher/issues/12
-        # check_and_update_h_file(new_h_file, keys)
-        # add extra lines, like assert_fail
         update_header_file(new_h_file)
         gather_coverage(new_c_file)
         # merge coverage for all runs in test_header_list
@@ -695,15 +691,16 @@ def run_generated_testcases(f, keys):
 def run_testcov(file):
     print("run testcov for {}".format(file))
     testcov_command = [TESTCOV, '--use-gcov', '--test-suite', 'tests.zip', file]
+    log_file = '../../log.txt'
     try:
-        command_executer(testcov_command, 30, 'log.txt')
+        command_executer(testcov_command, 30, log_file)
         command = ['lcov', '--capture', '--rc', 'lcov_branch_coverage=1', '--directory', '.',
                    '--output', 'coverage.info']
-        command_executer(command, 20, 'log.txt')
+        command_executer(command, 20, log_file)
         command = ['genhtml', '--branch-coverage', '--output', './generated-coverage/', 'coverage.info']
-        command_executer(command, 20, '../log.txt')
+        command_executer(command, 20, log_file)
     except subprocess.CalledProcessError as e:
-        logger('../log.txt', [" ".join(testcov_command), "FAIL"])
+        logger(log_file, [" ".join(testcov_command), "FAIL"])
 
 
 def updateNumberTxt(f):
@@ -780,7 +777,7 @@ def header_testgen(f, keys):
         print('smt file {} exist, perform testgen step'.format(smt_file))
         save = os.getcwd()
         os.chdir(dir)
-        command = [TG_TOOL_PATH,'--inv-mode', '0', '--no-term', '--keys',
+        command = [TG_TOOL_PATH, '--inv-mode', '1', '--no-term', '--keys', #'--lookahead', '3',
                    ','.join([str(k) for k in keys]), name_wo_ext + '.smt2']
         #command = [TG_TOOL_PATH, '--inv-mode', '0', '--no-term', '--keys', ','.join([str(k) for k in keys]),
         print(list_to_string(command))
@@ -983,7 +980,7 @@ def main():
     # files = files[:100]
     was_cleand = False
     if len(files) > 0:
-        files = move_to_sandbox(sorted(files), True, was_cleand)
+        files = move_to_sandbox(sorted(files)[0:], True, was_cleand)
         files = sorted(files)
         print("final files: {}".format(files))
         main_pipline(files)
