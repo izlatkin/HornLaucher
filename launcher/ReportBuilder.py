@@ -727,7 +727,7 @@ class html_report:
 if __name__ == '__main__':
     dir = "/Users/ilyazlatkin/PycharmProjects/results/rerun/fusebmc_sandbox"
     dir = "/Users/ilyazlatkin/PycharmProjects/results/rerun/verifuzz_sandbox"
-    dir = "/Users/ilyazlatkin/PycharmProjects/results/rerun/inv_mode_2_no_term"
+    dir = "/Users/ilyazlatkin/PycharmProjects/results/rerun/tmp/sandbox2"
     #html_report.buildReport_4(dir)
     #html_report.buildReport_Excel(dir)
     # html_report.buildReport_fusebmc(dir)

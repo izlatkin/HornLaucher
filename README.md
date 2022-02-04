@@ -41,9 +41,8 @@ Report
 
 HTML Report (generated in sandbox directory)
 
-<img src="./resourses/images/html_report.jpg" title='html test report' width=250><br>
+<img src="./resourses/images/html_report.jpg" title='html test report' width=500><br>
 
-HTML Report (generated in sandbox directory)
+Excel Report (generated in sandbox directory)
 
-
-<img src="./resourses/images/excel_report.jpg" title='excel test report' width=250><br>
+<img src="./resourses/images/excel_report.jpg" title='excel test report' width=500><br>

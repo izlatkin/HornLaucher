@@ -14,23 +14,28 @@ def init():
     #SOURCE_PATH = "/home/fmfsu/Benchs/sv-benchmarks/c/loop-invariants"
     #SOURCE_PATH = "/home/fmfsu/Benchs/sv-benchmarks/c/loop-invariants/eq1.c"
     #SOURCE_PATH = "/home/fmfsu/Benchs/loop_benckmarks/loop-acceleration/"
-    SOURCE_PATH = "/home/fmfsu/Benchs/loop_benckmarks"
+    SOURCE_PATH = "/home/fmfsu/Benchs/openssl-simplified"
     #SOURCE_PATH = "/home/fmfsu/Benchs/GF_banch"
-    #FUSEBMC_PATH = "/home/fmfsu/Dev/FuSeBMC/fusebmc.py"
-    FUSEBMC_PATH = "/home/fmfsu/Dev/archive/fusebmc/fusebmc.py"
-    #FSUEBMV_WD = "/home/fmfsu/Dev/FuSeBMC"
-    FSUEBMV_WD = "/home/fmfsu/Dev/archive/fusebmc"
+    FUSEBMC_PATH = "/home/fmfsu/Dev/FuSeBMC/fusebmc.py"
+    #FUSEBMC_PATH = "/home/fmfsu/Dev/archive/fusebmc/fusebmc.py"
+    FSUEBMV_WD = "/home/fmfsu/Dev/FuSeBMC"
+    #FSUEBMV_WD = "/home/fmfsu/Dev/archive/fusebmc"
     FUSEBMC_TIMEOUT = 900
     TESTCOV = "/home/fmfsu/Dev/TestCov/test-suite-validator/bin/testcov"
     START_WITH = 21
 
 
 def clean_dir(dir):
-    for root, dirs, files in os.walk(dir):
-        for f in files:
-            os.unlink(os.path.join(root, f))
-        for d in dirs:
-            shutil.rmtree(os.path.join(root, d))
+    try:
+        for root, dirs, files in os.walk(dir):
+            for d in dirs:
+                clean_dir(os.path.join(root, d))
+                shutil.rmtree(os.path.join(root, d))
+            for f in files:
+                os.remove(os.path.join(root, f))
+                #os.unlink(os.path.join(root, f))
+    except Exception as e:
+        print(e)
 
 
 def move_to_sandbox(files):
@@ -168,7 +173,7 @@ def run_fusebmc(file):
     save = os.getcwd()
     #os.chdir(os.path.dirname(file))
     os.chdir(FSUEBMV_WD)
-    clean_dir("fusebmc_output") # clean fusebmc output dir
+    clean_dir("fusebmc_output")  # clean fusebmc output dir
     klee_command = ['python3.9', FUSEBMC_PATH, '--propertyfile',
                     '/home/fmfsu/Benchs/sv-benchmarks/c/properties/coverage-branches.prp',
                     '--timeout', str(FUSEBMC_TIMEOUT),
@@ -188,6 +193,7 @@ def run_fusebmc(file):
             if os.path.isfile(test_sute):
                 shutil.move(test_sute, os.path.dirname(file) + "/test-suite.zip")
                 break
+    clean_dir("fusebmc_output")
     os.chdir(save)
 
 
@@ -228,11 +234,11 @@ def main_pipeline(files):
 def main():
     init()
     #parse and prepare sourse file
-    #files = get_cfiles_with_conditions()
-    #files = move_to_sandbox(sorted(files))
-    files = sorted([os.path.join(dp, f) for dp, dn, filenames in os.walk(SANDBOX_DIR)
-                    for f in filenames if os.path.splitext(f)[1] == '.c'
-                    and os.path.splitext(f)[0] != "harness"])
+    files = get_cfiles_with_conditions()
+    files = move_to_sandbox(sorted(files))
+    # files = sorted([os.path.join(dp, f) for dp, dn, filenames in os.walk(SANDBOX_DIR)
+    #                 for f in filenames if os.path.splitext(f)[1] == '.c'
+    #                 and os.path.splitext(f)[0] != "harness"])
 
     main_pipeline(files)
     html_report.buildReport_fusebmc(SANDBOX_DIR)

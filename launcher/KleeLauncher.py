@@ -13,13 +13,13 @@ from ReportBuilder import html_report
 def init():
     global SOURCE_PATH, SANDBOX_DIR, KLEE_PATH, KLEE_TIMEOUT, TESTCOV, START_WITH
     SANDBOX_DIR = "../klee_sandbox"
-    SOURCE_PATH = "/home/fmfsu/Benchs/sv-benchmarks/c/loop-invariants"
+    SOURCE_PATH = "/home/fmfsu/Benchs/openssl-simplified"
     # SOURCE_PATH = "/home/fmfsu/Benchs/sv-benchmarks/c/loop-invariants/eq1.c"
     # SOURCE_PATH = "/home/fmfsu/Benchs/loop_benckmarks/loop-acceleration/"
-    SOURCE_PATH = "/home/fmfsu/Benchs/loop_benckmarks"
+    #SOURCE_PATH = "/home/fmfsu/Benchs/loop_benckmarks"
     #SOURCE_PATH = "/home/fmfsu/Benchs/GF_banch"
-    #KLEE_PATH = "/home/fmfsu/Dev/klee/bin/klee"
-    KLEE_PATH = "/home/fmfsu/Dev/archive/klee/bin/klee"
+    KLEE_PATH = "/home/fmfsu/Dev/klee/bin/klee"
+    #KLEE_PATH = "/home/fmfsu/Dev/archive/klee/bin/klee"
     KLEE_TIMEOUT = 900
     TESTCOV = "/home/fmfsu/Dev/TestCov/test-suite-validator/bin/testcov"
     START_WITH = 45

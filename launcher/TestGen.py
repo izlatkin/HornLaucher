@@ -711,7 +711,7 @@ def header_testgen(f, keys):
         print('smt file {} exist, perform testgen step'.format(smt_file))
         save = os.getcwd()
         os.chdir(dir)
-        command = [TG_TOOL_PATH,'--inv-mode', '0', '--no-term', '--keys',
+        command = [TG_TOOL_PATH,'--inv-mode', '2', '--no-term', '--keys',
                    ','.join([str(k) for k in keys]), name_wo_ext + '.smt2']
         #command = [TG_TOOL_PATH, '--inv-mode', '0', '--no-term', '--keys', ','.join([str(k) for k in keys]),
         print(list_to_string(command))
@@ -926,7 +926,7 @@ def main():
     # files = move_to_sandbox_and_rerun(sorted(files))
 
     # Merge all coverage
-    if len(files) > 1:
+    if len(files) >= 1:
         summary_coverage_report()
     ReportBuilder.html_report.buildReport_3(SANDBOX_DIR)
     ReportBuilder.html_report.buildReport_Excel(SANDBOX_DIR)

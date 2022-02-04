@@ -493,10 +493,10 @@ def to_smt_docker(f):
     ff = '/app/' + name_wo_ext + '/' + name_wo_ext + '.c'
     smt_file = '/app/' + name_wo_ext + '/' + name_wo_ext + '.smt2'
     log_file = SANDBOX_DIR + '/' + name_wo_ext + '/log.txt'
-    docker_image_name = str(subprocess.check_output(
-        'docker ps --format "table {{.Names}}" -f ancestor=seahorn/seahorn-llvm10:nightly | tail -1',
-        shell=True).strip())[2:-1]
-    #docker_image_name = "jolly_moser"
+    # docker_image_name = str(subprocess.check_output(
+    #     'docker ps --format "table {{.Names}}" -f ancestor=seahorn/seahorn-llvm10:nightly | tail -1',
+    #     shell=True).strip())[2:-1]
+    docker_image_name = "jolly_moser"
     docker_sea_command = ['cd /app/{};'.format(name_wo_ext), '../smt_run.sh', ff, smt_file]
     docker_command = ['docker', 'exec', docker_image_name, 'bash', '-c', list_to_string(docker_sea_command)]
     print(docker_command)
@@ -980,7 +980,7 @@ def main():
     # files = files[:100]
     was_cleand = False
     if len(files) > 0:
-        files = move_to_sandbox(sorted(files)[0:], True, was_cleand)
+        files = move_to_sandbox(sorted(files)[0:100], True, was_cleand)
         files = sorted(files)
         print("final files: {}".format(files))
         main_pipline(files)
