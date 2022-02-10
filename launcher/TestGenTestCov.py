@@ -493,10 +493,10 @@ def to_smt_docker(f):
     ff = '/app/' + name_wo_ext + '/' + name_wo_ext + '.c'
     smt_file = '/app/' + name_wo_ext + '/' + name_wo_ext + '.smt2'
     log_file = SANDBOX_DIR + '/' + name_wo_ext + '/log.txt'
-    # docker_image_name = str(subprocess.check_output(
-    #     'docker ps --format "table {{.Names}}" -f ancestor=seahorn/seahorn-llvm10:nightly | tail -1',
-    #     shell=True).strip())[2:-1]
-    docker_image_name = "jolly_moser"
+    docker_image_name = str(subprocess.check_output(
+        'docker ps --format "table {{.Names}}" -f ancestor=seahorn/seahorn-llvm10:nightly | tail -1',
+        shell=True).strip())[2:-1]
+    #docker_image_name = "jolly_moser"
     docker_sea_command = ['cd /app/{};'.format(name_wo_ext), '../smt_run.sh', ff, smt_file]
     docker_command = ['docker', 'exec', docker_image_name, 'bash', '-c', list_to_string(docker_sea_command)]
     print(docker_command)
@@ -520,6 +520,19 @@ def gather_coverage_backup(new_file):
     command = ['make']
     command_executer(command, COVERAGE_TIMEOUT, '../log.txt')
     os.chdir(save)
+
+
+def clean_number_txt(filename):
+    print("update file: {}".format(filename))
+    fr = open(filename, 'r+')
+    content = fr.readlines()
+    out = []
+    for c in content:
+        out = c.split()[:100]
+    fr.close()
+    fw = open(filename, 'w')
+    fw.writelines(" ".join(out))
+    fw.close()
 
 
 def gather_coverage(new_file):
@@ -548,6 +561,9 @@ def gather_coverage(new_file):
     command = ['genhtml', '--branch-coverage', '--output', './generated-coverage/', 'coverage.info']
     if flag and not command_executer(command, COVERAGE_TIMEOUT, '../log.txt'):
         flag = False
+    results_file = "./number.txt"
+    if os.path.isfile(results_file):
+        clean_number_txt(results_file)
     os.chdir(save)
     return flag
 

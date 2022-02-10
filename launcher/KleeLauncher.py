@@ -1,3 +1,4 @@
+import argparse
 import time
 from datetime import datetime
 import os
@@ -188,8 +189,38 @@ def main_pipeline(files):
 
 def main():
     init()
+    global SOURCE_PATH, SANDBOX_DIR
+    parser = argparse.ArgumentParser(description='python script ti run Klee')
+    insourse = ['-i', '--input_source']
+    kwsourse = {'type': str, 'help': 'Input .c-file. or directory'}
+
+    outdir = ['-o', '--output_dir']
+    kwoutdir = {'type': str, 'help': 'Output direcory name. Default: SANDBOX_DIR.'}
+
+    parser.add_argument(*insourse, **kwsourse)
+    parser.add_argument(*outdir, **kwoutdir)
+
+    args = parser.parse_args()
+    files = []
+    if args.input_source is not None:
+        if os.path.isfile(args.input_source):
+            file = args.input_source
+            print('input file was set to {}'.format(file))
+            files = [file]
+        elif os.path.isdir(args.input_source):
+            print('input directory was set to {}'.format(args.input_source))
+            SOURCE_PATH = args.input_source
+            files = get_cfiles_with_conditions()
+        else:
+            print('invalid input_source: {}'.format(args.input_source))
+            exit(1)
+
+    if args.output_dir is not None:
+        print('sandbox set to {}'.format(args.output_dir))
+        SANDBOX_DIR = args.output_dir
+
+
     # parse and prepare sourse file
-    files = get_cfiles_with_conditions()
     files = move_to_sandbox(sorted(files))
     # files = sorted([os.path.join(dp, f) for dp, dn, filenames in os.walk(SANDBOX_DIR)
     #                 for f in filenames if os.path.splitext(f)[1] == '.c'

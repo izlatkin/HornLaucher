@@ -728,14 +728,15 @@ if __name__ == '__main__':
     dir = "/Users/ilyazlatkin/PycharmProjects/results/rerun/fusebmc_sandbox"
     dir = "/Users/ilyazlatkin/PycharmProjects/results/rerun/verifuzz_sandbox"
     dir = "/Users/ilyazlatkin/PycharmProjects/results/rerun/tmp/sandbox2"
+    dir = "/home/fmfsu/results/s3_openssl/prttest_sandbox"
     #html_report.buildReport_4(dir)
     #html_report.buildReport_Excel(dir)
     # html_report.buildReport_fusebmc(dir)
     # html_report.buildReport_Excel_klee(dir)
-    # html_report.buildReport_fusebmc(dir)
-    # html_report.buildReport_Excel_klee(dir)
-    html_report.buildReport_4(dir)
-    html_report.buildReport_Excel(dir)
+    html_report.buildReport_fusebmc(dir)
+    html_report.buildReport_Excel_klee(dir)
+    # html_report.buildReport_4(dir)
+    # html_report.buildReport_Excel(dir)
 
     # html_report.buildReport_3("../sandbox")
     # dir = "/Users/ilyazlatkin/PycharmProjects/results/sandbox_openssl_simplified_new/sandbox"
