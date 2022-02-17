@@ -21,7 +21,7 @@ def init():
     #FUSEBMC_PATH = "/home/fmfsu/Dev/archive/fusebmc/fusebmc.py"
     FSUEBMV_WD = "/home/fmfsu/Dev/FuSeBMC"
     #FSUEBMV_WD = "/home/fmfsu/Dev/archive/fusebmc"
-    FUSEBMC_TIMEOUT = 900
+    FUSEBMC_TIMEOUT = 60
     TESTCOV = "/home/fmfsu/Dev/TestCov/test-suite-validator/bin/testcov"
     START_WITH = 21
 
@@ -156,16 +156,17 @@ def command_executer(command, timeout, file):
             return True
 
 
-def zip_results():
-    os.chdir("test-suite")
+def zip_results(dir):
+    save = os.getcwd()
+    os.chdir(dir)
     xml_files = [os.path.join(dp, f) for dp, dn, filenames in os.walk('.')
               for f in filenames if os.path.splitext(f)[1] == '.xml']
-    zip_command = ['zip', 'tests.zip'] + xml_files
+    zip_command = ['zip', 'test-suite.zip'] + xml_files
     try:
         command_executer(zip_command,  FUSEBMC_TIMEOUT, 'log.txt')
     except subprocess.CalledProcessError as e:
         logger('log.txt', [" ".join(zip_command), "FAIL"])
-    os.chdir("../")
+    os.chdir(save)
 
 
 
@@ -190,7 +191,8 @@ def run_fusebmc(file):
     for d in dirs:
         if file_basename in d:
             print(d)
-            test_sute = d + "/test-suite.zip"
+            zip_results(d + "/test-suite")
+            test_sute = d + "/test-suite/test-suite.zip"
             if os.path.isfile(test_sute):
                 shutil.move(test_sute, os.path.dirname(file) + "/test-suite.zip")
                 break
@@ -255,7 +257,7 @@ def main():
         elif os.path.isdir(args.input_source):
             print('input directory was set to {}'.format(args.input_source))
             SOURCE_PATH = args.input_source
-            files = get_cfiles_with_conditions()
+            files = get_cfiles_with_conditions()[:1]
         else:
             print('invalid input_source: {}'.format(args.input_source))
             exit(1)
