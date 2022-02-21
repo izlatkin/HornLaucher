@@ -2,6 +2,7 @@ import os
 import pickle
 import re
 import shutil
+import matplotlib.pyplot as plt
 
 import xlsxwriter as xlsxwriter
 
@@ -96,6 +97,79 @@ class html_report:
                         out += "<br/>" + "<font color=8B008B>{}</font>\n".format(w)
                         break
         return out
+
+
+    @classmethod
+    def get_tg_stat(cls, dir):
+        log_file = dir + "/log.txt"
+        if os.path.isfile(log_file):
+            filein = open(log_file, "r", encoding='ISO-8859-1')
+            lines = filein.readlines()
+            init = False
+            to_parse = False
+            iteration = 1
+            result = []
+            for line in lines:
+                if init:
+                    if to_parse:
+                        iteration += 1
+                        if line.find("of todos =") > 0:
+                            try:
+                                result.append(int(line[line.index("of todos =") + len("of todos ="):].strip()))
+                            except ValueError:
+                                continue
+                        to_parse = False
+                        continue
+                    if "new iter with cur_bnd = " in line:
+                        to_parse = True
+                if "new iter with cur_bnd = 1" in line and "\nnew iter with cur_bnd" not in line:
+                    init = True
+                    #ToDo: init other values on the other iteration
+                if "Done with TG" in line or "rm -rf" in line:
+                    break
+            x = range(1, len(result) + 1)
+            plt.clf()
+            plt.plot(x, result)
+            plt.xlabel("x - iteration #\n {}".format(result[:30]))
+            plt.ylabel('y - todos')
+            plt.title('iteration progress')
+            #plt.show()
+            plt.savefig(dir + '/iteration_progress.png')
+            # return [A, B, C, D] //see https://github.com/izlatkin/HornLauncher/issues/43
+            if (len(result) == 0):
+                return ""
+            A = result[0]
+            D = len(result)
+            for i, r in enumerate(result):
+                if r == result[len(result) - 1]:
+                    C = i
+                    B = result[i]
+                    break
+            #print([A, B, C, D])
+            Ky = round((A-B)/A * 100)
+            color = "green"
+            if Ky > 80:
+                color = "green"
+            elif Ky > 30:
+                color = "orange"
+            else:
+                color = "red"
+            out = "<br/>" + "<font color={}>Ky = {}</font>\n".format(color, Ky)
+            DC = D - C
+            color = "green"
+            if round(DC/D * 100) > 80:
+                color = "green"
+            elif round(DC/D * 100) > 30:
+                color = "orange"
+            else:
+                color = "red"
+            out += "<br/>" + "<font color={}>D - C = {}</font>\n".format(color, DC)
+            out += "<br/>" + html_report.create_hyperlinnk_to_file(dir + '/iteration_progress.png')
+            #out += "<br/>" + str([A, B, C, D])
+            return out
+        else:
+            return ""
+
 
     def buildReport(dir, stat):
         # filein = open("forReport", "r", encoding='ISO-8859-1')
@@ -215,10 +289,11 @@ class html_report:
             table += "    <td>{0}</td>\n".format(i)
             table += "    <td>{0}<br/>\n".format(
                 html_report.create_hyperlinnk_to_file(line + '/' + os.path.basename(line) + '.c'))
-            table += "    <td>{0}<br/>{1}<br/>{2}{3}</td>\n".format(html_report.get_smt2_file(line),
+            table += "    <td>{0}<br/>{1}<br/>{2}{3}<br/>{4}</td>\n".format(html_report.get_smt2_file(line),
                                                                     html_report.get_log_file(line),
                                                                     html_report.get_report(line),
-                                                                    html_report.get_extra_info_from_log(line))
+                                                                    html_report.get_extra_info_from_log(line),
+                                                                    html_report.get_tg_stat(line))
             table += "    <td>{0}</td>\n".format(html_report.get_tests_info(line))
             table += "    <td>{0}</td>\n".format(html_report.get_coverage_data(line))
             table += "    <td>{0}</td>\n".format(html_report.get_coverage_data_testcov(line))
@@ -729,14 +804,22 @@ if __name__ == '__main__':
     dir = "/Users/ilyazlatkin/PycharmProjects/results/rerun/verifuzz_sandbox"
     dir = "/Users/ilyazlatkin/PycharmProjects/results/rerun/tmp/sandbox2"
     dir = "/home/fmfsu/results/s3_openssl/prttest_sandbox"
+    dir = "/Users/ilyazlatkin/PycharmProjects/results/loop_new_tools/prtest_sandbox/"
+    dir = "/Users/ilyazlatkin/PycharmProjects/HornLaucher/sandbox/"
+    dir = "/Users/ilyazlatkin/PycharmProjects/results/rerun/inv_mode_2_no_term"
+    dir = "/Users/ilyazlatkin/Downloads/sandbox"
     #html_report.buildReport_4(dir)
     #html_report.buildReport_Excel(dir)
     # html_report.buildReport_fusebmc(dir)
     # html_report.buildReport_Excel_klee(dir)
-    html_report.buildReport_fusebmc(dir)
-    html_report.buildReport_Excel_klee(dir)
-    # html_report.buildReport_4(dir)
+    # html_report.buildReport_fusebmc(dir)
+    # html_report.buildReport_Excel_klee(dir)
+    html_report.buildReport_4(dir)
     # html_report.buildReport_Excel(dir)
+    # dir = "/Users/ilyazlatkin/PycharmProjects/HornLaucher/sandbox/minepump_spec1_product14.cil"
+    # dir = "/Users/ilyazlatkin/PycharmProjects/results/rerun/inv_mode_2_no_term/SpamAssassin-loop"
+    #dir = "/Users/ilyazlatkin/PycharmProjects/results/rerun/inv_mode_2_no_term/mcmillan2006"
+    #html_report.get_tg_stat(dir)
 
     # html_report.buildReport_3("../sandbox")
     # dir = "/Users/ilyazlatkin/PycharmProjects/results/sandbox_openssl_simplified_new/sandbox"
