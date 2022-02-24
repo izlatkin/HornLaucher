@@ -21,7 +21,7 @@ def init():
     SEA_TIMEOUT = 60
     TG_TOOL_PATH = "/Users/ilyazlatkin/PycharmProjects/aeval/build/tools/tg/tg"
     #TG_TOOL_PATH = "/home/fmfsu/Dev/aeval/build/tools/tg/tg"
-    TG_TIMEOUT = 60
+    TG_TIMEOUT = 30
     COVERAGE_TIMEOUT = 20
     PYTHONHASHSEED = 0
     COVERAGE = True
@@ -914,7 +914,7 @@ def main():
     # files = files[:100]
     was_cleand = False
     if len(files) > 0:
-        files = move_to_sandbox(sorted(files), True, was_cleand)
+        files = move_to_sandbox(sorted(files[:20]), True, was_cleand)
         files = sorted(files)
         print("final files: {}".format(files))
         main_pipline(files)

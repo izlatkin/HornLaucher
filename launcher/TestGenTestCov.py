@@ -16,10 +16,10 @@ def init():
     SEA_PATH = "/Users/ilyazlatkin/CLionProjects/seahorn/build/run/bin/sea"
     SANDBOX_DIR = "../sandbox"
     SEA_TIMEOUT = 60
-    #TG_TOOL_PATH = "/Users/ilyazlatkin/PycharmProjects/aeval/build/tools/tg/tg"
+    # TG_TOOL_PATH = "/Users/ilyazlatkin/PycharmProjects/aeval/build/tools/tg/tg"
     TG_TOOL_PATH = "/home/fmfsu/Dev/aeval/build/tools/tg/tg"
     TESTCOV = "/home/fmfsu/Dev/TestCov/test-suite-validator/bin/testcov"
-    TG_TIMEOUT = 900
+    TG_TIMEOUT = 200
     COVERAGE_TIMEOUT = 20
     PYTHONHASHSEED = 0
     COVERAGE = True
@@ -254,7 +254,7 @@ def move_to_sandbox(files, add_h, was_cleaned):
         # copy file to individual sandbox
         new_file = subdir + "/" + basename
         shutil.copyfile(f, new_file)
-        shutil.copyfile(new_file,  subdir + "/orig_" + basename) # add copy for TestCov
+        shutil.copyfile(new_file, subdir + "/orig_" + basename)  # add copy for TestCov
         # include "testgen.h" if needed
         if add_h:
             add_header(new_file)
@@ -328,7 +328,7 @@ def generate_testgen_header(f, num):
     for i in num:
         method_type = PATTERN[function_dictionary[i]]
         lines_to_write.append('{} nondet_{}(){{\n return {} + nondet();\n}} \n'.format(method_type, i, i))
-        #lines_to_write.append('int nondet_{}(){{\n return {} + nondet();\n}} \n'.format(i, i))
+        # lines_to_write.append('int nondet_{}(){{\n return {} + nondet();\n}} \n'.format(i, i))
     lines_to_write.append('\n')
     file.writelines(lines_to_write)
     file.close()
@@ -496,7 +496,7 @@ def to_smt_docker(f):
     docker_image_name = str(subprocess.check_output(
         'docker ps --format "table {{.Names}}" -f ancestor=seahorn/seahorn-llvm10:nightly | tail -1',
         shell=True).strip())[2:-1]
-    #docker_image_name = "jolly_moser"
+    # docker_image_name = "jolly_moser"
     docker_sea_command = ['cd /app/{};'.format(name_wo_ext), '../smt_run.sh', ff, smt_file]
     docker_command = ['docker', 'exec', docker_image_name, 'bash', '-c', list_to_string(docker_sea_command)]
     print(docker_command)
@@ -678,7 +678,7 @@ def run_generated_testcases(f, keys):
         os.chdir(save)
 
     forTestCov = [os.path.join(dp, f) for dp, dn, filenames in os.walk(dir)
-            for f in filenames if os.path.splitext(f)[0] == 'number']
+                  for f in filenames if os.path.splitext(f)[0] == 'number']
     print("build zip for TestCov: {}".format(forTestCov))
     if forTestCov:
         save = os.getcwd()
@@ -696,11 +696,11 @@ def run_generated_testcases(f, keys):
         xml_files = [os.path.basename(f) for f in os.listdir('.') if f.endswith('.xml')]
         zip_command = ['zip', 'tests.zip'] + xml_files
         try:
-            command_executer(zip_command, 2 , '../log.txt')
+            command_executer(zip_command, 2, '../log.txt')
         except subprocess.CalledProcessError as e:
             logger('../log.txt', [" ".join(zip_command), "FAIL"])
         # run testCov
-        run_testcov("../orig_"+f)
+        run_testcov("../orig_" + f)
         os.chdir(save)
 
 
@@ -743,11 +743,13 @@ def creat_metadata_file(filename):
            "<sourcecodelang>C</sourcecodelang><architecture>32bit</architecture>"
            "<creationtime>{}</creationtime>"
            "<programhash>{}</programhash>"
-           "<producer>Horntinuum</producer><programfile>{}</programfile></test-metadata>".format(datetime.now(), random.getrandbits(128), os.getcwd() + "/" + filename)]
+           "<producer>Horntinuum</producer><programfile>{}</programfile></test-metadata>".format(datetime.now(),
+                                                                                                 random.getrandbits(
+                                                                                                     128),
+                                                                                                 os.getcwd() + "/" + filename)]
     summary_file = open('4TestCov/metadata.xml', "w")
     summary_file.writelines(out)
     summary_file.close()
-
 
 
 """ generates final report for all .c file based on summary report of each .c file
@@ -793,9 +795,9 @@ def header_testgen(f, keys):
         print('smt file {} exist, perform testgen step'.format(smt_file))
         save = os.getcwd()
         os.chdir(dir)
-        command = [TG_TOOL_PATH, '--inv-mode', '1', '--no-term', '--keys', #'--lookahead', '3',
+        command = [TG_TOOL_PATH, '--lookahead', '0', '--inv-mode', '0', '--no-term', '--keys',  # '--lookahead', '3',
                    ','.join([str(k) for k in keys]), name_wo_ext + '.smt2']
-        #command = [TG_TOOL_PATH, '--inv-mode', '0', '--no-term', '--keys', ','.join([str(k) for k in keys]),
+        # command = [TG_TOOL_PATH, '--inv-mode', '0', '--no-term', '--keys', ','.join([str(k) for k in keys]),
         print(list_to_string(command))
         try:
             command_executer(command, TG_TIMEOUT, 'log.txt')
@@ -849,7 +851,7 @@ def simple_run(file_wo_nondet):
         os.chdir(save)
 
 
-def main_pipline_atomic(i, f , NN):
+def main_pipline_atomic(i, f, NN):
     start_time = time.time()
     print("updating file: {}".format(f))
     keys = update_c_file(f)
@@ -870,7 +872,7 @@ def main_pipline(files):
     script_file = SANDBOX_DIR + '/smt_run.sh'
     shutil.copyfile('../bash_scripts/smt_run.sh', script_file)
     os.chmod(script_file, 0o777)
-    #files = [f for f in files if 'testgen_2' in f]
+    # files = [f for f in files if 'testgen_2' in f]
     for i, f in enumerate(sorted(files)):
         # update step
         start_time = time.time()
@@ -902,6 +904,22 @@ def main_pipline(files):
     print('function_dictionary: {}'.format(function_dictionary))
 
 
+def find_not_run_files(dir):
+    directory_contents = os.listdir(dir)
+    subdirs = [e for e in directory_contents if os.path.isdir(dir + "/" + e)]
+    out = []
+    for sd in subdirs:
+        if os.path.exists(dir + "/" + sd + "/log.txt"):
+            print("skipp: {}\n".format(sd))
+        else:
+            print("{}\n".format(sd))
+            file = dir + "/" + sd + "/" + sd + ".c"
+            if os.path.isfile(file):
+                out.append(file)
+    return out
+
+
+
 def main():
     start_time = time.time()
     init()
@@ -928,6 +946,7 @@ def main():
     group_sea.add_argument(*sea, **kwsea)
     group_sea.add_argument('--docker_sea', **kwdocker)
     parser.add_argument('--coverage', **kwcov)
+    parser.add_argument('--rerun', **kwcov)
 
     args = parser.parse_args()
     print(args)
@@ -991,12 +1010,24 @@ def main():
         if args.coverage == 'false':
             COVERAGE = False
 
+    RERUN = False
+    if args.rerun is not None:
+        if args.rerun == 'false':
+            RERUN = False
+        if args.rerun == 'true' or args.rerun == 'True':
+            RERUN = True
+
+    print(RERUN)
+
     [print(files[i]) for i in range(0, min(len(files), 10))]
     # Move .c file to the specail sandbox
     # files = files[:100]
     was_cleand = False
     if len(files) > 0:
-        files = move_to_sandbox(sorted(files)[0:100], True, was_cleand)
+        if not RERUN:
+            files = move_to_sandbox(sorted(files), True, was_cleand)
+        else:
+            files = find_not_run_files(SANDBOX_DIR)
         files = sorted(files)
         print("final files: {}".format(files))
         main_pipline(files)
@@ -1014,7 +1045,7 @@ def main():
     ReportBuilder.html_report.buildReport_Excel(SANDBOX_DIR)
     tt = time.time() - start_time
     print('TG total time: {} seconds or {} hours'.format(tt, tt / 3600))
-    # Build Report like ReportBuilder.html_report
+    #Build Report like ReportBuilder.html_report
 
 
 if __name__ == "__main__":

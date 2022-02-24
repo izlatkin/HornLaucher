@@ -86,7 +86,7 @@ class html_report:
         log = [f.path for f in os.scandir(dir) if f.is_file() and os.path.basename(f) == 'log.txt']
         out = ''
         if len(log) >= 1:
-            what_to_check = ["Nonlinear CHCs are currently unsupported",
+            what_to_check = ["Nonlinear CHC is currently unsupported",
                              "Error: key \d+ not found",
                              "Bitcode was not properly read"]
             filein = open(log[0], "r", encoding='ISO-8859-1')
@@ -808,6 +808,8 @@ if __name__ == '__main__':
     dir = "/Users/ilyazlatkin/PycharmProjects/HornLaucher/sandbox/"
     dir = "/Users/ilyazlatkin/PycharmProjects/results/rerun/inv_mode_2_no_term"
     dir = "/Users/ilyazlatkin/Downloads/sandbox"
+    dir = "/home/fmfsu/results/loop_new_tools/TG_inv_2"
+    dir = "/Users/ilyazlatkin/Downloads/TG_inv_2"
     #html_report.buildReport_4(dir)
     #html_report.buildReport_Excel(dir)
     # html_report.buildReport_fusebmc(dir)
@@ -815,7 +817,7 @@ if __name__ == '__main__':
     # html_report.buildReport_fusebmc(dir)
     # html_report.buildReport_Excel_klee(dir)
     html_report.buildReport_4(dir)
-    # html_report.buildReport_Excel(dir)
+    html_report.buildReport_Excel(dir)
     # dir = "/Users/ilyazlatkin/PycharmProjects/HornLaucher/sandbox/minepump_spec1_product14.cil"
     # dir = "/Users/ilyazlatkin/PycharmProjects/results/rerun/inv_mode_2_no_term/SpamAssassin-loop"
     #dir = "/Users/ilyazlatkin/PycharmProjects/results/rerun/inv_mode_2_no_term/mcmillan2006"
