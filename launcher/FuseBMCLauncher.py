@@ -21,7 +21,7 @@ def init():
     #FUSEBMC_PATH = "/home/fmfsu/Dev/archive/fusebmc/fusebmc.py"
     FSUEBMV_WD = "/home/fmfsu/Dev/FuSeBMC"
     #FSUEBMV_WD = "/home/fmfsu/Dev/archive/fusebmc"
-    FUSEBMC_TIMEOUT = 60
+    FUSEBMC_TIMEOUT = 900
     TESTCOV = "/home/fmfsu/Dev/TestCov/test-suite-validator/bin/testcov"
     START_WITH = 21
 
@@ -257,7 +257,7 @@ def main():
         elif os.path.isdir(args.input_source):
             print('input directory was set to {}'.format(args.input_source))
             SOURCE_PATH = args.input_source
-            files = get_cfiles_with_conditions()[:1]
+            files = get_cfiles_with_conditions()
         else:
             print('invalid input_source: {}'.format(args.input_source))
             exit(1)

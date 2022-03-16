@@ -584,25 +584,34 @@ class html_report:
         worksheet = workbook.add_worksheet()
 
         exclude = ['final_coverage_report_wc_header', 'final_coverage_report']
-        expenses = [['filename', 'coverage', 'time', 'hit', 'total', '#fun_hit', '#fun_total']]
+        expenses = [['filename', 'coverage_TG', 'coverage_TestCov', 'time', 'hit', 'total', '#fun_hit', '#fun_total']]
         source_files = [f.path for f in os.scandir(dir) if f.is_dir() and os.path.basename(f) not in exclude]
         for line in sorted(source_files):
             file_name = os.path.basename(line) + '.c'
             raw_data = html_report.get_coverage_data_plane_text(line)
             was_instrumented, fun_number = html_report.get_function_number_plane_text(line)
+            raw_testCov = html_report.get_coverage_data_testcov(line)
+            coverage_TestCov = 0.0
+            if "no data" not in raw_testCov and 'no gcov report' not in raw_testCov:
+                rr = [r.strip("\n") for r in raw_testCov.split("\n")]
+                if len(rr) >= 5:
+                    if "Coverage:" in rr[8]:
+                        tmp = rr[8][rr[8].index("Coverage:") + len("Coverage:"):rr[8].index("%") - 1].strip()
+                        coverage_TestCov = float(tmp)
+
             if raw_data != "no data" and raw_data != 'no report':
                 raw_data = [r.strip("\n") for r in raw_data]
                 # coverage = raw_data[3].strip("%")
                 hit = raw_data[1]
                 total = raw_data[2]
                 if float(hit) <= 2:
-                    coverage = 100 * (float(hit)) / (float(total))
+                    coverage_TG = 100 * (float(hit)) / (float(total))
                 else:
-                    coverage = 100 * (float(hit) - 2) / (float(total) - 2)
+                    coverage_TG = 100 * (float(hit) - 2) / (float(total) - 2)
                 # workaround, since we add main_orig => main,
                 # there are two extra branches which have to be excluded
             else:
-                coverage = 0
+                coverage_TG = 0
                 hit = ''
                 total = ''
 
@@ -617,24 +626,25 @@ class html_report:
                 # workaround, since we add main_orig => main,
                 # there are two extra branches which have to be excluded
             else:
-                coverage = 0
+                coverage_TG = 0
                 test1 = ''
                 test2 = ''
 
             time = html_report.get_time_consumed(line)
-            expenses.append([file_name, coverage, time, hit, total, test1, test2])
+            expenses.append([file_name, coverage_TG, coverage_TestCov, time, hit, total, test1, test2])
 
         row = 0
         col = 0
 
-        for cfile, coverage, time, hit, total,fun_number_hit, fun_number_total in expenses:
+        for cfile, coverage_TG, coverage_TestCov, time, hit, total,fun_number_hit, fun_number_total in expenses:
             worksheet.write(row, col, cfile)
-            worksheet.write(row, col + 1, coverage)
-            worksheet.write(row, col + 2, time)
-            worksheet.write(row, col + 3, hit)
-            worksheet.write(row, col + 4, total)
-            worksheet.write(row, col + 5, fun_number_hit)
-            worksheet.write(row, col + 6, fun_number_total)
+            worksheet.write(row, col + 1, coverage_TG)
+            worksheet.write(row, col + 2, coverage_TestCov)
+            worksheet.write(row, col + 3, time)
+            worksheet.write(row, col + 4, hit)
+            worksheet.write(row, col + 5, total)
+            worksheet.write(row, col + 6, fun_number_hit)
+            worksheet.write(row, col + 7, fun_number_total)
             row += 1
 
         workbook.close()
@@ -808,15 +818,16 @@ if __name__ == '__main__':
     dir = "/Users/ilyazlatkin/PycharmProjects/HornLaucher/sandbox/"
     dir = "/Users/ilyazlatkin/PycharmProjects/results/rerun/inv_mode_2_no_term"
     dir = "/Users/ilyazlatkin/Downloads/sandbox"
-    dir = "/home/fmfsu/results/loop_new_tools/TG_inv_2"
-    dir = "/Users/ilyazlatkin/Downloads/TG_inv_2"
+    dir = "/Users/ilyazlatkin/Downloads/TG_lb_horn_step_large"
+    #dir = "/home/fmfsu/results/loop_new_tools/TG_inv_2"
+    #dir = "/Users/ilyazlatkin/Downloads/TG_inv_2"
     #html_report.buildReport_4(dir)
     #html_report.buildReport_Excel(dir)
     # html_report.buildReport_fusebmc(dir)
     # html_report.buildReport_Excel_klee(dir)
     # html_report.buildReport_fusebmc(dir)
     # html_report.buildReport_Excel_klee(dir)
-    html_report.buildReport_4(dir)
+    # html_report.buildReport_4(dir)
     html_report.buildReport_Excel(dir)
     # dir = "/Users/ilyazlatkin/PycharmProjects/HornLaucher/sandbox/minepump_spec1_product14.cil"
     # dir = "/Users/ilyazlatkin/PycharmProjects/results/rerun/inv_mode_2_no_term/SpamAssassin-loop"
