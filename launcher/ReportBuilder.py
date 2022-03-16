@@ -1,3 +1,4 @@
+import glob
 import os
 import pickle
 import re
@@ -475,7 +476,7 @@ class html_report:
                 return "<font color=\"red\">{}</font>\n".format('no report')
             else:
                 file_name = report_dir[0] + '/main.c.gcov.html'
-                out = "<a href=\"{0}\">{1} </a>\n".format(file_name, "coverage_c_file") + '<br/>\n'
+                out = "<a href=\"{0}\">{1} </a>\n".format(file_name, "coverage_c_file_TG") + '<br/>\n'
                 out += html_report.read_lcov_html_report(file_name) + '<br/>'
                 return out
 
@@ -487,16 +488,18 @@ class html_report:
         if len(sub_dirs) != 1:
             return "<font color=\"red\">{}</font>\n".format('no data')
         else:
-            report_dir = [f.path for f in os.scandir(sub_dirs[0] + "/generated-coverage") if f.is_dir() and f.path]
+            report_dir = [f.path for f in os.scandir(sub_dirs[0] + "/generated-coverage") if f.is_dir() and f.path and "output" not in f.path]
             #file_name = report_dir[0] + '/main.c.gcov.html'
             out = ""
             if len(report_dir) > 0:
-                files = [os.path.basename(f) for f in os.listdir(report_dir[0]) if f.endswith('.c.gcov.html')]
+                files = [f for f in glob.glob(report_dir[0] +'/**/*.c.gcov.html', recursive=True) if "harness" not in f]
+                #files = [os.path.basename(f) for f in os.listdir(report_dir[0]) if f.endswith('.c.gcov.html')]
                 if len(files) != 1:
                     out += "<font color=\"red\">{}</font><br/>".format('no gcov report')
                 else:
-                    file_name = report_dir[0] + "/" + files[0]
-                    out = "<a href=\"{0}\">{1} </a>\n".format(file_name, "coverage_c_file") + '<br/>\n'
+                    # file_name = report_dir[0] + "/" + files[0]
+                    file_name = files[0]
+                    out = "<a href=\"{0}\">{1} </a>\n".format(file_name, "coverage_testCov") + '<br/>\n'
                     out += html_report.read_lcov_html_report(file_name) + '<br/>'
             out += html_report.read_testciv_log(sub_dirs[0]+"/../log.txt") + '<br/>'
             return out
@@ -827,7 +830,7 @@ if __name__ == '__main__':
     # html_report.buildReport_Excel_klee(dir)
     # html_report.buildReport_fusebmc(dir)
     # html_report.buildReport_Excel_klee(dir)
-    # html_report.buildReport_4(dir)
+    html_report.buildReport_4(dir)
     html_report.buildReport_Excel(dir)
     # dir = "/Users/ilyazlatkin/PycharmProjects/HornLaucher/sandbox/minepump_spec1_product14.cil"
     # dir = "/Users/ilyazlatkin/PycharmProjects/results/rerun/inv_mode_2_no_term/SpamAssassin-loop"
