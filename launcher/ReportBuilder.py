@@ -309,6 +309,28 @@ class html_report:
         fileout.close()
 
 
+    def extrac_from_pthread_cancel(file):
+        if os.path.exists(file + "/summary/summary_coverage.info"):
+            filename = file + "/summary/summary_coverage.info"
+        elif os.path.exists(file + "/coverage.info"):
+            filename = file + "/coverage.info"
+        else:
+            return 1
+        f = open(filename, "r")
+        lines = f.readlines()
+        n_lines = len(lines)
+        if n_lines < 3:
+            return 1;
+        line_to_extract_data = lines[n_lines - 3]
+        if "BRDA:" not in line_to_extract_data:
+            return 1
+        arr = line_to_extract_data.strip('\n').split(':')[1].split(',')
+        #print(lines[n_lines - 3])
+        #print(arr)
+        out = int(arr[2]) + int(arr[3])
+        return out
+
+
 
     def buildReport_klee(dir):
         fileout = open("{}/1_html_report.html".format(dir), "w")
@@ -605,12 +627,15 @@ class html_report:
             if raw_data != "no data" and raw_data != 'no report':
                 raw_data = [r.strip("\n") for r in raw_data]
                 # coverage = raw_data[3].strip("%")
-                hit = raw_data[1]
-                total = raw_data[2]
-                if float(hit) <= 2:
-                    coverage_TG = 100 * (float(hit)) / (float(total))
+                hit = float(raw_data[1])
+                total = float(raw_data[2])
+                # find covergae value from summary/summary_coverage.info and extrac 1 or 2
+                extraction = html_report.extrac_from_pthread_cancel(line)
+                if hit <= 2:
+                    coverage_TG = 100 * hit / total
                 else:
-                    coverage_TG = 100 * (float(hit) - 2) / (float(total) - 2)
+                    coverage_TG = 100 * (hit - extraction) / (total - 2)
+                coverage_TG = round(coverage_TG, 1)
                 # workaround, since we add main_orig => main,
                 # there are two extra branches which have to be excluded
             else:
@@ -830,7 +855,7 @@ if __name__ == '__main__':
     # html_report.buildReport_Excel_klee(dir)
     # html_report.buildReport_fusebmc(dir)
     # html_report.buildReport_Excel_klee(dir)
-    html_report.buildReport_4(dir)
+    #html_report.buildReport_4(dir)
     html_report.buildReport_Excel(dir)
     # dir = "/Users/ilyazlatkin/PycharmProjects/HornLaucher/sandbox/minepump_spec1_product14.cil"
     # dir = "/Users/ilyazlatkin/PycharmProjects/results/rerun/inv_mode_2_no_term/SpamAssassin-loop"
