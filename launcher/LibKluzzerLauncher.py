@@ -119,6 +119,34 @@ def command_executer(command, timeout, file):
             return True
 
 
+def command_executer_tc(command, timeout, file):
+    print("command: {}".format(str(command)))
+    logger(file, " ".join(command))
+    with subprocess.Popen(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE) as process:
+        try:
+            stdout, stderr = process.communicate(input, timeout=timeout)
+        except subprocess.TimeoutExpired:
+            process.kill()
+            mesage = 'command: {} has been killed after timeout {}'.format(" ".join(command), timeout)
+            print(mesage)
+            stdout, stderr = process.communicate()
+            logger(file, str(stdout))
+            logger(file, str(stderr))
+        except Exception:
+            process.kill()
+            process.wait()
+            mesage = 'command: {} has been killed after timeout {}'.format(" ".join(command), timeout)
+            print(mesage)
+            logger(file, mesage)
+            raise
+        retcode = process.poll()
+        logger(file, [process.args, retcode, stdout, stderr])
+        if retcode and retcode != 254:
+            return False
+        else:
+            return True
+
+
 def zip_results():
     os.chdir("output/test-suite")
     xml_files = [os.path.join(dp, f) for dp, dn, filenames in os.walk('.')
@@ -159,7 +187,7 @@ def run_testcov(file):
     testcov_command = [TESTCOV, '--use-gcov', '--test-suite', 'tests.zip',
                        os.path.basename(file)]
     try:
-        command_executer(testcov_command, 30, 'log.txt')
+        command_executer_tc(testcov_command, 30, 'log.txt')
         command = ['lcov', '--capture', '--rc', 'lcov_branch_coverage=1', '--directory', '.',
                    '--output', 'coverage.info']
         command_executer(command, 20, 'log.txt')
