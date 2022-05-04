@@ -147,7 +147,10 @@ def read_coverage_info(f):
             tag = tmp[0]
             data = tmp[1]
             if tag == 'SF': # and os.path.isfile(data):
-                tmp_file = os.path.basename(data)
+                if os.path.basename(data) in ['main.c', 'testgen.h']:
+                    tmp_file = os.path.basename(data)
+                else:
+                    tmp_file = data
             else:
                 tmp_content.append(line)
     # for key, value in out.items():
