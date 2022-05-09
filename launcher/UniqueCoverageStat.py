@@ -48,7 +48,7 @@ def get_branchs(benchmark_name, file, is_tg):
                     if int(c) > 0:
                         line_number = data.split(',')[0]
                         if is_tg:
-                            line_number = str(int(line_number) - 6)
+                            line_number = str(int(line_number) - 5)
                         brancher.add(line_number + "_" + str(branch_index))
             elif tag == 'BRH':
                 continue
@@ -113,9 +113,10 @@ def get_unique(target, other_tools_cov):
         if flag:
             unc.add(t)
     uline = ""
+    n = len(unc)
     for u in sorted(unc):
         uline += u + "<br/>"
-    return uline
+    return n, uline
 
 def build_coverage_stat_report(tg_dir, other_tools_dir, other_tools):
     fileout = open("{}/1_html_coverage.html".format(other_tools_dir), "w")
@@ -131,25 +132,32 @@ def build_coverage_stat_report(tg_dir, other_tools_dir, other_tools):
     i = 1
     exclude = ['final_coverage_report_wc_header', 'final_coverage_report', '4TestCov']
     source_files = [f.path for f in os.scandir(tg_dir) if f.is_dir() and os.path.basename(f) not in exclude]
-    for line in sorted(source_files):
+    u_b = [0] * (1 + len(other_tools))
+    for k, line in enumerate(sorted(source_files)):
         print(line)
         benchmark_name = os.path.basename(line)
         tg_file = line + '/summary/summary_coverage.info'
-        tg_cov = get_branchs(benchmark_name, tg_file, True)
+        if not os.path.exists(tg_file):
+            tg_file = line + '/coverage.info'
+            tg_cov = get_branchs(benchmark_name, tg_file, False)
+        else:
+            tg_cov = get_branchs(benchmark_name, tg_file, True)
         remove_max(tg_cov)
         remove_max(tg_cov)
         other_tools_coverage_files = [other_tools_dir + '/' + t + "/" + os.path.basename(line) + "/coverage.info" for t in other_tools]
         other_tools_cov = [get_branchs(benchmark_name, c, False) for c in other_tools_coverage_files]
 
-        uline = get_unique(tg_cov, other_tools_cov)
+        n, uline = get_unique(tg_cov, other_tools_cov)
+        u_b[0] += n
 
         table += "  <tr>\n"
-        table += "    <td>{0}</td>\n".format(i)
+        table += "    <td>{0}</td>\n".format(k)
         table += "    <td>{0}</td>\n".format(os.path.basename(line))
         table += "    <td>{0}<br/>{1}<br/>{2}\n".format(
             create_hyperlinnk_to_file(tg_file), get_report(line), uline)
         for i, t in enumerate(other_tools):
-            uline = get_unique(other_tools_cov[i], [tg_cov] + [t for j,t in enumerate(other_tools_cov) if j != i])
+            n, uline = get_unique(other_tools_cov[i], [tg_cov] + [t for j,t in enumerate(other_tools_cov) if j != i])
+            u_b[1 + i] += n
             other_tools_coverage_file = other_tools_dir + '/' + t + "/" + os.path.basename(line) + "/coverage.info"
             table += "    <td>{0}<br/>{1}<br/>{2}\n".format(create_hyperlinnk_to_file(other_tools_coverage_file),
                                                          get_report_klee(other_tools_dir + '/' + t +
@@ -157,13 +165,18 @@ def build_coverage_stat_report(tg_dir, other_tools_dir, other_tools):
                                                             uline)
 
 
-        # table += "  </tr>\n"
-        i += 1
 
+        # table += "  </tr>\n"
+        #i += 1
+    table += "  <tr>\n"
+    table += "    <td>{0}</td>\n".format("# of unique</br>branches")
+    table += "    <td>{0}</td>\n".format("-")
+    for u in u_b:
+        table += "    <td>{0}</td>\n".format(u)
 
     table += "</table>"
     # table = table.replace("../{}".format(dir), ".")
-    table = table.replace(other_tools_dir, ".")
+    table = table.replace(other_tools_dir, "./")
     fileout.writelines(table)
     fileout.close()
 
@@ -197,7 +210,7 @@ def main():
         print('other_tools set to {}'.format(other_tools_dir))
         directory_contents = os.listdir(other_tools_dir)
         other_tools = [e for e in directory_contents if os.path.isdir(other_tools_dir + "/" + e)
-                       and other_tools_dir + "/" + e not in tg_dir]
+                       and other_tools_dir + "/" + e not in tg_dir and "TG" not in e]
         print(other_tools)
     else:
         print('no other tools: {}'.format(args.other_tools))
