@@ -157,10 +157,10 @@ def add_header(new_file):
             if line_1 in l or line_2 in l:
                 flag = True
             tmp = l
-            if 'reach_error()' in tmp and 'void' not in tmp:
-                tmp = tmp.replace('reach_error()', '/*reach_error()*/')
-            if 'abort()' in tmp:
-                tmp = tmp.replace('abort()', 'exit(0)')
+            # if 'reach_error()' in tmp and 'void' not in tmp:
+            #     tmp = tmp.replace('reach_error()', '/*reach_error()*/')
+            # if 'abort()' in tmp:
+            #     tmp = tmp.replace('abort()', 'exit(0)')
             out.append(tmp)
             f.seek(0, 0)
         if not flag:
@@ -176,10 +176,10 @@ def replace_reach_error(new_file):
         out = []
         for l in content:
             tmp = l
-            if 'reach_error()' in tmp and 'void' not in tmp:
-                tmp = tmp.replace('reach_error()', '/*reach_error()*/')
-            if 'abort()' in tmp:
-                tmp = tmp.replace('abort()', 'return')
+            # if 'reach_error()' in tmp and 'void' not in tmp:
+            #     tmp = tmp.replace('reach_error()', '/*reach_error()*/')
+            # if 'abort()' in tmp:
+            #     tmp = tmp.replace('abort()', 'return')
             out.append(tmp)
             f.seek(0, 0)
         f.writelines(out)
@@ -498,10 +498,10 @@ def to_smt_docker(f):
     ff = '/app/' + name_wo_ext + '/' + name_wo_ext + '.c'
     smt_file = '/app/' + name_wo_ext + '/' + name_wo_ext + '.smt2'
     log_file = SANDBOX_DIR + '/' + name_wo_ext + '/log.txt'
-    # docker_image_name = str(subprocess.check_output(
-    #     'docker ps --format "table {{.Names}}" -f ancestor=seahorn/seahorn-llvm10:nightly | tail -1',
-    #     shell=True).strip())[2:-1]
-    docker_image_name = "admiring_noyce"
+    docker_image_name = str(subprocess.check_output(
+        'docker ps --format "table {{.Names}}" -f ancestor=seahorn/seahorn-llvm10:nightly | tail -1',
+        shell=True).strip())[2:-1]
+    # docker_image_name = "magical_lamport"
     docker_sea_command = ['cd /app/{};'.format(name_wo_ext), '../smt_run.sh', ff, smt_file]
     docker_command = ['docker', 'exec', docker_image_name, 'bash', '-c', list_to_string(docker_sea_command)]
     print(docker_command)
@@ -851,7 +851,7 @@ def header_testgen(f, keys):
         save = os.getcwd()
         os.chdir(dir)
         # '--lookahead', '0', '--inv-mode', '0', '--no-term'
-        command = [TG_TOOL_PATH, '--lb','--max', '--keys',  # '--lookahead', '3',
+        command = [TG_TOOL_PATH, '--lb', '--max', '--keys', #'--lookahead', '0', #'--prio', # '--lookahead', '3',
                    ','.join([str(k) for k in keys]), name_wo_ext + '.smt2']
         # command = [TG_TOOL_PATH, '--inv-mode', '0', '--no-term', '--keys', ','.join([str(k) for k in keys]),
         print(list_to_string(command))
