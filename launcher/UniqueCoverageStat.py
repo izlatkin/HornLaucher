@@ -140,6 +140,15 @@ def get_report_klee(dir):
             return "<a href=\"{0}\">{1} </a>\n".format(report_dir[0] + '/index.html', "coverage_report")
 
 
+def is_empty_file(file):
+    if os.path.exists(file):
+        lines = open(file, "r").readlines()
+        if len(lines) > 1:
+            return True
+    return False
+
+
+
 def create_hyperlinnk_to_file(text):
     if not text:
         return "NaN"
@@ -245,11 +254,14 @@ def get_tests_info_klee(dir):
         return "<font color=\"red\">{}</font>\n".format('no tests')
 
 
-def build_coverage_stat_report(tg_dir, other_tools_dir, other_tools):
+def build_coverage_stat_report(tg_dir, other_tools_dir, other_tools, old_tg=None):
     fileout = open("{}/1_html_coverage.html".format(other_tools_dir), "w")
 
     table = "<table border=\"1\" cellspacing=\"0\" cellpadding=\"4\">\n"
-    header = ["No.", "Benchmark", "Horntinuum"] + other_tools
+    header = ["No.", "Benchmark", "Horntinuum"]
+    if old_tg:
+        header += ['Old Tg']
+    header += other_tools
     table += "  <tr>\n"
     for column in header:
         table += "    <th>{0}</th>\n".format(column.strip())
@@ -259,9 +271,13 @@ def build_coverage_stat_report(tg_dir, other_tools_dir, other_tools):
     i = 1
     exclude = ['final_coverage_report_wc_header', 'final_coverage_report', '4TestCov']
     source_files = [f.path for f in os.scandir(tg_dir) if f.is_dir() and os.path.basename(f) not in exclude]
-    u_b = [0] * (1 + len(other_tools))
+    is_old_tg = 1 if old_tg else 0
+    u_b = [0] * (1 + is_old_tg+ len(other_tools))
+    benchmark_index = 1
     for k, line in enumerate(sorted(source_files)):
         print(line)
+        is_all_tools_works = True
+        table_dump = ""
         benchmark_name = os.path.basename(line)
         tg_file = line + '/summary/summary_coverage.info'
         if not os.path.exists(tg_file):
@@ -275,23 +291,52 @@ def build_coverage_stat_report(tg_dir, other_tools_dir, other_tools):
         other_tools_cov = [get_branchs(benchmark_name, c, False) for c in other_tools_coverage_files]
 
         n, uline = get_unique(tg_cov, other_tools_cov)
-        u_b[0] += n
+        dump_u_b = [0] * (1 + is_old_tg + len(other_tools))
+        dump_u_b[0] = n
 
-        table += "  <tr>\n"
-        table += "    <td>{0}</td>\n".format(k)
-        table += "    <td>{0}</td>\n".format(os.path.basename(line))
-        table += "    <td>{0}<br/>{1}<br/>{2}<br/>{3}\n".format(
+        is_all_tools_works = is_empty_file(tg_file)
+        table_dump += "  <tr>\n"
+        table_dump += "    <td>{0}</td>\n".format(benchmark_index)
+        table_dump += "    <td>{0}</td>\n".format(os.path.basename(line))
+        table_dump += "    <td>{0}<br/>{1}<br/>{2}<br/><font color=\"green\">{3}</font>\n".format(
             create_hyperlinnk_to_file(tg_file), get_report(line), get_coverage_data(line), uline)
+
+        if old_tg:
+            benchmark_name = os.path.basename(line)
+            old_tg_file = other_tools_dir + '/' + old_tg + "/" + os.path.basename(line) + '/summary/summary_coverage.info'
+            if not os.path.exists(old_tg_file):
+                old_tg_file = line + '/coverage.info'
+                old_tg_cov = get_branchs(benchmark_name, old_tg_file, False, True)
+            else:
+                old_tg_cov = get_branchs(benchmark_name, old_tg_file, True)
+            remove_max(old_tg_cov)
+            remove_max(old_tg_cov)
+            n, uline = get_unique(old_tg_cov, other_tools_cov)
+            dump_u_b[1] = n
+            table_dump += "    <td>{0}<br/>{1}<br/>{2}<br/><font color=\"green\">{3}</font>\n".format(
+                create_hyperlinnk_to_file(old_tg_file), get_report(other_tools_dir + '/' + old_tg + "/" + os.path.basename(line)),
+                get_coverage_data(other_tools_dir + '/' + old_tg + "/" + os.path.basename(line)), uline)
+
+
         for i, t in enumerate(other_tools):
-            n, uline = get_unique(other_tools_cov[i], [tg_cov] + [t for j,t in enumerate(other_tools_cov) if j != i])
-            u_b[1 + i] += n
+            n, uline = get_unique(other_tools_cov[i], [tg_cov] + [t for j, t in enumerate(other_tools_cov) if j != i])
+            dump_u_b[1 + is_old_tg + i] = n
             other_tools_coverage_file = other_tools_dir + '/' + t + "/" + os.path.basename(line) + "/coverage.info"
             log_file = other_tools_dir + '/' + t + "/" + os.path.basename(line)
-            table += "    <td>{0}<br/>{1}<br/>{2}<br/>{3}\n".format(create_hyperlinnk_to_file(other_tools_coverage_file),
+            if is_all_tools_works:
+                is_all_tools_works = is_empty_file(other_tools_coverage_file)
+            table_dump += "    <td>{0}<br/>{1}<br/>{2}<br/><font color=\"green\">{3}</font>\n".format(create_hyperlinnk_to_file(other_tools_coverage_file),
                                                          get_report_klee(other_tools_dir + '/' + t +
                                                                          "/" + os.path.basename(line)),
                                                             get_tests_info_klee(log_file),
                                                             uline)
+
+        if is_all_tools_works:
+            table += table_dump
+            benchmark_index += 1
+            for i in range(len(u_b)):
+                u_b[i] += dump_u_b[i]
+
 
 
 
@@ -345,7 +390,12 @@ def main():
         print('no other tools: {}'.format(args.other_tools))
         exit(1)
 
-    build_coverage_stat_report(tg_dir, other_tools_dir, other_tools)
+    is_old_tg = [ot for ot in other_tools if 'tg_old' in ot]
+    old_tg = None
+    if is_old_tg:
+        old_tg = is_old_tg[0]
+        other_tools.remove(old_tg)
+    build_coverage_stat_report(tg_dir, other_tools_dir, other_tools, old_tg)
 
     tt = time.time() - start_time
     print('TG total time: {} seconds or {} hours'.format(tt, tt / 3600))
