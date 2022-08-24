@@ -1,5 +1,6 @@
 import argparse
 import os
+import re
 import time
 
 
@@ -11,10 +12,77 @@ def is_int(val):
     return True
 
 
-def get_branchs(benchmark_name, file, is_tg):
+def get_branchs(benchmark_name, file, is_tg, tg_dir=False):
     if not os.path.isfile(file):
         return set()
     covers = open(file, "r").readlines()
+
+    # ToDo
+    # find files names
+    # read files and find shift
+    find_shift = 6
+    if is_tg:
+        dir_location = os.path.dirname(os.path.dirname(file))
+        orig_file = dir_location + "/orig_" + benchmark_name + ".c"
+        updated_file = dir_location + "/" + benchmark_name + "_with_pthread.c"
+        lines_orig_file = open(orig_file, "r").readlines()
+        lines_updated_file = open(updated_file, "r").readlines()
+        for i, l in enumerate(lines_updated_file):
+            if l == lines_orig_file[0]:
+                find_shift = i
+                break
+        print("shift_in_file: {}".format(find_shift))
+
+    elif tg_dir:
+        dir_location = os.path.dirname(file)
+        orig_file = dir_location + "/orig_" + benchmark_name + ".c"
+        updated_file = dir_location + "/main.c"
+        lines_orig_file = open(orig_file, "r").readlines()
+        lines_updated_file = open(updated_file, "r").readlines()
+        for i, l in enumerate(lines_updated_file):
+            if l == lines_orig_file[0]:
+                find_shift = i
+                break
+        print("shift_in_file: {}".format(find_shift))
+
+    # exclude branches around [+/- 2]
+    # 1. reach_error() 2. abort() 3. time_t start = time(0); time_t seconds = 10; time_t endwait = start + seconds;
+    exclude_branches_indexeis = set()
+    if is_tg or tg_dir:
+        dir_location = os.path.dirname(os.path.dirname(file))
+        updated_file = dir_location + "/" + benchmark_name + "_with_pthread.c"
+        if tg_dir:
+            dir_location = os.path.dirname(file)
+            updated_file = dir_location + "/" + benchmark_name + ".c"
+        lines_updated_file = open(updated_file, "r").readlines()
+        for i, l in enumerate(lines_updated_file):
+            line_index_in_orig_file = i - find_shift
+            if 'reach_error()' in l and 'void' not in l:
+                exclude_branches_indexeis.add(line_index_in_orig_file)
+                exclude_branches_indexeis.add(line_index_in_orig_file - 1)
+                exclude_branches_indexeis.add(line_index_in_orig_file + 1)
+            if 'abort()' in l:
+                exclude_branches_indexeis.add(line_index_in_orig_file)
+                exclude_branches_indexeis.add(line_index_in_orig_file - 1)
+                exclude_branches_indexeis.add(line_index_in_orig_file + 1)
+            if 'time_t start = time(0); time_t seconds = 10; time_t endwait = start + seconds;' in l:
+                exclude_branches_indexeis.add(line_index_in_orig_file)
+    else:
+        dir_location = os.path.dirname(file)
+        updated_file = dir_location + "/" + benchmark_name + ".c"
+        lines_updated_file = open(updated_file, "r").readlines()
+        for i, l in enumerate(lines_updated_file):
+            line_index_in_orig_file = i
+            if 'reach_error()' in l and 'void' not in l:
+                exclude_branches_indexeis.add(line_index_in_orig_file)
+                exclude_branches_indexeis.add(line_index_in_orig_file - 1)
+                exclude_branches_indexeis.add(line_index_in_orig_file + 1)
+            if 'abort()' in l:
+                exclude_branches_indexeis.add(line_index_in_orig_file)
+                exclude_branches_indexeis.add(line_index_in_orig_file - 1)
+                exclude_branches_indexeis.add(line_index_in_orig_file + 1)
+
+
     extract = []
     trigger = False
     for l in covers:
@@ -47,9 +115,12 @@ def get_branchs(benchmark_name, file, is_tg):
                 if is_int(c):
                     if int(c) > 0:
                         line_number = data.split(',')[0]
-                        if is_tg:
-                            line_number = str(int(line_number) - 5)
-                        brancher.add(line_number + "_" + str(branch_index))
+                        if is_tg or tg_dir:
+                            line_number = str(int(line_number) - find_shift)
+                            if line_number not in exclude_branches_indexeis:
+                                brancher.add(line_number + "_" + str(branch_index))
+                        else:
+                            brancher.add(line_number + "_" + str(branch_index))
             elif tag == 'BRH':
                 continue
             elif tag == 'DA':
@@ -118,6 +189,62 @@ def get_unique(target, other_tools_cov):
         uline += u + "<br/>"
     return n, uline
 
+
+def read_lcov_html_report(file_name):
+    file = open(file_name, "r")
+    lines = file.readlines()
+    brench_lines = []
+    flag = False
+    i = 0
+    for line in lines:
+        if flag:
+            brench_lines.append(re.sub('<[^<]+?>', '', line))
+            i += 1
+        if 'Branches:' in line:
+            brench_lines.append(re.sub('<[^<]+?>', '', line))
+            flag = True
+        if i == 3:
+            break
+    return 'Coverage: {}\n'.format(brench_lines[3])
+    # return '{}<br/>\nHit: {}<br/>\nTotal: {}<br/>\nCoverage: {}\n'.format(brench_lines[0], brench_lines[1],
+    #                                                                           brench_lines[2], brench_lines[3])
+
+
+def get_coverage_data(dir):
+    sub_dirs = [f.path for f in os.scandir(dir) if f.is_dir() and os.path.basename(f) in 'summary']
+    if len(sub_dirs) != 1:
+        return "<font color=\"red\">{}</font>\n".format('no data')
+    else:
+        report_dir = [f.path for f in os.scandir(sub_dirs[0]) if f.is_dir()]
+        exclude = ['usr']
+        report_dir = [d for d in report_dir if os.path.basename(d) not in exclude]
+        if len(report_dir) != 1:
+            return "<font color=\"red\">{}</font>\n".format('no report')
+        else:
+            file_name = report_dir[0] + '/main.c.gcov.html'
+            #out = "<a href=\"{0}\">{1} </a>\n".format(file_name, "coverage_c_file_TG") + '<br/>\n'
+            out = read_lcov_html_report(file_name) + '<br/>'
+            return out
+
+
+def get_tests_info_klee(dir):
+    log = [f.path for f in os.scandir(dir) if f.is_file() and os.path.basename(f) == 'log.txt']
+    if len(log) >= 1:
+        file = open(log[0], "r")
+        lines = file.readlines()
+        for i, line in enumerate(lines):
+            if "Tests run:" in line:
+                out = ''
+                for j in range(1, 2):
+                    out += "{}<br/>".format(lines[i + j])
+                file.close()
+                return out
+        file.close()
+        return "<font color=\"red\">{}</font>\n".format('no tests')
+    else:
+        return "<font color=\"red\">{}</font>\n".format('no tests')
+
+
 def build_coverage_stat_report(tg_dir, other_tools_dir, other_tools):
     fileout = open("{}/1_html_coverage.html".format(other_tools_dir), "w")
 
@@ -139,7 +266,7 @@ def build_coverage_stat_report(tg_dir, other_tools_dir, other_tools):
         tg_file = line + '/summary/summary_coverage.info'
         if not os.path.exists(tg_file):
             tg_file = line + '/coverage.info'
-            tg_cov = get_branchs(benchmark_name, tg_file, False)
+            tg_cov = get_branchs(benchmark_name, tg_file, False, True)
         else:
             tg_cov = get_branchs(benchmark_name, tg_file, True)
         remove_max(tg_cov)
@@ -153,15 +280,17 @@ def build_coverage_stat_report(tg_dir, other_tools_dir, other_tools):
         table += "  <tr>\n"
         table += "    <td>{0}</td>\n".format(k)
         table += "    <td>{0}</td>\n".format(os.path.basename(line))
-        table += "    <td>{0}<br/>{1}<br/>{2}\n".format(
-            create_hyperlinnk_to_file(tg_file), get_report(line), uline)
+        table += "    <td>{0}<br/>{1}<br/>{2}<br/>{3}\n".format(
+            create_hyperlinnk_to_file(tg_file), get_report(line), get_coverage_data(line), uline)
         for i, t in enumerate(other_tools):
             n, uline = get_unique(other_tools_cov[i], [tg_cov] + [t for j,t in enumerate(other_tools_cov) if j != i])
             u_b[1 + i] += n
             other_tools_coverage_file = other_tools_dir + '/' + t + "/" + os.path.basename(line) + "/coverage.info"
-            table += "    <td>{0}<br/>{1}<br/>{2}\n".format(create_hyperlinnk_to_file(other_tools_coverage_file),
+            log_file = other_tools_dir + '/' + t + "/" + os.path.basename(line)
+            table += "    <td>{0}<br/>{1}<br/>{2}<br/>{3}\n".format(create_hyperlinnk_to_file(other_tools_coverage_file),
                                                          get_report_klee(other_tools_dir + '/' + t +
                                                                          "/" + os.path.basename(line)),
+                                                            get_tests_info_klee(log_file),
                                                             uline)
 
 
