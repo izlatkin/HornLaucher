@@ -30,7 +30,7 @@ class html_report:
         return table
 
     def create_header_4(table):
-        header_line = "No., Sourse code, Links (smt2 logs reports) , Tests, Coverage_old, Coverage TestCov, Time"
+        header_line = "No., Sourse code, Links (smt2 logs reports) , Tests, Coverage_old, Coverage TestCov, Extra Info, Time"
         header = header_line.split(",")
         table += "  <tr>\n"
         for column in header:
@@ -371,6 +371,9 @@ class html_report:
             table += "    <td>{0}</td>\n".format(html_report.get_tests_info(line))
             table += "    <td>{0}</td>\n".format(html_report.get_coverage_data(line))
             table += "    <td>{0}</td>\n".format(html_report.get_coverage_data_testcov(line))
+            table += "    <td>number of test: {0}<br/>function info: {1}<br/> number of lines: {2}</td>\n".format(html_report.get_number_of_tests_tg(line),
+                                                                                                                  html_report.get_function_coverage_data(line),
+                                                                                                                  html_report.get_number_of_line_in_original_sorse_file(line))
             # table += "    <td>{0}</td>\n".format(html_report.get_time_consumed(line) + ' seconds')
             table += "    <td>{0}</td>\n".format(str(html_report.get_time_consumed(line)) + ' seconds')
             table += "  </tr>\n"
@@ -501,6 +504,13 @@ class html_report:
                 return "<a href=\"{0}\">{1} </a>\n".format(report_dir[0] + '/index.html', "coverage_report")
 
     @classmethod
+    def get_number_of_tests_tg(cls, dir):
+        sub_dirs = [f.path for f in os.scandir(dir) if
+                    f.is_dir() and os.path.basename(f) not in ['summary', '4TestCov']]
+        return len(sub_dirs)
+
+
+    @classmethod
     def get_tests_info(cls, dir):
         sub_dirs = [f.path for f in os.scandir(dir) if
                     f.is_dir() and os.path.basename(f) not in ['summary', '4TestCov']]
@@ -574,6 +584,31 @@ class html_report:
                 return out
 
     @classmethod
+    def get_function_coverage_data(cls, dir):
+        sub_dirs = [f.path for f in os.scandir(dir) if f.is_dir() and os.path.basename(f) in 'summary']
+        if len(sub_dirs) != 1:
+            return "<font color=\"red\">{}</font>\n".format('no data')
+        else:
+            report_dir = [f.path for f in os.scandir(sub_dirs[0]) if f.is_dir()]
+            exclude = ['usr']
+            report_dir = [d for d in report_dir if os.path.basename(d) not in exclude]
+            if len(report_dir) != 1:
+                return "<font color=\"red\">{}</font>\n".format('no report')
+            else:
+                file_name = report_dir[0] + '/main.c.gcov.html'
+                out = "<a href=\"{0}\">{1} </a>\n".format(file_name, "coverage_c_file_TG") + '<br/>\n'
+                out += html_report.read_lcov_html_report_function_stat(file_name) + '<br/>'
+                return out
+
+    @classmethod
+    def get_number_of_line_in_original_sorse_file(cls, dir):
+        c_file = dir + "/" + os.path.basename(dir) + ".c"
+        if os.path.exists(c_file):
+            return len(open(c_file, "r").readlines())
+        else:
+            return 0
+
+    @classmethod
     def get_coverage_data_testcov(cls, dir):
         sub_dirs = [f.path for f in os.scandir(dir) if f.is_dir() and os.path.basename(f) in '4TestCov'
                     and len(os.path.basename(f)) > 2]
@@ -616,6 +651,27 @@ class html_report:
                 break
         return '{}<br/>\nHit: {}<br/>\nTotal: {}<br/>\nCoverage: {}\n'.format(brench_lines[0], brench_lines[1],
                                                                               brench_lines[2], brench_lines[3])
+
+
+    @classmethod
+    def read_lcov_html_report_function_stat(cls, file_name):
+        file = open(file_name, "r")
+        lines = file.readlines()
+        brench_lines = []
+        flag = False
+        i = 0
+        for line in lines:
+            if flag:
+                brench_lines.append(re.sub('<[^<]+?>', '', line))
+                i += 1
+            if 'Functions:' in line:
+                brench_lines.append(re.sub('<[^<]+?>', '', line))
+                flag = True
+            if i == 3:
+                break
+        return '{}<br/>\nHit: {}<br/>\nTotal: {}<br/>\nCoverage: {}\n'.format(brench_lines[0], brench_lines[1],
+                                                                              brench_lines[2], brench_lines[3])
+
 
     @classmethod
     def read_testciv_log(cls, file_name):
@@ -679,7 +735,7 @@ class html_report:
         worksheet = workbook.add_worksheet()
 
         exclude = ['final_coverage_report_wc_header', 'final_coverage_report']
-        expenses = [['filename', 'coverage_TG', 'coverage_TestCov', 'time', 'hit', 'total', '#fun_hit', '#fun_total']]
+        expenses = [['filename', 'coverage_TG', 'coverage_TestCov', 'time', 'hit', 'total', '#fun_hit', '#fun_total', '#tests', '#lines']]
         source_files = [f.path for f in os.scandir(dir) if f.is_dir() and os.path.basename(f) not in exclude]
         for line in sorted(source_files):
             file_name = os.path.basename(line) + '.c'
@@ -728,13 +784,21 @@ class html_report:
                 test1 = ''
                 test2 = ''
 
+            number_of_tests = html_report.get_number_of_tests_tg(line)
+            number_of_line = html_report.get_number_of_line_in_original_sorse_file(line)
+
+
+            # table += "    <td>number of test: {0}<br/>function info: {1}<br/> number of lines: {2}</td>\n".format(html_report.get_number_of_tests_tg(line),
+            #                                                                                                                   html_report.get_function_coverage_data(line),
+            #                                                                                                                   html_report.get_number_of_line_in_original_sorse_file(line))
+
             time = html_report.get_time_consumed(line)
-            expenses.append([file_name, coverage_TG, coverage_TestCov, time, hit, total, test1, test2])
+            expenses.append([file_name, coverage_TG, coverage_TestCov, time, hit, total, test1, test2, number_of_tests, number_of_line])
 
         row = 0
         col = 0
 
-        for cfile, coverage_TG, coverage_TestCov, time, hit, total, fun_number_hit, fun_number_total in expenses:
+        for cfile, coverage_TG, coverage_TestCov, time, hit, total, fun_number_hit, fun_number_total, number_of_tests, number_of_line in expenses:
             worksheet.write(row, col, cfile)
             worksheet.write(row, col + 1, coverage_TG)
             worksheet.write(row, col + 2, coverage_TestCov)
@@ -743,6 +807,8 @@ class html_report:
             worksheet.write(row, col + 5, total)
             worksheet.write(row, col + 6, fun_number_hit)
             worksheet.write(row, col + 7, fun_number_total)
+            worksheet.write(row, col + 8, number_of_tests)
+            worksheet.write(row, col + 9, number_of_line)
             row += 1
 
         workbook.close()
@@ -830,11 +896,15 @@ class html_report:
         # Create a workbook and add a worksheet.
         workbook = xlsxwriter.Workbook(dir + '/1_report.xlsx')
         worksheet = workbook.add_worksheet()
-        expenses = [['filename', 'coverage', 'time', 'goals']]
+        expenses = [['filename', 'coverage', 'time', 'goals', '#fun_hit', '#fun_total', '#tests', '#lines']]
         source_files = [f.path for f in os.scandir(dir) if f.is_dir() and os.path.basename(f)]
         for line in sorted(source_files):
             file_name = os.path.basename(line) + '.c'
             raw_data = html_report.get_tests_info_klee(line)
+            if "Tests run:" in raw_data:
+                number_of_tests = raw_data[len("Tests run:"):raw_data.index("\n")]
+            else:
+                number_of_tests = 0
             if "no tests" in raw_data or "No coverage" in raw_data:
                 coverage = ''
                 goals = ''
@@ -844,18 +914,35 @@ class html_report:
                 goals = raw_data[i:i + j]
                 coverage = raw_data[raw_data.index("Coverage:") + len("Coverage: "): raw_data.index("%")]
 
+            was_instrumented, fun_number = html_report.get_function_number_plane_text_other_tools(line)
+            if fun_number != "no data" and raw_data != 'no report':
+                fun_number = [r.strip("\n") for r in fun_number]
+                # coverage = raw_data[3].strip("%")
+                test1 = fun_number[1]
+                test2 = fun_number[2]
+            else:
+                coverage_TG = 0
+                test1 = ''
+                test2 = ''
+
+            number_of_line = html_report.get_number_of_line_in_original_sorse_file(line)
+
             # print(coverage)
             time = html_report.get_time_consumed(line)
-            expenses.append([file_name, coverage, time, goals])
+            expenses.append([file_name, coverage, time, goals, test1, test2, number_of_tests, number_of_line])
 
         row = 0
         col = 0
 
-        for cfile, coverage, time, goals in expenses:
+        for cfile, coverage, time, goals, test1, test2, number_of_tests, number_of_lines in expenses:
             worksheet.write(row, col, cfile)
             worksheet.write(row, col + 1, coverage)
             worksheet.write(row, col + 2, time)
             worksheet.write(row, col + 3, goals)
+            worksheet.write(row, col + 4, test1)
+            worksheet.write(row, col + 5, test2)
+            worksheet.write(row, col + 6, number_of_tests)
+            worksheet.write(row, col + 7, number_of_lines)
             row += 1
 
         workbook.close()
@@ -889,6 +976,24 @@ class html_report:
                 return (False, 'no report')
             else:
                 file_name = report_dir[0] + '/main.c.gcov.html'
+                was_inst, out = html_report.read_lcov_html_report_plane_text_function_number(file_name)
+                return (was_inst, out)
+
+
+    @classmethod
+    def get_function_number_plane_text_other_tools(cls, dir):
+        name = os.path.basename(dir)
+        sub_dirs = [f.path for f in os.scandir(dir) if f.is_dir() and os.path.basename(f) in 'generated-coverage']
+        if len(sub_dirs) != 1:
+            return (False, 'no data')
+        else:
+            report_dir = [f.path for f in os.scandir(sub_dirs[0]) if f.is_dir()]
+            exclude = ['usr']
+            report_dir = [d for d in report_dir if os.path.basename(d) not in exclude]
+            if len(report_dir) != 1:
+                return (False, 'no report')
+            else:
+                file_name = report_dir[0] + '/{}.c.gcov.html'.format(name)
                 was_inst, out = html_report.read_lcov_html_report_plane_text_function_number(file_name)
                 return (was_inst, out)
 
@@ -1036,17 +1141,31 @@ if __name__ == '__main__':
     # dir = "/home/fmfsu/results/loop_new_tools/TG_lb_horn_step_large"
     # dir = "/Users/ilyazlatkin/Downloads/TG_lb_horn_step_large"
     # dir = "/home/fmfsu/results/loop_new_tools/TG_inv_2"
-    # dir = "/Users/ilyazlatkin/Downloads/TG_inv_2"
+    dir = "/Users/ilyazlatkin/Downloads/sandbox"
+    #dir = "/Users/ilyazlatkin/PycharmProjects/results/LBTG/loops/tg_old_loops"
+    #dir = "/Users/ilyazlatkin/PycharmProjects/results/LBTG/s3_openssl_updated/tg_old"
+    # dir = "/Users/ilyazlatkin/PycharmProjects/results/LBTG/memorysafe/tg_old"
+    dir = "/Users/ilyazlatkin/PycharmProjects/results/LBTG/loops/tg_old_loops"
+    dir = "/Users/ilyazlatkin/PycharmProjects/results/LBTG/memorysafe/tg_old"
+    #dir = "/Users/ilyazlatkin/PycharmProjects/results/LBTG/memorysafe/TG_lb_max_3"
+    # dir = "/Users/ilyazlatkin/PycharmProjects/results/LBTG/s3_openssl_updated/fusebmc_sandbox"
     # html_report.buildReport_4(dir)
-    # html_report.buildReport_Excel(dir)
-    # html_report.buildReport_fusebmc(dir)
-    # html_report.buildReport_Excel_klee(dir)
-    html_report.buildReport_4(dir)
     html_report.buildReport_Excel(dir)
     # html_report.buildReport_fusebmc(dir)
     # html_report.buildReport_Excel_klee(dir)
+    #html_report.buildReport_4(dir)
+    #html_report.buildReport_Excel(dir)
+    #html_report.buildReport_fusebmc(dir)
+    # html_report.buildReport_Excel_klee(dir)
     # html_report.buildReport_4(dir)
     # html_report.buildReport_Excel_extra_stat(dir)
+    # all_tools = "/Users/ilyazlatkin/PycharmProjects/results/LBTG/loops"
+    # subdir = [os.path.join(all_tools, o) for o in os.listdir(all_tools)
+    #  if os.path.isdir(os.path.join(all_tools, o)) and "tg_" not in os.path.join(all_tools, o)
+    #           and "TG_" not in os.path.join(all_tools, o)]
+    # for s in subdir:
+    #     print(s)
+    #     html_report.buildReport_Excel_klee(s)
 
     # html_report.copy_nonlinear_smts("/home/fmfsu/results/product-lines/TG_lb_horn_step_small/", "/tmp/product-lines-smt2")
     # dir = "/Users/ilyazlatkin/PycharmProjects/HornLaucher/sandbox/minepump_spec1_product14.cil"

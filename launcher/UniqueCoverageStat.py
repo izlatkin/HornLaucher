@@ -3,6 +3,8 @@ import os
 import re
 import time
 
+import xlsxwriter as xls
+
 
 def is_int(val):
     try:
@@ -355,6 +357,91 @@ def build_coverage_stat_report(tg_dir, other_tools_dir, other_tools, old_tg=None
     fileout.close()
 
 
+def build_excel_unique_report(tg_dir, other_tools_dir, other_tools, old_tg=None):
+    workbook = xls.Workbook(other_tools_dir + '/2_report.xlsx')
+    worksheet = workbook.add_worksheet()
+
+    header = ["No.", "Benchmark", "Horntinuum"]
+    if old_tg:
+        header += ['Old Tg']
+    header += other_tools + ['is_all_works']
+    unique_branches = [header]
+
+    # Create the table's row data
+    i = 1
+    exclude = ['final_coverage_report_wc_header', 'final_coverage_report', '4TestCov']
+    source_files = [f.path for f in os.scandir(tg_dir) if f.is_dir() and os.path.basename(f) not in exclude]
+    is_old_tg = 1 if old_tg else 0
+    u_b = [0] * (1 + is_old_tg + len(other_tools))
+    benchmark_index = 1
+    for k, line in enumerate(sorted(source_files)):
+        is_all_tools_works = True
+        benchmark_name = os.path.basename(line)
+        tg_file = line + '/summary/summary_coverage.info'
+        if not os.path.exists(tg_file):
+            tg_file = line + '/coverage.info'
+            tg_cov = get_branchs(benchmark_name, tg_file, False, True)
+        else:
+            tg_cov = get_branchs(benchmark_name, tg_file, True)
+        remove_max(tg_cov)
+        remove_max(tg_cov)
+        other_tools_coverage_files = [other_tools_dir + '/' + t + "/" + os.path.basename(line) + "/coverage.info" for t in other_tools]
+        other_tools_cov = [get_branchs(benchmark_name, c, False) for c in other_tools_coverage_files]
+
+        n, uline = get_unique(tg_cov, other_tools_cov)
+        dump_u_b = [0] * (1 + is_old_tg + len(other_tools))
+        dump_u_b[0] = n
+
+
+        is_all_tools_works = is_empty_file(tg_file)
+        dump = [k, os.path.basename(line) + ".c"]
+        dump.append(n)
+
+        if old_tg:
+            benchmark_name = os.path.basename(line)
+            old_tg_file = other_tools_dir + '/' + old_tg + "/" + os.path.basename(line) + '/summary/summary_coverage.info'
+            if not os.path.exists(old_tg_file):
+                old_tg_file = line + '/coverage.info'
+                old_tg_cov = get_branchs(benchmark_name, old_tg_file, False, True)
+            else:
+                old_tg_cov = get_branchs(benchmark_name, old_tg_file, True)
+            remove_max(old_tg_cov)
+            remove_max(old_tg_cov)
+            n, uline = get_unique(old_tg_cov, other_tools_cov)
+            dump_u_b[1] = n
+            dump.append(n)
+
+
+        for i, t in enumerate(other_tools):
+            n, uline = get_unique(other_tools_cov[i], [tg_cov] + [t for j, t in enumerate(other_tools_cov) if j != i])
+            dump_u_b[1 + is_old_tg + i] = n
+            other_tools_coverage_file = other_tools_dir + '/' + t + "/" + os.path.basename(line) + "/coverage.info"
+            if is_all_tools_works:
+                is_all_tools_works = is_empty_file(other_tools_coverage_file)
+            dump.append(n)
+
+        # unique_branches.append(dump)
+        if is_all_tools_works:
+            unique_branches.append(dump + [is_all_tools_works])
+            benchmark_index += 1
+            for i in range(len(u_b)):
+                u_b[i] += int(dump_u_b[i])
+        else:
+            unique_branches.append(dump[:2] + [0] * (len(dump) - 2)  +  [is_all_tools_works])
+
+
+    unique_branches.append(['','# of unique branches'] + u_b)
+
+    row = 0
+    col = 0
+    for uc in unique_branches:
+        for j, u in enumerate(uc):
+            worksheet.write(row, col + j, u)
+        row += 1
+
+    workbook.close()
+
+
 def main():
     start_time = time.time()
     parser = argparse.ArgumentParser(description='python script for coverage statistics parsing')
@@ -395,7 +482,8 @@ def main():
     if is_old_tg:
         old_tg = is_old_tg[0]
         other_tools.remove(old_tg)
-    build_coverage_stat_report(tg_dir, other_tools_dir, other_tools, old_tg)
+    #build_coverage_stat_report(tg_dir, other_tools_dir, other_tools, old_tg)
+    build_excel_unique_report(tg_dir, other_tools_dir, other_tools, old_tg)
 
     tt = time.time() - start_time
     print('TG total time: {} seconds or {} hours'.format(tt, tt / 3600))

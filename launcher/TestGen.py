@@ -711,7 +711,7 @@ def header_testgen(f, keys):
         print('smt file {} exist, perform testgen step'.format(smt_file))
         save = os.getcwd()
         os.chdir(dir)
-        command = [TG_TOOL_PATH,'--inv-mode', '2', '--no-term', '--keys',
+        command = [TG_TOOL_PATH, '--lb', '--max',  '--keys',
                    ','.join([str(k) for k in keys]), name_wo_ext + '.smt2']
         #command = [TG_TOOL_PATH, '--inv-mode', '0', '--no-term', '--keys', ','.join([str(k) for k in keys]),
         print(list_to_string(command))

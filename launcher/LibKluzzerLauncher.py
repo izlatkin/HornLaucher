@@ -247,6 +247,7 @@ def main():
     # files = sorted([os.path.join(dp, f) for dp, dn, filenames in os.walk(SANDBOX_DIR)
     #                 for f in filenames if os.path.splitext(f)[1] == '.c'
     #                 and os.path.splitext(f)[0] != "harness"])
+
     main_pipeline(files)
     html_report.buildReport_fusebmc(SANDBOX_DIR)
     html_report.buildReport_Excel_klee(SANDBOX_DIR)
