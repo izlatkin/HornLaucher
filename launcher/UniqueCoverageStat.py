@@ -257,6 +257,7 @@ def get_tests_info_klee(dir):
 
 
 def build_coverage_stat_report(tg_dir, other_tools_dir, other_tools, old_tg=None):
+    other_tools = []
     fileout = open("{}/1_html_coverage.html".format(other_tools_dir), "w")
 
     table = "<table border=\"1\" cellspacing=\"0\" cellpadding=\"4\">\n"
@@ -292,7 +293,15 @@ def build_coverage_stat_report(tg_dir, other_tools_dir, other_tools, old_tg=None
         other_tools_coverage_files = [other_tools_dir + '/' + t + "/" + os.path.basename(line) + "/coverage.info" for t in other_tools]
         other_tools_cov = [get_branchs(benchmark_name, c, False) for c in other_tools_coverage_files]
 
-        n, uline = get_unique(tg_cov, other_tools_cov)
+        benchmark_name = os.path.basename(line)
+        old_tg_file = other_tools_dir + '/' + old_tg + "/" + os.path.basename(line) + '/summary/summary_coverage.info'
+        if not os.path.exists(old_tg_file):
+            old_tg_file = line + '/coverage.info'
+            old_tg_cov = get_branchs(benchmark_name, old_tg_file, False, True)
+        else:
+            old_tg_cov = get_branchs(benchmark_name, old_tg_file, True)
+        #n, uline = get_unique(tg_cov, other_tools_cov)
+        n, uline = get_unique(tg_cov, old_tg_cov)
         dump_u_b = [0] * (1 + is_old_tg + len(other_tools))
         dump_u_b[0] = n
 
@@ -313,7 +322,8 @@ def build_coverage_stat_report(tg_dir, other_tools_dir, other_tools, old_tg=None
                 old_tg_cov = get_branchs(benchmark_name, old_tg_file, True)
             remove_max(old_tg_cov)
             remove_max(old_tg_cov)
-            n, uline = get_unique(old_tg_cov, other_tools_cov)
+            # n, uline = get_unique(old_tg_cov, other_tools_cov)
+            n, uline = get_unique(old_tg_cov, tg_cov)
             dump_u_b[1] = n
             table_dump += "    <td>{0}<br/>{1}<br/>{2}<br/><font color=\"green\">{3}</font>\n".format(
                 create_hyperlinnk_to_file(old_tg_file), get_report(other_tools_dir + '/' + old_tg + "/" + os.path.basename(line)),
@@ -482,8 +492,8 @@ def main():
     if is_old_tg:
         old_tg = is_old_tg[0]
         other_tools.remove(old_tg)
-    #build_coverage_stat_report(tg_dir, other_tools_dir, other_tools, old_tg)
-    build_excel_unique_report(tg_dir, other_tools_dir, other_tools, old_tg)
+    build_coverage_stat_report(tg_dir, other_tools_dir, other_tools, old_tg)
+    #build_excel_unique_report(tg_dir, other_tools_dir, other_tools, old_tg)
 
     tt = time.time() - start_time
     print('TG total time: {} seconds or {} hours'.format(tt, tt / 3600))

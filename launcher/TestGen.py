@@ -699,7 +699,7 @@ def summary_coverage_report():
 
 
 def header_testgen(f, keys):
-    global COVERAGE
+    global COVERAGE, INV_VALUE
     print('=========Test Gen Step =============')
     print("generating headers for file: {}".format(f))
     # check if smt exist, if not skip
@@ -710,8 +710,8 @@ def header_testgen(f, keys):
     if (os.path.isfile(smt_file)):
         print('smt file {} exist, perform testgen step'.format(smt_file))
         save = os.getcwd()
-        os.chdir(dir)
-        command = [TG_TOOL_PATH, '--lb', '--max',  '--keys',
+        os.chdir(dir) #'--lookahead', '0', '--inv-mode', '0', '--no-term'
+        command = [TG_TOOL_PATH, '--inv-mode', str(INV_VALUE),  '--keys',
                    ','.join([str(k) for k in keys]), name_wo_ext + '.smt2']
         #command = [TG_TOOL_PATH, '--inv-mode', '0', '--no-term', '--keys', ','.join([str(k) for k in keys]),
         print(list_to_string(command))
@@ -823,7 +823,8 @@ def main_pipline(files):
 def main():
     start_time = time.time()
     init()
-    global SOURCE_PATH, SEA_PATH, SANDBOX_DIR, SEA_TIMEOUT, TG_TOOL_PATH, TG_TIMEOUT, COVERAGE_TIMEOUT, PATTERN, COVERAGE
+    global SOURCE_PATH, SEA_PATH, SANDBOX_DIR, SEA_TIMEOUT, TG_TOOL_PATH, TG_TIMEOUT, COVERAGE_TIMEOUT, PATTERN, COVERAGE, INV_VALUE
+    INV_VALUE = 0
     parser = argparse.ArgumentParser(description='python script for Test Generation')
     insourse = ['-i', '--input_source']
     kwsourse = {'type': str, 'help': 'Input .c-file. or directory'}
@@ -838,6 +839,7 @@ def main():
     kwsea = {'type': argparse.FileType('r'), 'help': 'Path to SEAHORN tool. Default: SEA_PATH.'}
     kwdocker = {'type': str, 'help': 'true - SeaHorn runs in Docker/false - SeaHorn is local. Default: true.'}
     kwcov = {'type': str, 'help': 'true - run with coverage/false - run without coverage. Default: true.'}
+    inv = {'type': int, 'help': 'invariant value. Default: 0 '}
 
     parser.add_argument(*insourse, **kwsourse)
     parser.add_argument(*outdir, **kwoutdir)
@@ -846,6 +848,7 @@ def main():
     group_sea.add_argument(*sea, **kwsea)
     group_sea.add_argument('--docker_sea', **kwdocker)
     parser.add_argument('--coverage', **kwcov)
+    parser.add_argument('--inv_mode', **inv)
 
     args = parser.parse_args()
     print(args)
@@ -908,6 +911,8 @@ def main():
     if args.coverage is not None:
         if args.coverage == 'false':
             COVERAGE = False
+    if args.inv_mode is not None:
+        INV_VALUE = args.inv_mode
 
     [print(files[i]) for i in range(0, min(len(files), 10))]
     # Move .c file to the specail sandbox
