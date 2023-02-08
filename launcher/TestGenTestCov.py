@@ -17,7 +17,7 @@ def init():
     SANDBOX_DIR = "../sandbox"
     SEA_TIMEOUT = 60
     # TG_TOOL_PATH = "/Users/ilyazlatkin/PycharmProjects/aeval/build/tools/tg/tg"
-    TG_TOOL_PATH = "/home/fmfsu/Dev/aeval/build/tools/tg/tg"
+    TG_TOOL_PATH = "/home/fmfsu/Dev/tg/aeval/build/tools/tg/tg"
     TESTCOV = "/home/fmfsu/Dev/TestCov/test-suite-validator/bin/testcov"
     TG_TIMEOUT = 900
     COVERAGE_TIMEOUT = 11
@@ -495,14 +495,15 @@ def to_smt_docker(f):
     print('converting .c file to smt, filename: {}'.format(f))
     basename = os.path.basename(f)
     name_wo_ext = os.path.splitext(basename)[0]
+    shutil.copyfile("/home/fmfsu/PyCharm/assert.h", "/home/fmfsu/PyCharm/sandbox/{}/assert.h".format(name_wo_ext))
     ff = '/app/' + name_wo_ext + '/' + name_wo_ext + '.c'
     smt_file = '/app/' + name_wo_ext + '/' + name_wo_ext + '.smt2'
     log_file = SANDBOX_DIR + '/' + name_wo_ext + '/log.txt'
     docker_image_name = str(subprocess.check_output(
         'docker ps --format "table {{.Names}}" -f ancestor=seahorn/seahorn-llvm10:nightly | tail -1',
         shell=True).strip())[2:-1]
-    # docker_image_name = "magical_lamport"
-    docker_sea_command = ['cd /app/{};'.format(name_wo_ext), '../smt_run.sh', ff, smt_file]
+    # docker_image_name = "vibrant_goldstine"
+    docker_sea_command = ['cd /app/{}; '.format(name_wo_ext), '../smt_run.sh', ff, smt_file]
     docker_command = ['docker', 'exec', docker_image_name, 'bash', '-c', list_to_string(docker_sea_command)]
     print(docker_command)
     try:
@@ -548,7 +549,8 @@ def gather_coverage(new_file):
     command = ['rm', '-rf', 'main.gc*', 'main.o', 'coverage.info', 'test-coverage', 'generated-coverage']
     if flag and not command_executer(command, COVERAGE_TIMEOUT, '../log.txt'):
         flag = False
-    command = ['gcc', '-pthread', '-O0', '--coverage', 'main.c', '-o', 'test-coverage']
+    shutil.copyfile("/home/fmfsu/PyCharm/assert.h", "assert.h")
+    command = ['gcc', '-pthread', '-O0', '--coverage', 'main.c','assert.h', '-o', 'test-coverage']
     if flag and not command_executer(command, COVERAGE_TIMEOUT, '../log.txt'):
         os.chdir(save)
         return False
@@ -563,9 +565,12 @@ def gather_coverage(new_file):
     command = ['rm', '-rf', '/tmp/coverage/']  # ToDo not sure that this step is needed, recheck
     if flag and not command_executer(command, COVERAGE_TIMEOUT, '../log.txt'):
         flag = False
-    command = ['genhtml', '--branch-coverage', '--output', './generated-coverage/', 'coverage.info']
-    if flag and not command_executer(command, COVERAGE_TIMEOUT, '../log.txt'):
-        flag = False
+    # command = ['genhtml', '--branch-coverage', '--output', './generated-coverage/', 'coverage.info']
+    # if flag and not command_executer(command, COVERAGE_TIMEOUT, '../log.txt'):
+    #     flag = False
+    command = ['rm', 'test-coverage', 'main.gc*']  # ToDo not sure that this step is needed, recheck
+    command_executer(command, COVERAGE_TIMEOUT, '../log.txt')
+
     results_file = "./number.txt"
     if os.path.isfile(results_file):
         clean_number_txt(results_file)
@@ -579,8 +584,8 @@ def gather_coverage(new_file):
 
 def update_header_file(filename):
     global function_dictionary, PATTERN
-    lines = ['#include <stdio.h>\n', '#include <stdbool.h>\n',
-             'void __assert_fail(const char * a, const char * b, unsigned int c, const char * d) {};\n']
+    lines = ['#include <stdio.h>\n', '#include <stdbool.h>\n']#,
+             #'void __assert_fail(const char * a, const char * b, unsigned int c, const char * d) {};\n']
 
     fr = open(filename, 'r+')
     content = fr.readlines()
@@ -685,7 +690,7 @@ def run_generated_testcases(f, keys):
     sf = os.path.splitext(basename)[0]
     test_header_list = [os.path.join(dp, f) for dp, dn, filenames in os.walk('.')
                         for f in filenames if (os.path.splitext(f)[1] == '.h'
-                                               and os.path.splitext(f)[0] not in ['testgen', 'testgen-template'])]
+                                               and os.path.splitext(f)[0] not in ['testgen', 'testgen-template', 'assert']) ]
     print(test_header_list)
     if not test_header_list:
         test_header_list = generate_random_test_header(keys)
@@ -705,6 +710,8 @@ def run_generated_testcases(f, keys):
         # copy h file
         new_h_file = subdir + "/testgen.h"
         shutil.move(test, new_h_file)
+        shutil.copyfile("/home/fmfsu/PyCharm/assert.h", subdir + "/assert.h")
+        # shutil.copyfile("/home/fmfsu/PyCharm/assert.h", "/home/fmfsu/PyCharm/sandbox/assert.h" )
         update_header_file(new_h_file)
         gather_coverage(new_c_file)
         # merge coverage for all runs in test_header_list
@@ -850,9 +857,11 @@ def header_testgen(f, keys):
         print('smt file {} exist, perform testgen step'.format(smt_file))
         save = os.getcwd()
         os.chdir(dir)
-        # '--lookahead', '0', '--inv-mode', '0', '--no-term'
-        command = [TG_TOOL_PATH, '--lb', '--max', '--keys', #'--lookahead', '0', #'--prio', # '--lookahead', '3',
-                   ','.join([str(k) for k in keys]), name_wo_ext + '.smt2']
+        # '--lookahead', '0', '--inv-mode', '0', '--no-term' '--lookahead', '0',
+        #command = [TG_TOOL_PATH,  '--inv-mode', '2', '--no-term', '--keys', #'--lookahead', '0', #'--prio', # '--lookahead', '3',
+        command = [TG_TOOL_PATH, '--lb', '--max', '--lookahead', '3', '--keys',
+                              # '--lookahead', '0', #'--prio', # '--lookahead', '3',
+                              ','.join([str(k) for k in keys]), name_wo_ext + '.smt2']
         # command = [TG_TOOL_PATH, '--inv-mode', '0', '--no-term', '--keys', ','.join([str(k) for k in keys]),
         print(list_to_string(command))
         try:
@@ -881,6 +890,7 @@ def simple_run(file_wo_nondet):
         add_header_with_pthread("main.c")
         command = ['touch', 'testgen.h']
         command_executer(command, COVERAGE_TIMEOUT, 'log.txt')
+        shutil.copyfile("/home/fmfsu/PyCharm/assert.h", "assert.h")
         command = ['gcc', '-pthread', '-O0', '--coverage', 'main.c', '-o', 'test-coverage']
         if command_executer(command, COVERAGE_TIMEOUT, 'log.txt'):
             command = ['./test-coverage']

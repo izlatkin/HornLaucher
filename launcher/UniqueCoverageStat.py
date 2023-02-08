@@ -162,6 +162,8 @@ def create_hyperlinnk_to_file(text):
 
 
 def get_report(dir):
+    if not os.path.exists(dir):
+        return  "<font color=\"red\">{}</font>\n".format('no report')
     sub_dirs = [f.path for f in os.scandir(dir) if f.is_dir() and os.path.basename(f) in 'summary']
     if len(sub_dirs) != 1:
         return "<font color=\"red\">{}</font>\n".format('no report')
@@ -222,6 +224,8 @@ def read_lcov_html_report(file_name):
 
 
 def get_coverage_data(dir):
+    if not os.path.exists(dir):
+        return "<font color=\"red\">{}</font>\n".format('no data')
     sub_dirs = [f.path for f in os.scandir(dir) if f.is_dir() and os.path.basename(f) in 'summary']
     if len(sub_dirs) != 1:
         return "<font color=\"red\">{}</font>\n".format('no data')
@@ -257,7 +261,7 @@ def get_tests_info_klee(dir):
 
 
 def build_coverage_stat_report(tg_dir, other_tools_dir, other_tools, old_tg=None):
-    other_tools = []
+    #other_tools = []
     fileout = open("{}/1_html_coverage.html".format(other_tools_dir), "w")
 
     table = "<table border=\"1\" cellspacing=\"0\" cellpadding=\"4\">\n"
@@ -481,7 +485,7 @@ def main():
         print('other_tools set to {}'.format(other_tools_dir))
         directory_contents = os.listdir(other_tools_dir)
         other_tools = [e for e in directory_contents if os.path.isdir(other_tools_dir + "/" + e)
-                       and other_tools_dir + "/" + e not in tg_dir and "TG" not in e]
+                       and other_tools_dir + "/" + e not in tg_dir and "TG" not in e and "tg" not in e]
         print(other_tools)
     else:
         print('no other tools: {}'.format(args.other_tools))
@@ -492,8 +496,10 @@ def main():
     if is_old_tg:
         old_tg = is_old_tg[0]
         other_tools.remove(old_tg)
+    if os.path.exists(other_tools_dir + "/tg_old"):
+        old_tg = "tg_old"
     build_coverage_stat_report(tg_dir, other_tools_dir, other_tools, old_tg)
-    #build_excel_unique_report(tg_dir, other_tools_dir, other_tools, old_tg)
+    build_excel_unique_report(tg_dir, other_tools_dir, other_tools, old_tg)
 
     tt = time.time() - start_time
     print('TG total time: {} seconds or {} hours'.format(tt, tt / 3600))

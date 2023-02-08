@@ -9,7 +9,7 @@ class CoverageUtil:
     method merge coverage files to one coverage file (list of str )
     """
 
-    def merge_coverage_for_test_runs(files) -> list[str]:
+    def merge_coverage_for_test_runs(files):# -> list[str]:
         if len(files) == 1:
             return open(files[0], "r").readlines()
         else:
@@ -19,6 +19,8 @@ class CoverageUtil:
             covers = [d for d in covers if bool(d)]
             out = []
             for key, value in covers[0].items():
+                if 'assert.h' in key:
+                    continue
                 tmp_list = [value]
                 for c in covers[1:]:
                     if key in c:
@@ -38,7 +40,7 @@ class CoverageUtil:
     method merges list of lists (coverage data for one particular file, for example for main.c)
     """
 
-    def merge_coverage_lists(covers) -> list[str]:
+    def merge_coverage_lists(covers):# -> list[str]:
         # if len(files) == 0:
         #     return []
         # covers = [open(f, "r").readlines() for f in files]

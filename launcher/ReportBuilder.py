@@ -5,6 +5,7 @@ import pickle
 import re
 import shutil
 import matplotlib.pyplot as plt
+import CoverageUtil
 
 import xlsxwriter as xlsxwriter
 
@@ -380,6 +381,7 @@ class html_report:
             i += 1
         table += "</table>"
         # table = table.replace("../{}".format(dir), ".")
+        table = table.replace("{}/.".format(dir), "{}/".format(dir))
         table = table.replace(dir, ".")
         fileout.writelines(table)
         fileout.close()
@@ -395,8 +397,9 @@ class html_report:
         lines = f.readlines()
         n_lines = len(lines)
         if n_lines < 3:
-            return 1;
-        line_to_extract_data = lines[n_lines - 3]
+            return 1
+        cu = CoverageUtil.read_coverage_info(filename)
+        line_to_extract_data = cu['main.c'][len(cu['main.c']) - 3]#lines[n_lines - 3]
         if "BRDA:" not in line_to_extract_data:
             return 1
         arr = line_to_extract_data.strip('\n').split(':')[1].split(',')
@@ -561,7 +564,7 @@ class html_report:
 
     @classmethod
     def get_test_result(cls, t):
-        if os.path.exists(t + '/generated-coverage'):
+        if os.path.exists(t + '/coverage.info'):
             return 'passed'
         else:
             return 'failed'
@@ -761,6 +764,9 @@ class html_report:
                     coverage_TG = 100 * hit / total
                 else:
                     coverage_TG = 100 * (hit - extraction) / (total - 2)
+                if coverage_TG > 100:
+                    print("coverage > 100")
+                    coverage_TG = 100
                 coverage_TG = round(coverage_TG, 1)
                 # workaround, since we add main_orig => main,
                 # there are two extra branches which have to be excluded
@@ -1115,6 +1121,9 @@ if __name__ == '__main__':
         if os.path.isdir(args.input_dir):
             dir = args.input_dir
             print('report dir set to {}'.format(dir))
+            html_report.buildReport_4(dir)
+            html_report.buildReport_Excel(dir)
+            exit(0)
     else:
         dir = "/Users/ilyazlatkin/PycharmProjects/results/rerun/fusebmc_sandbox"
         dir = "/Users/ilyazlatkin/PycharmProjects/results/rerun/verifuzz_sandbox"
@@ -1141,16 +1150,21 @@ if __name__ == '__main__':
     # dir = "/home/fmfsu/results/loop_new_tools/TG_lb_horn_step_large"
     # dir = "/Users/ilyazlatkin/Downloads/TG_lb_horn_step_large"
     # dir = "/home/fmfsu/results/loop_new_tools/TG_inv_2"
-    dir = "/Users/ilyazlatkin/Downloads/sandbox"
+    #dir = "/Users/ilyazlatkin/Downloads/sandbox"
     #dir = "/Users/ilyazlatkin/PycharmProjects/results/LBTG/loops/tg_old_loops"
     #dir = "/Users/ilyazlatkin/PycharmProjects/results/LBTG/s3_openssl_updated/tg_old"
     # dir = "/Users/ilyazlatkin/PycharmProjects/results/LBTG/memorysafe/tg_old"
-    dir = "/Users/ilyazlatkin/PycharmProjects/results/LBTG/loops/tg_old_loops"
-    dir = "/Users/ilyazlatkin/PycharmProjects/results/LBTG/memorysafe/tg_old"
-    #dir = "/Users/ilyazlatkin/PycharmProjects/results/LBTG/memorysafe/TG_lb_max_3"
+    # dir = "/Users/ilyazlatkin/PycharmProjects/results/LBTG/loops/tg_old_loops"
+    # dir = "/Users/ilyazlatkin/PycharmProjects/results/LBTG/memorysafe/tg_old"
+    # #dir = "/Users/ilyazlatkin/PycharmProjects/results/LBTG/memorysafe/TG_lb_max_3"
     # dir = "/Users/ilyazlatkin/PycharmProjects/results/LBTG/s3_openssl_updated/fusebmc_sandbox"
+
+
     # html_report.buildReport_4(dir)
-    html_report.buildReport_Excel(dir)
+    # html_report.buildReport_Excel(dir)
+    # dir = '/Users/ilyazlatkin/PycharmProjects/results/lb/1_klee'
+    # html_report.buildReport_fusebmc(dir)
+    # html_report.buildReport_Excel_klee(dir)
     # html_report.buildReport_fusebmc(dir)
     # html_report.buildReport_Excel_klee(dir)
     #html_report.buildReport_4(dir)
